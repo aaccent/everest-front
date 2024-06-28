@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@aaccent/adaptive-sizes-next':
+        specifier: ^1.0.0
+        version: 1.0.0
       next:
         specifier: 14.2.4
         version: 14.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -56,6 +59,9 @@ importers:
         version: 5.5.2
 
 packages:
+
+  '@aaccent/adaptive-sizes-next@1.0.0':
+    resolution: {integrity: sha512-wvSeSpOJFhzVMkfcqrdtZsFxMLOemnC3SH+YWqPyC8ACGiNa7lM34o4lmAwUxj2l1F/13yA/N6hNm9jKpPP6jA==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -1687,6 +1693,8 @@ packages:
     engines: {node: '>=10'}
 
 snapshots:
+
+  '@aaccent/adaptive-sizes-next@1.0.0': {}
 
   '@alloc/quick-lru@5.2.0': {}
 

@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply text-[62.5%];
+        --base-width: 375;
+        --base-width_units: calc(var(--base-width) * 1px);
+        --screen-delta: calc((100vw - var(--base-width_units)) / (var(--base-width) / 100) / 100);
+    }
+
+    @media only screen and (min-width: 560px) {
+        html {
+            --base-width: 600;
+        }
+    }
+
+    @media screen(md) {
+        html {
+            --base-width: 1680;
+        }
+    }
+}

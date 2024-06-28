@@ -2,7 +2,8 @@
 const config = {
   plugins: {
     tailwindcss: {},
+    '@aaccent/adaptive-sizes-next': {},
   },
-};
+}
 
-export default config;
+export default config
