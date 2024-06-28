@@ -19,6 +19,7 @@
 # misc
 .DS_Store
 *.pem
+.vscode
 
 # debug
 npm-debug.log*
@@ -34,3 +35,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Jetbrains IDE
+.idea/codeStyles
+.idea/inspectionProfiles/Project_Default.xml
+.idea/developer-tools.xml
+.idea/git_toolbox_blame.xml
+.idea/git_toolbox_prj.xml
