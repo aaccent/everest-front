@@ -1,0 +1,17 @@
+# misc
+.DS_Store
+*.pem
+.idea
+.vscode
+
+# package manager
+node_modules
+
+# next.js
+.next
+
+# local env files
+.env*.local
+
+# app
+_bazar-cache

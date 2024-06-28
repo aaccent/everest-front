@@ -1,0 +1,11 @@
+version: '3.*'
+
+services:
+  everest:
+    build:
+      context: .
+      no_cache: true
+    container_name: front
+    restart: unless-stopped
+    ports:
+      - '3060:3060'
