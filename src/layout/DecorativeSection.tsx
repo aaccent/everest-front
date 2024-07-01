@@ -39,7 +39,9 @@ interface Props extends PropsWithChildren {
   title?: string
   titleClassName?: string
   className?: string
+  /** @description Отразить по горизонтали декоративный фон */
   reverse?: boolean
+  /** @description Вторая вариация декоративного фона. Пример использования на странице Объекта */
   small?: boolean
 }
 

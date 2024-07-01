@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
 
 interface Props extends PropsWithChildren {
+  /** @description Классы секции. Для смены заднего фона используй [containerClassName]{@link containerClassName} */
   className?: string
   containerClassName: string
 }
