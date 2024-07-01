@@ -6,6 +6,7 @@
       <script value="dev" />
     </scripts>
     <node-interpreter value="project" />
+    <node-options value="--no-deprecation=DEP0040 --experimental-modules" />
     <envs />
     <method v="2" />
   </configuration>
