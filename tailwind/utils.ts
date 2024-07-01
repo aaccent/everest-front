@@ -10,6 +10,18 @@ export const filters = plugin(function ({ addUtilities }) {
       filter:
         'brightness(0) saturate(100%) invert(16%) sepia(17%) saturate(0%) hue-rotate(174deg) brightness(75%) contrast(86%)',
     },
+    '.filter-base-100': {
+      filter:
+        'brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(169deg) brightness(107%) contrast(103%)',
+    },
+    '.filter-base-500': {
+      filter:
+        'brightness(0) saturate(100%) invert(79%) sepia(0%) saturate(0%) hue-rotate(233deg) brightness(96%) contrast(94%)',
+    },
+    '.filter-system-disabled': {
+      filter:
+        'brightness(0) saturate(100%) invert(63%) sepia(12%) saturate(2257%) hue-rotate(124deg) brightness(97%) contrast(93%)',
+    },
   })
 })
 

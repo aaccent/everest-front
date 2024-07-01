@@ -140,9 +140,11 @@ const config: Config = {
         650: 'hsla(0 0 17 / 0.5)',
       },
       primary: 'hsl(173 31 35)',
+      primaryHover: 'hsla(173, 40%, 27%, 1)',
       system: {
         red: 'hsl(0 72 39)',
         green: 'hsl(137 71 31)',
+        disabled: 'hsla(173, 66%, 45%, 1)',
       },
     },
 
@@ -179,7 +181,7 @@ const config: Config = {
   plugins: [filters, scrollbarUtilities],
   safelist: [
     {
-      pattern: /bg-icon-location/,
+      pattern: /bg-icon-\w+/,
       variants: ['after', 'before'],
     },
   ],
