@@ -58,3 +58,7 @@ export const scrollbarUtilities = plugin(function ({ addUtilities }) {
     },
   })
 })
+
+export const pseudoUtilities = plugin(function ({ addVariant }) {
+  addVariant('pseudo', ['&::before', '&::after'])
+})
