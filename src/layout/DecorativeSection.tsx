@@ -1,31 +1,61 @@
 import React, { PropsWithChildren } from 'react'
 import Image from 'next/image'
 import Section from '@/layout/Section'
-import DecorativeSubtract from '@/assets/static/decorative-bg.svg'
-import DecorativeSubtractMobile from '@/assets/static/decorative-bg-mobile.svg'
+
+import DecorativeBg from '@/assets/static/decorative-bg.svg'
+import DecorativeBgMobile from '@/assets/static/decorative-bg-mobile.svg'
+import DecorativeSmallBg from '@/assets/static/decorative-bg-small.svg'
+import DecorativeSmallBgMobile from '@/assets/static/decorative-bg-small-mobile.svg'
+
+interface BGProps {
+  className?: string
+  small?: boolean
+}
+
+function DecorativeBackgroundImage({ small, className }: BGProps) {
+  if (small)
+    return (
+      <>
+        <Image
+          className={`block md:hidden ${className}`}
+          src={DecorativeSmallBgMobile}
+          fill
+          alt=''
+          role='presentation'
+        />
+        <Image className={`hidden md:block ${className}`} src={DecorativeSmallBg} fill alt='' role='presentation' />
+      </>
+    )
+
+  return (
+    <>
+      <Image className={`block md:hidden ${className}`} src={DecorativeBgMobile} fill alt='' role='presentation' />
+      <Image className={`hidden md:block ${className}`} src={DecorativeBg} fill alt='' role='presentation' />
+    </>
+  )
+}
 
 interface Props extends PropsWithChildren {
   title?: string
   titleClassName?: string
   className?: string
+  reverse?: boolean
+  small?: boolean
 }
 
-function DecorativeSection({ title, titleClassName, className, children }: Props) {
+function DecorativeSection({ title, titleClassName, className, reverse, small, children }: Props) {
+  const addContainerClassName = [
+    // prettier-ignore
+    title ? 'md:px-[40px]' : 'pt-[95px]',
+    reverse ? 'scale-x-100 md:-scale-x-100 ' : '',
+    className,
+  ].join(' ')
+
   return (
-    <Section
-      containerClassName={`relative pt-[33px] pb-[22px] px-[19px] rounded-[24px] ${title ? 'md:px-[40px]' : 'pt-[95px]'} ${className}`}
-    >
-      <Image
-        className='absolute top-[-1px] right-0 z-10 w-full h-[38px] pointer-events-none md:hidden'
-        src={DecorativeSubtractMobile}
-        role='presentation'
-        alt=''
-      />
-      <Image
-        className='absolute top-[-1px] right-0 z-10 hidden pointer-events-none md:w-full md:h-[93px] object-contain md:block'
-        src={DecorativeSubtract}
-        role='presentation'
-        alt=''
+    <Section containerClassName={`relative pt-[33px] pb-[22px] px-[19px] rounded-[24px] ${addContainerClassName}`}>
+      <DecorativeBackgroundImage
+        className={`absolute top-[-1px] right-0 z-10 !h-auto pointer-events-none`}
+        small={small}
       />
       {title && (
         <h2
