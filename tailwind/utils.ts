@@ -62,3 +62,14 @@ export const scrollbarUtilities = plugin(function ({ addUtilities }) {
 export const pseudoUtilities = plugin(function ({ addVariant }) {
   addVariant('pseudo', ['&::before', '&::after'])
 })
+
+export const miscUtilities = plugin(function ({ matchUtilities }) {
+  matchUtilities({
+    '.circle': (value) => ({
+      width: value,
+      height: value,
+      'border-radius': '50%',
+      overflow: 'hidden',
+    }),
+  })
+})
