@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 import { filters, scrollbarUtilities } from './tailwind/utils'
-import { ICONS } from './tailwind/icons'
+// noinspection ES6PreferShortImport
+import { ICONS, ICONS_NAME } from './src/globals/icons'
 
 const config: Config = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
@@ -147,23 +148,24 @@ const config: Config = {
 
     extend: {
       backgroundImage: {
-        'icon-location': ICONS.LOCATION,
-        'icon-plus': ICONS.PLUS,
-        'icon-phone': ICONS.PHONE,
-        'icon-catalog-btn': ICONS.CATALOG_BTN,
-        'icon-search': ICONS.SEARCH,
-        'icon-heart': ICONS.HEART,
-        'icon-scale': ICONS.SCALE,
-        'icon-close': ICONS.CLOSE,
-        'icon-garage': ICONS.GARAGE,
-        'icon-commerce': ICONS.COMMERCE,
-        'icon-tree': ICONS.TREE,
-        'icon-house': ICONS.HOUSE,
-        'icon-clock': ICONS.CLOCK,
-        'icon-new_house': ICONS.NEW_HOUSE,
-        'icon-secondary_house': ICONS.SECONDARY_HOUSE,
-        'icon-arrow': ICONS.ARROW,
-        'icon-address': ICONS.ADDRESS,
+        [ICONS_NAME.LOCATION]: ICONS.LOCATION,
+        [ICONS_NAME.PLUS]: ICONS.PLUS,
+        [ICONS_NAME.PHONE]: ICONS.PHONE,
+        [ICONS_NAME.CATALOG_BTN]: ICONS.CATALOG_BTN,
+        [ICONS_NAME.SEARCH]: ICONS.SEARCH,
+        [ICONS_NAME.HEART]: ICONS.HEART,
+        [ICONS_NAME.SCALE]: ICONS.SCALE,
+        [ICONS_NAME.CLOSE]: ICONS.CLOSE,
+        [ICONS_NAME.GARAGE]: ICONS.GARAGE,
+        [ICONS_NAME.COMMERCE]: ICONS.COMMERCE,
+        [ICONS_NAME.TREE]: ICONS.TREE,
+        [ICONS_NAME.HOUSE]: ICONS.HOUSE,
+        [ICONS_NAME.CLOCK]: ICONS.CLOCK,
+        [ICONS_NAME.NEW_HOUSE]: ICONS.NEW_HOUSE,
+        [ICONS_NAME.SECONDARY_HOUSE]: ICONS.SECONDARY_HOUSE,
+        [ICONS_NAME.ARROW]: ICONS.ARROW,
+        [ICONS_NAME.ADDRESS]: ICONS.ADDRESS,
+        [ICONS_NAME.LOADING]: ICONS.LOADING,
       },
       fontFamily: {
         geologica: ['var(--font-geologica)'],
@@ -175,5 +177,11 @@ const config: Config = {
     },
   },
   plugins: [filters, scrollbarUtilities],
+  safelist: [
+    {
+      pattern: /bg-icon-location/,
+      variants: ['after', 'before'],
+    },
+  ],
 }
 export default config
