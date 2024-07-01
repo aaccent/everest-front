@@ -65,7 +65,7 @@ export const pseudoUtilities = plugin(function ({ addVariant }) {
 
 export const miscUtilities = plugin(function ({ matchUtilities }) {
   matchUtilities({
-    '.circle': (value) => ({
+    circle: (value) => ({
       width: value,
       height: value,
       'border-radius': '50%',
