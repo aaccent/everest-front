@@ -7,6 +7,7 @@ const geologica = Geologica({
   display: 'swap',
   variable: '--font-geologica',
   subsets: ['cyrillic', 'latin'],
+  adjustFontFallback: false,
 })
 
 const coolvetica = localFont({
