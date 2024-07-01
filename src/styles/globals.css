@@ -10,6 +10,10 @@
     --screen-delta: calc((100vw - var(--base-width_units)) / (var(--base-width) / 100) / 100);
   }
 
+  body {
+    @apply text-base-600 text-base-200-lg-100;
+  }
+
   @media only screen and (min-width: 560px) {
     html {
       --base-width: 600;
