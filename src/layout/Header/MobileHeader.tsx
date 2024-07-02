@@ -8,7 +8,7 @@ interface Props {
 }
 
 function MobileHeader({ className }: Props) {
-  const scrollingStyles = 'peer-[.is-scrolled]/header-color:bg-base-100 peer-[.is-scrolled]/header-color:text-base-600'
+  const scrollingStyles = 'peer-[.is-scrolled]/style-state:bg-base-100 peer-[.is-scrolled]/style-state:text-base-600'
 
   return (
     <header
