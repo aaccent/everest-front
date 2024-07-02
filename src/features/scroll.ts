@@ -8,6 +8,8 @@ function getWindowScroll() {
   return window.scrollY
 }
 
+/** @description Возвращает [scrollPos]{@link scrollPos} со значением из window.scrollY.
+ * Выставляет обработчик при монтировании и убирает его при демонтировании */
 export function useScroll() {
   const [scrollPos, setScrollPos] = useState<number>(getWindowScroll() || 0)
 
