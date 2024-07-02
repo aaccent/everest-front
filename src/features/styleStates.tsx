@@ -5,14 +5,28 @@ import { usePathname } from 'next/navigation'
 import { useScroll } from '@/features/scroll'
 import { createPortal } from 'react-dom'
 
+interface UseStyleStateProps {
+  /** Название для tailwind peer/*. Если не указано, то peer не выставляется */
+  peerName?: string
+  /** Класс при инициализации. По умолчанию пустая строка */
+  initClassName?: string
+}
+
 /** @description Выводит элемент в body с классом из состояния.
  * Класс можно менять через функции [setClassName]{@link setClassName} и [toggleClassName]{@link toggleClassName} */
-export function useStyleState() {
-  const [className, setClassName] = useState<string>('')
+export function useStyleState({ peerName = '', initClassName = '' }: UseStyleStateProps = {}) {
+  const [className, setClassName] = useState<string>(initClassName)
 
-  /** @description Выводит элемент body через [React.createPortal]{@link createPortal} с классом из состояния */
+  const _className = [
+    // prettier-ignore
+    peerName ? `peer/${peerName}` : '',
+    className,
+  ].join(' ')
+
+  /** @description Выводит элемент body через [React.createPortal]{@link createPortal} с классом из состояния.
+   * На элементе применен tailwind класс peer/style-state */
   function StateElement() {
-    return createPortal(<div className={className} />, document.body)
+    return createPortal(<div className={_className} />, document.body)
   }
 
   /**
