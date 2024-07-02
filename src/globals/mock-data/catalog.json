@@ -1,0 +1,44 @@
+[
+      {
+            "id": "a",
+            "title": "Аренда недвижимости",
+            "code": "#",
+            "showInFooter": true
+      },
+      {
+            "id": "a",
+            "title": "Квартиры в новостройке",
+            "code": "#",
+            "showInFooter": true
+      },
+      {
+            "id": "a",
+            "title": "Вторичная недвижимость",
+            "code": "#",
+            "showInFooter": true
+      },
+      {
+            "id": "a",
+            "title": "Загородные дома",
+            "code": "#",
+            "showInFooter": true
+      },
+      {
+            "id": "a",
+            "title": "Земельные участки",
+            "code": "#",
+            "showInFooter": true
+      },
+      {
+            "id": "a",
+            "title": "Коммерческие объекты",
+            "code": "#",
+            "showInFooter": true
+      },
+      {
+            "id": "a",
+            "title": "Гаражи",
+            "code": "#",
+            "showInFooter": true
+      }
+]

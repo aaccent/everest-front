@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geologica } from 'next/font/google'
 import localFont from 'next/font/local'
 import '@/styles/globals.css'
+import Footer from '@/layout/Footer/Footer'
 
 const geologica = Geologica({
   display: 'swap',
@@ -34,7 +35,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ru'>
-      <body className={`${geologica.variable} ${coolvetica.variable} font-geologica`}>{children}</body>
+      <body className={`${geologica.variable} ${coolvetica.variable} font-geologica`}>
+        {children}
+        <Footer />
+      </body>
     </html>
   )
 }

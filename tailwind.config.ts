@@ -297,6 +297,9 @@ const config: Config = {
         [ICONS_NAME.ARROW]: ICONS.ARROW,
         [ICONS_NAME.ADDRESS]: ICONS.ADDRESS,
         [ICONS_NAME.LOADING]: ICONS.LOADING,
+        [ICONS_NAME.EMAIL]: ICONS.EMAIL,
+        [ICONS_NAME.ARROW_FILL]: ICONS.ARROW_FILL,
+        [ICONS_NAME.ARROW_UP]: ICONS.ARROW_UP,
       },
       fontFamily: {
         geologica: ['var(--font-geologica)'],

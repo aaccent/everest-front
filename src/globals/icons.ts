@@ -17,6 +17,9 @@ export const ICONS_NAME = {
   ARROW: 'icon-arrow',
   ADDRESS: 'icon-address',
   LOADING: 'icon-loading',
+  EMAIL: 'icon-email',
+  ARROW_FILL: 'icon-arrow-fill',
+  ARROW_UP: 'icon-arrow-up',
 } as const
 
 export type IconName = keyof typeof ICONS_NAME
@@ -40,6 +43,9 @@ export const ICONS = {
   ARROW: `url("data:image/svg+xml,%3Csvg width='9' height='16' viewBox='0 0 9 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34314 0.928933C1.95262 0.538409 1.31945 0.538409 0.92893 0.928934C0.538406 1.31946 0.538406 1.95262 0.928931 2.34315L6.58579 8L0.928934 13.6569C0.538409 14.0474 0.53841 14.6805 0.928934 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9L8 9L8 7L7 7L7 9Z' fill='white'/%3E%3C/svg%3E%0A")`,
   ADDRESS: `url("data:image/svg+xml,%3Csvg width='12' height='15' viewBox='0 0 12 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6 0C9.314 0 12 2.612 12 5.833C12 10.208 6 15 6 15C6 15 0 10.208 0 5.833C0 2.612 2.686 0 6 0ZM7.41422 7.41422C8.19527 6.63317 8.19527 5.36684 7.41422 4.58579C6.63317 3.80474 5.36684 3.80474 4.58579 4.58579C3.80474 5.36684 3.80474 6.63317 4.58579 7.41422C5.36684 8.19527 6.63317 8.19527 7.41422 7.41422Z' fill='%232C2C2C'/%3E%3C/svg%3E%0A")`,
   LOADING: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.25 8C15.25 9.43391 14.8248 10.8356 14.0282 12.0279C13.2315 13.2201 12.0992 14.1494 10.7745 14.6981C9.44969 15.2469 7.99196 15.3904 6.5856 15.1107C5.17923 14.831 3.88741 14.1405 2.87348 13.1265C1.85955 12.1126 1.16905 10.8208 0.889307 9.4144C0.609564 8.00804 0.753138 6.55031 1.30187 5.22555C1.85061 3.90078 2.77986 2.76849 3.97212 1.97185C5.16437 1.17521 6.56609 0.75 8 0.75' stroke='%232A2A2A' stroke-width='1.5'/%3E%3C/svg%3E%0A");`,
+  EMAIL: `url("data:image/svg+xml,%3Csvg width='22' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.5 4.58057C3.98122 4.58057 2.75 5.81178 2.75 7.33057V14.6692C2.75 16.188 3.98122 17.4192 5.5 17.4192H16.5069C18.0257 17.4192 19.2569 16.188 19.2569 14.6692V7.33057C19.2569 5.81178 18.0257 4.58057 16.5069 4.58057H5.5ZM7.23759 8.35131C6.91439 8.15204 6.49084 8.25251 6.29157 8.57572C6.09231 8.89893 6.19278 9.32247 6.51599 9.52174L9.19879 11.1758C10.3052 11.8579 11.7018 11.8579 12.8082 11.1758L15.491 9.52174C15.8142 9.32247 15.9147 8.89893 15.7154 8.57572C15.5162 8.25251 15.0926 8.15204 14.7694 8.35131L12.0866 10.0053C11.4226 10.4147 10.5844 10.4147 9.92039 10.0053L7.23759 8.35131Z' fill='white'/%3E%3C/svg%3E%0A");`,
+  ARROW_FILL: `url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 9.5L3.10288 5L10.8971 5L7 9.5Z' fill='white'/%3E%3C/svg%3E%0A");`,
+  ARROW_UP: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.0006 2.84315L12.0412 6.88376M8.0006 2.84315L3.95999 6.88376M8.0006 2.84315V14.1569' stroke='white' stroke-width='1.3'/%3E%3C/svg%3E%0A");`,
 } satisfies {
   [Key in IconName]: string
 }
