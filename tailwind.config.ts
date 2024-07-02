@@ -166,6 +166,9 @@ const config: Config = {
         [ICONS_NAME.ARROW]: ICONS.ARROW,
         [ICONS_NAME.ADDRESS]: ICONS.ADDRESS,
         [ICONS_NAME.LOADING]: ICONS.LOADING,
+        [ICONS_NAME.CHECKMARK]: ICONS.CHECKMARK,
+        [ICONS_NAME.EYE_CLOSED]: ICONS.EYE_CLOSED,
+        [ICONS_NAME.EYE]: ICONS.EYE,
       },
       fontFamily: {
         geologica: ['var(--font-geologica)'],
