@@ -1,55 +1,18 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { useScroll } from '@/features/scroll'
-import { createPortal } from 'react-dom'
 
-interface UseStyleStateProps {
-  /** Название для tailwind peer/*. Если не указано, то peer не выставляется */
-  peerName?: string
-  /** Класс при инициализации. По умолчанию пустая строка */
-  initClassName?: string
-}
+export function useStyleState() {
+  function toggleClass(name: string) {
+    if (typeof window === 'undefined') return
 
-/** @description Выводит элемент в body с классом из состояния.
- * Класс можно менять через функции [setClassName]{@link setClassName} и [toggleClassName]{@link toggleClassName} */
-export function useStyleState({ peerName = '', initClassName = '' }: UseStyleStateProps = {}) {
-  const [className, setClassName] = useState<string>(initClassName)
-
-  const _className = [
-    // prettier-ignore
-    peerName ? `peer/${peerName}` : '',
-    className,
-  ].join(' ')
-
-  /** @description Выводит элемент body через [React.createPortal]{@link createPortal} с классом из состояния.
-   * На элементе применен tailwind класс peer/style-state */
-  function StateElement() {
-    // Для исправления hydration error
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => {
-      setMounted(true)
-    }, [])
-
-    if (!mounted || typeof window === 'undefined') return null
-
-    return createPortal(<div className={_className} />, document.body)
+    const styleStateEl = document.querySelector('.peer\\/style-state')
+    styleStateEl?.classList.toggle(name)
   }
 
-  /**
-   * @param {string} name - Класс, который будет включаться или выключаться
-   * @description Если [name]{@link name} уже стоит в значении класса, то устанавливается пустая строка
-   * */
-  function toggleClassName(name: string) {
-    setClassName((prev) => {
-      if (name === prev) return ''
-      return name
-    })
-  }
-
-  return { setClassName, toggleClassName, className, StateElement }
+  return { toggleClass }
 }
 
 /** @description Выставляет классы div элементу.
