@@ -64,6 +64,9 @@ export const customVariants = plugin(function ({ addVariant, matchVariant }) {
   matchVariant('group-peer', function (value, { modifier }) {
     return modifier ? `${value} ~ :merge(.group\\/${modifier}) &` : `${value} ~ :merge(.group) &`
   })
+  matchVariant('peer-any-parent', function (value, { modifier }) {
+    return modifier ? `:merge(.peer\\/${modifier})${value} ~ * &` : `:merge(.peer)${value} ~ * &`
+  })
 })
 
 export const miscUtilities = plugin(function ({ matchUtilities }) {
