@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { filters, miscUtilities, pseudoUtilities, scrollbarUtilities } from './tailwind/utils'
+import { filters, miscUtilities, customVariants, scrollbarUtilities } from './tailwind/utils'
 // noinspection ES6PreferShortImport
 import { ICONS, ICONS_NAME } from './src/globals/icons'
 
@@ -307,7 +307,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [filters, scrollbarUtilities, pseudoUtilities, miscUtilities],
+  plugins: [filters, scrollbarUtilities, customVariants, miscUtilities],
   safelist: [
     {
       pattern: /bg-icon-\w+/,

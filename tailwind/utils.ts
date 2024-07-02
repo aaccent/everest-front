@@ -59,8 +59,11 @@ export const scrollbarUtilities = plugin(function ({ addUtilities }) {
   })
 })
 
-export const pseudoUtilities = plugin(function ({ addVariant }) {
+export const customVariants = plugin(function ({ addVariant, matchVariant }) {
   addVariant('pseudo', ['&::before', '&::after'])
+  matchVariant('group-peer', function (value, { modifier }) {
+    return modifier ? `${value} ~ :merge(.group\\/${modifier}) &` : `${value} ~ :merge(.group) &`
+  })
 })
 
 export const miscUtilities = plugin(function ({ matchUtilities }) {
