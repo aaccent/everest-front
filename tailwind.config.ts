@@ -278,6 +278,9 @@ const config: Config = {
       },
     },
     extend: {
+      transitionDuration: {
+        DEFAULT: '300ms',
+      },
       backgroundImage: {
         [ICONS_NAME.LOCATION]: ICONS.LOCATION,
         [ICONS_NAME.PLUS]: ICONS.PLUS,
