@@ -26,6 +26,15 @@ export function useStyleState({ peerName = '', initClassName = '' }: UseStyleSta
   /** @description Выводит элемент body через [React.createPortal]{@link createPortal} с классом из состояния.
    * На элементе применен tailwind класс peer/style-state */
   function StateElement() {
+    // Для исправления hydration error
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+      setMounted(true)
+    }, [])
+
+    if (!mounted || typeof window === 'undefined') return null
+
     return createPortal(<div className={_className} />, document.body)
   }
 
