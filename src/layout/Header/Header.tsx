@@ -1,7 +1,7 @@
 import React from 'react'
 import MobileHeader from '@/layout/Header/MobileHeader'
 import MobileMenu from '@/layout/Header/MobileMenu'
-import MobileDetailMenu from '@/layout/Header/MobileDetailMenu'
+import MobileDetailMenu from '@/layout/Header/MobileDetailMenu/MobileDetailMenu'
 import StyleStates from '@/features/styleStates'
 
 /** @name {Header} */
@@ -12,7 +12,9 @@ function Header() {
   return (
     <>
       <StyleStates />
-      <MobileHeader className={`${whiteHeaderStyles} ${blackHeaderStyles}`} />
+      <header className={`${whiteHeaderStyles} ${blackHeaderStyles}`}>
+        <MobileHeader />
+      </header>
       <MobileMenu />
       <MobileDetailMenu />
     </>

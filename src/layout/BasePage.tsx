@@ -5,8 +5,8 @@ import Header from '@/layout/Header/Header'
 function BasePage({ children }: PropsWithChildren) {
   return (
     <>
+      <Header />
       <div>
-        <Header />
         <main>{children}</main>
         <Footer />
       </div>
