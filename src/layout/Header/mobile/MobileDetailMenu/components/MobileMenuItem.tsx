@@ -36,7 +36,7 @@ function MobileMenuItem({ text, children }: Props) {
       </button>
       {children && (
         <div
-          className={`absolute left-0 top-0 pt-[24px] w-full h-full flex flex-col ${active ? 'visible opacity-100' : 'invisible opacity-0'} bg-base-100 transition-[visibility,opacity]`}
+          className={`absolute left-0 top-0 pt-[24px] w-full h-full flex flex-col ${active ? 'visible opacity-100' : 'invisible opacity-0'} bg-base-100 transition-opacity`}
         >
           <span className='absolute inset-x-[20px] top-0 h-[1px] bg-base-600/[.1]' />
           <div className='relative mb-[24px] w-full flex items-center justify-center'>
