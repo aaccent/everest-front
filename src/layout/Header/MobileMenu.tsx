@@ -21,7 +21,7 @@ function MenuButton({ iconName, text }: MenuButtonProps) {
 
 function MobileMenu() {
   return (
-    <aside className='fixed bottom-0 left-0 pb-[30px] w-full flex justify-between items-end bg-base-100 rounded-t-[16px] text-[11px] text-base-600/[.5] border-t border-t-[#000]/[.12]'>
+    <aside className='mobile-menu fixed bottom-0 left-0 z-30 pb-[30px] w-full flex justify-between items-end bg-base-100 rounded-t-[16px] text-[11px] text-base-600/[.5] border-t border-t-[#000]/[.12]'>
       <MenuButton iconName='PROFILE' text='Профиль' />
       <MenuButton iconName='SCALE' text='Сравнение' />
       <button className='w-full flex flex-col items-center gap-[4px]' type='button'>
