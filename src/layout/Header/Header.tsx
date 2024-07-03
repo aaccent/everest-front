@@ -3,6 +3,7 @@ import MobileHeader from '@/layout/Header/mobile/MobileHeader'
 import MobileMenu from '@/layout/Header/mobile/MobileMenu'
 import MobileDetailMenu from '@/layout/Header/mobile/MobileDetailMenu/MobileDetailMenu'
 import StyleStates from '@/features/styleStates'
+import CatalogMenu from '@/layout/Header/mobile/CatalogMenu/CatalogMenu'
 
 /** @name {Header} */
 function Header() {
@@ -16,6 +17,7 @@ function Header() {
         <MobileHeader />
       </header>
       <MobileMenu />
+      <CatalogMenu />
       <MobileDetailMenu />
     </>
   )
