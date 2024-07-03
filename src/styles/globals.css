@@ -35,7 +35,7 @@
     @apply font-coolvetica text-header-300_mobile md:text-header-300_desktop;
   }
 
-  .text-header-500 {
+  .text-header-400 {
     @apply font-coolvetica text-header-400_mobile md:text-header-400_desktop;
   }
 
