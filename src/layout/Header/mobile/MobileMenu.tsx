@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
-import CatalogIcon from '@/ui/CatalogIcon'
+import CatalogButton from '@/layout/Header/components/CatalogButton'
 
 interface MenuButtonProps {
   iconName: IconName
@@ -24,12 +24,7 @@ function MobileMenu() {
     <aside className='mobile-menu fixed bottom-0 left-0 z-30 pb-[30px] w-full flex justify-between items-end bg-base-100 rounded-t-[16px] text-[11px] text-base-600/[.5] border-t border-t-[#000]/[.12]'>
       <MenuButton iconName='PROFILE' text='Профиль' />
       <MenuButton iconName='SCALE' text='Сравнение' />
-      <button className='w-full flex flex-col items-center gap-[4px]' type='button'>
-        <span className='mt-[-20px] circle-[56px] flex justify-center items-center bg-primary'>
-          <CatalogIcon />
-        </span>
-        Каталог
-      </button>
+      <CatalogButton />
       <MenuButton iconName='HEART' text='Избранное' />
       <MenuButton iconName='SEARCH' text='Поиск' />
     </aside>
