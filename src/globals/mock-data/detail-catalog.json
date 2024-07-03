@@ -1,0 +1,124 @@
+[
+  {
+    "id": "a",
+    "title": "Аренда недвижимости",
+    "code": "#",
+    "subcategories": [
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      },
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      },
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      }
+    ],
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Квартиры в новостройке",
+    "code": "#",
+    "subcategories": [
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      },
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      },
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      }
+    ],
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Вторичная недвижимость",
+    "code": "#",
+    "subcategories": [
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      },
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      },
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      }
+    ],
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Загородные дома",
+    "code": "#",
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Земельные участки",
+    "code": "#",
+    "subcategories": [
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      },
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      },
+      {
+        "id": "a",
+        "title": "Аренда недвижимости",
+        "code": "#",
+        "showInFooter": true
+      }
+    ],
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Коммерческие объекты",
+    "code": "#",
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Гаражи",
+    "code": "#",
+    "showInFooter": true
+  }
+]
