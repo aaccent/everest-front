@@ -13,10 +13,10 @@ const geologica = Geologica({
 const coolvetica = localFont({
   src: [
     {
-      path: '../fonts/coolvetica-condensed-rg.woff',
+      path: '../assets/fonts/coolvetica-condensed-rg.woff',
     },
     {
-      path: '../fonts/coolvetica-condensed-rg.woff2',
+      path: '../assets/fonts/coolvetica-condensed-rg.woff2',
     },
   ],
   display: 'swap',
