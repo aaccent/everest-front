@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { IconName, ICONS_NAME } from '@/globals/icons'
+import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 import CatalogIcon from '@/ui/CatalogIcon'
 
 interface MenuButtonProps {

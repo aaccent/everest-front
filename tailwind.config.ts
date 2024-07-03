@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
 import { filters, miscUtilities, customVariants, scrollbarUtilities } from './tailwind/utils'
 // noinspection ES6PreferShortImport
-import { convertToTailwindName, ICONS, ICONS_NAME } from './src/globals/icons'
+import { convertToTailwindName, ICONS } from './src/globals/icons/icons'
 
 export function adaptiveFz(value: number, min = 1, max = 20, mod = 10) {
   return `clamp(${min}rem, calc(${value} * ${mod} * var(--screen-delta) + ${value}rem), ${max}rem)`

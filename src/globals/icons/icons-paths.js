@@ -18,22 +18,6 @@ export const ICONS = {
   ADDRESS: `url("data:image/svg+xml,%3Csvg width='12' height='15' viewBox='0 0 12 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6 0C9.314 0 12 2.612 12 5.833C12 10.208 6 15 6 15C6 15 0 10.208 0 5.833C0 2.612 2.686 0 6 0ZM7.41422 7.41422C8.19527 6.63317 8.19527 5.36684 7.41422 4.58579C6.63317 3.80474 5.36684 3.80474 4.58579 4.58579C3.80474 5.36684 3.80474 6.63317 4.58579 7.41422C5.36684 8.19527 6.63317 8.19527 7.41422 7.41422Z' fill='%232C2C2C'/%3E%3C/svg%3E%0A")`,
   LOADING: `url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15.25 8C15.25 9.43391 14.8248 10.8356 14.0282 12.0279C13.2315 13.2201 12.0992 14.1494 10.7745 14.6981C9.44969 15.2469 7.99196 15.3904 6.5856 15.1107C5.17923 14.831 3.88741 14.1405 2.87348 13.1265C1.85955 12.1126 1.16905 10.8208 0.889307 9.4144C0.609564 8.00804 0.753138 6.55031 1.30187 5.22555C1.85061 3.90078 2.77986 2.76849 3.97212 1.97185C5.16437 1.17521 6.56609 0.75 8 0.75' stroke='%232A2A2A' stroke-width='1.5'/%3E%3C/svg%3E%0A")`,
   PROFILE: `url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.8926 5.27973C18.4872 6.87437 18.4872 9.45979 16.8926 11.0544C15.2979 12.6491 12.7125 12.6491 11.1179 11.0544C9.52321 9.45979 9.52321 6.87437 11.1179 5.27973C12.7125 3.68508 15.2979 3.68508 16.8926 5.27973' stroke='%23969696' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M4.67188 21.5835V22.7502C4.67188 23.3942 5.19454 23.9169 5.83854 23.9169H22.1719C22.8159 23.9169 23.3385 23.3942 23.3385 22.7502V21.5835C23.3385 18.0532 18.7279 15.7595 14.0052 15.7595C9.28254 15.7595 4.67188 18.0532 4.67188 21.5835Z' stroke='%23969696' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A")`,
-} satisfies {
-  [index: string]: string
+  FULL_ARROW: `url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M18.2091 11.8283L13.774 16.2633M18.2091 11.8283L13.774 7.39322M18.2091 11.8283H5.79092' stroke='%232C2C2C' stroke-width='1.3'/%3E%3C/svg%3E%0A")`,
+  TRIANGLE_ARROW: `url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9.5 7L5 10.8971L5 3.10289L9.5 7Z' fill='%232C2C2C'/%3E%3C/svg%3E%0A")`,
 }
-
-export type IconName = keyof typeof ICONS
-
-type IconsNameObj = {
-  [key in IconName]: string
-}
-
-export function convertToTailwindName(name: string) {
-  return name.toLowerCase().replace('_', '-')
-}
-
-export const ICONS_NAME: IconsNameObj = Object.fromEntries(
-  Object.keys(ICONS).map(function (name) {
-    return [name, `icon-${convertToTailwindName(name)}`]
-  }),
-) as IconsNameObj

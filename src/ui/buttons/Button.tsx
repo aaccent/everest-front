@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, ICONS_NAME } from '@/globals/icons'
+import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 
 interface ButtonProps {
   text: string
