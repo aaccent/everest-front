@@ -277,6 +277,12 @@ const config: Config = {
         disabled: 'hsla(173, 66%, 45%, 1)',
       },
     },
+    'bg-size': {
+      DEFAULT: 'contain',
+      contain: 'contain',
+      cover: 'cover',
+      auto: 'auto',
+    },
     extend: {
       transitionDuration: {
         DEFAULT: '300ms',

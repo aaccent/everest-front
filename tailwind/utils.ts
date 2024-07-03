@@ -69,7 +69,7 @@ export const customVariants = plugin(function ({ addVariant, matchVariant }) {
   })
 })
 
-export const miscUtilities = plugin(function ({ matchUtilities }) {
+export const miscUtilities = plugin(function ({ matchUtilities, theme }) {
   matchUtilities({
     circle: (value) => ({
       width: value,
@@ -78,4 +78,14 @@ export const miscUtilities = plugin(function ({ matchUtilities }) {
       overflow: 'hidden',
     }),
   })
+  matchUtilities(
+    {
+      'bg-default': (value) => ({
+        'background-repeat': 'no-repeat',
+        'background-position': 'center',
+        'background-size': value,
+      }),
+    },
+    { values: theme('bg-size') },
+  )
 })
