@@ -8,12 +8,10 @@ function MenuButton() {
   return (
     <button
       onClick={() => toggleClass('menu-open')}
-      className='circle-[36px] flex flex-col gap-[4px] justify-center items-center bg-base-115 transition-colors peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:bg-base-300'
+      className='circle-[36px] flex flex-col gap-[4px] justify-center items-center bg-base-115 transition-colors peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:bg-base-300 after:size-[20px] after:bg-default after:bg-icon-mobile-menu after:transition-[filter] peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:after:filter-base-600 peer-any-parent-[.menu-open]/style-state:after:size-[18px] peer-any-parent-[.menu-open]/style-state:after:bg-icon-mobile-close'
       type='button'
       title='Меню'
-    >
-      <span className='size-[20px] flex flex-col gap-[4px] justify-center pseudo:relative pseudo:h-[1.8px] before:left-[1px] after:left-[1px] before:w-[18px] pseudo:block pseudo:bg-base-100 after:w-[14px] transition-colors peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:pseudo:bg-base-600' />
-    </button>
+    />
   )
 }
 
