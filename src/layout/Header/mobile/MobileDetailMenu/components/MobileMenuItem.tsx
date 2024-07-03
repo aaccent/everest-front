@@ -16,7 +16,7 @@ type Props = {
     }
 )
 
-function MainMenuItem({ text, children }: Props) {
+function MobileMenuItem({ text, children }: Props) {
   const [active, setActive] = useState(false)
   const { toggleClass } = useStyleState()
 
@@ -55,4 +55,4 @@ function MainMenuItem({ text, children }: Props) {
   )
 }
 
-export default MainMenuItem
+export default MobileMenuItem

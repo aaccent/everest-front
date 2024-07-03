@@ -2,7 +2,7 @@
 import React from 'react'
 import { useStyleState } from '@/features/styleStates'
 
-function MenuButton() {
+function MobileMenuButton() {
   const { toggleClass } = useStyleState()
 
   return (
@@ -15,4 +15,4 @@ function MenuButton() {
   )
 }
 
-export default MenuButton
+export default MobileMenuButton

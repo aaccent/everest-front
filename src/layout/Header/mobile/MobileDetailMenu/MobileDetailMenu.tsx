@@ -1,9 +1,9 @@
 import React from 'react'
 import MobileDetailMenuWrapper from './MobileDetailMenuWrapper'
 import { getCatalog, getServices } from '@/globals/api'
-import MainMenuItem from './components/MainMenuItem'
-import MenuItemCard from './components/MenuItemCard'
-import SeeAllCard from './components/SeeAllCard'
+import MobileMenuItem from './components/MobileMenuItem'
+import MenuItemCard from '../../components/MenuItemCard'
+import SeeAllCard from '../../components/SeeAllCard'
 
 function showItems(list: any[]) {
   return list.map((item, i) => (
@@ -22,26 +22,26 @@ async function MobileDetailMenu() {
       <div className='absolute inset-x-[20px] top-[24px] h-[1px] bg-base-600/[.1]' />
       <div className='relative pt-[24px] h-full'>
         <ul className='px-[20px]'>
-          <MainMenuItem text='Покупка'>
+          <MobileMenuItem text='Покупка'>
             <SeeAllCard />
             {showItems(catalog)}
-          </MainMenuItem>
-          <MainMenuItem text='Аренда'>
+          </MobileMenuItem>
+          <MobileMenuItem text='Аренда'>
             <SeeAllCard />
             {showItems(catalog)}
-          </MainMenuItem>
-          <MainMenuItem text='Новостройки'>
+          </MobileMenuItem>
+          <MobileMenuItem text='Новостройки'>
             <SeeAllCard />
             {showItems(catalog)}
-          </MainMenuItem>
-          <MainMenuItem href='#' text='Ипотека' />
-          <MainMenuItem text='Сервисы'>
+          </MobileMenuItem>
+          <MobileMenuItem href='#' text='Ипотека' />
+          <MobileMenuItem text='Сервисы'>
             <li></li>
-          </MainMenuItem>
-          <MainMenuItem text='О нас'>
+          </MobileMenuItem>
+          <MobileMenuItem text='О нас'>
             <li></li>
-          </MainMenuItem>
-          <MainMenuItem href='#' text='Контакты' />
+          </MobileMenuItem>
+          <MobileMenuItem href='#' text='Контакты' />
         </ul>
       </div>
     </MobileDetailMenuWrapper>

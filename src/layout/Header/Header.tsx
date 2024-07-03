@@ -1,7 +1,7 @@
 import React from 'react'
-import MobileHeader from '@/layout/Header/MobileHeader'
-import MobileMenu from '@/layout/Header/MobileMenu'
-import MobileDetailMenu from '@/layout/Header/MobileDetailMenu/MobileDetailMenu'
+import MobileHeader from '@/layout/Header/mobile/MobileHeader'
+import MobileMenu from '@/layout/Header/mobile/MobileMenu'
+import MobileDetailMenu from '@/layout/Header/mobile/MobileDetailMenu/MobileDetailMenu'
 import StyleStates from '@/features/styleStates'
 
 /** @name {Header} */
