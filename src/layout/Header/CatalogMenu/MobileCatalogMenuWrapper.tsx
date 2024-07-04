@@ -22,7 +22,7 @@ function MobileCatalogMenuWrapper({ className, children }: Props) {
 
   return (
     <div className={className} ref={ref}>
-      <div className='absolute inset-0 bg-[#000]/[.6]' onClick={() => toggleClass('catalog-menu')} />
+      <div className='absolute inset-0 bg-[#000]/60' onClick={() => toggleClass('catalog-menu')} />
       {children}
     </div>
   )

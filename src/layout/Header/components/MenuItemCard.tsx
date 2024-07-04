@@ -18,7 +18,7 @@ function MenuItemCard({ title, amount = 42, image = '/no-photo.jpg', link = '#' 
       </div>
       <div className='flex flex-col gap-[4px]'>
         <span className='text-base-300-reg-100-upper'>{title}</span>
-        <span className='text-base-400-lg-100 text-base-600/[.5]'>
+        <span className='text-base-400-lg-100 text-base-600/50'>
           {amount} {suggestionPlural.get(amount)}
         </span>
       </div>

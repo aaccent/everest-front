@@ -13,7 +13,7 @@ function MobileHeader({ className }: Props) {
     <header
       className={`header fixed z-20 px-container pt-[15px] pb-[11px] w-[100%] flex justify-between items-center transition-colors peer-[:is(.is-scrolled,.menu-open)]/style-state:bg-base-100 peer-[:is(.is-scrolled,.menu-open)]/style-state:text-base-600 peer-[.catalog-menu]/style-state:hidden ${className}`}
     >
-      <span className='absolute inset-x-[20px] bottom-0 h-[1px] block bg-base-100/[.15] pointer-events-none transition-[inset] peer-any-parent-[.is-scrolled]/style-state:bg-base-600/[.10] peer-any-parent-[.is-scrolled]/style-state:inset-x-0 peer-any-parent-[.menu-open]/style-state:hidden' />
+      <span className='absolute inset-x-[20px] bottom-0 h-[1px] block bg-base-100/15 pointer-events-none transition-[inset] peer-any-parent-[.is-scrolled]/style-state:bg-base-600/10 peer-any-parent-[.is-scrolled]/style-state:inset-x-0 peer-any-parent-[.menu-open]/style-state:hidden' />
       <MobileMenuButton />
       <Image
         className='w-[120px] h-[26px] object-contain object-center transition-[filter] peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:filter-primary'
