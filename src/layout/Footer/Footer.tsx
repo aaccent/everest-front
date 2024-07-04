@@ -1,14 +1,17 @@
 import React from 'react'
-import Section from '@/layout/Section'
-import Image from 'next/image'
-import logo from '@/assets/static/logo.svg'
-import aaccentLogo from '@/assets/static/aaccent-logo.svg'
 import Link from 'next/link'
+import Image from 'next/image'
+
+import Section from '@/layout/Section'
+import UpButton from '@/layout/Footer/UpButton'
+import FooterMenu from '@/layout/Footer/FooterMenu'
+
 import { getSocials } from '@/globals/api/methods/getSocials'
 import { getCatalog } from '@/globals/api/methods/getCatalog'
-import FooterMenu from '@/layout/Footer/FooterMenu'
 import { getServices } from '@/globals/api/methods/getServices'
-import UpButton from '@/layout/Footer/UpButton'
+
+import logo from '@/assets/static/logo.svg'
+import aaccentLogo from '@/assets/static/aaccent-logo.svg'
 
 interface socialItem {
   name: string
