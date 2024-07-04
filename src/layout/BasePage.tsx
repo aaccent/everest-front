@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react'
-import Footer from '@/layout/Footer'
+import Footer from '@/layout/Footer/Footer'
 import Header from '@/layout/Header/Header'
 import { AdaptiveProvider } from '@/features/adaptive'
 import { basePageProps } from '@/globals/pageProps'
