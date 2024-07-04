@@ -11,8 +11,8 @@ interface ButtonProps {
 
 function MobileCatalogButton({ onClick }: ButtonProps) {
   return (
-    <button className='w-full flex flex-col items-center gap-[4px]' type='button' onClick={onClick}>
-      <span className='mt-[-20px] circle-[56px] flex justify-center items-center bg-primary after:size-[18px] after:bg-default after:bg-icon-catalog-btn after:filter-base-100' />
+    <button className='flex w-full flex-col items-center gap-[4px]' type='button' onClick={onClick}>
+      <span className='mt-[-20px] flex items-center justify-center bg-primary circle-[56px] after:size-[18px] after:bg-icon-catalog-btn after:filter-base-100 after:bg-default' />
       Каталог
     </button>
   )

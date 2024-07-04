@@ -79,7 +79,7 @@ function Button(props: Props) {
     }
     return (
       <svg
-        className={`${spinColor} animate-spin size-[20px] m-auto bg-icon-loading bg-no-repeat bg-center`}
+        className={`${spinColor} m-auto size-[20px] animate-spin bg-icon-loading bg-center bg-no-repeat`}
         viewBox='0 0 24 24'
       ></svg>
     )

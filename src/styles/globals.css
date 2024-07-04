@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply text-base-600 text-base-200-lg-100;
+    @apply text-base-200-lg-100 text-base-600;
   }
 
   @media screen(md) {
@@ -56,7 +56,7 @@
     @apply font-geologica text-base-200-lg-100_mobile md:text-base-200-lg-100_desktop;
   }
   .text-base-300-reg-100-upper {
-    @apply font-geologica text-base-300-reg-100-upper_mobile md:text-base-300-reg-100-upper_desktop uppercase;
+    @apply font-geologica text-base-300-reg-100-upper_mobile uppercase md:text-base-300-reg-100-upper_desktop;
   }
   .text-base-300-reg-200 {
     @apply font-geologica text-base-300-reg-200_mobile md:text-base-300-reg-200_desktop;
@@ -71,7 +71,7 @@
     @apply font-geologica text-base-400-lg-100_mobile md:text-base-400-lg-100_desktop;
   }
   .text-base-500-reg-100-upper {
-    @apply font-geologica text-base-500-reg-100-upper_mobile md:text-base-500-reg-100-upper_desktop uppercase;
+    @apply font-geologica text-base-500-reg-100-upper_mobile uppercase md:text-base-500-reg-100-upper_desktop;
   }
   .text-base-500-reg-200 {
     @apply font-geologica text-base-500-reg-200_mobile md:text-base-500-reg-200_desktop;

@@ -13,7 +13,7 @@ function outputTopLevel(list: any[]) {
       <CatalogMenuInnerButton
         activeClass='bg-primary text-base-100'
         inactiveClass='bg-base-300'
-        className='py-[10.5px] px-[14px] w-max text-base-500-reg-100-upper rounded-[50px] text-left transition-colors'
+        className='text-base-500-reg-100-upper w-max rounded-[50px] px-[14px] py-[10.5px] text-left transition-colors'
         id={item.id}
       >
         {item.title}
@@ -27,7 +27,7 @@ function outputInnerItems(list: any[]) {
     <CatalogMenuInnerItem
       activeClass='block'
       inactiveClass='hidden'
-      className='pb-[24px] h-1 flex-grow-[1] overflow-y-auto scrollbar-transparent'
+      className='h-1 flex-grow-[1] overflow-y-auto pb-[24px] scrollbar-transparent'
       id={item.id}
       key={item.id}
     >
@@ -47,14 +47,14 @@ async function MobileCatalogMenu() {
   const detailCatalog = await getDetailCatalog()
 
   return (
-    <MobileCatalogMenuWrapper className='fixed inset-0 z-30 invisible opacity-0 transition-opacity peer-[.catalog-menu]/style-state:visible peer-[.catalog-menu]/style-state:opacity-100 after:absolute after:inset-x-0 after:top-full after:z-10 after:h-full after:bg-base-100'>
-      <div className='absolute inset-x-0 bottom-0 z-10 px-container pt-[24px] h-full max-h-[90%] flex flex-col bg-base-100 rounded-t-[24px]'>
+    <MobileCatalogMenuWrapper className='invisible fixed inset-0 z-30 opacity-0 transition-opacity after:absolute after:inset-x-0 after:top-full after:z-10 after:h-full after:bg-base-100 peer-[.catalog-menu]/style-state:visible peer-[.catalog-menu]/style-state:opacity-100'>
+      <div className='px-container absolute inset-x-0 bottom-0 z-10 flex h-full max-h-[90%] flex-col rounded-t-[24px] bg-base-100 pt-[24px]'>
         <div className='relative mb-[40px] flex justify-center'>
           <span className='text-header-300'>Каталог</span>
           <CatalogMenuButton />
         </div>
         <CatalogMenuProvider initId={detailCatalog[0].id}>
-          <ul className='mb-[32px] mx-[-20px] px-container flex gap-[8px] overflow-x-auto scrollbar-transparent'>
+          <ul className='px-container mx-[-20px] mb-[32px] flex gap-[8px] overflow-x-auto scrollbar-transparent'>
             {outputTopLevel(detailCatalog)}
           </ul>
           {outputInnerItems(detailCatalog)}
