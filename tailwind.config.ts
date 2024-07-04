@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss'
-import { filters, scrollbarUtilities } from './tailwind/utils'
+import { filters, miscUtilities, customVariants, scrollbarUtilities } from './tailwind/utils'
 // noinspection ES6PreferShortImport
-import { ICONS, ICONS_NAME } from './src/globals/icons'
+import { convertToTailwindName, ICONS } from './src/globals/icons/icons'
 
 export function adaptiveFz(value: number, min = 1, max = 20, mod = 10) {
   return `clamp(${min}rem, calc(${value} * ${mod} * var(--screen-delta) + ${value}rem), ${max}rem)`
@@ -259,48 +259,39 @@ const config: Config = {
     },
     colors: {
       base: {
-        100: 'hsl(0 0 100)',
-        115: 'hsla(0 0 100 / 0.15)',
-        150: 'hsla(0 0 100 / 0.5)',
-        200: 'hsl(0 0 96)',
-        300: 'hsl(0 0 95)',
-        400: 'hsl(0 0 89)',
-        500: 'hsl(0 0 74)',
-        600: 'hsl(0 0 17)',
-        650: 'hsla(0 0 17 / 0.5)',
+        100: 'hsl(0, 0%, 100%)',
+        115: 'hsla(0, 0%, 100%, 0.15)',
+        150: 'hsla(0, 0%, 100%, 0.5)',
+        200: 'hsl(0, 0%, 96%)',
+        300: 'hsl(0, 0%, 95%)',
+        400: 'hsl(0, 0%, 89%)',
+        500: 'hsl(0, 0%, 74%)',
+        600: 'hsl(0, 0%, 17%)',
+        650: 'hsla(0, 0%, 17%, 0.5)',
       },
-      primary: 'hsl(173 31 35)',
+      primary: 'hsl(173, 31%, 35%)',
       primaryHover: 'hsla(173, 40%, 27%, 1)',
       system: {
-        red: 'hsl(0 72 39)',
-        green: 'hsl(137 71 31)',
+        red: 'hsl(0, 72%, 39%)',
+        green: 'hsl(137, 71%, 31%)',
         disabled: 'hsla(173, 66%, 45%, 1)',
       },
     },
+    'bg-size': {
+      DEFAULT: 'contain',
+      contain: 'contain',
+      cover: 'cover',
+      auto: 'auto',
+    },
     extend: {
-      backgroundImage: {
-        [ICONS_NAME.LOCATION]: ICONS.LOCATION,
-        [ICONS_NAME.PLUS]: ICONS.PLUS,
-        [ICONS_NAME.PHONE]: ICONS.PHONE,
-        [ICONS_NAME.CATALOG_BTN]: ICONS.CATALOG_BTN,
-        [ICONS_NAME.SEARCH]: ICONS.SEARCH,
-        [ICONS_NAME.HEART]: ICONS.HEART,
-        [ICONS_NAME.SCALE]: ICONS.SCALE,
-        [ICONS_NAME.CLOSE]: ICONS.CLOSE,
-        [ICONS_NAME.GARAGE]: ICONS.GARAGE,
-        [ICONS_NAME.COMMERCE]: ICONS.COMMERCE,
-        [ICONS_NAME.TREE]: ICONS.TREE,
-        [ICONS_NAME.HOUSE]: ICONS.HOUSE,
-        [ICONS_NAME.CLOCK]: ICONS.CLOCK,
-        [ICONS_NAME.NEW_HOUSE]: ICONS.NEW_HOUSE,
-        [ICONS_NAME.SECONDARY_HOUSE]: ICONS.SECONDARY_HOUSE,
-        [ICONS_NAME.ARROW]: ICONS.ARROW,
-        [ICONS_NAME.ADDRESS]: ICONS.ADDRESS,
-        [ICONS_NAME.LOADING]: ICONS.LOADING,
-        [ICONS_NAME.CHECKMARK]: ICONS.CHECKMARK,
-        [ICONS_NAME.EYE_CLOSED]: ICONS.EYE_CLOSED,
-        [ICONS_NAME.EYE]: ICONS.EYE,
+      transitionDuration: {
+        DEFAULT: '300ms',
       },
+      backgroundImage: Object.fromEntries(
+        Object.entries(ICONS).map(function ([name, icon]) {
+          return [`icon-${convertToTailwindName(name)}`, icon]
+        }),
+      ),
       fontFamily: {
         geologica: ['var(--font-geologica)'],
         coolvetica: ['var(--font-coolvetica)'],
@@ -310,7 +301,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [filters, scrollbarUtilities],
+  plugins: [filters, scrollbarUtilities, customVariants, miscUtilities],
   safelist: [
     {
       pattern: /bg-icon-\w+/,

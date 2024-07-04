@@ -1,0 +1,29 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
+function getWindowScroll() {
+  if (typeof window === 'undefined') return
+
+  return window.scrollY
+}
+
+/** @description Возвращает [scrollPos]{@link scrollPos} со значением из window.scrollY.
+ * Выставляет обработчик при монтировании и убирает его при демонтировании */
+export function useScroll() {
+  const [scrollPos, setScrollPos] = useState<number>(getWindowScroll() || 0)
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    function scrollHandler() {
+      setScrollPos(window.scrollY)
+    }
+
+    window.addEventListener('scroll', scrollHandler, { passive: true })
+
+    return () => window.removeEventListener('scroll', scrollHandler)
+  }, [])
+
+  return { scrollPos }
+}
