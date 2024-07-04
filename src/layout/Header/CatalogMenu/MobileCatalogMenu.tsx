@@ -1,11 +1,11 @@
 import React from 'react'
-import CatalogMenuWrapper from './CatalogMenuWrapper'
-import CatalogMenuBackdrop from './CatalogMenuBackdrop'
-import MenuItemCard from '@/layout/Header/components/MenuItemCard'
-import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuInnerItem } from './CatalogMenuInner'
-import { getDetailCatalog } from '@/globals/api'
 import SeeAllCard from '@/layout/Header/components/SeeAllCard'
-import CatalogMenuButton from '@/layout/Header/mobile/CatalogMenu/CatalogMenuButton'
+import MenuItemCard from '@/layout/Header/components/MenuItemCard'
+import CatalogMenuButton from './components/CatalogMenuButton'
+import MobileCatalogMenuWrapper from './MobileCatalogMenuWrapper'
+import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuInnerItem } from './components/CatalogMenuInner'
+
+import { getDetailCatalog } from '@/globals/api'
 
 function outputTopLevel(list: any[]) {
   return list.map((item) => (
@@ -43,12 +43,11 @@ function outputInnerItems(list: any[]) {
   ))
 }
 
-async function CatalogMenu() {
+async function MobileCatalogMenu() {
   const detailCatalog = await getDetailCatalog()
 
   return (
-    <CatalogMenuWrapper className='fixed inset-0 z-30 invisible opacity-0 transition-opacity peer-[.catalog-menu]/style-state:visible peer-[.catalog-menu]/style-state:opacity-100 after:absolute after:inset-x-0 after:top-full after:z-10 after:h-full after:bg-base-100'>
-      <CatalogMenuBackdrop className='absolute inset-0 bg-[#000]/[.6]' />
+    <MobileCatalogMenuWrapper className='fixed inset-0 z-30 invisible opacity-0 transition-opacity peer-[.catalog-menu]/style-state:visible peer-[.catalog-menu]/style-state:opacity-100 after:absolute after:inset-x-0 after:top-full after:z-10 after:h-full after:bg-base-100'>
       <div className='absolute inset-x-0 bottom-0 z-10 px-[20px] pt-[24px] h-full max-h-[90%] flex flex-col bg-base-100 rounded-t-[24px]'>
         <div className='relative mb-[40px] flex justify-center'>
           <span className='text-header-300'>Каталог</span>
@@ -61,8 +60,8 @@ async function CatalogMenu() {
           {outputInnerItems(detailCatalog)}
         </CatalogMenuProvider>
       </div>
-    </CatalogMenuWrapper>
+    </MobileCatalogMenuWrapper>
   )
 }
 
-export default CatalogMenu
+export default MobileCatalogMenu

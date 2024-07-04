@@ -1,9 +1,11 @@
 import React from 'react'
-import MobileHeader from '@/layout/Header/mobile/MobileHeader'
+
+import CatalogMenu from '@/layout/Header/CatalogMenu/CatalogMenu'
 import MobileMenu from '@/layout/Header/mobile/MobileMenu'
-import MobileDetailMenu from '@/layout/Header/mobile/MobileDetailMenu/MobileDetailMenu'
-import StyleStates from '@/features/styleStates'
-import CatalogMenu from '@/layout/Header/mobile/CatalogMenu/CatalogMenu'
+import MobileHeader from '@/layout/Header/mobile/MobileHeader'
+import MobileDetailMenu from '@/layout/Header/mobile/MobileDetailMenu'
+
+import { IsMobile } from '@/features/adaptive'
 
 /** @name {Header} */
 function Header() {
@@ -12,13 +14,14 @@ function Header() {
 
   return (
     <>
-      <StyleStates />
-      <header className={`${whiteHeaderStyles} ${blackHeaderStyles}`}>
-        <MobileHeader />
-      </header>
-      <MobileMenu />
+      <IsMobile>
+        <MobileHeader className={`${whiteHeaderStyles} ${blackHeaderStyles}`} />
+      </IsMobile>
       <CatalogMenu />
-      <MobileDetailMenu />
+      <IsMobile>
+        <MobileMenu />
+        <MobileDetailMenu />
+      </IsMobile>
     </>
   )
 }

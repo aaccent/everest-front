@@ -1,11 +1,13 @@
 import React from 'react'
-import MobileDetailMenuWrapper from './MobileDetailMenuWrapper'
-import { getCatalog, getServices } from '@/globals/api'
-import MobileMenuItem from './components/MobileMenuItem'
-import MenuItemCard from '../../components/MenuItemCard'
-import SeeAllCard from '../../components/SeeAllCard'
 import Link from 'next/link'
+
+import MobileMenuItem from './MobileMenuItem'
+import MobileDetailMenuWrapper from './MobileDetailMenuWrapper'
+import MenuItemCard from '@/layout/Header/components/MenuItemCard'
+import SeeAllCard from '@/layout/Header/components/SeeAllCard'
+
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
+import { getCatalog, getServices } from '@/globals/api'
 
 function showItemsCards(list: any[]) {
   return list.map((item, i) => (
@@ -55,24 +57,26 @@ async function MobileDetailMenu() {
     <MobileDetailMenuWrapper className='fixed bottom-0 z-20 w-full h-full bg-base-100 opacity-0 invisible transition-opacity peer-[.menu-open]/style-state:visible peer-[.menu-open]/style-state:opacity-100'>
       <div className='absolute inset-x-[20px] top-[24px] h-[1px] bg-base-600/[.1]' />
       <div className='relative px-[20px] py-[24px] h-full overflow-y-auto'>
-        <ul className='mb-[32px]'>
-          <MobileMenuItem text='Покупка'>
-            <SeeAllCard />
-            {showItemsCards(catalog)}
-          </MobileMenuItem>
-          <MobileMenuItem text='Аренда'>
-            <SeeAllCard />
-            {showItemsCards(catalog)}
-          </MobileMenuItem>
-          <MobileMenuItem text='Новостройки'>
-            <SeeAllCard />
-            {showItemsCards(catalog)}
-          </MobileMenuItem>
-          <MobileMenuItem href='#' text='Ипотека' />
-          <MobileMenuItem text='Сервисы'>{showItems(services)}</MobileMenuItem>
-          <MobileMenuItem href='' text='О нас' />
-          <MobileMenuItem href='#' text='Контакты' />
-        </ul>
+        <nav className='mb-[32px]'>
+          <ul>
+            <MobileMenuItem text='Покупка'>
+              <SeeAllCard />
+              {showItemsCards(catalog)}
+            </MobileMenuItem>
+            <MobileMenuItem text='Аренда'>
+              <SeeAllCard />
+              {showItemsCards(catalog)}
+            </MobileMenuItem>
+            <MobileMenuItem text='Новостройки'>
+              <SeeAllCard />
+              {showItemsCards(catalog)}
+            </MobileMenuItem>
+            <MobileMenuItem href='#' text='Ипотека' />
+            <MobileMenuItem text='Сервисы'>{showItems(services)}</MobileMenuItem>
+            <MobileMenuItem href='' text='О нас' />
+            <MobileMenuItem href='#' text='Контакты' />
+          </ul>
+        </nav>
         <div className='grid grid-cols-2 gap-[8px]'>
           <ActionButton text='Заказать звонок' icon='PHONE' accented />
           <ActionButton text='Добавить объявление' icon='ADD' href='#' />
