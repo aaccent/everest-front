@@ -1,0 +1,19 @@
+[
+  {
+    "name": "Telgram",
+    "icon": "./content/TG.svg",
+    "url": ""
+  },{
+  "name": "Вконтакте",
+  "icon": "./content/VK.svg",
+  "url": ""
+},{
+  "name": "Одноклассники",
+  "icon": "./content/ok.svg",
+  "url": ""
+},{
+  "name": "Youtube",
+  "icon": "./content/youtube.svg",
+  "url": ""
+}
+]

@@ -1,3 +1,5 @@
+import ContactForm from '@/components/ContactForm/ContactForm'
+
 export default function Home() {
-  return null
+  return <ContactForm />
 }

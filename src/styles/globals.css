@@ -79,3 +79,7 @@
     @apply font-geologica text-base-500-reg-200_mobile md:text-base-500-reg-200_desktop;
   }
 }
+
+.mapboxgl-control-container {
+  display: none;
+}

@@ -1,0 +1,89 @@
+[
+  {
+    "city": "Абакан",
+    "offices": [
+      {
+        "id": "090",
+        "address": "ул.Космонавтов, д.5",
+        "coords": {
+          "latitude": 55.82884507162986,
+          "longitude": 49.124122105483856
+        },
+        "default": true,
+        "photo": "/Rectangle 1815088392.jpg",
+        "workHours": "Ежедневно c 09:00 до 18:00",
+        "tel": "+7 (495) 997-06-87"
+      },
+      {
+        "id": "090",
+        "address": "ул.Космонавтов, д.65",
+        "coords": {
+          "latitude": 55.82222617926104,
+          "longitude":49.12235028914557
+        },
+        "default": false,
+        "photo": "/Rectangle 1815088392.jpg",
+        "workHours": "Ежедневно c 10:00 до 20:00",
+        "tel": "+7 (495) 997-06-87"
+      },
+      {
+        "id": "090",
+        "address": "ул.Космонавтов, д.",
+        "coords": {
+          "latitude": 55.83841291783467,
+          "longitude": 49.07701261261644
+        },
+        "default": false,
+        "photo": "/Rectangle 1815088392.jpg",
+        "workHours": "Ежедневно c 09:00 до 18:00",
+        "tel": "+7 (495) 997-06-87"
+      }
+    ]
+  },
+  {
+    "city": "Кызыл",
+    "offices": [
+      {
+        "id": "090",
+        "address": "ул.Космонавтов, д56.",
+        "coords": {
+          "latitude": 56.63659113620328,
+          "longitude": 47.878242970065614
+        },
+        "default": false,
+        "photo": "/Rectangle 1815088392.jpg",
+        "workHours": "Ежедневно c 09:00 до 18:00",
+        "tel": "+7 (495) 997-06-87"
+      },
+      {
+        "id": "090",
+        "address": "ул.Космонавтов, д63.",
+        "coords": {
+          "latitude": 56.62782221449607,
+          "longitude":47.924901753389015
+        },
+        "default": false,
+        "photo": "/Rectangle 1815088392.jpg",
+        "workHours": "Ежедневно c 09:00 до 18:00",
+        "tel": "+7 (495) 997-06-87"
+      }
+    ]
+  },
+  {
+    "city": "Барнаул",
+    "offices": [
+      {
+        "id": "090",
+        "address": "ул.Космонавтов, д.",
+        "coords": {
+          "latitude": 56.108818263260375,
+          "longitude": 47.25148454729789
+        },
+        "default": true,
+        "photo": "/Rectangle 1815088392.jpg",
+        "workHours": "Ежедневно c 09:00 до 18:00",
+        "tel": "+7 (495) 997-06-87"
+      }
+    ]
+  }
+]

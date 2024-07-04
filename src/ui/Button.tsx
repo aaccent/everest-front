@@ -36,7 +36,7 @@ function Button(props: ButtonProps) {
         let width = props.loading ? 'w-[105px]' : 'w-fit'
         return `${width} flex items-center gap-[6px] px-[16px] py-[12px]`
       case 'medium':
-        return 'w-[180px] py-[18px]'
+        return 'w-[180px] py-[17px]'
       case 'large':
         return 'w-[200px] py-[31px]'
     }
@@ -78,7 +78,7 @@ function Button(props: ButtonProps) {
 
   return (
     <button
-      className={`rounded-[16px] uppercase ${iconClassName()} ${sizeClassName()} ${typeClassName()} ${props.className} disabled:pointer-events-none`}
+      className={`rounded-[16px] uppercase ${iconClassName()} ${sizeClassName()} ${typeClassName()} ${props.className} text-base-500-reg-100-upper disabled:pointer-events-none`}
       disabled={props.disabled}
     >
       {loading()}
