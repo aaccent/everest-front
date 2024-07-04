@@ -9,8 +9,8 @@ interface Props {
 
 function SeeAllCard({ amount = 42, link = '#' }: Props) {
   return (
-    <Link className='p-[16px] flex items-center gap-[12px] bg-base-200 rounded-[24px]' href={link}>
-      <div className='size-[52px] flex justify-center items-center flex-shrink-0 rounded-[12px] bg-primary after:size-[20px] after:bg-default after:bg-icon-more-houses after:filter-base-100' />
+    <Link className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px]' href={link}>
+      <div className='flex size-[52px] flex-shrink-0 items-center justify-center rounded-[12px] bg-primary after:size-[20px] after:bg-icon-more-houses after:filter-base-100 after:bg-default' />
       <div className='flex flex-col gap-[4px]'>
         <span className='text-base-300-reg-100-upper'>Смотреть все</span>
         <span className='text-base-400-lg-100 text-base-600/50'>

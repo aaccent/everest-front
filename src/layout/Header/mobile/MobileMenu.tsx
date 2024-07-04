@@ -12,7 +12,7 @@ function MenuButton({ iconName, text }: MenuButtonProps) {
   return (
     <li className='w-full'>
       <Link
-        className={`w-full flex flex-col justify-center gap-[2px] items-center before:size-[28px] before:bg-no-repeat before:bg-center before:bg-contain before:filter-base-600 before:opacity-45 before:bg-${ICONS_NAME[iconName]}`}
+        className={`flex w-full flex-col items-center justify-center gap-[2px] before:size-[28px] before:bg-contain before:bg-center before:bg-no-repeat before:opacity-45 before:filter-base-600 before:bg-${ICONS_NAME[iconName]}`}
         href=''
       >
         {text}
@@ -23,9 +23,9 @@ function MenuButton({ iconName, text }: MenuButtonProps) {
 
 function MobileMenu() {
   return (
-    <aside className='mobile-menu fixed bottom-0 left-0 z-40 pb-[30px] w-full bg-base-100 rounded-t-[16px] text-[11px] text-base-600/[.5] border-t border-t-[#000]/[.12]'>
+    <aside className='mobile-menu fixed bottom-0 left-0 z-40 w-full rounded-t-[16px] border-t border-t-[#000]/[.12] bg-base-100 pb-[30px] text-[11px] text-base-600/[.5]'>
       <nav>
-        <ul className='flex justify-between items-end'>
+        <ul className='flex items-end justify-between'>
           <MenuButton iconName='PROFILE' text='Профиль' />
           <MenuButton iconName='SCALE' text='Сравнение' />
           <li className='w-full'>

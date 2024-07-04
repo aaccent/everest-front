@@ -16,7 +16,7 @@ function Submenu({ list }: SubmenuProps) {
     return list.map((item, i) => (
       <li key={i}>
         <Link
-          className='px-[12px] py-[10px] rounded-[12px] block transition-colors normal-case text-base-300-lg-100 hover:bg-base-300'
+          className='text-base-300-lg-100 block rounded-[12px] px-[12px] py-[10px] normal-case transition-colors hover:bg-base-300'
           href={item.href}
         >
           {item.title}
@@ -26,7 +26,7 @@ function Submenu({ list }: SubmenuProps) {
   }
 
   return (
-    <ul className='absolute top-[calc(100%+16.5px)] z-30 min-w-[210px] w-max p-[14px] bg-base-100 rounded-[24px] invisible opacity-0 text-base-600 transition-visibility duration-300 group-hover:visible group-hover:opacity-100 group-hover:transition-opacity'>
+    <ul className='invisible absolute top-[calc(100%+16.5px)] z-30 w-max min-w-[210px] rounded-[24px] bg-base-100 p-[14px] text-base-600 opacity-0 transition-visibility duration-300 group-hover:visible group-hover:opacity-100 group-hover:transition-opacity'>
       {showList()}
     </ul>
   )
@@ -39,11 +39,11 @@ interface Props {
 function DesktopHeader({ className }: Props) {
   return (
     <header
-      className={`absolute top-0 z-20 pt-[14px] px-container w-full text-base-100 peer-any-parent-[.is-black]/style-state:text-base-600 ${className}`}
+      className={`px-container absolute top-0 z-20 w-full pt-[14px] text-base-100 peer-any-parent-[.is-black]/style-state:text-base-600 ${className}`}
     >
-      <div className='flex justify-between items-center border-b border-b-base-100/15 pb-[13px] peer-any-parent-[.is-black]/style-state:border-b-base-600/10'>
+      <div className='flex items-center justify-between border-b border-b-base-100/15 pb-[13px] peer-any-parent-[.is-black]/style-state:border-b-base-600/10'>
         <nav>
-          <ul className='flex items-center gap-[14px] opacity-50 text-base-500-reg-200 peer-any-parent-[.is-black]/style-state:text-base-650 peer-any-parent-[.is-black]/style-state:opacity-100'>
+          <ul className='text-base-500-reg-200 flex items-center gap-[14px] opacity-50 peer-any-parent-[.is-black]/style-state:text-base-650 peer-any-parent-[.is-black]/style-state:opacity-100'>
             <li>
               <button>Сервисы</button>
             </li>
@@ -55,28 +55,28 @@ function DesktopHeader({ className }: Props) {
             </li>
           </ul>
         </nav>
-        <div className='flex gap-[24px] items-center peer-any-parent-[.is-black]/style-state:text-primary'>
-          <button className='flex items-center gap-[4px] text-base-500-reg-100-upper before:size-[17px] before:bg-icon-location before:bg-default before:filter-base-100 peer-any-parent-[.is-black]/style-state:before:filter-primary'>
+        <div className='flex items-center gap-[24px] peer-any-parent-[.is-black]/style-state:text-primary'>
+          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-location before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/style-state:before:filter-primary'>
             Абакан
           </button>
-          <button className='flex items-center gap-[4px] text-base-500-reg-100-upper before:size-[17px] before:bg-icon-add before:bg-default before:filter-base-100 peer-any-parent-[.is-black]/style-state:before:filter-primary'>
+          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-add before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/style-state:before:filter-primary'>
             добавить объявление
           </button>
-          <button className='flex items-center gap-[4px] text-base-500-reg-100-upper before:size-[17px] before:bg-icon-phone before:bg-default before:filter-base-100 peer-any-parent-[.is-black]/style-state:before:filter-primary'>
+          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-phone before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/style-state:before:filter-primary'>
             заказать звонок
           </button>
         </div>
       </div>
       <div className='flex justify-between border-b border-b-base-100/15 peer-any-parent-[.is-black]/style-state:border-b-base-600/10'>
-        <div className='pr-[43px] w-full border-r border-r-base-100/15 flex justify-between items-center py-[15px] peer-any-parent-[.is-black]/style-state:border-r-base-600/10'>
+        <div className='flex w-full items-center justify-between border-r border-r-base-100/15 py-[15px] pr-[43px] peer-any-parent-[.is-black]/style-state:border-r-base-600/10'>
           <Link href={'/'}>
             <Image
-              className='w-[160px] h-[33px] object-left object-contain peer-any-parent-[.is-black]/style-state:filter-primary'
+              className='h-[33px] w-[160px] object-contain object-left peer-any-parent-[.is-black]/style-state:filter-primary'
               src={Logo}
               alt='Логотип АН Эверест'
             />
           </Link>
-          <ul className='ml-[20px] flex items-center gap-[27px] text-base-500-reg-100-upper'>
+          <ul className='text-base-500-reg-100-upper ml-[20px] flex items-center gap-[27px]'>
             <li>
               <CatalogButton />
             </li>
@@ -92,9 +92,9 @@ function DesktopHeader({ className }: Props) {
             </li>
             <li className='flex'>
               <Link href={'#'}>Ипотека</Link>
-              <span className='relative flex h-[4px] w-[4px] top-[2px] right-[-8px]'>
-                <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75'></span>
-                <span className='relative inline-flex rounded-full h-[4px] w-[4px] bg-primary'></span>
+              <span className='relative right-[-8px] top-[2px] flex h-[4px] w-[4px]'>
+                <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75'></span>
+                <span className='relative inline-flex h-[4px] w-[4px] rounded-full bg-primary'></span>
               </span>
             </li>
             <li className='group relative'>
@@ -106,7 +106,7 @@ function DesktopHeader({ className }: Props) {
             </li>
           </ul>
         </div>
-        <div className='pl-[49px] py-[15px] max-w-[575px] w-full flex items-center justify-between gap-[15px]'>
+        <div className='flex w-full max-w-[575px] items-center justify-between gap-[15px] py-[15px] pl-[49px]'>
           <div className='flex flex-col gap-[2px]'>
             <a className='text-base-200-med-100' href='tel:8 (843) 207-39-50'>
               8 (843) 207-39-50
@@ -114,11 +114,11 @@ function DesktopHeader({ className }: Props) {
             <div className='text-base-500-reg-200 opacity-50'>Ежедневно с 09:00 до 19:00</div>
           </div>
           <div className='flex items-center gap-[10px]'>
-            <button className='size-[42px] flex justify-center items-center rounded-full bg-base-100/15 before:bg-icon-search before:bg-default before:block before:filter-base-100 before:size-[20px] peer-any-parent-[.is-black]/style-state:bg-base-300 peer-any-parent-[.is-black]/style-state:before:filter-base-600' />
-            <button className='size-[42px] flex justify-center items-center rounded-full bg-base-100/15 before:bg-icon-heart before:bg-default before:block before:filter-base-100 before:size-[20px] peer-any-parent-[.is-black]/style-state:bg-base-300 peer-any-parent-[.is-black]/style-state:before:filter-base-600' />
-            <button className='size-[42px] flex justify-center items-center rounded-full bg-base-100/15 before:bg-icon-scale before:bg-default before:block before:filter-base-100 before:size-[20px] peer-any-parent-[.is-black]/style-state:bg-base-300 peer-any-parent-[.is-black]/style-state:before:filter-base-600' />
+            <button className='flex size-[42px] items-center justify-center rounded-full bg-base-100/15 before:block before:size-[20px] before:bg-icon-search before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/style-state:bg-base-300 peer-any-parent-[.is-black]/style-state:before:filter-base-600' />
+            <button className='flex size-[42px] items-center justify-center rounded-full bg-base-100/15 before:block before:size-[20px] before:bg-icon-heart before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/style-state:bg-base-300 peer-any-parent-[.is-black]/style-state:before:filter-base-600' />
+            <button className='flex size-[42px] items-center justify-center rounded-full bg-base-100/15 before:block before:size-[20px] before:bg-icon-scale before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/style-state:bg-base-300 peer-any-parent-[.is-black]/style-state:before:filter-base-600' />
           </div>
-          <Button className='min-w-[110px] h-[42px]' size='small' type='transparent'>
+          <Button className='h-[42px] min-w-[110px]' size='small' type='transparent'>
             Войти
           </Button>
         </div>

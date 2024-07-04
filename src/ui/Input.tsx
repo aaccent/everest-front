@@ -39,16 +39,16 @@ function Input(props: InputProps) {
   function Icon() {
     return props.checked ? (
       <div
-        className={`absolute right-[18px] top-[50%] -translate-y-2/4 block size-[20px] bg-icon-checkmark bg-auto bg-no-repeat bg-center border-none`}
+        className={`absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 border-none bg-icon-checkmark bg-auto bg-center bg-no-repeat`}
       ></div>
     ) : props.type === 'password' ? (
       <button
-        className={`absolute right-[18px] top-[50%] -translate-y-2/4 block size-[20px] ${showPassword.icon} bg-auto bg-no-repeat bg-center border-none opacity-50`}
+        className={`absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 ${showPassword.icon} border-none bg-auto bg-center bg-no-repeat opacity-50`}
         onClick={onEyeClick}
       ></button>
     ) : (
       <button
-        className={`${resetBtnCLass} absolute right-[18px] top-[50%] -translate-y-2/4 size-[20px] bg-icon-close bg-auto bg-no-repeat bg-center border-none`}
+        className={`${resetBtnCLass} absolute right-[18px] top-[50%] size-[20px] -translate-y-2/4 border-none bg-icon-close bg-auto bg-center bg-no-repeat`}
         onClick={onResetBtnClick}
       ></button>
     )
@@ -66,7 +66,7 @@ function Input(props: InputProps) {
     <label className='relative block w-fit'>
       <input
         type={showPassword.type}
-        className={`min-w-[330px] py-[14px] pl-[14px] pr-[40px] rounded-[16px] text-base-650 uppercase focus-visible:border-base-600 focus-visible:outline-0 ${checkedClassName()} ${className()} ${props.className}`}
+        className={`min-w-[330px] rounded-[16px] py-[14px] pl-[14px] pr-[40px] uppercase text-base-650 focus-visible:border-base-600 focus-visible:outline-0 ${checkedClassName()} ${className()} ${props.className}`}
         placeholder={`${props.placeholder}`}
         onChange={props.type !== 'password' ? onChange : undefined}
         ref={inputRef}

@@ -8,3 +8,4 @@ printWidth = 120
 bracketSameLine = false
 arrowParens = "always"
 endOfLine = "crlf"
+plugins = ["prettier-plugin-tailwindcss"]

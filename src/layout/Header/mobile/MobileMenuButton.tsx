@@ -8,7 +8,7 @@ function MobileMenuButton() {
   return (
     <button
       onClick={() => toggleClass('menu-open')}
-      className='circle-[36px] flex flex-col gap-[4px] justify-center items-center bg-base-115 transition-colors peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:bg-base-300 after:size-[20px] after:bg-default after:bg-icon-mobile-menu after:transition-[filter] peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:after:filter-base-600 peer-any-parent-[.menu-open]/style-state:after:size-[18px] peer-any-parent-[.menu-open]/style-state:after:bg-icon-mobile-close'
+      className='flex flex-col items-center justify-center gap-[4px] bg-base-115 transition-colors circle-[36px] after:size-[20px] after:bg-icon-mobile-menu after:transition-[filter] after:bg-default peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:bg-base-300 peer-any-parent-[.menu-open]/style-state:after:size-[18px] peer-any-parent-[.menu-open]/style-state:after:bg-icon-mobile-close peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:after:filter-base-600'
       type='button'
       title='Меню'
     />

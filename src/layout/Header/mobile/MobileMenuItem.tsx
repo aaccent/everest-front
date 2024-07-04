@@ -28,7 +28,7 @@ function MobileMenuItem({ text, children }: Props) {
   return (
     <li className='w-full'>
       <button
-        className={`py-[18px] w-full text-left text-base-100-reg-100 border-b border-b-base-600/10 ${children ? 'flex items-center justify-between after:size-[14px] after:bg-default after:bg-icon-triangle-arrow' : ''}`}
+        className={`text-base-100-reg-100 w-full border-b border-b-base-600/10 py-[18px] text-left ${children ? 'flex items-center justify-between after:size-[14px] after:bg-icon-triangle-arrow after:bg-default' : ''}`}
         type='button'
         onClick={clickHandler}
       >
@@ -36,19 +36,19 @@ function MobileMenuItem({ text, children }: Props) {
       </button>
       {children && (
         <div
-          className={`absolute left-0 top-0 pt-[24px] w-full h-full flex flex-col ${active ? 'visible opacity-100' : 'invisible opacity-0'} bg-base-100 transition-opacity`}
+          className={`absolute left-0 top-0 flex h-full w-full flex-col pt-[24px] ${active ? 'visible opacity-100' : 'invisible opacity-0'} bg-base-100 transition-opacity`}
         >
           <span className='absolute inset-x-[20px] top-0 h-[1px] bg-base-600/10' />
-          <div className='relative mb-[24px] w-full flex items-center justify-center'>
+          <div className='relative mb-[24px] flex w-full items-center justify-center'>
             <button
-              className='absolute left-[20px] top-1/2 -translate-y-1/2 -scale-100 size-[24px] bg-default bg-icon-full-arrow filter-base-600 self-start'
+              className='absolute left-[20px] top-1/2 size-[24px] -translate-y-1/2 -scale-100 self-start bg-icon-full-arrow filter-base-600 bg-default'
               type='button'
               onClick={clickHandler}
               title='Назад'
             />
-            <span className='text-base-200-med-100 text-base-600/50 uppercase'>{text}</span>
+            <span className='text-base-200-med-100 uppercase text-base-600/50'>{text}</span>
           </div>
-          <ul className='px-container pb-[24px] h-1 flex flex-col flex-grow-[1] gap-[8px] overflow-y-auto'>
+          <ul className='px-container flex h-1 flex-grow-[1] flex-col gap-[8px] overflow-y-auto pb-[24px]'>
             {children}
           </ul>
         </div>
