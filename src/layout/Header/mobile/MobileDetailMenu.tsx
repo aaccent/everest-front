@@ -8,6 +8,7 @@ import SeeAllCard from '@/layout/Header/components/SeeAllCard'
 
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 import { getCatalog, getServices } from '@/globals/api'
+import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 
 function showItemsCards(list: any[]) {
   return list.map((item, i) => (
@@ -17,10 +18,10 @@ function showItemsCards(list: any[]) {
   ))
 }
 
-function showItems(list: any[]) {
+function showItems(list: MenuItem[]) {
   return list.map((item, i) => (
     <li key={i}>
-      <Link className='py-[18px] block text-base-100-reg-100 border-b border-b-base-600/[.1]' href='#'>
+      <Link className='py-[18px] block text-base-100-reg-100 border-b border-b-base-600/10' href={item.href || '#'}>
         {item.title}
       </Link>
     </li>
@@ -67,13 +68,10 @@ async function MobileDetailMenu() {
               <SeeAllCard />
               {showItemsCards(catalog)}
             </MobileMenuItem>
-            <MobileMenuItem text='Новостройки'>
-              <SeeAllCard />
-              {showItemsCards(catalog)}
-            </MobileMenuItem>
+            <MobileMenuItem text='Новостройки'>{showItems(newBuildingsMenu)}</MobileMenuItem>
             <MobileMenuItem href='#' text='Ипотека' />
-            <MobileMenuItem text='Сервисы'>{showItems(services)}</MobileMenuItem>
-            <MobileMenuItem href='' text='О нас' />
+            <MobileMenuItem text='Сервисы'>{showItems(services as any[])}</MobileMenuItem>
+            <MobileMenuItem text='О нас'>{showItems(aboutMenu)}</MobileMenuItem>
             <MobileMenuItem href='#' text='Контакты' />
           </ul>
         </nav>

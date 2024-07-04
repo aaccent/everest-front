@@ -5,7 +5,8 @@ import MobileMenu from '@/layout/Header/mobile/MobileMenu'
 import MobileHeader from '@/layout/Header/mobile/MobileHeader'
 import MobileDetailMenu from '@/layout/Header/mobile/MobileDetailMenu'
 
-import { IsMobile } from '@/features/adaptive'
+import { IsDesktop, IsMobile } from '@/features/adaptive'
+import DesktopHeader from '@/layout/Header/desktop/DesktopHeader'
 
 /** @name {Header} */
 function Header() {
@@ -17,6 +18,9 @@ function Header() {
       <IsMobile>
         <MobileHeader className={`${whiteHeaderStyles} ${blackHeaderStyles}`} />
       </IsMobile>
+      <IsDesktop>
+        <DesktopHeader className={`${whiteHeaderStyles} ${blackHeaderStyles}`} />
+      </IsDesktop>
       <CatalogMenu />
       <IsMobile>
         <MobileMenu />
