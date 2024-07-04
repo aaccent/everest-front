@@ -12,7 +12,7 @@ function UpButton() {
 
   return (
     <button
-      className='hidden md:mr-[323px] md:flex gap-[5px] items-center text-base-500-reg-100-upper text-base-100 uppercase after:block after:size-[16px] after:bg-center after:bg-auto after:bg-icon-arrow-up after:bg-no-repeat'
+      className='text-base-500-reg-100-upper hidden items-center gap-[5px] uppercase text-base-100 after:block after:size-[16px] after:bg-icon-arrow-up after:bg-auto after:bg-center after:bg-no-repeat md:mr-[323px] md:flex'
       onClick={onUpBtnClick}
     >
       наверх
