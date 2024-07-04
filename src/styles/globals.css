@@ -77,3 +77,9 @@
     @apply font-geologica text-base-500-reg-200_mobile md:text-base-500-reg-200_desktop;
   }
 }
+
+@layer utilities {
+  .px-container {
+    @apply px-[20px] md:px-[56px];
+  }
+}

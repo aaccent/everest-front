@@ -48,7 +48,9 @@ function MobileMenuItem({ text, children }: Props) {
             />
             <span className='text-base-200-med-100 text-base-600/[.5] uppercase'>{text}</span>
           </div>
-          <ul className='px-[20px] pb-[24px] h-1 flex flex-col flex-grow-[1] gap-[8px] overflow-y-auto'>{children}</ul>
+          <ul className='px-container pb-[24px] h-1 flex flex-col flex-grow-[1] gap-[8px] overflow-y-auto'>
+            {children}
+          </ul>
         </div>
       )}
     </li>
