@@ -26,49 +26,34 @@ async function Footer() {
   const services = await getServices()
 
   function showStaticMenu() {
-    return (
-      <ul className='mt-[24px] flex flex-col gap-[12px] border-b border-b-base-100/10 pb-[24px] md:mr-[127px] md:mt-0 md:gap-[14px] md:border-none'>
-        {staticMenu.map((item, index) => (
-          <Link href={'#'} key={index}>
-            <li className='text-base-100-reg-100 text-base-100'>{item}</li>
-          </Link>
-        ))}
-      </ul>
-    )
+    return staticMenu.map((item, index) => (
+      <Link href={'#'} key={index}>
+        <li className='text-base-100-reg-100 text-base-100'>{item}</li>
+      </Link>
+    ))
   }
 
   function showMobileSocials() {
-    return (
-      <div className='grid grid-cols-2 gap-[8px] md:hidden'>
-        {socials.map((social, index) => (
-          <Link
-            className='flex size-[32px] items-center justify-center rounded-full bg-base-115'
-            href={social.url}
-            key={index}
-          >
-            <Image src={social.icon} width={18} height={18} alt={''} className='' />
-          </Link>
-        ))}
-      </div>
-    )
+    return socials.map((social, index) => (
+      <Link
+        className='flex size-[32px] items-center justify-center rounded-full bg-base-115'
+        href={social.url}
+        key={index}
+      >
+        <Image src={social.icon} width={18} height={18} alt={''} className='' />
+      </Link>
+    ))
   }
 
   function showDesktopSocials() {
-    return (
-      <div className='hidden md:block'>
-        <div className='text-base-100-reg-100 mb-[15px] text-base-150'>Соц.сети</div>
-        <ul className='flex flex-col gap-[10px]'>
-          {socials.map((social, index) => (
-            <Link className='flex items-center gap-[10px]' href={social.url} key={index}>
-              <div className='flex size-[32px] items-center justify-center rounded-full bg-base-115'>
-                <Image src={social.icon} alt={''} width={18} height={18} />
-              </div>
-              <div className='text-base-300-lg-100 text-base-100'>{social.name}</div>
-            </Link>
-          ))}
-        </ul>
-      </div>
-    )
+    return socials.map((social, index) => (
+      <Link className='flex items-center gap-[10px]' href={social.url} key={index}>
+        <div className='flex size-[32px] items-center justify-center rounded-full bg-base-115'>
+          <Image src={social.icon} alt={''} width={18} height={18} />
+        </div>
+        <div className='text-base-300-lg-100 text-base-100'>{social.name}</div>
+      </Link>
+    ))
   }
 
   return (
@@ -89,12 +74,17 @@ async function Footer() {
               mail@everest.ru
             </div>
           </div>
-          {showMobileSocials()}
+          <div className='grid grid-cols-2 gap-[8px] md:hidden'>{showMobileSocials()}</div>
         </div>
-        {showStaticMenu()}
+        <ul className='mt-[24px] flex flex-col gap-[12px] border-b border-b-base-100/10 pb-[24px] md:mr-[127px] md:mt-0 md:gap-[14px] md:border-none'>
+          {showStaticMenu()}
+        </ul>
         <FooterMenu list={catalog} title={'Каталог объектов'} className={'md:mr-[122px]'} />
         <FooterMenu list={services} title={'Услуги'} className={'md:mr-[84px]'} />
-        {showDesktopSocials()}
+        <div className='hidden md:block'>
+          <div className='text-base-100-reg-100 mb-[15px] text-base-150'>Соц.сети</div>
+          <ul className='flex flex-col gap-[10px]'>{showDesktopSocials()}</ul>
+        </div>
       </div>
       <div className='mt-[23px] md:flex md:items-center'>
         <UpButton />
