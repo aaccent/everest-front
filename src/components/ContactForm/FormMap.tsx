@@ -21,7 +21,6 @@ interface Address {
 interface Props {
   list: Address[]
   city: string
-  isOnForm?: boolean
 }
 
 function FormMap(props: Props) {
@@ -59,25 +58,6 @@ function FormMap(props: Props) {
     ))
   }
 
-  function showInfo() {
-    if (props.isOnForm) {
-      return (
-        <div className='absolute bottom-[8px] right-[8px] left-[8px] px-[20px] py-[16px] flex justify-between items-center bg-base-100 rounded-[20px] md:bottom-[24px] md:right-[24px] md:left-[24px] md:p-[24px] md:rounded-[32px]'>
-          <div className='flex flex-col gap-[6px]'>
-            <div className='text-header-500 font-coolvetica'>{currentAddress?.address}</div>
-            <div className='text-base-300-lg-100 text-base-650'>{`г. ${props.city}`}</div>
-          </div>
-          <Link
-            href={'#'}
-            className=' py-[11px] px-[16px] flex justify-center bg-base-300 rounded-[14px] text-center text-base-500-reg-100-upper'
-          >
-            маршрут
-          </Link>
-        </div>
-      )
-    }
-  }
-
   useEffect(() => {
     let bound: LngLatBounds = new LngLatBounds()
     props.list?.forEach((address) => bound.extend({ lat: address.coords.latitude, lng: address.coords.longitude }))
@@ -98,11 +78,21 @@ function FormMap(props: Props) {
         },
       }}
     >
-      {props.isOnForm ? (
-        <Image src={mapBavel} alt={''} className='hidden absolute right-0 top-0 filter-primary md:block' />
-      ) : null}
+      <Image src={mapBavel} alt={''} className='hidden absolute right-0 top-0 filter-primary md:block' />
+
       {showMarkers()}
-      {showInfo()}
+      <div className='absolute bottom-[8px] right-[8px] left-[8px] px-[20px] py-[16px] flex justify-between items-center bg-base-100 rounded-[20px] md:bottom-[24px] md:right-[24px] md:left-[24px] md:p-[24px] md:rounded-[32px]'>
+        <div className='flex flex-col gap-[6px]'>
+          <div className='text-header-500 font-coolvetica'>{currentAddress?.address}</div>
+          <div className='text-base-300-lg-100 text-base-650'>{`г. ${props.city}`}</div>
+        </div>
+        <Link
+          href={'#'}
+          className=' py-[11px] px-[16px] flex justify-center bg-base-300 rounded-[14px] text-center text-base-500-reg-100-upper'
+        >
+          маршрут
+        </Link>
+      </div>
     </CustomMap>
   )
 }

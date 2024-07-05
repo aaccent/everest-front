@@ -20,7 +20,7 @@ async function ContactForm() {
   const city = 'Абакан'
   const addresses = await getAddresses()
   const currentCityAddresses = addresses.find((el) => el.city === city)
-  console.log(currentCityAddresses)
+
   if (!currentCityAddresses) return
 
   const socials: socialItem[] = await getSocials()
@@ -85,7 +85,7 @@ async function ContactForm() {
           </div>
         </div>
       </div>
-      <FormMap list={currentCityAddresses.offices} city={city} isOnForm />
+      <FormMap list={currentCityAddresses.offices} city={city} />
     </Section>
   )
 }
