@@ -27,8 +27,8 @@ async function ContactForm() {
 
   function showSocials() {
     return socials.map((social, index) => (
-      <Link className='flex gap-[10px] items-center' href={social.url} key={index}>
-        <div className='flex justify-center items-center size-[48px] rounded-full bg-base-115 md:size-[55px]'>
+      <Link className='flex items-center gap-[10px]' href={social.url} key={index}>
+        <div className='flex size-[48px] items-center justify-center rounded-full bg-base-115 md:size-[55px]'>
           <Image src={social.icon} alt={''} width={24} height={24} />
         </div>
       </Link>
@@ -37,32 +37,32 @@ async function ContactForm() {
 
   return (
     <Section containerClassName='relative w-full rounded-tl-[20px] rounded-b-[20px] md:flex justify-between md:p-[56px] md:bg-primary'>
-      <Image src={bavel} alt={''} className='hidden md:block absolute top-0 right-0' />
-      <Image src={mobileBavel} alt={''} className='md:hidden absolute top-0 right-0' />
-      <div className='mb-[24px] p-[20px] bg-primary rounded-[20px] text-base-100 md:w-[676px] md:bg-none md:p-0 md:m-0'>
-        <h2 className='mb-[16px] text-header-200 font-coolvetica uppercase'>
+      <Image src={bavel} alt={''} className='absolute right-0 top-0 hidden md:block' />
+      <Image src={mobileBavel} alt={''} className='absolute right-0 top-0 md:hidden' />
+      <div className='mb-[24px] rounded-[20px] bg-primary p-[20px] text-base-100 md:m-0 md:w-[676px] md:bg-none md:p-0'>
+        <h2 className='text-header-200 mb-[16px] font-coolvetica uppercase'>
           Оставьте заявку на бесплатную консультацию
         </h2>
-        <div className='mb-[26px] text-base-200-lg-100 text-base-150 md:max-w-[576px] md:mb-[56px]'>
+        <div className='text-base-200-lg-100 mb-[26px] text-base-150 md:mb-[56px] md:max-w-[576px]'>
           Наш менеджер свяжется с вами в течение 15 минут или закажите звонок, перезвоним в удобное время
         </div>
         <form className='flex flex-col gap-[8px] md:block'>
           <Input
-            className='w-full md:inline-flex md:mr-[16px] md:w-[330px]'
+            className='w-full md:mr-[16px] md:inline-flex md:w-[330px]'
             type={'text'}
             placeholder={'имя*'}
             onDark
           />
           <Input className='w-full md:inline-flex md:w-[330px]' type={'tel'} placeholder={'Телефон*'} onDark />
-          <Input className='w-full md:mt-[16px] md:mb-[32px]' type={'tel'} placeholder={'время звонка*'} onDark />
-          <div className='md:flex md:gap-[24px] md:items-center md:mb-[67px]'>
+          <Input className='w-full md:mb-[32px] md:mt-[16px]' type={'tel'} placeholder={'время звонка*'} onDark />
+          <div className='md:mb-[67px] md:flex md:items-center md:gap-[24px]'>
             <Button
               text={'Отправить'}
               type={'third'}
               size={'medium'}
-              className='w-full mb-[16px] md:w-[180px] md:m-0'
+              className='mb-[16px] w-full md:m-0 md:w-[180px]'
             />
-            <div className='mb-[48px] text-center text-base-400-lg-100 text-base-150 md:text-left md:m-0 md:w-[332px]'>
+            <div className='text-base-400-lg-100 mb-[48px] text-center text-base-150 md:m-0 md:w-[332px] md:text-left'>
               Нажимая кнопку «Отправить» вы даете свое согласие на{' '}
               <Link href={'#'} className='text-base-100'>
                 обработку данных
@@ -70,11 +70,11 @@ async function ContactForm() {
             </div>
           </div>
         </form>
-        <div className='mb-[20px] text-base-200-lg-100 text-base-150 text-center md:text-left'>
+        <div className='text-base-200-lg-100 mb-[20px] text-center text-base-150 md:text-left'>
           Связаться c помощью:
         </div>
         <div className='md:flex md:items-center md:gap-[60px]'>
-          <div className='flex justify-center gap-[10px] mb-[18px] md:relative md:m-0 md:after:absolute md:after:right-[-30px] md:after:top-1/2 md:after:-translate-y-1/2 md:after:block md:after:w-[1px] md:after:h-[31px] md:after:bg-base-400'>
+          <div className='mb-[18px] flex justify-center gap-[10px] md:relative md:m-0 md:after:absolute md:after:right-[-30px] md:after:top-1/2 md:after:block md:after:h-[31px] md:after:w-[1px] md:after:-translate-y-1/2 md:after:bg-base-400'>
             {showSocials()}
           </div>
           <div className='mb-[11px] text-center md:text-left'>

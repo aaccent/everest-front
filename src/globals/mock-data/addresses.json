@@ -19,7 +19,7 @@
         "address": "ул.Космонавтов, д.65",
         "coords": {
           "latitude": 55.82222617926104,
-          "longitude":49.12235028914557
+          "longitude": 49.12235028914557
         },
         "default": false,
         "photo": "/Rectangle 1815088392.jpg",
@@ -60,7 +60,7 @@
         "address": "ул.Космонавтов, д63.",
         "coords": {
           "latitude": 56.62782221449607,
-          "longitude":47.924901753389015
+          "longitude": 47.924901753389015
         },
         "default": false,
         "photo": "/Rectangle 1815088392.jpg",

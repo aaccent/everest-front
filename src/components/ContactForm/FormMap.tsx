@@ -48,7 +48,7 @@ function FormMap(props: Props) {
       return (
         <Marker {...address.coords} key={address.id} onClick={() => setCurrentAddress(address)}>
           <div
-            className={`group/marker flex justify-center items-center size-[56px] rounded-full ${isActive ? 'bg-primary active' : 'bg-base-100'} md:size-[82px]`}
+            className={`group/marker flex size-[56px] items-center justify-center rounded-full ${isActive ? 'active bg-primary' : 'bg-base-100'} md:size-[82px]`}
           >
             <Image
               src={logoMini}
@@ -63,7 +63,7 @@ function FormMap(props: Props) {
 
   return (
     <CustomMap
-      className={'w-full h-[420px] rounded-[20px] md:w-[649px] md:h-[618px]'}
+      className={'h-[420px] w-full rounded-[20px] md:h-[618px] md:w-[649px]'}
       customProps={{
         initialViewState: {
           zoom: 14,
@@ -72,17 +72,17 @@ function FormMap(props: Props) {
         },
       }}
     >
-      <Image src={mapBavel} alt={''} className='hidden absolute right-0 top-0 filter-primary md:block' />
+      <Image src={mapBavel} alt={''} className='absolute right-0 top-0 hidden filter-primary md:block' />
 
       {showMarkers()}
-      <div className='absolute bottom-[8px] right-[8px] left-[8px] px-[20px] py-[16px] flex justify-between items-center bg-base-100 rounded-[20px] md:bottom-[24px] md:right-[24px] md:left-[24px] md:p-[24px] md:rounded-[32px]'>
+      <div className='absolute bottom-[8px] left-[8px] right-[8px] flex items-center justify-between rounded-[20px] bg-base-100 px-[20px] py-[16px] md:bottom-[24px] md:left-[24px] md:right-[24px] md:rounded-[32px] md:p-[24px]'>
         <div className='flex flex-col gap-[6px]'>
           <div className='text-header-500 font-coolvetica'>{currentAddress?.address}</div>
           <div className='text-base-300-lg-100 text-base-650'>{`г. ${props.city}`}</div>
         </div>
         <Link
           href={'#'}
-          className=' py-[11px] px-[16px] flex justify-center bg-base-300 rounded-[14px] text-center text-base-500-reg-100-upper'
+          className='text-base-500-reg-100-upper flex justify-center rounded-[14px] bg-base-300 px-[16px] py-[11px] text-center'
         >
           маршрут
         </Link>
