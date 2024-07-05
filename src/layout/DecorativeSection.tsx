@@ -56,12 +56,12 @@ function DecorativeSection({ title, titleClassName, className, reverse, small, c
   return (
     <Section containerClassName={`relative pt-[33px] pb-[22px] px-[19px] rounded-[24px] ${addContainerClassName}`}>
       <DecorativeBackgroundImage
-        className={`absolute top-[-1px] right-0 z-10 !h-auto pointer-events-none`}
+        className={`pointer-events-none absolute right-0 top-[-1px] z-10 !h-auto`}
         small={small}
       />
       {title && (
         <h2
-          className={`max-w-[500px] mb-[18px] text-base-100 text-header-100 uppercase md:mb-[48px] ${titleClassName}`}
+          className={`text-header-100 mb-[18px] max-w-[500px] uppercase text-base-100 md:mb-[48px] ${titleClassName}`}
         >
           {title}
         </h2>

@@ -58,3 +58,34 @@ export const scrollbarUtilities = plugin(function ({ addUtilities }) {
     },
   })
 })
+
+export const customVariants = plugin(function ({ addVariant, matchVariant }) {
+  addVariant('pseudo', ['&::before', '&::after'])
+  matchVariant('group-peer', function (value, { modifier }) {
+    return modifier ? `${value} ~ :merge(.group\\/${modifier}) &` : `${value} ~ :merge(.group) &`
+  })
+  matchVariant('peer-any-parent', function (value, { modifier }) {
+    return modifier ? `:merge(.peer\\/${modifier})${value} ~ * &` : `:merge(.peer)${value} ~ * &`
+  })
+})
+
+export const miscUtilities = plugin(function ({ matchUtilities, theme }) {
+  matchUtilities({
+    circle: (value) => ({
+      width: value,
+      height: value,
+      'border-radius': '50%',
+      overflow: 'hidden',
+    }),
+  })
+  matchUtilities(
+    {
+      'bg-default': (value) => ({
+        'background-repeat': 'no-repeat',
+        'background-position': 'center',
+        'background-size': value,
+      }),
+    },
+    { values: theme('bg-size') },
+  )
+})

@@ -39,16 +39,16 @@ function Input(props: InputProps) {
   function Icon() {
     return props.checked ? (
       <div
-        className={`absolute right-[18px] top-[50%] -translate-y-2/4 block size-[20px] bg-icon-checkmark bg-auto bg-no-repeat bg-center border-none`}
+        className={`absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 border-none bg-icon-checkmark bg-auto bg-center bg-no-repeat`}
       ></div>
     ) : props.type === 'password' ? (
       <button
-        className={`absolute right-[18px] top-[50%] -translate-y-2/4 block size-[20px] ${showPassword.icon} bg-auto bg-no-repeat bg-center border-none opacity-50`}
+        className={`absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 ${showPassword.icon} border-none bg-auto bg-center bg-no-repeat opacity-50`}
         onClick={onEyeClick}
       ></button>
     ) : (
       <button
-        className={`${resetBtnCLass} absolute right-[18px] top-[50%] -translate-y-2/4 size-[20px] bg-icon-close bg-auto bg-no-repeat bg-center border-none`}
+        className={`${resetBtnCLass} absolute right-[18px] top-[50%] size-[20px] -translate-y-2/4 border-none bg-icon-close bg-auto bg-center bg-no-repeat`}
         onClick={onResetBtnClick}
       ></button>
     )
@@ -66,7 +66,7 @@ function Input(props: InputProps) {
     <label className={`relative block w-full ${props.className}`}>
       <input
         type={showPassword.type}
-        className={`py-[18px] pl-[14px] pr-[40px] w-full rounded-[16px] text-base-650 uppercase focus-visible:border-base-600 focus-visible:outline-0 placeholder:text-base-150 text-base-400-reg-100 ${checkedClassName()} ${className()}`}
+        className={`text-base-400-reg-100 w-full rounded-[16px] py-[18px] pl-[14px] pr-[40px] uppercase text-base-650 placeholder:text-base-150 focus-visible:border-base-600 focus-visible:outline-0 ${checkedClassName()} ${className()}`}
         placeholder={`${props.placeholder}`}
         onChange={props.type !== 'password' ? onChange : undefined}
         ref={inputRef}
