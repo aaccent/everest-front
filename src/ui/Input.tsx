@@ -63,10 +63,10 @@ function Input(props: InputProps) {
       : setShowPassword(passwordState)
   }
   return (
-    <label className='relative block w-fit'>
+    <label className={`relative block w-full ${props.className}`}>
       <input
         type={showPassword.type}
-        className={`min-w-[330px] rounded-[16px] py-[14px] pl-[14px] pr-[40px] uppercase text-base-650 focus-visible:border-base-600 focus-visible:outline-0 ${checkedClassName()} ${className()} ${props.className}`}
+        className={`text-base-400-reg-100 w-full rounded-[16px] py-[18px] pl-[14px] pr-[40px] uppercase text-base-650 placeholder:text-base-150 focus-visible:border-base-600 focus-visible:outline-0 ${checkedClassName()} ${className()}`}
         placeholder={`${props.placeholder}`}
         onChange={props.type !== 'password' ? onChange : undefined}
         ref={inputRef}

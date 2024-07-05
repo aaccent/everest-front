@@ -83,3 +83,7 @@
     @apply px-[20px] md:px-[56px];
   }
 }
+
+.mapboxgl-control-container {
+  display: none;
+}
