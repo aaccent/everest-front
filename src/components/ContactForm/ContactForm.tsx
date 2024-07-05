@@ -1,14 +1,16 @@
 import React from 'react'
 import Image from 'next/image'
-import bavel from '@/assets/static/decorative-bavel.svg'
-import mobileBavel from '@/assets/static/decorative-bavel-mobile.svg'
+import Link from 'next/link'
+
+import Input from '@/ui/Input'
 import Section from '@/layout/Section'
+import Button from '@/ui/buttons/Button'
 import FormMap from '@/components/ContactForm/FormMap'
 import { getAddresses } from '@/globals/api/methods/getAddresses'
-import Input from '@/ui/Input'
-import Button from '@/ui/Button'
-import Link from 'next/link'
 import { getSocials } from '@/globals/api/methods/getSocials'
+
+import mobileBavel from '@/assets/static/decorative-bavel-mobile.svg'
+import bavel from '@/assets/static/decorative-bavel.svg'
 
 interface socialItem {
   name: string
