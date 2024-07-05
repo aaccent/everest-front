@@ -8,34 +8,28 @@ importers:
 
   .:
     dependencies:
-      '@aaccent/adaptive-sizes-next':
-        specifier: ^1.0.2
-        version: 1.0.2
-      '@types/mapbox-gl':
-        specifier: ^3.1.0
-        version: 3.1.0
       mapbox-gl:
         specifier: ^3.4.0
         version: 3.4.0
       next:
         specifier: 14.2.4
         version: 14.2.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      prettier-plugin-tailwindcss:
-        specifier: ^0.6.5
-        version: 0.6.5(prettier@3.3.2)
       react:
         specifier: ^18
         version: 18.3.1
       react-dom:
         specifier: ^18
         version: 18.3.1(react@18.3.1)
-      server-only:
-        specifier: ^0.0.1
-        version: 0.0.1
       react-map-gl:
         specifier: ^7.1.7
         version: 7.1.7(mapbox-gl@3.4.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
+      '@aaccent/adaptive-sizes-next':
+        specifier: ^1.0.2
+        version: 1.0.2
+      '@types/mapbox-gl':
+        specifier: ^3.1.0
+        version: 3.1.0
       '@types/node':
         specifier: ^20
         version: 20.14.9
@@ -66,6 +60,12 @@ importers:
       prettier:
         specifier: ^3.3.2
         version: 3.3.2
+      prettier-plugin-tailwindcss:
+        specifier: ^0.6.5
+        version: 0.6.5(prettier@3.3.2)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.4
@@ -3672,9 +3672,9 @@ snapshots:
 
   semver@7.6.2: {}
 
-  server-only@0.0.1: {}
-
   serialize-to-js@3.1.2: {}
+
+  server-only@0.0.1: {}
 
   set-function-length@1.2.2:
     dependencies:
