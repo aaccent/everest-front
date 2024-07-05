@@ -42,31 +42,23 @@ function FormMap(props: Props) {
   }, [props.list])
 
   function showMarkers() {
-    const markerStyle = (marker: Address) => {
-      return marker === currentAddress
-        ? {
-            bg: 'bg-primary',
-            filter: 'filter-base-100',
-          }
-        : {
-            bg: 'bg-base-100',
-            filter: 'filter-primary',
-          }
-    }
+    return props.list.map((address) => {
+      const isActive = address === currentAddress
 
-    return props.list.map((address) => (
-      <Marker {...address.coords} key={address.id} onClick={() => setCurrentAddress(address)}>
-        <div
-          className={`flex justify-center items-center size-[56px] rounded-full ${markerStyle(address).bg} md:size-[82px]`}
-        >
-          <Image
-            src={logoMini}
-            alt={''}
-            className={`relative top-[-2px] w-[26px] object-cover object-center ${markerStyle(address).filter} md:top-[-4px] md:w-[44px]`}
-          />
-        </div>
-      </Marker>
-    ))
+      return (
+        <Marker {...address.coords} key={address.id} onClick={() => setCurrentAddress(address)}>
+          <div
+            className={`group/marker flex justify-center items-center size-[56px] rounded-full ${isActive ? 'bg-primary active' : 'bg-base-100'} md:size-[82px]`}
+          >
+            <Image
+              src={logoMini}
+              alt={''}
+              className={`relative top-[-2px] w-[26px] object-cover object-center filter-primary group-[.active]/marker:filter-base-100 md:top-[-4px] md:w-[44px]`}
+            />
+          </div>
+        </Marker>
+      )
+    })
   }
 
   return (
