@@ -1,12 +1,14 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
-import CustomMap from '@/components/CustomMap'
 import { MapRef, Marker } from 'react-map-gl'
 import { LngLatBounds } from 'mapbox-gl'
 import Image from 'next/image'
+import Link from 'next/link'
+
+import CustomMap from '@/components/CustomMap'
+
 import logoMini from '@/assets/static/logo-mini.svg'
 import mapBavel from '@/assets/static/map-bavel.svg'
-import Link from 'next/link'
 
 interface Address {
   id: string
@@ -29,6 +31,15 @@ function FormMap(props: Props) {
   const initBounds = props.list.reduce((bounds, address) => {
     return bounds.extend({ lat: address.coords.latitude, lng: address.coords.longitude })
   }, new LngLatBounds())
+
+  useEffect(() => {
+    let bound: LngLatBounds = new LngLatBounds()
+    props.list?.forEach((address) => bound.extend({ lat: address.coords.latitude, lng: address.coords.longitude }))
+    mapRef.current?.fitBounds(bound, {
+      padding: 100,
+      maxZoom: 14,
+    })
+  }, [props.list])
 
   function showMarkers() {
     const markerStyle = (marker: Address) => {
@@ -57,15 +68,6 @@ function FormMap(props: Props) {
       </Marker>
     ))
   }
-
-  useEffect(() => {
-    let bound: LngLatBounds = new LngLatBounds()
-    props.list?.forEach((address) => bound.extend({ lat: address.coords.latitude, lng: address.coords.longitude }))
-    mapRef.current?.fitBounds(bound, {
-      padding: 100,
-      maxZoom: 14,
-    })
-  }, [props.list])
 
   return (
     <CustomMap
