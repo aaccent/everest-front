@@ -39,4 +39,4 @@ USER nextjs
 
 EXPOSE 3060
 
-CMD HOSTNAME="0.0.0.0" node server.js
+CMD HOSTNAME="0.0.0.0" PORT=3060 node server.js
