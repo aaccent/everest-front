@@ -2,15 +2,15 @@ name: Build, unit and functional tests
 
 on:
   push:
-    branches: ['main']
+    branches: ['master']
     paths:
-      - './**/*'
+      - '**/*'
       - '!**/*.md'
       - '!.idea'
   pull_request:
-    branches: ['main']
+    branches: ['master']
     paths:
-      - './**/*'
+      - '**/*'
       - '!**/*.md'
       - '!.idea'
   workflow_dispatch:
