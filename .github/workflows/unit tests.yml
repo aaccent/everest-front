@@ -1,4 +1,4 @@
-name: Run unit and functional tests via vitest
+name: Unit and functional tests via vitest
 
 on:
   push:
