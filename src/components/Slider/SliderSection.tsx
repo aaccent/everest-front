@@ -15,6 +15,7 @@ async function SliderSection(props: SliderSectionProps) {
     <Section containerClassName={'relative'}>
       <Link href={'#'}>
         <h2 className='text-header-200 mb-[32px] font-coolvetica uppercase'>{data.title}</h2>
+        test
       </Link>
       <Slider list={data.objects} />
     </Section>
