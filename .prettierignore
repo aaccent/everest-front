@@ -1,5 +1,24 @@
-coverage
-.next
-build
+# misc
 .idea
 .vscode
+
+# build
+build
+.next
+
+# tests
+coverage
+
+# package manager
+pnpm-lock.yaml
+
+# configs
+.eslintrc.json
+.lintstagedrc.yaml
+.prettierignore
+.prettierrc.toml
+
+# docker
+docker-compose.yaml
+.dockerignore
+Dockerfile

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "a",
+    "title": "Оформление ипотеки",
+    "code": "#",
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Trade-in",
+    "code": "#",
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Страхование",
+    "code": "#",
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Юридическое сопровождение",
+    "code": "#",
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Аналитика рынка",
+    "code": "#",
+    "showInFooter": true
+  },
+  {
+    "id": "a",
+    "title": "Онлайн-сделка",
+    "code": "#",
+    "showInFooter": true
+  }
+]

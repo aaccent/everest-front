@@ -1,7 +1,11 @@
-import Slider from '@/components/Slider/Slider'
+import ContactForm from '@/components/ContactForm/ContactForm'
 import SliderSection from '@/components/Slider/SliderSection'
-import Component from '@/components/Component'
 
 export default function Home() {
-  return <SliderSection type={'newBuildings'} />
+  return (
+    <>
+      <SliderSection type={'newBuildings'} />
+      <ContactForm />
+    </>
+  )
 }
