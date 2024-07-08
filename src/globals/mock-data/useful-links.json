@@ -1,0 +1,182 @@
+[
+  {
+    "categoryName": "Новостройки",
+    "categoryIcon": "./icons/new-buildings.svg",
+    "linksList": [
+      {
+        "id": "1",
+        "url": "#",
+        "name": "Студия",
+        "objectAmount": "196"
+      },
+      {
+        "id": "2",
+        "url": "#",
+        "name": "1-комнатные квартиры",
+        "objectAmount": "2245"
+      },
+      {
+        "id": "3",
+        "url": "#",
+        "name": "2-комнатные квартиры",
+        "objectAmount": "1425"
+      },
+      {
+        "id": "4",
+        "url": "#",
+        "name": "3-комнатные квартиры",
+        "objectAmount": "1423"
+      },
+      {
+        "id": "5",
+        "url": "#",
+        "name": "4-комнатные квартиры",
+        "objectAmount": "423"
+      },
+      {
+        "id": "6",
+        "url": "#",
+        "name": "5-комнатные квартиры",
+        "objectAmount": "74"
+      },
+      {
+        "id": "7",
+        "url": "#",
+        "name": "Пентхаусы",
+        "objectAmount": "123"
+      }
+    ]
+  },
+  {
+    "categoryName": "Снять квартиру",
+    "categoryIcon": "./icons/apartments.svg",
+    "linksList": [
+      {
+        "id": "21",
+        "url": "#",
+        "name": "1-комнатные квартиры",
+        "objectAmount": "2245"
+      },
+      {
+        "id": "31",
+        "url": "#",
+        "name": "2-комнатные квартиры",
+        "objectAmount": "1425"
+      },
+      {
+        "id": "41",
+        "url": "#",
+        "name": "3-комнатные квартиры",
+        "objectAmount": "1423"
+      }
+    ]
+  },
+  {
+    "categoryName": "Дома и участки",
+    "categoryIcon": "./icons/houses.svg",
+    "linksList": [
+      {
+        "id": "12",
+        "url": "#",
+        "name": "Дачи",
+        "objectAmount": "196"
+      },
+      {
+        "id": "22",
+        "url": "#",
+        "name": "Таунхасы",
+        "objectAmount": "2245"
+      },
+      {
+        "id": "32",
+        "url": "#",
+        "name": "Дуплексы",
+        "objectAmount": "1425"
+      },
+      {
+        "id": "42",
+        "url": "#",
+        "name": "Части домов",
+        "objectAmount": "1423"
+      },
+      {
+        "id": "52",
+        "url": "#",
+        "name": "Коттеджные поселки",
+        "objectAmount": "423"
+      },
+      {
+        "id": "62",
+        "url": "#",
+        "name": "Под ИЖС",
+        "objectAmount": "74"
+      },
+      {
+        "id": "72",
+        "url": "#",
+        "name": "Садоводство",
+        "objectAmount": "123"
+      },
+      {
+        "id": "82",
+        "url": "#",
+        "name": "Участки",
+        "objectAmount": "123"
+      }
+    ]
+  },
+  {
+    "categoryName": "Коммерция",
+    "categoryIcon": "./icons/commerce.svg",
+    "linksList": [
+      {
+        "id": "121",
+        "url": "#",
+        "name": "Аренда",
+        "objectAmount": "196"
+      },
+      {
+        "id": "221",
+        "url": "#",
+        "name": "Офисы",
+        "objectAmount": "196"
+      },
+      {
+        "id": "321",
+        "url": "#",
+        "name": "Склады",
+        "objectAmount": "2245"
+      },
+      {
+        "id": "421",
+        "url": "#",
+        "name": "Гаражи",
+        "objectAmount": "1425"
+      },
+      {
+        "id": "521",
+        "url": "#",
+        "name": "Бизнес",
+        "objectAmount": "1423"
+      },
+      {
+        "id": "621",
+        "url": "#",
+        "name": "4-комнатные квартиры",
+        "objectAmount": "474"
+      },
+      {
+        "id": "721",
+        "url": "#",
+        "name": "Торговые площади",
+        "objectAmount": "74"
+      },
+      {
+        "id": "821",
+        "url": "#",
+        "name": "Коммерческая земля",
+        "objectAmount": "123"
+      }
+    ]
+  }
+]
