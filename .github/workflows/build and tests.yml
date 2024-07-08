@@ -4,13 +4,11 @@ on:
   push:
     branches: ['main']
     paths:
-      - '**/*.*'
       - '!**/*.md'
       - '!.idea'
   pull_request:
     branches: ['main']
     paths:
-      - '**/*.*'
       - '!**/*.md'
       - '!.idea'
   workflow_dispatch:
