@@ -1,4 +1,4 @@
-name: Build, unit and functional tests
+name: Run build
 
 on:
   push:
