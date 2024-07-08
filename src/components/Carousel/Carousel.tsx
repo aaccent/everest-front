@@ -34,27 +34,27 @@ function Carousel({ children, ...options }: CarouselProps) {
       <div className='md:overflow-hidden' ref={emblaRef}>
         <div className='flex gap-[12px] md:gap-[16px]'>{children}</div>
       </div>
-      <div className='hidden absolute top-[20px] right-0 w-[89px] h-[42px] bg-base-300 rounded-[12px] overflow-hidden md:block'>
-        <div className='relative flex w-full h-full after:absolute after:top-0 after:left-[50%] after:translate-x-1/2 aftre:block after:w-[1px] after:h-[8px] after:bg-base-400 before:absolute before:bottom-0 before:left-[50%] before:translate-x-1/2 aftre:block before:w-[1px] before:h-[8px] before:bg-base-400'>
+      <div className='absolute right-0 top-[20px] hidden h-[42px] w-[89px] overflow-hidden rounded-[12px] bg-base-300 md:block'>
+        <div className='aftre:block aftre:block relative flex h-full w-full before:absolute before:bottom-0 before:left-[50%] before:h-[8px] before:w-[1px] before:translate-x-1/2 before:bg-base-400 after:absolute after:left-[50%] after:top-0 after:h-[8px] after:w-[1px] after:translate-x-1/2 after:bg-base-400'>
           <button
-            className='button-prev p-[16px] flex justify-center items-center w-1/2 after:block after:size-full after:filter-base-600 after:rotate-180 after:bg-center after:bg-contain after:bg-no-repeat after:bg-icon-arrow'
+            className='button-prev flex w-1/2 items-center justify-center p-[16px] after:block after:size-full after:rotate-180 after:bg-icon-arrow after:bg-contain after:bg-center after:bg-no-repeat after:filter-base-600'
             onClick={scrollPrev}
           ></button>
           <button
-            className='button-next p-[16px] flex justify-center items-center w-1/2 after:block after:size-full after:filter-base-600 after:bg-center after:bg-contain after:bg-no-repeat after:bg-icon-arrow'
+            className='button-next flex w-1/2 items-center justify-center p-[16px] after:block after:size-full after:bg-icon-arrow after:bg-contain after:bg-center after:bg-no-repeat after:filter-base-600'
             onClick={scrollNext}
           ></button>
         </div>
       </div>
       <Link
         href={'#'}
-        className='absolute top-0 right-0 py-[10px] flex justify-center gap-[4px] w-[70px] bg-base-300 rounded-[12px] overflow-hidden text-base-500-reg-100-upper after:block after:size-[14px] after:rotate-90 after:bg-center after:bg-auto after:bg-no-repeat after:bg-icon-arrow-up md:hidden'
+        className='text-base-500-reg-100-upper absolute right-0 top-0 flex w-[70px] justify-center gap-[4px] overflow-hidden rounded-[12px] bg-base-300 py-[10px] after:block after:size-[14px] after:rotate-90 after:bg-icon-arrow-up after:bg-auto after:bg-center after:bg-no-repeat md:hidden'
       >
         все
       </Link>
-      <div className='relative w-full h-[4px] bg-primary rounded-[10px] bottom-[-74px] overflow-hidden'>
+      <div className='relative bottom-[-74px] h-[4px] w-full overflow-hidden rounded-[10px] bg-primary'>
         <div
-          className='absolute top-0 left-[-100%] bottom-0 bg-primary w-full'
+          className='absolute bottom-0 left-[-100%] top-0 w-full bg-primary'
           style={{ transform: `translate3d(${scrollProgress}%,0px,0px)` }}
         ></div>
       </div>
@@ -67,7 +67,7 @@ interface CarouselSlideProps extends PropsWithChildren {
 }
 
 export function CarouselSlide(props: CarouselSlideProps) {
-  return <div className={`basis-full shrink-0 grow-0 ${props.className}`}>{props.children}</div>
+  return <div className={`shrink-0 grow-0 basis-full ${props.className}`}>{props.children}</div>
 }
 
 export default Carousel

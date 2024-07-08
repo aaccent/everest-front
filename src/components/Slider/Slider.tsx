@@ -33,16 +33,16 @@ function Slider(props: SliderProps) {
     <>
       <Carousel align={'start'}>
         {props.list.map((card) => (
-          <CarouselSlide className='max-w-[320px] md:max-w-[512px] min-w-0' key={card.id}>
+          <CarouselSlide className='min-w-0 max-w-[320px] md:max-w-[512px]' key={card.id}>
             <NewBuildingCard {...card} />
           </CarouselSlide>
         ))}
         <Link
           href={'#'}
-          className='relative block p-[16px] basis-full shrink-0 grow-0 max-w-[320px] md:max-w-[512px] min-w-0" bg-base-300 rounded-[20px] md:p-[32px] md:rounded-[32px]'
+          className='min-w-0" relative block max-w-[320px] shrink-0 grow-0 basis-full rounded-[20px] bg-base-300 p-[16px] md:max-w-[512px] md:rounded-[32px] md:p-[32px]'
         >
-          <div className='flex justify-center items-center ml-auto size-[40px] rounded-full bg-base-100 after:bg-icon-arrow after:bg-no-repeat after:bg-center after:bg-contain after:filter-base-600 after:size-[12px] after:block after:-rotate-45 md:size-[80px]'></div>
-          <div className='absolute bottom-[16px] left-[16px] text-header-300 md:bottom-[32px] md:left-[32px]'>
+          <div className='ml-auto flex size-[40px] items-center justify-center rounded-full bg-base-100 after:block after:size-[12px] after:-rotate-45 after:bg-icon-arrow after:bg-contain after:bg-center after:bg-no-repeat after:filter-base-600 md:size-[80px]'></div>
+          <div className='text-header-300 absolute bottom-[16px] left-[16px] md:bottom-[32px] md:left-[32px]'>
             {' '}
             Смотреть все
           </div>

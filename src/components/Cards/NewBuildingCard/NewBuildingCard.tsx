@@ -8,10 +8,10 @@ import Link from 'next/link'
 function NewBuildingCard(props: NewBuilding) {
   function showTags() {
     return (
-      <div className='absolute top-[10px] left-[8px] flex gap-[4px] md:top-[14px] md:left-[14px]'>
+      <div className='absolute left-[8px] top-[10px] flex gap-[4px] md:left-[14px] md:top-[14px]'>
         {props.tags.map((tag, index) => (
           <div
-            className='flex justify-center items-center py-[5px] px-[8px] w-fit rounded-[10px] bg-base-600 text-base-100 text-base-400-lg-100 md:py-[6.5px] md:px-[12px]'
+            className='text-base-400-lg-100 flex w-fit items-center justify-center rounded-[10px] bg-base-600 px-[8px] py-[5px] text-base-100 md:px-[12px] md:py-[6.5px]'
             key={index}
           >
             {tag}
@@ -24,10 +24,10 @@ function NewBuildingCard(props: NewBuilding) {
   return (
     <Link
       href={'#'}
-      className='group w-full h-[250px] relative rounded-[20px] block overflow-hidden md:h-[388px] md:rounded-[24px]'
+      className='group relative block h-[250px] w-full overflow-hidden rounded-[20px] md:h-[388px] md:rounded-[24px]'
     >
       <Image
-        className='object-center object-cover  transition-transform duration-500 hover:scale-110 hover:transition-transform hover:duration-500'
+        className='object-cover object-center transition-transform duration-500 hover:scale-110 hover:transition-transform hover:duration-500'
         src={props.photos[0]}
         alt={''}
         fill
