@@ -18,11 +18,17 @@ interface Props {
   className?: string
 }
 
+function getMatchMedia() {
+  if (typeof window === 'undefined') return false
+
+  return matchMedia('(min-width: 768px)').matches
+}
+
 function FooterMenu(props: Props) {
-  const [opened, setOpened] = useState(() => matchMedia('(min-width: 768px)').matches)
+  const [opened, setOpened] = useState(getMatchMedia)
 
   function className() {
-    return opened ? 'visible opacity-100 static' : 'invisible opacity-0 absolute'
+    return opened ? 'visible opacity-100 static' : 'invisible opacity-0 absolute md:static md:visible md:opacity-100'
   }
 
   const onTitleClick = () => {
