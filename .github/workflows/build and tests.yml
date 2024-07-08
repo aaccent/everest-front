@@ -27,14 +27,11 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: Install pnpm via corepack
+      - name: Install pnpm via corepack and install dependencies
         run: corepack use pnpm
 
-      - name: Install dependencies
-        run: pnpm install
-
       - name: Build Next.JS app
-        run: pnpm run build
+        run: corepack pnpm run build
 
       - name: Upload build to artifact
         uses: actions/upload-artifact@v4
@@ -55,14 +52,11 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: Install pnpm via corepack
+      - name: Install pnpm via corepack and install dependencies
         run: corepack use pnpm
 
-      - name: Install dependencies
-        run: pnpm install
-
       - name: Run vitest tests
-        run: pnpm run test
+        run: corepack pnpm run test
 
   e2e-tests:
     needs: build
@@ -82,14 +76,14 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: Install pnpm via corepack
+      - name: Install pnpm via corepack and install dependencies
         run: corepack use pnpm
 
       - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps
+        run: corepack pnpm exec playwright install --with-deps
 
       - name: Run Playwright tests
-        run: pnpm exec playwright test
+        run: corepack pnpm exec playwright test
 
       - name: Upload report to artifact
         uses: actions/upload-artifact@v4
