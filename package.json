@@ -7,11 +7,13 @@
     "dev": "next dev -p 3060",
     "build": "next build",
     "start": "next start -p 3060",
+    "start:standalone": "cross-env PORT=3060 node .next/standalone/server.js",
     "lint": "next lint",
     "prepare": "husky",
     "test": "vitest"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "mapbox-gl": "^3.4.0",
     "next": "14.2.4",
     "react": "^18",
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "@aaccent/adaptive-sizes-next": "^1.0.2",
+    "@playwright/test": "^1.45.1",
     "@testing-library/react": "^16.0.0",
     "@types/mapbox-gl": "^3.1.0",
     "@types/node": "^20",
