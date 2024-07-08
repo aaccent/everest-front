@@ -17,7 +17,6 @@ on:
 
 jobs:
   e2e-tests:
-    needs: build
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container:
