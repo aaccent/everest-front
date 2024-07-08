@@ -1,0 +1,132 @@
+[
+  {
+    "type": "newBuildings",
+    "title": "новостройки",
+    "objects": [
+      {
+        "id": "98",
+        "name": "ЖК Ноксинский",
+        "address": "ул. Космонавтов, д.5",
+        "text-code": "noksinski",
+        "category-code": "novostroiki",
+        "min-price": 8500000,
+        "status": 1751453336000,
+        "tags": ["Бизнес", "Новинка"],
+        "flat-types": [
+          {
+            "id": "ga",
+            "name": "Студии",
+            "min-square": 45,
+            "min-price": 8550000
+          },
+          {
+            "id": "ga2",
+            "name": "1-комнатные",
+            "min-square": 65,
+            "min-price": 9550000
+          },
+          {
+            "id": "ga3",
+            "name": "2-комнатные",
+            "min-square": 103,
+            "min-price": 10550000
+          }
+        ],
+        "photos": ["/slider-1.png"]
+      },
+      {
+        "id": "99+",
+        "name": "ЖК Осенний",
+        "address": "пр-кт Мира, д.12",
+        "text-code": "noksinski",
+        "category-code": "novostroiki",
+        "min-price": 6200000,
+        "status": 1733219533000,
+        "tags": ["Бизнес", "Старт продаж"],
+        "flat-types": [
+          {
+            "id": "ga",
+            "name": "Студии",
+            "min-square": 18,
+            "min-price": 6250000
+          },
+          {
+            "id": "ga2",
+            "name": "1-комнатные",
+            "min-square": 45,
+            "min-price": 6950000
+          },
+          {
+            "id": "ga3",
+            "name": "4-комнатные",
+            "min-square": 103,
+            "min-price": 108550000
+          }
+        ],
+        "photos": ["/images.png"]
+      },
+      {
+        "id": "955",
+        "name": "ЖК Ноксинский",
+        "address": "ул. Космонавтов, д.5",
+        "text-code": "noksinski",
+        "category-code": "novostroiki",
+        "min-price": 88500000,
+        "status": 1772531533000,
+        "tags": ["Бизнес", "Новинка"],
+        "flat-types": [
+          {
+            "id": "ga",
+            "name": "Студии",
+            "min-square": 45,
+            "min-price": 8550000
+          },
+          {
+            "id": "ga2",
+            "name": "1-комнатные",
+            "min-square": 45,
+            "min-price": 8550000
+          },
+          {
+            "id": "ga3",
+            "name": "Студии",
+            "min-square": 45,
+            "min-price": 8550000
+          }
+        ],
+        "photos": ["/slider-2.png"]
+      },
+      {
+        "id": "98",
+        "name": "ЖК Ноксинский",
+        "address": "ул. Космонавтов, д.5",
+        "text-code": "noksinski",
+        "category-code": "novostroiki",
+        "min-price": 8500000,
+        "status": 1751453336000,
+        "tags": ["Бизнес", "Новинка"],
+        "flat-types": [
+          {
+            "id": "ga",
+            "name": "Студии",
+            "min-square": 45,
+            "min-price": 8550000
+          },
+          {
+            "id": "ga2",
+            "name": "1-комнатные",
+            "min-square": 45,
+            "min-price": 8550000
+          },
+          {
+            "id": "ga3",
+            "name": "Студии",
+            "min-square": 45,
+            "min-price": 8550000
+          }
+        ],
+        "photos": ["/slider-3.png"]
+      }
+    ]
+  }
+]
