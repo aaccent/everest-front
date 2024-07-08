@@ -1,4 +1,4 @@
-name: Build
+name: Build and test
 
 on:
   push:
@@ -17,6 +17,7 @@ on:
 
 jobs:
   build:
+    name: 'build, type check and linting'
     runs-on: ubuntu-latest
 
     steps:
@@ -44,6 +45,7 @@ jobs:
           retention-days: 1
 
   unit-tests:
+    name: 'unit and functional tests via vitest'
     needs: build
     runs-on: ubuntu-latest
 
@@ -65,6 +67,7 @@ jobs:
         run: pnpm run test
 
   e2e-tests:
+    name: 'e2e tests via playwright'
     needs: build
     timeout-minutes: 60
     runs-on: ubuntu-latest
