@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactNode } from 'react'
+import React from 'react'
 import { getObjects } from '@/globals/api/methods/getObjects'
 import Section from '@/layout/Section'
 import Slider from '@/components/Slider/Slider'
