@@ -1,6 +1,6 @@
 import ContactForm from '@/components/ContactForm/ContactForm'
 import SliderSection from '@/components/Slider/SliderSection'
-import UsefulLinks from '@/components/UsefulLinks/UsefulLinks'
+import UsefulLinks from '@/page-components/main/UsefulLinks/UsefulLinks'
 
 export default function Home() {
   return (
