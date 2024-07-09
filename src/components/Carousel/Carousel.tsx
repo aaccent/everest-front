@@ -13,6 +13,20 @@ type CarouselProps = EmblaOptionsType &
 
 function Carousel({ children, progressBar, navigations, ...options }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
+    const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()))
+    setScrollProgress(progress * 100)
+  }, [])
+
+  useEffect(() => {
+    if (!emblaApi) return
+
+    onScroll(emblaApi)
+    emblaApi.on('reInit', onScroll).on('scroll', onScroll).on('slideFocus', onScroll)
+  }, [emblaApi, onScroll])
+
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev()
   }, [emblaApi])
@@ -20,18 +34,6 @@ function Carousel({ children, progressBar, navigations, ...options }: CarouselPr
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext()
   }, [emblaApi])
-
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
-    const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()))
-    setScrollProgress(progress * 100)
-  }, [])
-  useEffect(() => {
-    if (!emblaApi) return
-
-    onScroll(emblaApi)
-    emblaApi.on('reInit', onScroll).on('scroll', onScroll).on('slideFocus', onScroll)
-  }, [emblaApi, onScroll])
 
   function navigationButtons() {
     return (
@@ -60,19 +62,16 @@ function Carousel({ children, progressBar, navigations, ...options }: CarouselPr
 
   function progress() {
     return (
-      <div className='relative bottom-[-74px] hidden h-[4px] w-full overflow-hidden rounded-[10px] bg-primary md:block'>
-        <div
-          className='absolute bottom-0 left-[-100%] top-0 w-full bg-primary'
-          style={{ transform: `translate3d(${scrollProgress}%,0px,0px)` }}
-        ></div>
+      <div className='relative bottom-[-74px] hidden h-[4px] w-full overflow-hidden rounded-[10px] bg-base-600/15 md:block'>
+        <div className='absolute bottom-0 top-0 bg-primary' style={{ width: `${scrollProgress}%` }}></div>
       </div>
     )
   }
 
   return (
-    <div>
+    <div className='embla'>
       <div className='md:overflow-hidden' ref={emblaRef}>
-        <div className='flex gap-[12px] md:gap-[16px]'>{children}</div>
+        <div className='flex'>{children}</div>
       </div>
       {navigations && navigationButtons()}
       {progressBar && progress()}
@@ -85,7 +84,7 @@ interface CarouselSlideProps extends PropsWithChildren {
 }
 
 export function CarouselSlide(props: CarouselSlideProps) {
-  return <div className={`shrink-0 grow-0 basis-full ${props.className}`}>{props.children}</div>
+  return <div className={`slide shrink-0 grow-0 basis-full ${props.className}`}>{props.children}</div>
 }
 
 export default Carousel

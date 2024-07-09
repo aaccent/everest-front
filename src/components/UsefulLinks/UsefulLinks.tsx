@@ -45,18 +45,20 @@ function showCategories(categories: Category[]) {
   return categories.map((category, index) => {
     return (
       <CarouselSlide
-        className='relative rounded-[24px] bg-base-200 p-[24px] md:max-w-[380px] md:rounded-[32px] md:px-[32px] md:pb-[40px] md:pt-[32px]'
+        className='mr-[12px] max-w-[292px] md:mr-0 md:max-w-none md:basis-1/4 md:pr-[16px] md:last:pr-0'
         key={index}
       >
-        <Image src={bavel} alt={'#'} className='absolute right-0 top-0' />
-        <div className='mb-[20px] flex items-center gap-[16px] md:mb-[40px]'>
-          <div className='flex size-[60px] items-center justify-center rounded-[16px] bg-base-100 md:size-[80px]'>
-            <Image src={category.categoryIcon} alt={''} width={24} height={24} className='md:size-[42px]' />
+        <div className='relative h-full rounded-[24px] bg-base-200 p-[24px] md:rounded-[32px] md:px-[32px] md:pb-[40px] md:pt-[32px]'>
+          <Image src={bavel} alt={'#'} className='absolute right-0 top-0' />
+          <div className='mb-[20px] flex items-center gap-[16px] md:mb-[40px]'>
+            <div className='flex size-[60px] items-center justify-center rounded-[16px] bg-base-100 md:size-[80px]'>
+              <Image src={category.categoryIcon} alt={''} width={24} height={24} className='md:size-[42px]' />
+            </div>
+            <div className='text-header-400'>{category.categoryName}</div>
           </div>
-          <div className='text-header-400'>{category.categoryName}</div>
-        </div>
-        <div className='text-base-300-reg-200 flex flex-col gap-[14px] md:gap-[18px]'>
-          {showLinks(category.linksList)}
+          <div className='text-base-300-reg-200 flex flex-col gap-[14px] md:gap-[18px]'>
+            {showLinks(category.linksList)}
+          </div>
         </div>
       </CarouselSlide>
     )
