@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 interface FooterMenuItem {
@@ -18,22 +18,22 @@ interface Props {
   className?: string
 }
 
-function getMatchMedia() {
-  if (typeof window === 'undefined') return false
-
-  return matchMedia('(min-width: 768px)').matches
-}
-
 function FooterMenu(props: Props) {
-  const [opened, setOpened] = useState(getMatchMedia)
+  const [opened, setOpened] = useState(true)
 
   function className() {
-    return opened ? 'visible opacity-100 static' : 'invisible opacity-0 absolute md:static md:visible md:opacity-100'
+    return opened ? 'visible opacity-100 static' : 'invisible opacity-0 absolute'
   }
 
   const onTitleClick = () => {
     setOpened((prev) => !prev)
   }
+
+  useEffect(() => {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      setOpened(false)
+    }
+  }, [])
 
   return (
     <div

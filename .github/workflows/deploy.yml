@@ -2,7 +2,7 @@ name: Deploy on ssh server
 
 on:
   release:
-    types: [ published ]
+    types: [published]
   workflow_dispatch:
 
 jobs:

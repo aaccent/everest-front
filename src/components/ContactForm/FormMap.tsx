@@ -36,7 +36,7 @@ function FormMap(props: Props) {
     let bound: LngLatBounds = new LngLatBounds()
     props.list?.forEach((address) => bound.extend({ lat: address.coords.latitude, lng: address.coords.longitude }))
     mapRef.current?.fitBounds(bound, {
-      padding: 100,
+      padding: { top: 100, right: 100, bottom: 100, left: 100 },
       maxZoom: 14,
     })
   }, [props.list])
