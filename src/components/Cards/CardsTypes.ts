@@ -17,3 +17,28 @@ interface FlatTypes {
   'min-square': number
   'min-price': number
 }
+
+export interface Default {
+  id: string
+  name: string
+  address: string
+  textCode: string
+  categoryTextCode: string
+  isFavourite?: boolean
+  params: string[]
+  time: number
+  price: number
+  photoAmount: number
+  photos: string[]
+  tags: string[]
+}
+
+export type ObjectCardProps =
+  | {
+      type: 'newBuildings'
+      options: NewBuilding
+    }
+  | {
+      type: 'newInCatalog'
+      options: Default
+    }
