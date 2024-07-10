@@ -39,7 +39,7 @@ function StyleStates() {
     pathname === '/' ? 'is-white' : 'is-black',
   ].join(' ')
 
-  return <div className={`peer/style-state ${className}`} ref={ref} />
+  return <div className={`peer/style-state absolute hidden ${className}`} ref={ref} />
 }
 
 export default StyleStates

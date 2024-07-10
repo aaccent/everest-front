@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply text-base-200-lg-100 text-base-600;
+    @apply overflow-x-clip text-base-200-lg-100 text-base-600;
   }
 
   @media screen(md) {
