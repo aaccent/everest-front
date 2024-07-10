@@ -12,8 +12,8 @@ function BasePage({ children }: PropsWithChildren) {
     <AdaptiveProvider viewport={baseProps.viewport}>
       <StyleStates />
       <Header />
-      <div>
-        <main>{children}</main>
+      <div className='flex min-h-screen w-full flex-col justify-between'>
+        <main className='h-full flex-[1_1_0]'>{children}</main>
         <Footer />
       </div>
     </AdaptiveProvider>
