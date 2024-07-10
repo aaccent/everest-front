@@ -9,8 +9,10 @@ import SeeAllCard from '@/layout/Header/components/SeeAllCard'
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 import { getCatalog, getServices } from '@/globals/api'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
+import { Category } from '@/types/Category'
+import { SubCategory } from '@/types/SubCategory'
 
-function showItemsCards(list: any[]) {
+function showItemsCards(list: SubCategory[]) {
   return list.map((item, i) => (
     <li key={i}>
       <MenuItemCard {...item} />
@@ -62,11 +64,11 @@ async function MobileDetailMenu() {
           <ul>
             <MobileMenuItem text='Покупка'>
               <SeeAllCard />
-              {showItemsCards(catalog)}
+              {showItemsCards(catalog[0].subCategories)}
             </MobileMenuItem>
             <MobileMenuItem text='Аренда'>
               <SeeAllCard />
-              {showItemsCards(catalog)}
+              {showItemsCards(catalog[0].subCategories)}
             </MobileMenuItem>
             <MobileMenuItem text='Новостройки'>{showItems(newBuildingsMenu)}</MobileMenuItem>
             <MobileMenuItem href='#' text='Ипотека' />
