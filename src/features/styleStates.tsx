@@ -12,7 +12,21 @@ export function useStyleState() {
     styleStateEl?.classList.toggle(name)
   }
 
-  return { toggleClass }
+  function removeClass(name: string) {
+    if (typeof window === 'undefined') return
+
+    const styleStateEl = document.querySelector('.peer\\/style-state')
+    styleStateEl?.classList.remove(name)
+  }
+
+  function addClass(name: string) {
+    if (typeof window === 'undefined') return
+
+    const styleStateEl = document.querySelector('.peer\\/style-state')
+    styleStateEl?.classList.add(name)
+  }
+
+  return { toggleClass, removeClass, addClass }
 }
 
 /** @description Выставляет классы div элементу.
