@@ -27,3 +27,30 @@ export function useScroll() {
 
   return { scrollPos }
 }
+
+export function hideScroll() {
+  if (typeof window === 'undefined') return
+
+  const scrollWidth = window.innerWidth - document.body.offsetWidth
+  document.documentElement.style.paddingRight = `${scrollWidth}px`
+  document.documentElement.classList.add('hide-scroll')
+}
+
+export function showScroll() {
+  if (typeof window === 'undefined') return
+
+  document.documentElement.classList.remove('hide-scroll')
+  document.documentElement.style.paddingRight = '0'
+}
+
+export function toggleScroll() {
+  if (typeof window === 'undefined') return
+
+  const isHidingScroll = document.documentElement.classList.contains('hide-scroll')
+
+  if (isHidingScroll) {
+    showScroll()
+  } else {
+    hideScroll()
+  }
+}
