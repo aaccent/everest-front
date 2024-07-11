@@ -1,9 +1,11 @@
 import React, { PropsWithChildren } from 'react'
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 
+export type ButtonType = 'primary' | 'second' | 'third' | 'transparent' | 'outline'
+
 interface Props extends PropsWithChildren {
   text?: string
-  type?: 'primary' | 'second' | 'third' | 'transparent' | 'outline'
+  type?: ButtonType
   size?: 'small' | 'medium' | 'large'
   icon?: {
     img: IconName

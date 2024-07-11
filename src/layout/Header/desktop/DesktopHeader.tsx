@@ -6,6 +6,7 @@ import Logo from '@/assets/static/logo.svg'
 import CatalogButton from '@/layout/Header/components/CatalogButton'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 import Button from '@/ui/buttons/Button'
+import LoginButton from '@/layout/Header/desktop/LoginButton'
 
 interface SubmenuProps {
   list: MenuItem[]
@@ -118,9 +119,7 @@ function DesktopHeader({ className }: Props) {
             <button className='flex size-[42px] items-center justify-center rounded-full bg-base-100/15 before:block before:size-[20px] before:bg-icon-heart before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:bg-base-300 peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:before:filter-base-600' />
             <button className='flex size-[42px] items-center justify-center rounded-full bg-base-100/15 before:block before:size-[20px] before:bg-icon-scale before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:bg-base-300 peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:before:filter-base-600' />
           </div>
-          <Button className='h-[42px] min-w-[110px]' size='small' type='transparent'>
-            Войти
-          </Button>
+          <LoginButton />
         </div>
       </div>
     </header>
