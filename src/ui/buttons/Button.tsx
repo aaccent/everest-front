@@ -13,6 +13,7 @@ interface Props extends PropsWithChildren {
   loading?: boolean
   disabled?: boolean
   onClick?: () => void
+  onMouseEnter?: () => void
 }
 
 function Button(props: Props) {
@@ -90,6 +91,7 @@ function Button(props: Props) {
       className={`rounded-[16px] uppercase ${iconClassName()} ${sizeClassName()} ${typeClassName()} ${props.className} text-base-500-reg-100-upper disabled:pointer-events-none`}
       disabled={props.disabled}
       onClick={props.onClick}
+      onMouseEnter={props.onMouseEnter}
     >
       {loading()}
     </button>
