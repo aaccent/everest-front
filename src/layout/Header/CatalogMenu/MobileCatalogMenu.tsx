@@ -3,7 +3,7 @@ import SeeAllCard from '@/layout/Header/components/SeeAllCard'
 import MenuItemCard from '@/layout/Header/components/MenuItemCard'
 import CatalogMenuButton from './components/CatalogMenuButton'
 import MobileCatalogMenuWrapper from './MobileCatalogMenuWrapper'
-import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuInnerItem } from './components/CatalogMenuInner'
+import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories } from './components/CatalogMenuInner'
 
 import { getCatalog } from '@/globals/api'
 import { Category } from '@/types/Category'
@@ -25,22 +25,20 @@ function outputTopLevel(list: Category[]) {
 
 function outputInnerItems(list: Category[]) {
   return list.map((item) => (
-    <CatalogMenuInnerItem
+    <CatalogMenuSubcategories
       activeClass='block'
       inactiveClass='hidden'
-      className='h-1 flex-grow-[1] overflow-y-auto pb-[24px] scrollbar-transparent'
+      className='flex h-1 flex-grow flex-col gap-[8px] overflow-y-auto pb-[24px] scrollbar-transparent'
       id={item.id.toString()}
       key={item.id}
     >
-      <ul className='flex flex-col gap-[8px]'>
-        <li>
-          <SeeAllCard />
-        </li>
-        {item.subCategories.map((subitem: any) => (
-          <MenuItemCard key={subitem.id} {...subitem} />
-        ))}
-      </ul>
-    </CatalogMenuInnerItem>
+      <li>
+        <SeeAllCard />
+      </li>
+      {item.subCategories.map((subitem: any) => (
+        <MenuItemCard key={subitem.id} {...subitem} />
+      ))}
+    </CatalogMenuSubcategories>
   ))
 }
 
