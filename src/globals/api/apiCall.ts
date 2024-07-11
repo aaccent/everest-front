@@ -65,3 +65,5 @@ export async function apiCall<
 
   return json
 }
+
+export const isNeedMockData = process.env.NEXT_PUBLIC_MOCK_API_RESPONSE === 'true'
