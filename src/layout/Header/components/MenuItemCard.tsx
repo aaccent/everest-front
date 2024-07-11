@@ -1,15 +1,17 @@
 import React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { suggestionPlural } from '@/features/pluralRules'
-import { Category } from '@/types/Category'
 import { SubCategory } from '@/types/SubCategory'
+import Img from '@/ui/Img'
 
-function MenuItemCard({ name, seoUrl }: SubCategory) {
+function MenuItemCard({ name, seoUrl, iconUrl }: SubCategory) {
   return (
-    <Link className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px]' href={seoUrl}>
-      <div className='relative size-[52px] flex-shrink-0 overflow-hidden rounded-[16px]'>
-        <Image className='object-cover' src={'/no-photo.jpg'} fill alt='' />
+    <Link
+      className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
+      href={seoUrl}
+    >
+      <div className='relative size-[52px] flex-shrink-0 overflow-hidden rounded-[16px] md:size-[86px] md:rounded-[24px]'>
+        <Img className='object-cover object-center' src={iconUrl} fill />
       </div>
       <div className='flex flex-col gap-[4px]'>
         <span className='text-base-300-reg-100-upper'>{name}</span>
