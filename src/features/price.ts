@@ -7,3 +7,7 @@ export function formatPrice(price: number) {
   }
   return `от ${shortPrice} млн ₽`
 }
+
+export function formatSpacedPrice(price: number) {
+  return new Intl.NumberFormat('ru-RU').format(price)
+}

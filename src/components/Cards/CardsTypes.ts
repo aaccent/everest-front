@@ -9,6 +9,7 @@ export interface NewBuilding {
   tags: string[]
   'flat-types': FlatTypes[]
   photos: string[]
+  type: 'newBuildings'
 }
 
 interface FlatTypes {
@@ -31,6 +32,7 @@ export interface Default {
   photoAmount: number
   photos: string[]
   tags: string[]
+  type: 'newInCatalog'
 }
 
 export type ObjectCardProps =

@@ -13,11 +13,12 @@
     "test": "vitest"
   },
   "dependencies": {
-    "cross-env": "^7.0.3",
     "@aaccent/adaptive-sizes-next": "^1.0.2",
+    "cross-env": "^7.0.3",
     "embla-carousel": "^8.1.6",
     "embla-carousel-react": "^8.1.6",
     "mapbox-gl": "^3.4.0",
+    "moment": "^2.30.1",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",

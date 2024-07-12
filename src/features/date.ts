@@ -1,3 +1,6 @@
+import moment from 'moment'
+import 'moment/locale/ru'
+
 export function formatStatus(timestamp: number) {
   const date = new Date(timestamp)
   const quarter = Math.floor((date.getMonth() + 3) / 3)
@@ -18,4 +21,8 @@ export function convertToRoman(num: number): string {
       return 'IV'
   }
   return ''
+}
+
+export function formatTime(timestamp: number) {
+  return moment(new Date(timestamp)).startOf('hour').fromNow()
 }

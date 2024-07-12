@@ -5,7 +5,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
 import Link from 'next/link'
 
-type CarouselProps = EmblaOptionsType & PropsWithChildren
+export type CarouselProps = EmblaOptionsType & PropsWithChildren
 
 function Carousel({ children, ...options }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
@@ -48,7 +48,7 @@ function Carousel({ children, ...options }: CarouselProps) {
       </div>
       <Link
         href={'#'}
-        className='text-base-500-reg-100-upper absolute right-0 top-0 flex w-[70px] justify-center gap-[4px] overflow-hidden rounded-[12px] bg-base-300 py-[10px] after:block after:size-[14px] after:rotate-90 after:bg-icon-arrow-up after:bg-auto after:bg-center after:bg-no-repeat md:hidden'
+        className='text-base-500-reg-100-upper absolute right-0 top-[5px] flex w-[70px] justify-center gap-[4px] overflow-hidden rounded-[12px] bg-base-300 py-[10px] after:block after:size-[14px] after:rotate-90 after:bg-icon-arrow-up after:bg-contain after:bg-center after:bg-no-repeat after:filter-base-600 md:hidden'
       >
         все
       </Link>
