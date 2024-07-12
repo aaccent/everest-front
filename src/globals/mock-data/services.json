@@ -1,38 +1,44 @@
 [
   {
     "id": "a",
-    "title": "Оформление ипотеки",
+    "title": "Ипотека",
     "code": "#",
-    "showInFooter": true
+    "showInFooter": true,
+    "icon": "/icons/key.svg"
   },
   {
     "id": "a",
     "title": "Trade-in",
     "code": "#",
-    "showInFooter": true
+    "showInFooter": true,
+    "icon": "/icons/trade-in.svg"
   },
   {
     "id": "a",
     "title": "Страхование",
     "code": "#",
-    "showInFooter": true
+    "showInFooter": true,
+    "icon": "/icons/umbrella.svg"
   },
   {
     "id": "a",
     "title": "Юридическое сопровождение",
     "code": "#",
-    "showInFooter": true
+    "showInFooter": true,
+    "icon": "/icons/doc.svg"
   },
   {
     "id": "a",
     "title": "Аналитика рынка",
     "code": "#",
-    "showInFooter": true
+    "showInFooter": true,
+    "icon": "/icons/diagram.svg"
   },
   {
     "id": "a",
     "title": "Онлайн-сделка",
     "code": "#",
-    "showInFooter": true
+    "showInFooter": true,
+    "icon": "/icons/planet.svg"
   }
 ]
