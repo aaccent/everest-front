@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 import Logo from '@/assets/static/logo.svg'
 import MobileMenuButton from '@/layout/Header/mobile/MobileMenuButton'
+import CallPopupButton from '@/layout/Header/components/CallPopupButton'
 
 interface Props {
   className?: string
@@ -20,11 +21,7 @@ function MobileHeader({ className }: Props) {
         src={Logo}
         alt='Логотип компании Эверест'
       />
-      <button
-        className='flex flex-col items-center justify-center gap-[4px] bg-base-115 transition-colors circle-[36px] after:size-[20px] after:bg-icon-phone after:transition-colors after:bg-default peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:bg-base-300 peer-any-parent-[:is(.is-scrolled,.menu-open)]/style-state:after:filter-base-600'
-        type='button'
-        title='Звонок'
-      />
+      <CallPopupButton />
     </header>
   )
 }

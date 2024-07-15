@@ -6,6 +6,7 @@ import Logo from '@/assets/static/logo.svg'
 import CatalogButton from '@/layout/Header/components/CatalogButton'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 import Button from '@/ui/buttons/Button'
+import CallPopupButton from '@/layout/Header/components/CallPopupButton'
 
 interface SubmenuProps {
   list: MenuItem[]
@@ -62,9 +63,7 @@ function DesktopHeader({ className }: Props) {
           <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-add before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/style-state:before:filter-primary'>
             добавить объявление
           </button>
-          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-phone before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/style-state:before:filter-primary'>
-            заказать звонок
-          </button>
+          <CallPopupButton />
         </div>
       </div>
       <div className='flex justify-between border-b border-b-base-100/15 peer-any-parent-[.is-black]/style-state:border-b-base-600/10'>
