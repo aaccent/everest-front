@@ -24,20 +24,21 @@ function MobileCatalogButton({ toggleMenu }: ButtonProps) {
 function DesktopCatalogButton({ openMenu, closeMenu }: ButtonProps) {
   const { hasAnyClass } = useStyleState()
 
+  const className = hasAnyClass('catalog-menu') ? 'after:bg-icon-mobile-close' : 'after:bg-icon-catalog-btn'
+
   let type: ButtonType = 'third'
 
   if (hasAnyClass('is-black')) {
     type = 'primary'
   }
 
-  const isCatalogMenuOpened = hasAnyClass('catalog-menu')
-  if (isCatalogMenuOpened) {
+  if (hasAnyClass('catalog-menu', 'is-scrolled')) {
     type = 'second'
   }
 
   return (
     <Button
-      className={isCatalogMenuOpened ? 'after:bg-icon-mobile-close' : 'after:bg-icon-catalog-btn'}
+      className={className}
       size='small'
       type={type}
       icon={{ img: 'CATALOG_BTN' }}
