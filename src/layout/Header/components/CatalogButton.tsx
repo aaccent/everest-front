@@ -26,16 +26,24 @@ function DesktopCatalogButton({ openMenu, closeMenu }: ButtonProps) {
 
   let type: ButtonType = 'third'
 
-  if (hasAnyClass('catalog-menu')) {
-    type = 'second'
-  }
-
-  if (hasAnyClass('isBlack')) {
+  if (hasAnyClass('is-black')) {
     type = 'primary'
   }
 
+  const isCatalogMenuOpened = hasAnyClass('catalog-menu')
+  if (isCatalogMenuOpened) {
+    type = 'second'
+  }
+
   return (
-    <Button size='small' type={type} icon={{ img: 'CATALOG_BTN' }} onClick={closeMenu} onMouseEnter={openMenu}>
+    <Button
+      className={isCatalogMenuOpened ? 'after:bg-icon-mobile-close' : 'after:bg-icon-catalog-btn'}
+      size='small'
+      type={type}
+      icon={{ img: 'CATALOG_BTN' }}
+      onClick={closeMenu}
+      onMouseEnter={openMenu}
+    >
       Каталог объектов
     </Button>
   )

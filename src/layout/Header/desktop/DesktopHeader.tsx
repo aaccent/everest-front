@@ -40,7 +40,7 @@ interface Props {
 function DesktopHeader({ className }: Props) {
   return (
     <header
-      className={`px-container absolute top-0 z-20 w-full pt-[14px] text-base-100 peer-[:is(.is-black,.catalog-menu)]/style-state:text-base-600 ${className}`}
+      className={`px-container absolute top-0 z-20 w-full pt-[14px] text-base-100 peer-[:is(.is-black,.catalog-menu)]/style-state:sticky peer-[:is(.is-black,.catalog-menu)]/style-state:text-base-600 ${className}`}
     >
       <div className='flex items-center justify-between border-b border-b-base-100/15 pb-[13px] peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:border-b-base-600/10'>
         <nav>
