@@ -3,22 +3,10 @@ import Link from 'next/link'
 
 import MobileMenuItem from './MobileMenuItem'
 import MobileDetailMenuWrapper from './MobileDetailMenuWrapper'
-import MenuItemCard from '@/layout/Header/components/MenuItemCard'
-import SeeAllCard from '@/layout/Header/components/SeeAllCard'
 
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 import { getCatalog, getServices } from '@/globals/api'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
-import { Category } from '@/types/Category'
-import { SubCategory } from '@/types/SubCategory'
-
-function showItemsCards(list: SubCategory[]) {
-  return list.map((item, i) => (
-    <li key={i}>
-      <MenuItemCard {...item} />
-    </li>
-  ))
-}
 
 function showItems(list: MenuItem[]) {
   return list.map((item, i) => (
@@ -61,18 +49,6 @@ async function MobileDetailMenu() {
       <div className='px-container relative h-full overflow-y-auto py-[24px] has-[.active-submenu]:overflow-hidden'>
         <nav className='mb-[32px]'>
           <ul>
-            <MobileMenuItem text='Покупка'>
-              <li>
-                <SeeAllCard />
-              </li>
-              {showItemsCards(catalog[0].subCategories)}
-            </MobileMenuItem>
-            <MobileMenuItem text='Аренда'>
-              <li>
-                <SeeAllCard />
-              </li>
-              {showItemsCards(catalog[0].subCategories)}
-            </MobileMenuItem>
             <MobileMenuItem text='Новостройки'>{showItems(newBuildingsMenu)}</MobileMenuItem>
             <MobileMenuItem href='#' text='Ипотека' />
             <MobileMenuItem text='Сервисы'>{showItems(services as any[])}</MobileMenuItem>

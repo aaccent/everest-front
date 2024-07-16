@@ -35,7 +35,7 @@ function showSubCategories(list: Category[]) {
       </li>
       {category.subCategories.map((subcategory) => (
         <li key={subcategory.id}>
-          <MenuItemCard {...subcategory}></MenuItemCard>
+          <MenuItemCard parent={category} item={subcategory}></MenuItemCard>
         </li>
       ))}
     </CatalogMenuSubcategories>
