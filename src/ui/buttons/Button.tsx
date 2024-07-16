@@ -1,9 +1,11 @@
 import React, { PropsWithChildren } from 'react'
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 
+export type ButtonType = 'primary' | 'second' | 'third' | 'transparent' | 'outline'
+
 interface Props extends PropsWithChildren {
   text?: string
-  type?: 'primary' | 'second' | 'third' | 'transparent' | 'outline'
+  type?: ButtonType
   size?: 'small' | 'medium' | 'large'
   icon?: {
     img: IconName
@@ -13,6 +15,7 @@ interface Props extends PropsWithChildren {
   loading?: boolean
   disabled?: boolean
   onClick?: () => void
+  onMouseEnter?: () => void
 }
 
 function Button(props: Props) {
@@ -20,9 +23,9 @@ function Button(props: Props) {
     switch (props.type) {
       case 'primary':
       default:
-        return 'bg-primary text-base-100 hover:bg-primaryHover disabled:bg-system-disabled disabled:after:filter-base-100'
+        return 'bg-primary text-base-100 hover:bg-primaryHover after:filter-base-100 disabled:bg-system-disabled disabled:after:filter-base-100'
       case 'second':
-        return 'bg-base-300 text-base-600 hover:bg-primary hover:text-base-100 disabled:text-base-500 disabled:after:filter-base-500'
+        return 'bg-base-300 text-base-600 hover:bg-primary hover:after:filter-base-100 hover:text-base-100 disabled:text-base-500 disabled:after:filter-base-500'
       case 'third':
         return 'bg-base-100 text-base-600 hover:bg-primaryHover hover:text-base-100 disabled:text-base-500 disabled:after:filter-base-500'
       case 'transparent':
@@ -46,7 +49,7 @@ function Button(props: Props) {
   }
 
   function iconClassName() {
-    if (!props.icon) return
+    if (!props.icon) return 'after:hidden'
     if (props.loading) return
 
     return [
@@ -77,6 +80,7 @@ function Button(props: Props) {
       case 'outline':
         spinColor = 'filter-primary'
     }
+
     return (
       <svg
         className={`${spinColor} m-auto size-[20px] animate-spin bg-icon-loading bg-center bg-no-repeat`}
@@ -87,9 +91,10 @@ function Button(props: Props) {
 
   return (
     <button
-      className={`rounded-[16px] uppercase ${iconClassName()} ${sizeClassName()} ${typeClassName()} ${props.className} text-base-500-reg-100-upper disabled:pointer-events-none`}
+      className={`rounded-[16px] uppercase transition-colors after:transition-[filter] ${iconClassName()} ${sizeClassName()} ${typeClassName()} ${props.className} text-base-500-reg-100-upper disabled:pointer-events-none`}
       disabled={props.disabled}
       onClick={props.onClick}
+      onMouseEnter={props.onMouseEnter}
     >
       {loading()}
     </button>

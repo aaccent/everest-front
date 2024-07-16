@@ -1,6 +1,7 @@
 import React from 'react'
-import { IsMobile } from '@/features/adaptive'
+import { IsDesktop, IsMobile } from '@/features/adaptive'
 import MobileCatalogMenu from './MobileCatalogMenu'
+import DesktopCatalogMenu from '@/layout/Header/CatalogMenu/DesktopCatalogMenu'
 
 function CatalogMenu() {
   return (
@@ -8,6 +9,9 @@ function CatalogMenu() {
       <IsMobile>
         <MobileCatalogMenu />
       </IsMobile>
+      <IsDesktop>
+        <DesktopCatalogMenu />
+      </IsDesktop>
     </>
   )
 }
