@@ -25,9 +25,6 @@ export async function apiCall<
   const url = `${process.env.NEXT_PUBLIC_API_URL}/${uri}`
   const fetchInit: RequestInit = {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-    },
     ...(method === 'POST' ? { body: JSON.stringify(request) } : {}),
   }
 
