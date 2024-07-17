@@ -1,11 +1,11 @@
 import { SubCategory } from '@/types/SubCategory'
 
 export interface Category {
-  id: number
-  iconUrl: null | string
-  title: string
-  seoUrl: string
+  id: string
+  iconPath: null | string
+  name: string
+  code: string
   seoTitle?: string | null
   seoDescription?: string | null
-  subCategories: SubCategory[]
+  subCategoryList: SubCategory[]
 }

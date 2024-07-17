@@ -39,8 +39,8 @@ function FooterMenu(props: Props) {
       </button>
       <ul className={`text-base-300-lg-100 mt-[18px] flex flex-col gap-[12px] ${className()}`}>
         {props.list.map((item) => (
-          <Link href={item.seoUrl} key={item.id.toString()}>
-            <li>{item.title}</li>
+          <Link href={item.code} key={item.id.toString()}>
+            <li>{item.name}</li>
           </Link>
         ))}
       </ul>

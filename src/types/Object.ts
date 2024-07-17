@@ -1,7 +1,7 @@
 export interface Object {
   id: number
   title: string
-  typeObject: number
+  typeObject: string
   description: string
   price: number
   priceDiscount: number | null

@@ -1,8 +1,9 @@
 export interface SubCategory {
   id: number
   name: string
-  seoUrl: string
+  code: string
   seoTitle?: string | null
   seoDescription?: string | null
-  iconUrl: string | null
+  iconPath: string | null
+  count: number
 }

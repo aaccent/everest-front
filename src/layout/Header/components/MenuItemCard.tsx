@@ -18,7 +18,7 @@ function MenuItemCard({ item, parent }: Props) {
       href={generateCategoryLink(item, parent)}
     >
       <div className='relative size-[52px] flex-shrink-0 overflow-hidden rounded-[16px] md:size-[86px] md:rounded-[24px]'>
-        <Img className='object-cover object-center' src={item.iconUrl} fill />
+        <Img className='object-cover object-center' src={item.iconPath} fill />
       </div>
       <div className='flex flex-col gap-[4px]'>
         <span className='text-base-300-reg-100-upper'>{item.name}</span>

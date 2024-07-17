@@ -17,7 +17,7 @@ function outputTopLevel(list: Category[]) {
         className='text-base-500-reg-100-upper w-max rounded-[50px] px-[14px] py-[10.5px] text-left transition-colors'
         id={item.id.toString()}
       >
-        {item.title}
+        {item.name}
       </CatalogMenuInnerButton>
     </li>
   ))
@@ -35,7 +35,7 @@ function outputInnerItems(list: Category[]) {
       <li>
         <SeeAllCard />
       </li>
-      {item.subCategories.map((subitem: any) => (
+      {item.subCategoryList.map((subitem: any) => (
         <MenuItemCard key={subitem.id} parent={item} item={subitem} />
       ))}
     </CatalogMenuSubcategories>
