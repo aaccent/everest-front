@@ -3,20 +3,10 @@ import Link from 'next/link'
 
 import MobileMenuItem from './MobileMenuItem'
 import MobileDetailMenuWrapper from './MobileDetailMenuWrapper'
-import MenuItemCard from '@/layout/Header/components/MenuItemCard'
-import SeeAllCard from '@/layout/Header/components/SeeAllCard'
 
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 import { getCatalog, getServices } from '@/globals/api'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
-
-function showItemsCards(list: any[]) {
-  return list.map((item, i) => (
-    <li key={i}>
-      <MenuItemCard {...item} />
-    </li>
-  ))
-}
 
 function showItems(list: MenuItem[]) {
   return list.map((item, i) => (
@@ -56,18 +46,9 @@ async function MobileDetailMenu() {
 
   return (
     <MobileDetailMenuWrapper className='invisible fixed bottom-0 z-20 h-full w-full bg-base-100 opacity-0 transition-opacity peer-[.menu-open]/style-state:visible peer-[.menu-open]/style-state:opacity-100'>
-      <div className='absolute inset-x-[20px] top-[24px] h-[1px] bg-base-600/10' />
-      <div className='px-container relative h-full overflow-y-auto py-[24px]'>
+      <div className='px-container relative h-full overflow-y-auto py-[24px] has-[.active-submenu]:overflow-hidden'>
         <nav className='mb-[32px]'>
           <ul>
-            <MobileMenuItem text='Покупка'>
-              <SeeAllCard />
-              {showItemsCards(catalog)}
-            </MobileMenuItem>
-            <MobileMenuItem text='Аренда'>
-              <SeeAllCard />
-              {showItemsCards(catalog)}
-            </MobileMenuItem>
             <MobileMenuItem text='Новостройки'>{showItems(newBuildingsMenu)}</MobileMenuItem>
             <MobileMenuItem href='#' text='Ипотека' />
             <MobileMenuItem text='Сервисы'>{showItems(services as any[])}</MobileMenuItem>

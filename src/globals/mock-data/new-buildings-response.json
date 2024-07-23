@@ -71,9 +71,8 @@
             "min-price": 108550000
           }
         ],
-        "photos": [
-          "/images.png"
-        ]
+
+        "photos": ["/slider-1.png"]
       },
       {
         "id": "955",
@@ -108,9 +107,7 @@
             "min-price": 8550000
           }
         ],
-        "photos": [
-          "/slider-2.png"
-        ]
+        "photos": ["/slider-2.png"]
       },
       {
         "id": "98",
@@ -120,11 +117,7 @@
         "category-code": "novostroiki",
         "min-price": 8500000,
         "status": 1751453336000,
-        "type": "newBuildings",
-        "tags": [
-          "Бизнес",
-          "Новинка"
-        ],
+        "tags": ["Бизнес", "Новинка"],
         "flat-types": [
           {
             "id": "ga",
@@ -145,9 +138,8 @@
             "min-price": 8550000
           }
         ],
-        "photos": [
-          "/slider-3.png"
-        ]
+        "photos": ["/slider-3.png"]
       }
     ]
   }
+]

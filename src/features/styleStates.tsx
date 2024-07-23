@@ -1,45 +1,91 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useScroll } from '@/features/scroll'
 
-export function useStyleState() {
-  function toggleClass(name: string) {
-    if (typeof window === 'undefined') return
-
-    const styleStateEl = document.querySelector('.peer\\/style-state')
-    styleStateEl?.classList.toggle(name)
-  }
-
-  return { toggleClass }
+interface StyleStateContextObject {
+  toggleClass: (name: string) => void
+  removeClass: (name: string) => void
+  addClass: (name: string) => void
+  hasAnyClass: (...name: string[]) => boolean
+  classes: string[]
 }
+
+const StyleStateContext = createContext<StyleStateContextObject>({} as StyleStateContextObject)
 
 /** @description Выставляет классы div элементу.
  * Далее различные элементы могут использовать эти классы для стилизации.
  * Суть компонента в том, чтобы хранить состояния в CSS классах без useState */
-function StyleStates() {
+export function StyleStateProvider({ children }: PropsWithChildren) {
   const pathname = usePathname()
   const { scrollPos } = useScroll()
-  const ref = useRef<HTMLDivElement>(null)
+  const [classes, setClasses] = useState<string[]>([])
 
-  // Scroll className
+  // Классы для смены темы сайта в зависимости от страницы
+  useEffect(() => {
+    addClass(pathname === '/' ? 'is-white' : 'is-black')
+  }, [])
+
+  // Классы если пользователь прокрутил полосу до определенного момента
   useEffect(() => {
     if (typeof window === 'undefined') return
 
     if (scrollPos >= 20) {
-      ref.current?.classList.add('is-scrolled')
+      addClass('is-scrolled')
     } else {
-      ref.current?.classList.remove('is-scrolled')
+      removeClass('is-scrolled')
     }
   }, [scrollPos])
 
-  const className = [
-    // prettier-ignore
-    pathname === '/' ? 'is-white' : 'is-black',
-  ].join(' ')
+  const addClass: StyleStateContextObject['addClass'] = function (name) {
+    setClasses((current) => {
+      if (current.includes(name)) return current
 
-  return <div className={`peer/style-state ${className}`} ref={ref} />
+      const copy = [...current]
+      copy.push(name)
+      return copy
+    })
+  }
+
+  const removeClass: StyleStateContextObject['removeClass'] = function (name) {
+    setClasses((current) => {
+      if (!current.includes(name)) return current
+
+      const targetIndex = current.indexOf(name)
+      return current.toSpliced(targetIndex, 1)
+    })
+  }
+
+  const toggleClass: StyleStateContextObject['toggleClass'] = function (name) {
+    setClasses((current) => {
+      if (current.includes(name)) {
+        const targetIndex = current.indexOf(name)
+        return current.toSpliced(targetIndex, 1)
+      } else {
+        const copy = [...current]
+        copy.push(name)
+        return copy
+      }
+    })
+  }
+
+  const hasAnyClass: StyleStateContextObject['hasAnyClass'] = function (...searchClasses) {
+    for (const className of searchClasses) {
+      if (classes.includes(className)) return true
+    }
+
+    return false
+  }
+
+  return (
+    <StyleStateContext.Provider value={{ addClass, removeClass, toggleClass, hasAnyClass, classes }}>
+      <div className={`peer/style-state absolute hidden ${classes.join(' ')}`} />
+      {children}
+    </StyleStateContext.Provider>
+  )
 }
 
-export default StyleStates
+export function useStyleState() {
+  return useContext(StyleStateContext)
+}

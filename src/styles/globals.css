@@ -11,13 +11,23 @@
   }
 
   body {
-    @apply text-base-200-lg-100 text-base-600;
+    @apply overflow-x-clip text-base-200-lg-100 text-base-600;
   }
 
   @media screen(md) {
     html {
       --base-width: 1680;
     }
+  }
+
+  html.hide-scroll {
+    /* 'clip' вместо 'hidden' необходим для корректной работы position:sticky */
+    @apply overflow-x-clip overflow-y-clip;
+  }
+
+  html.hide-scroll body {
+    /* 'clip' вместо 'hidden' необходим для корректной работы position:sticky */
+    @apply overflow-x-clip overflow-y-clip;
   }
 }
 

@@ -1,10 +1,10 @@
-import catalog from '@/globals/mock-data/catalog.json'
-import detailCatalog from '@/globals/mock-data/detail-catalog.json'
+import { Category } from '@/types/Category'
+import { apiCall, APIResponse } from '@/globals/api/apiCall'
 
-export async function getCatalog() {
-  return catalog
-}
+type Response = APIResponse<Category[]>
 
-export async function getDetailCatalog() {
-  return detailCatalog
+export async function getCatalog(): Promise<Category[]> {
+  const res = await apiCall<false, Response>('catalog/all-categories', { method: 'GET' })
+
+  return res.data
 }

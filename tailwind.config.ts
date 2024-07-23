@@ -258,6 +258,9 @@ const config: Config = {
       ],
     },
     colors: {
+      inherit: 'inherit',
+      current: 'currentColor',
+      transparent: 'transparent',
       base: {
         100: 'hsl(0, 0%, 100%)',
         115: 'hsla(0, 0%, 100%, 0.15)',

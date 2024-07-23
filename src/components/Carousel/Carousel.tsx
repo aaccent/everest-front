@@ -5,7 +5,11 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
 import Link from 'next/link'
 
-export type CarouselProps = EmblaOptionsType & PropsWithChildren
+type CarouselProps = EmblaOptionsType &
+  PropsWithChildren & {
+    progressBar?: boolean
+    navigations?: boolean
+  }
 
 function Carousel({ children, ...options }: CarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options)

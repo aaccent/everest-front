@@ -1,39 +1,31 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-
-interface FooterMenuItem {
-  id: string
-  title: string
-  icon?: string
-  code: string
-  showOnMain?: boolean
-  showInFooter?: boolean
-}
+import { Category } from '@/types/Category'
 
 interface Props {
-  list: FooterMenuItem[]
+  list: Category[]
   title: string
   className?: string
 }
 
-function getMatchMedia() {
-  if (typeof window === 'undefined') return false
-
-  return matchMedia('(min-width: 768px)').matches
-}
-
 function FooterMenu(props: Props) {
-  const [opened, setOpened] = useState(getMatchMedia)
+  const [opened, setOpened] = useState(true)
 
   function className() {
-    return opened ? 'visible opacity-100 static' : 'invisible opacity-0 absolute md:static md:visible md:opacity-100'
+    return opened ? 'visible opacity-100 static' : 'invisible opacity-0 absolute'
   }
 
   const onTitleClick = () => {
     setOpened((prev) => !prev)
   }
+
+  useEffect(() => {
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      setOpened(false)
+    }
+  }, [])
 
   return (
     <div
@@ -47,8 +39,8 @@ function FooterMenu(props: Props) {
       </button>
       <ul className={`text-base-300-lg-100 mt-[18px] flex flex-col gap-[12px] ${className()}`}>
         {props.list.map((item) => (
-          <Link href={item.code} key={item.id}>
-            <li>{item.title}</li>
+          <Link href={item.code} key={item.id.toString()}>
+            <li>{item.name}</li>
           </Link>
         ))}
       </ul>
