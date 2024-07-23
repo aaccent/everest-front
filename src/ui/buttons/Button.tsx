@@ -4,7 +4,7 @@ import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 export type ButtonVariation = 'primary' | 'second' | 'third' | 'transparent' | 'outline'
 type HTMLButtonProps = Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>
 
-type Props = PropsWithChildren &
+export type Props = PropsWithChildren &
   HTMLButtonProps & {
     text?: string
     variation?: ButtonVariation
