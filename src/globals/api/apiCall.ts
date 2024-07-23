@@ -50,12 +50,17 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   uri: string,
   options: ApiCallOptions<TRequest>,
 ): Promise<TResponse> {
-  const { method = 'POST', request } = options
+  const { method = 'POST', request = {} } = options
 
   const url = `${process.env.NEXT_PUBLIC_API_URL}/${uri}`
-  const fetchInit: RequestInit = {
-    method,
-    ...(method === 'POST' ? { body: JSON.stringify(request) } : {}),
+  const fetchInit: RequestInit = { method }
+
+  if (method === 'POST') {
+    fetchInit.headers = {
+      'Content-Type': 'application/json',
+    }
+
+    fetchInit.body = JSON.stringify(request)
   }
 
   const res = await fetch(url, fetchInit)
