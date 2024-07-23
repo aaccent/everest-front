@@ -1,5 +1,9 @@
-export async function tryJSONParse<TType extends any = any>(value: any) {
-  return await new Promise<TType>((resolve) => resolve(JSON.parse(value))).catch(() => false as const)
+export async function tryJSONParse<TType extends any = any>(value: any): Promise<TType | false> {
+  try {
+    return JSON.parse(value)
+  } catch {
+    return false
+  }
 }
 
 export type APIRequest<TQuery extends object | false> = TQuery extends false ? {} : { query: TQuery }
