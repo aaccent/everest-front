@@ -1,3 +1,5 @@
+import { LogError } from '@/globals/api/LogError'
+
 /**
  * @typeParam TType - тип возвращаемый при успешной конвертации
  * @returns - JSON Объект при успешной конвертации и false при ошибке
@@ -14,6 +16,7 @@ export type APIRequest<TQuery extends object = object> = TQuery
 
 export type APIResponse<TResponse extends object = object> = {
   data: TResponse
+  message?: string
 }
 
 /**
@@ -68,14 +71,12 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   const json = await tryJSONParse(text)
 
   if (!json) {
-    console.error(`Return body from ${method}:${uri} not valid json`, {
+    throw new LogError('Return body from ${method}:${uri} not valid json', {
       path: url,
       body: text,
       request,
       requestStr: JSON.stringify(request),
     })
-
-    throw new Error('Return body not valid json')
   }
 
   if (!res.ok && process.env.NODE_ENV === 'development') {
@@ -88,11 +89,10 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   }
 
   if (res.status === 500) {
-    console.error(`Method ${method}:${uri} ended with 500 code`, {
+    throw new LogError(`Method ${method}:${uri} ended with 500 code`, {
       request,
       text,
     })
-    throw new Error(`Error 500 on api server while executing ${method}:${uri}`)
   }
 
   return json
