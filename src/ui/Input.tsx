@@ -44,11 +44,13 @@ function Input({ className: labelClassName, type, onDark, checked, ...inputProps
       <button
         className={`absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 ${showPassword.icon} border-none bg-auto bg-center bg-no-repeat opacity-50`}
         onClick={onEyeClick}
+        type='button'
       ></button>
     ) : (
       <button
         className={`${resetBtnCLass} absolute right-[18px] top-[50%] size-[20px] -translate-y-2/4 border-none bg-icon-close bg-auto bg-center bg-no-repeat`}
         onClick={onResetBtnClick}
+        type='button'
       ></button>
     )
   }
