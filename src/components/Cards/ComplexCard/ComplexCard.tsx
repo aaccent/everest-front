@@ -1,15 +1,15 @@
 import React from 'react'
 
 import Image from 'next/image'
-import { NewBuilding } from '@/components/Cards/CardsTypes'
-import CardInfo from '@/components/Cards/NewBuildingCard/CardInfo'
+import { Complex } from '@/components/Cards/CardsTypes'
+import CardInfo from '@/components/Cards/ComplexCard/CardInfo'
 import Link from 'next/link'
 
-function NewBuildingCard(props: NewBuilding) {
+function ComplexCard(props: Complex) {
   function showTags() {
     return (
       <div className='absolute left-[8px] top-[10px] flex gap-[4px] md:left-[14px] md:top-[14px]'>
-        {props.tags.map((tag, index) => (
+        {props.tags?.map((tag, index) => (
           <div
             className='text-base-400-lg-100 flex w-fit items-center justify-center rounded-[10px] bg-base-600 px-[8px] py-[5px] text-base-100 md:px-[12px] md:py-[6.5px]'
             key={index}
@@ -28,7 +28,7 @@ function NewBuildingCard(props: NewBuilding) {
     >
       <Image
         className='object-cover object-center transition-transform duration-500 hover:scale-110 hover:transition-transform hover:duration-500'
-        src={props.photos[0]}
+        src={props.mainImg}
         alt={''}
         fill
       />
@@ -39,4 +39,4 @@ function NewBuildingCard(props: NewBuilding) {
   )
 }
 
-export default NewBuildingCard
+export default ComplexCard

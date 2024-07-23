@@ -1,19 +1,21 @@
-export interface NewBuilding {
+export interface Complex {
   id: string
   name: string
-  address: string
-  'text-code': string
-  'category-code': string
-  'min-price': number
-  status: number
-  tags: string[]
-  'flat-types': FlatTypes[]
-  photos: string[]
+  address?: string
+  code: string
+  minPrice?: number
+  status?: number
+  tags?: string[]
+  objectsType: FlatTypes[]
+  mainImg: string
+  description: string
+  developerLogo: string
+  presentationLink: string
 }
 
 interface FlatTypes {
   id: string
   name: string
-  'min-square': number
-  'min-price': number
+  minArea: number
+  minPrice: number
 }

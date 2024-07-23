@@ -57,7 +57,11 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     method,
     ...(method === 'POST' ? { body: JSON.stringify(request) } : {}),
   }
-
+  if (method === 'POST') {
+    fetchInit.headers = {
+      'Content-Type': 'application/json',
+    }
+  }
   const res = await fetch(url, fetchInit)
   const text = await res.text()
   const json = await tryJSONParse(text)
