@@ -1,3 +1,7 @@
+/**
+ * @typeParam TType - тип возвращаемый при успешной конвертации
+ * @returns - JSON Объект при успешной конвертации и false при ошибке
+ * */
 export async function tryJSONParse<TType extends any = any>(value: any): Promise<TType | false> {
   try {
     return JSON.parse(value)
@@ -6,26 +10,42 @@ export async function tryJSONParse<TType extends any = any>(value: any): Promise
   }
 }
 
-export type APIRequest<TQuery extends object | false> = TQuery extends false ? {} : { query: TQuery }
+export type APIRequest<TQuery extends object | false = object> = TQuery extends false ? {} : { query: TQuery }
 
-export type APIResponse<TResponse extends object> = {
+export type APIResponse<TResponse extends object = object> = {
   data: TResponse
 }
 
-type ApiCallOptions<TRequest extends APIRequest<any>> =
+/**
+ * @typeParam TRequest - Тип, передаваемый в body запроса. Если false, то значит что его ненужно указывать
+ * */
+type ApiCallOptions<TRequest extends APIRequest<object | false>> =
   | {
+      /** Запрос к апи описан в {@link APIRequest}. */
       request?: TRequest
       method?: 'POST'
     }
   | {
+      /** При 'GET' методе нельзя указать request */
       request?: never
       method: 'GET'
     }
 
-export async function apiCall<
-  TRequest extends APIRequest<any> = APIRequest<any>,
-  TResponse extends APIResponse<any> = APIResponse<any>,
->(uri: string, { method = 'POST', request }: ApiCallOptions<TRequest>): Promise<TResponse> {
+/**
+ * @param uri - Путь к методу без слэша в начале и "/api/v1".
+ * @param options - Параметры запроса. Описан в {@link ApiCallOptions}
+ * @example
+ * Запрос к /api/v1/catalog/new-buildings с http методом 'POST':
+ * ```javascript
+ * apiCall('catalog/new-buildings', { method: 'POST' })
+ * ```
+ * */
+export async function apiCall<TRequest extends APIRequest | false = false, TResponse extends APIResponse = APIResponse>(
+  uri: string,
+  options: TRequest extends false ? ApiCallOptions<APIRequest<false>> : ApiCallOptions<TRequest>,
+): Promise<TResponse> {
+  const { method = 'POST', request } = options
+
   const url = `${process.env.NEXT_PUBLIC_API_URL}/${uri}`
   const fetchInit: RequestInit = {
     method,
