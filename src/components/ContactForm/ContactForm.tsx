@@ -60,7 +60,7 @@ async function ContactForm() {
           <div className='md:mb-[67px] md:flex md:items-center md:gap-[24px]'>
             <Button
               text={'Отправить'}
-              type={'third'}
+              variation={'third'}
               size={'medium'}
               className='mb-[16px] w-full md:m-0 md:w-[180px]'
             />

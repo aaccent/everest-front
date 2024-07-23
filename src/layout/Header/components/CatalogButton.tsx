@@ -3,7 +3,7 @@
 import React from 'react'
 import { useStyleState } from '@/features/styleStates'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
-import Button, { ButtonType } from '@/ui/buttons/Button'
+import Button, { ButtonVariation } from '@/ui/buttons/Button'
 import { hideScroll, showScroll, toggleScroll } from '@/features/scroll'
 
 interface ButtonProps {
@@ -26,7 +26,7 @@ function DesktopCatalogButton({ openMenu, closeMenu }: ButtonProps) {
 
   const className = hasAnyClass('catalog-menu') ? 'after:bg-icon-mobile-close' : 'after:bg-icon-catalog-btn'
 
-  let type: ButtonType = 'third'
+  let type: ButtonVariation = 'third'
 
   if (hasAnyClass('is-black')) {
     type = 'primary'
@@ -40,7 +40,7 @@ function DesktopCatalogButton({ openMenu, closeMenu }: ButtonProps) {
     <Button
       className={className}
       size='small'
-      type={type}
+      variation={type}
       icon={{ img: 'CATALOG_BTN' }}
       onClick={closeMenu}
       onMouseEnter={openMenu}
