@@ -10,7 +10,7 @@ export async function tryJSONParse<TType extends any = any>(value: any): Promise
   }
 }
 
-export type APIRequest<TQuery extends object | false = object> = TQuery extends false ? {} : { query: TQuery }
+export type APIRequest<TQuery extends object = object> = TQuery
 
 export type APIResponse<TResponse extends object = object> = {
   data: TResponse
@@ -19,17 +19,23 @@ export type APIResponse<TResponse extends object = object> = {
 /**
  * @typeParam TRequest - Тип, передаваемый в body запроса. Если false, то значит что его ненужно указывать
  * */
-type ApiCallOptions<TRequest extends APIRequest<object | false>> =
-  | {
-      /** Запрос к апи описан в {@link APIRequest}. */
-      request?: TRequest
-      method?: 'POST'
-    }
+type ApiCallOptions<TRequest extends APIRequest | false = false> =
   | {
       /** При 'GET' методе нельзя указать request */
       request?: never
       method: 'GET'
     }
+  | (TRequest extends false
+      ? {
+          /** Запрос к апи описан в {@link APIRequest}. */
+          request?: never
+          method?: 'POST'
+        }
+      : {
+          /** Запрос к апи описан в {@link APIRequest}. */
+          request: TRequest
+          method?: 'POST'
+        })
 
 /**
  * @param uri - Путь к методу без слэша в начале и "/api/v1".
@@ -42,7 +48,7 @@ type ApiCallOptions<TRequest extends APIRequest<object | false>> =
  * */
 export async function apiCall<TRequest extends APIRequest | false = false, TResponse extends APIResponse = APIResponse>(
   uri: string,
-  options: TRequest extends false ? ApiCallOptions<APIRequest<false>> : ApiCallOptions<TRequest>,
+  options: ApiCallOptions<TRequest>,
 ): Promise<TResponse> {
   const { method = 'POST', request } = options
 
