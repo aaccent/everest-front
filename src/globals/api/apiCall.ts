@@ -19,51 +19,52 @@ export type APIResponse<TResponse extends object = object> = {
   message?: string
 }
 
+export type SupportedMethod = 'POST' | 'GET'
+
 /**
  * @typeParam TRequest - Тип, передаваемый в body запроса. Если false, то значит что его ненужно указывать
  * */
-type ApiCallOptions<TRequest extends APIRequest | false = false> =
-  | {
-      /** При 'GET' методе нельзя указать request */
+type ApiCallOptions<TRequest extends APIRequest | false = false> = TRequest extends false
+  ? {
+      /** Запрос к апи описан в {@link APIRequest}. */
       request?: never
-      method: 'GET'
+      method?: SupportedMethod
     }
-  | (TRequest extends false
-      ? {
-          /** Запрос к апи описан в {@link APIRequest}. */
-          request?: never
-          method?: 'POST'
-        }
-      : {
-          /** Запрос к апи описан в {@link APIRequest}. */
-          request: TRequest
-          method?: 'POST'
-        })
+  : {
+      /** Запрос к апи описан в {@link APIRequest}. */
+      request: TRequest
+      method?: SupportedMethod
+    }
 
 /**
- * @param uri - Путь к методу без слэша в начале и "/api/v1".
+ * @param uri - Путь к методу без "/api/v1".
  * @param options - Параметры запроса. Описан в {@link ApiCallOptions}
  * @example
  * Запрос к /api/v1/catalog/new-buildings с http методом 'POST':
  * ```javascript
- * apiCall('catalog/new-buildings', { method: 'POST' })
+ * apiCall('/catalog/new-buildings', { method: 'POST' })
  * ```
  * */
 export async function apiCall<TRequest extends APIRequest | false = false, TResponse extends APIResponse = APIResponse>(
-  uri: string,
+  uri: `/${string}`,
   options: ApiCallOptions<TRequest>,
 ): Promise<TResponse> {
-  const { method = 'POST', request = {} } = options
+  const { method = 'POST', request } = options
 
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/${uri}`
+  let url = new URL(uri, process.env.NEXT_PUBLIC_API_URL)
   const fetchInit: RequestInit = { method }
 
-  if (method === 'POST') {
+  if (request && method === 'POST') {
+    fetchInit.body = JSON.stringify(request)
     fetchInit.headers = {
       'Content-Type': 'application/json',
     }
+  }
 
-    fetchInit.body = JSON.stringify(request)
+  if (request && method === 'GET') {
+    // @ts-expect-error URLSearchParams преобразовывает объекты с boolean и числами в необходимый формат
+    const searchParams = new URLSearchParams(request)
+    url = new URL(`${url.pathname}?${searchParams.toString()}`, process.env.NEXT_PUBLIC_API_URL)
   }
 
   const res = await fetch(url, fetchInit)
@@ -79,19 +80,19 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     })
   }
 
+  if (res.status === 500) {
+    throw new LogError(`Method ${method}:${uri} ended with 500 code`, {
+      request,
+      text,
+    })
+  }
+
   if (!res.ok && process.env.NODE_ENV === 'development') {
     console.error(`Error from api while fetching ${method}:${uri}`, {
       path: url,
       status: res.status,
       request,
       json,
-    })
-  }
-
-  if (res.status === 500) {
-    throw new LogError(`Method ${method}:${uri} ended with 500 code`, {
-      request,
-      text,
     })
   }
 
