@@ -7,6 +7,6 @@ type Request = APIRequest<{
 }>
 
 export async function sendCallRequest(request: Request): Promise<boolean> {
-  const res = await apiCall<Request, APIResponse<[]>>('feedback', { request })
+  const res = await apiCall<Request, APIResponse<[]>>('/feedback', { request })
   return res.message === 'Заявка отправлена'
 }

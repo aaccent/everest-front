@@ -15,6 +15,6 @@ interface SecondaryHousing {
 type Response = APIResponse<SecondaryHousing>
 
 export async function getSecondaryHousing() {
-  const res = await apiCall<false, Response>('catalog/secondary-housing', { method: 'GET' })
+  const res = await apiCall<false, Response>('/catalog/secondary-housing', { method: 'GET' })
   return res.data
 }
