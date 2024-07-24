@@ -1,26 +1,28 @@
-import React, { PropsWithChildren } from 'react'
+import React, { ButtonHTMLAttributes, PropsWithChildren } from 'react'
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 
-export type ButtonType = 'primary' | 'second' | 'third' | 'transparent' | 'outline'
+export type ButtonVariation = 'primary' | 'second' | 'third' | 'transparent' | 'outline'
+type HTMLButtonProps = Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>
 
-interface Props extends PropsWithChildren {
-  text?: string
-  type?: ButtonType
-  size?: 'small' | 'medium' | 'large'
-  icon?: {
-    img: IconName
-    position?: 'left' | 'right'
+export type Props = PropsWithChildren &
+  HTMLButtonProps & {
+    text?: string
+    variation?: ButtonVariation
+    size?: 'small' | 'medium' | 'large'
+    icon?: {
+      img: IconName
+      position?: 'left' | 'right'
+    }
+    className?: string
+    loading?: boolean
+    disabled?: boolean
+    onClick?: () => void
+    onMouseEnter?: () => void
   }
-  className?: string
-  loading?: boolean
-  disabled?: boolean
-  onClick?: () => void
-  onMouseEnter?: () => void
-}
 
 function Button(props: Props) {
   function typeClassName() {
-    switch (props.type) {
+    switch (props.variation) {
       case 'primary':
       default:
         return 'bg-primary text-base-100 hover:bg-primaryHover after:filter-base-100 disabled:bg-system-disabled disabled:after:filter-base-100'
@@ -61,7 +63,7 @@ function Button(props: Props) {
       'after:size-[20px]',
       `after:bg-${ICONS_NAME[props.icon.img]}`,
       'after:bg-default-auto',
-      ['third', 'outline'].includes(props.type || '') ? 'hover:after:filter-base-100' : '',
+      ['third', 'outline'].includes(props.variation || '') ? 'hover:after:filter-base-100' : '',
     ].join(' ')
   }
 
@@ -69,7 +71,7 @@ function Button(props: Props) {
     if (!props.loading) return props.text || props.children
 
     let spinColor
-    switch (props.type) {
+    switch (props.variation) {
       case 'primary' || 'transparent':
       default:
         spinColor = 'filter-base-100'

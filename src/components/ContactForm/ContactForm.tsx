@@ -4,13 +4,15 @@ import Link from 'next/link'
 
 import Input from '@/ui/Input'
 import Section from '@/layout/Section'
-import Button from '@/ui/buttons/Button'
+import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
 import { getAddresses } from '@/globals/api/methods/getAddresses'
 import { getSocials } from '@/globals/api/methods/getSocials'
 
 import mobileBavel from '@/assets/static/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bavel.svg'
+import { callFormHandler } from '@/features/forms'
+import Form from '@/ui/Form'
 
 interface socialItem {
   name: string
@@ -48,22 +50,26 @@ async function ContactForm() {
         <div className='text-base-200-lg-100 mb-[26px] text-base-150 md:mb-[56px] md:max-w-[576px]'>
           Наш менеджер свяжется с вами в течение 15 минут или закажите звонок, перезвоним в удобное время
         </div>
-        <form className='flex flex-col gap-[8px] md:block'>
+        <Form className='flex flex-col gap-[8px] md:block' action={callFormHandler}>
           <Input
             className='w-full md:mr-[16px] md:inline-flex md:w-[330px]'
-            type={'text'}
-            placeholder={'имя*'}
+            type='text'
+            name='name'
+            placeholder='имя*'
             onDark
           />
-          <Input className='w-full md:inline-flex md:w-[330px]' type={'tel'} placeholder={'Телефон*'} onDark />
-          <Input className='w-full md:mb-[32px] md:mt-[16px]' type={'tel'} placeholder={'время звонка*'} onDark />
+          <Input className='w-full md:inline-flex md:w-[330px]' type='tel' placeholder='Телефон*' name='tel' onDark />
+          <Input
+            className='w-full md:mb-[32px] md:mt-[16px]'
+            type='tel'
+            placeholder='время звонка*'
+            name='time'
+            onDark
+          />
           <div className='md:mb-[67px] md:flex md:items-center md:gap-[24px]'>
-            <Button
-              text={'Отправить'}
-              type={'third'}
-              size={'medium'}
-              className='mb-[16px] w-full md:m-0 md:w-[180px]'
-            />
+            <SubmitButton className='mb-[16px] w-full md:m-0 md:w-[180px]' variation='third' size='medium'>
+              Отправить
+            </SubmitButton>
             <div className='text-base-400-lg-100 mb-[48px] text-center text-base-150 md:m-0 md:w-[332px] md:text-left'>
               Нажимая кнопку «Отправить» вы даете свое согласие на{' '}
               <Link href={'#'} className='text-base-100'>
@@ -71,7 +77,7 @@ async function ContactForm() {
               </Link>
             </div>
           </div>
-        </form>
+        </Form>
         <div className='text-base-200-lg-100 mb-[20px] text-center text-base-150 md:text-left'>
           Связаться c помощью:
         </div>
