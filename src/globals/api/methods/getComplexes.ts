@@ -11,7 +11,7 @@ type Response = APIResponse<{
 }>
 
 export async function getComplexes() {
-  const res = await apiCall<Request | false, Response>(`catalog/new-buildings`, {
+  const res = await apiCall<Request | false, Response>(`/catalog/new-buildings`, {
     method: 'POST',
     request: { chainUrl: 'complexes' },
   })
