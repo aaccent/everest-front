@@ -80,7 +80,7 @@ async function Footer() {
           {showStaticMenu()}
         </ul>
         <FooterMenu list={catalog} title={'Каталог объектов'} className={'md:mr-[122px]'} />
-        <FooterMenu list={services} title={'Услуги'} className={'md:mr-[84px]'} />
+        {/*<FooterMenu list={services} title={'Услуги'} className={'md:mr-[84px]'} />*/}
         <div className='hidden md:block'>
           <div className='text-base-100-reg-100 mb-[15px] text-base-150'>Соц.сети</div>
           <ul className='flex flex-col gap-[10px]'>{showDesktopSocials()}</ul>

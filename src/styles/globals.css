@@ -19,6 +19,16 @@
       --base-width: 1680;
     }
   }
+
+  html.hide-scroll {
+    /* 'clip' вместо 'hidden' необходим для корректной работы position:sticky */
+    @apply overflow-x-clip overflow-y-clip;
+  }
+
+  html.hide-scroll body {
+    /* 'clip' вместо 'hidden' необходим для корректной работы position:sticky */
+    @apply overflow-x-clip overflow-y-clip;
+  }
 }
 
 /* Text utilities */

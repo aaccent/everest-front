@@ -25,7 +25,7 @@ export const filters = plugin(function ({ addUtilities }) {
   })
 })
 
-export const scrollbarUtilities = plugin(function ({ addUtilities }) {
+export const scrollbarUtilities = plugin(function ({ addUtilities, theme }) {
   addUtilities({
     '.scrollbar-transparent': {
       scrollbarWidth: 'none',
@@ -42,18 +42,16 @@ export const scrollbarUtilities = plugin(function ({ addUtilities }) {
       },
     },
     '.scrollbar-custom': {
-      scrollbarWidth: 'thin',
-      scrollbarColor: 'rgb(211, 211, 211) transparent',
       '&::-webkit-scrollbar': {
         width: '2px',
         height: '2px',
       },
       '&::-webkit-scrollbar-thumb': {
-        backgroundColor: 'rgb(211, 211, 211)',
+        backgroundColor: theme('colors.base.500'),
         borderRadius: '4px',
       },
       '&::-webkit-scrollbar-track': {
-        backgroundColor: 'transparent',
+        backgroundColor: theme('colors.base.400'),
       },
     },
   })
@@ -67,6 +65,8 @@ export const customVariants = plugin(function ({ addVariant, matchVariant }) {
   matchVariant('peer-any-parent', function (value, { modifier }) {
     return modifier ? `:merge(.peer\\/${modifier})${value} ~ * &` : `:merge(.peer)${value} ~ * &`
   })
+  addVariant('scroll-btn-yt', ['&::-webkit-scrollbar-button:vertical:decrement'])
+  addVariant('scroll-btn-yb', ['&::-webkit-scrollbar-button:vertical:increment'])
 })
 
 export const miscUtilities = plugin(function ({ matchUtilities, theme }) {
