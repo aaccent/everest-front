@@ -13,7 +13,9 @@ function CallPopup() {
     >
       <Image src={bgLogo} alt={''} className={`absolute bottom-0 right-0 hidden md:block`} />
       <div className={`md:z-50 md:w-[642px] md:rounded-[32px] md:bg-base-100 md:p-[40px]`}>
-        <div className={`text-header-300 mb-[16px]`}>Оставьте заявку на бесплатную консультацию</div>
+        <div className={`text-header-300 mb-[16px] w-[280px] md:w-full`}>
+          Оставьте заявку на бесплатную консультацию
+        </div>
         <div className={`text-base-200-lg-100 mb-[40px]`}>
           Мандрикова Наталья Вячеславовна свяжется вами в течение 15 минут или выберите удобное время
         </div>
