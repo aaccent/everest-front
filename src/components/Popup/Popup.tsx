@@ -1,6 +1,9 @@
 'use client'
 
 import { createContext, PropsWithChildren, ReactNode, useEffect, useState } from 'react'
+import CallPopup from '@/components/Popup/CallPopup'
+import QuizPopup from '@/components/Popup/QuizPopup'
+import MapPopup from '@/components/Popup/MapPopup'
 
 const popups = {
   callPopup: CallPopup,
@@ -10,6 +13,7 @@ const popups = {
 
 interface PopupContextObject {
   openPopup: (name: keyof typeof popups) => void
+  closePopup: () => void
 }
 
 export const PopupContext = createContext<PopupContextObject>({} as PopupContextObject)
@@ -23,7 +27,7 @@ function Popup({ activePopup }: PopupProps) {
     document.body.style.overflow = 'hidden'
     document.body.style.height = '100lvh'
   }, [])
-  return <div className={`bg-base-600/60`}>{activePopup}</div>
+  return <div className={`fixed inset-0 z-50 bg-base-600/60`}>{activePopup}</div>
 }
 
 export function PopupProvider({ children }: PropsWithChildren) {
@@ -33,24 +37,16 @@ export function PopupProvider({ children }: PropsWithChildren) {
     setPopup(popups[name])
   }
 
+  function closePopup() {
+    setPopup(null)
+  }
+
   return (
     <>
-      <PopupContext.Provider value={{ openPopup }}>
+      <PopupContext.Provider value={{ openPopup, closePopup }}>
         {popup && <Popup activePopup={popup} />}
         {children}
       </PopupContext.Provider>
     </>
   )
-}
-
-function CallPopup() {
-  return <div className={`text-base-100`}>call popup</div>
-}
-
-function QuizPopup() {
-  return <>quiz popup</>
-}
-
-function MapPopup() {
-  return <>map popup</>
 }
