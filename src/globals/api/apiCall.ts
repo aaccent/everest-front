@@ -51,7 +51,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
 ): Promise<TResponse> {
   const { method = 'POST', request } = options
 
-  let url = new URL(uri, process.env.NEXT_PUBLIC_API_URL)
+  let url = new URL(`${process.env.NEXT_PUBLIC_API_URL}${uri}`).toString()
   const fetchInit: RequestInit = { method }
 
   if (request && method === 'POST') {
@@ -64,7 +64,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   if (request && method === 'GET') {
     // @ts-expect-error URLSearchParams преобразовывает объекты с boolean и числами в необходимый формат
     const searchParams = new URLSearchParams(request)
-    url = new URL(`${url.pathname}?${searchParams.toString()}`, process.env.NEXT_PUBLIC_API_URL)
+    url += `?${searchParams.toString()}`
   }
 
   const res = await fetch(url, fetchInit)
