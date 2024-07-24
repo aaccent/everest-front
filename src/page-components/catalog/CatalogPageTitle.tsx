@@ -27,7 +27,7 @@ function CatalogPageTitle(props: CatalogPageTitleProps) {
       <Container className={`my-[50px]`}>
         {showSubCategories()}
         <div
-          className={`text-base-300-lg-100 absolute right-[50%] top-[285px] -translate-x-[50%] text-base-650 md:right-[56px] md:top-[54px] md:translate-x-0`}
+          className={`text-base-300-lg-100 absolute right-[56px] top-[54px] hidden translate-x-0 text-base-650 md:block`}
         >
           {props.amount ? `Найдено ${props.amount} ${suggestionPlural.get(props.amount)}` : null}
         </div>

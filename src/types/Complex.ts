@@ -11,9 +11,10 @@ export interface Complex {
   description: string
   developerLogo: string
   presentationLink: string
+  priceDiscount?: number
 }
 
-interface FlatTypes {
+export interface FlatTypes {
   id: string
   name: string
   minArea: number

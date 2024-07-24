@@ -1,9 +1,9 @@
 import React from 'react'
 
-import ComplexCard from '@/components/Cards/ComplexCard/ComplexCard'
+import ComplexCard from '@/components/Cards/Complex/ComplexCard'
 import Carousel, { CarouselSlide } from '@/components/Carousel/Carousel'
 import Link from 'next/link'
-import { Complex } from '@/components/Cards/CardsTypes'
+import { Complex } from '@/types/Complex'
 
 interface SliderProps {
   list: Complex[]

@@ -7,7 +7,7 @@ function CatalogPageFilter() {
   const { setView } = useContext(ViewContext)
 
   return (
-    <Container className={`mb-[32px] flex flex-col md:mb-[40px] md:flex-row md:justify-between`}>
+    <Container className={`mb-[40px] hidden justify-between md:flex`}>
       <button className={`rounded-[20px] border p-[12px]`} onClick={() => setView('tile')}>
         Плитка
       </button>

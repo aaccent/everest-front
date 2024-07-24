@@ -1,5 +1,5 @@
 import { apiCall, APIResponse } from '@/globals/api/apiCall'
-import { Complex } from '@/components/Cards/CardsTypes'
+import { Complex } from '@/types/Complex'
 
 type Response = APIResponse<Complex[]>
 

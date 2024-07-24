@@ -4,9 +4,11 @@ import CatalogPageFilter from '@/page-components/catalog/CatalogPageFilter_test/
 import { ViewProvider } from '@/page-components/catalog/CatalogPageFilter_test/ViewContext'
 import CatalogContent from '@/page-components/catalog/CatalogContent/CatalogContent'
 import CatalogPageTitle from '@/page-components/catalog/CatalogPageTitle'
+import Section from '@/layout/Section'
 
 async function Page() {
   const data = await getComplexes()
+  console.log(data)
   const pageTitle = {
     breadcrumbs: data.breadcrumbs,
     title: data.breadcrumbs[data.breadcrumbs.length - 1],
@@ -14,13 +16,13 @@ async function Page() {
   }
 
   return (
-    <>
+    <Section>
       <CatalogPageTitle {...pageTitle} />
       <ViewProvider>
         <CatalogPageFilter />
-        <CatalogContent list={data.categories} />
+        <CatalogContent list={data.categories} tilePerView={2} listPerView={1} />
       </ViewProvider>
-    </>
+    </Section>
   )
 }
 

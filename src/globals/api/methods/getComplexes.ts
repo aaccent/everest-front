@@ -1,5 +1,5 @@
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
-import { Complex } from '@/components/Cards/CardsTypes'
+import { Complex } from '@/types/Complex'
 
 type Request = APIRequest<{
   chainUrl?: 'complexes' | 'apartments' | 'penthouses'

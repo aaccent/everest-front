@@ -1,5 +1,6 @@
-export function formatPrice(price: number) {
-  let shortPrice
+export function formatPrice(price: number | null | undefined) {
+  if (!price) return 'нет цены'
+  let shortPrice = price
   const digits = price.toString().length
 
   if (digits > 6) {
