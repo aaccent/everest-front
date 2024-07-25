@@ -22,13 +22,11 @@ function CatalogPageTitle(props: CatalogPageTitleProps) {
   }
 
   return (
-    <div className={`relative`}>
+    <div className='relative'>
       <PageTitle {...props} />
-      <Container className={`my-[50px]`}>
+      <Container className='my-[50px]'>
         {showSubCategories()}
-        <div
-          className={`text-base-300-lg-100 absolute right-[56px] top-[54px] hidden translate-x-0 text-base-650 md:block`}
-        >
+        <div className='text-base-300-lg-100 absolute right-[56px] top-[54px] hidden translate-x-0 text-base-650 md:block'>
           {props.amount ? `Найдено ${props.amount} ${suggestionPlural.get(props.amount)}` : null}
         </div>
       </Container>

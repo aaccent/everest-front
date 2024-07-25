@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <>
       <MainHero />
-      <SliderSection data={newBuildingsOnMain} title={'Новостройки'} />
+      <SliderSection data={newBuildingsOnMain} title='Новостройки' />
       <UsefulLinks />
       <ContactForm />
     </>

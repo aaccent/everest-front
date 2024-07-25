@@ -11,8 +11,8 @@ interface SliderSectionProps {
 
 async function SliderSection(props: SliderSectionProps) {
   return (
-    <Section containerClassName={'relative'}>
-      <Link href={'#'}>
+    <Section containerClassName='relative'>
+      <Link href='#'>
         <h2 className='text-header-200 mb-[32px] font-coolvetica uppercase'>{props.title}</h2>
       </Link>
       <Slider list={props.data} />

@@ -8,7 +8,7 @@ import Section from '@/layout/Section'
 
 async function Page() {
   const data = await getComplexes()
-  console.log(data)
+
   const pageTitle = {
     breadcrumbs: data.breadcrumbs,
     title: data.breadcrumbs[data.breadcrumbs.length - 1],

@@ -7,7 +7,7 @@ import { Complex, FlatTypes } from '@/types/Complex'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {
   return objectTypes.map((flat) => (
-    <Link href={'#'} className='text-base-500-reg-200 group flex justify-between text-base-600' key={flat.id}>
+    <Link href='#' className='text-base-500-reg-200 group flex justify-between text-base-600' key={flat.id}>
       <div className='w-[80px] group-hover:text-primary md:w-[120px]'>{flat.name}</div>
       <div className='text-base-650'>
         от {flat.minArea} м<sup>2</sup>
@@ -41,7 +41,7 @@ function CardInfo(props: Complex) {
         <div className='mt-[20px] flex flex-col gap-[10px]'>{showObjectTypes(props.objectsType)}</div>
         <Link
           className='text-base-500-reg-100-upper mt-auto flex w-full justify-center rounded-[16px] bg-base-300 py-[13px]'
-          href={'#'}
+          href='#'
         >
           подробнее об объекте
         </Link>

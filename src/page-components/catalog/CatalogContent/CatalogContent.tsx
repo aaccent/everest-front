@@ -20,7 +20,7 @@ function CatalogContent({ list, listPerView = 2, tilePerView = 3 }: CatalogConte
       case 'list':
         setObjectsToShow(listPerView)
     }
-  }, [view])
+  }, [listPerView, tilePerView, view])
 
   function showObjects(amount: number) {
     return objects.splice(0, amount).map((object) => {
