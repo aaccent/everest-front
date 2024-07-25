@@ -5,7 +5,6 @@ import Link from 'next/link'
 import LoginButton from '@/layout/Header/desktop/LoginButton'
 import CatalogButton from '@/layout/Header/components/CatalogButton'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
-import Button from '@/ui/buttons/Button'
 import CallPopupButton from '@/layout/Header/components/CallPopupButton'
 
 import Logo from '@/assets/static/logo.svg'

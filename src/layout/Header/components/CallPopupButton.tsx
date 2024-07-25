@@ -11,9 +11,7 @@ function CallPopupButton() {
       <IsDesktop>
         <button
           className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-phone before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/style-state:before:filter-primary'
-          onClick={() => {
-            openPopup('callPopup')
-          }}
+          onClick={() => openPopup('callPopup')}
         >
           заказать звонок
         </button>

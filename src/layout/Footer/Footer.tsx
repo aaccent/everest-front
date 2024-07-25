@@ -13,7 +13,7 @@ import { getServices } from '@/globals/api/methods/getServices'
 import logo from '@/assets/static/logo.svg'
 import aaccentLogo from '@/assets/static/aaccent-logo.svg'
 
-interface socialItem {
+export interface socialItem {
   name: string
   icon: string
   url: string

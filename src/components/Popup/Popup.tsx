@@ -1,52 +1,51 @@
 'use client'
 
-import { createContext, PropsWithChildren, ReactNode, useEffect, useState } from 'react'
-import CallPopup from '@/components/Popup/CallPopup'
-import QuizPopup from '@/components/Popup/QuizPopup'
+import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
+import CallPopup from '@/components/Popup/CallPopup/CallPopup'
 import MapPopup from '@/components/Popup/MapPopup'
+import { createPortal } from 'react-dom'
 
 const popups = {
   callPopup: CallPopup,
-  quizPopup: QuizPopup,
   mapPopup: MapPopup,
-} as const
+}
 
-interface PopupContextObject {
+type E = React.JSX.Element | Promise<React.JSX.Element>
+type N = keyof typeof popups
+
+type PopupContextObject = {
   openPopup: (name: keyof typeof popups) => void
   closePopup: () => void
+  activePopup?: E
 }
 
-export const PopupContext = createContext<PopupContextObject>({} as PopupContextObject)
+export const PopupContext = createContext({} as PopupContextObject)
 
-interface PopupProps {
-  activePopup: ReactNode
-}
-
-function Popup({ activePopup }: PopupProps) {
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    document.body.style.height = '100lvh'
-  }, [])
-  return <div className={`fixed inset-0 z-50 bg-base-600/60`}>{activePopup}</div>
+function PopupWrapper() {
+  const { activePopup } = useContext(PopupContext)
+  return activePopup && <div className={`fixed inset-0 z-50 bg-base-600/60`}>{activePopup}</div>
 }
 
 export function PopupProvider({ children }: PropsWithChildren) {
-  const [popup, setPopup] = useState<ReactNode | null>(null)
+  const [popup, setPopup] = useState<E | undefined>()
 
-  function openPopup(name: keyof typeof popups) {
+  function openPopup(name: N) {
+    document.body.style.height = '100lvh'
+    document.body.style.overflow = 'hidden'
+
     setPopup(popups[name])
   }
 
   function closePopup() {
-    setPopup(null)
+    setPopup(undefined)
+    document.body.style.height = 'fit-content'
+    document.body.style.overflow = 'clip'
   }
 
   return (
-    <>
-      <PopupContext.Provider value={{ openPopup, closePopup }}>
-        {popup && <Popup activePopup={popup} />}
-        {children}
-      </PopupContext.Provider>
-    </>
+    <PopupContext.Provider value={{ openPopup, closePopup, activePopup: popup }}>
+      {popup ? createPortal(<PopupWrapper />, document.body) : null}
+      {children}
+    </PopupContext.Provider>
   )
 }

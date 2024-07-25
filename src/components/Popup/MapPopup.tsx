@@ -1,7 +1,13 @@
 import React from 'react'
+import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 
 function MapPopup() {
-  return <>map popup</>
+  return (
+    <>
+      <div>map</div>
+      <ClosePopupButton />
+    </>
+  )
 }
 
 export default MapPopup
