@@ -1,31 +1,12 @@
 import React from 'react'
 
-import NewBuildingCard from '@/components/Cards/NewBuildingCard/NewBuildingCard'
+import ComplexCard from '@/components/Cards/Complex/ComplexCard'
 import Carousel, { CarouselSlide } from '@/components/Carousel/Carousel'
 import Link from 'next/link'
-
-interface FlatTypes {
-  id: string
-  name: string
-  'min-square': number
-  'min-price': number
-}
-
-interface Card {
-  id: string
-  name: string
-  address: string
-  'text-code': string
-  'category-code': string
-  'min-price': number
-  status: number
-  tags: string[]
-  'flat-types': FlatTypes[]
-  photos: string[]
-}
+import { Complex } from '@/types/Complex'
 
 interface SliderProps {
-  list: Card[]
+  list: Complex[]
 }
 
 function Slider(props: SliderProps) {
@@ -37,7 +18,7 @@ function Slider(props: SliderProps) {
             className='mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
             key={card.id}
           >
-            <NewBuildingCard {...card} />
+            <ComplexCard {...card} />
           </CarouselSlide>
         ))}
         <Link
