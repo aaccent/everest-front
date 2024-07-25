@@ -23,13 +23,13 @@ function NewBuildingCard(props: NewBuilding) {
 
   return (
     <Link
-      href={'#'}
+      href='#'
       className='group relative block h-[250px] w-full overflow-hidden rounded-[20px] md:h-[388px] md:rounded-[24px]'
     >
       <Image
         className='object-cover object-center transition-transform duration-500 hover:scale-110 hover:transition-transform hover:duration-500'
         src={props.photos[0]}
-        alt={''}
+        alt=''
         fill
       />
 

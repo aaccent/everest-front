@@ -52,8 +52,8 @@ function FormMap(props: Props) {
           >
             <Image
               src={logoMini}
-              alt={''}
-              className={`relative top-[-2px] w-[26px] object-cover object-center filter-primary group-[.active]/marker:filter-base-100 md:top-[-4px] md:w-[44px]`}
+              alt=''
+              className='relative top-[-2px] w-[26px] object-cover object-center filter-primary group-[.active]/marker:filter-base-100 md:top-[-4px] md:w-[44px]'
             />
           </div>
         </Marker>
@@ -63,7 +63,7 @@ function FormMap(props: Props) {
 
   return (
     <CustomMap
-      className={'h-[420px] w-full rounded-[20px] md:h-[618px] md:w-[649px]'}
+      className='h-[420px] w-full rounded-[20px] md:h-[618px] md:w-[649px]'
       customProps={{
         initialViewState: {
           zoom: 14,
@@ -72,7 +72,7 @@ function FormMap(props: Props) {
         },
       }}
     >
-      <Image src={mapBavel} alt={''} className='absolute right-0 top-0 hidden filter-primary md:block' />
+      <Image src={mapBavel} alt='' className='absolute right-0 top-0 hidden filter-primary md:block' />
 
       {showMarkers()}
       <div className='absolute bottom-[8px] left-[8px] right-[8px] flex items-center justify-between rounded-[20px] bg-base-100 px-[20px] py-[16px] md:bottom-[24px] md:left-[24px] md:right-[24px] md:rounded-[32px] md:p-[24px]'>
@@ -81,7 +81,7 @@ function FormMap(props: Props) {
           <div className='text-base-300-lg-100 text-base-650'>{`г. ${props.city}`}</div>
         </div>
         <Link
-          href={'#'}
+          href='#'
           className='text-base-500-reg-100-upper flex justify-center rounded-[14px] bg-base-300 px-[16px] py-[11px] text-center'
         >
           маршрут
