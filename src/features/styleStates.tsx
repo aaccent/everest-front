@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react'
+import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { useScroll } from '@/features/scroll'
 
