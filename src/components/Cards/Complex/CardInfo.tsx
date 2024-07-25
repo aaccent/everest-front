@@ -5,6 +5,18 @@ import { formatPrice } from '@/features/price'
 import { formatStatus } from '@/features/date'
 import { Complex, FlatTypes } from '@/types/Complex'
 
+function showObjectTypes(objectTypes: FlatTypes[]) {
+  return objectTypes.map((flat) => (
+    <Link href={'#'} className='text-base-500-reg-200 group flex justify-between text-base-600' key={flat.id}>
+      <div className='w-[80px] group-hover:text-primary md:w-[120px]'>{flat.name}</div>
+      <div className='text-base-650'>
+        от {flat.minArea} м<sup>2</sup>
+      </div>
+      <div className=''>{formatPrice(flat.minPrice)}</div>
+    </Link>
+  ))
+}
+
 function CardInfo(props: Complex) {
   const [opened, setOpened] = useState<boolean>(false)
   const onBtnClick = () => {
@@ -57,18 +69,6 @@ function CardInfo(props: Complex) {
       </div>
     )
   }
-}
-
-function showObjectTypes(objectTypes: FlatTypes[]) {
-  return objectTypes.map((flat) => (
-    <Link href={'#'} className='text-base-500-reg-200 group flex justify-between text-base-600' key={flat.id}>
-      <div className='w-[80px] group-hover:text-primary md:w-[120px]'>{flat.name}</div>
-      <div className='text-base-650'>
-        от {flat.minArea} м<sup>2</sup>
-      </div>
-      <div className=''>{formatPrice(flat.minPrice)}</div>
-    </Link>
-  ))
 }
 
 export default CardInfo
