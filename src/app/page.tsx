@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <MainHero />
-      <SliderSection type={'newBuildings'} />
+      <SliderSection type='newBuildings' />
       <UsefulLinks />
       <ContactForm />
     </>

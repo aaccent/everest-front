@@ -28,7 +28,7 @@ function CardInfo(props: NewBuilding) {
         </div>
         <div className='mt-[20px] flex flex-col gap-[10px]'>
           {props['flat-types'].map((flat) => (
-            <Link href={'#'} className='text-base-500-reg-200 group flex justify-between text-base-600' key={flat.id}>
+            <Link href='#' className='text-base-500-reg-200 group flex justify-between text-base-600' key={flat.id}>
               <div className='w-[80px] group-hover:text-primary'>{flat.name}</div>
               <div className='text-base-650'>
                 от {flat['min-square']} м<sup>2</sup>
@@ -37,7 +37,7 @@ function CardInfo(props: NewBuilding) {
             </Link>
           ))}
         </div>
-        <Link className='mt-auto flex w-full justify-center rounded-[16px] bg-base-300 py-[13px] uppercase' href={'#'}>
+        <Link className='mt-auto flex w-full justify-center rounded-[16px] bg-base-300 py-[13px] uppercase' href='#'>
           подробнее об объекте
         </Link>
       </div>

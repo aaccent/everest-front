@@ -31,7 +31,7 @@ interface SliderProps {
 function Slider(props: SliderProps) {
   return (
     <>
-      <Carousel align={'start'} navigations progressBar>
+      <Carousel align='start' navigations progressBar>
         {props.list.map((card) => (
           <CarouselSlide
             className='mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
@@ -41,7 +41,7 @@ function Slider(props: SliderProps) {
           </CarouselSlide>
         ))}
         <Link
-          href={'#'}
+          href='#'
           className='min-w-0" relative block max-w-[320px] shrink-0 grow-0 basis-full rounded-[20px] bg-base-300 p-[16px] md:max-w-[512px] md:rounded-[32px] md:p-[32px]'
         >
           <div className='ml-auto flex size-[40px] items-center justify-center rounded-full bg-base-100 after:block after:size-[12px] after:-rotate-45 after:bg-icon-arrow after:bg-contain after:bg-center after:bg-no-repeat after:filter-base-600 md:size-[80px]'></div>

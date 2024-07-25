@@ -22,22 +22,6 @@ export function StyleStateProvider({ children }: PropsWithChildren) {
   const { scrollPos } = useScroll()
   const [classes, setClasses] = useState<string[]>([])
 
-  // Классы для смены темы сайта в зависимости от страницы
-  useEffect(() => {
-    addClass(pathname === '/' ? 'is-white' : 'is-black')
-  }, [])
-
-  // Классы если пользователь прокрутил полосу до определенного момента
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    if (scrollPos >= 20) {
-      addClass('is-scrolled')
-    } else {
-      removeClass('is-scrolled')
-    }
-  }, [scrollPos])
-
   const addClass: StyleStateContextObject['addClass'] = function (name) {
     setClasses((current) => {
       if (current.includes(name)) return current
@@ -77,6 +61,22 @@ export function StyleStateProvider({ children }: PropsWithChildren) {
 
     return false
   }
+
+  // Классы для смены темы сайта в зависимости от страницы
+  useEffect(() => {
+    addClass(pathname === '/' ? 'is-white' : 'is-black')
+  }, [pathname])
+
+  // Классы если пользователь прокрутил полосу до определенного момента
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    if (scrollPos >= 20) {
+      addClass('is-scrolled')
+    } else {
+      removeClass('is-scrolled')
+    }
+  }, [scrollPos])
 
   return (
     <StyleStateContext.Provider value={{ addClass, removeClass, toggleClass, hasAnyClass, classes }}>

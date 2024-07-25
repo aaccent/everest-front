@@ -33,7 +33,7 @@ async function ContactForm() {
     return socials.map((social, index) => (
       <Link className='flex items-center gap-[10px]' href={social.url} key={index}>
         <div className='flex size-[48px] items-center justify-center rounded-full bg-base-115 md:size-[55px]'>
-          <Image src={social.icon} alt={''} width={24} height={24} />
+          <Image src={social.icon} alt='' width={24} height={24} />
         </div>
       </Link>
     ))
@@ -41,8 +41,8 @@ async function ContactForm() {
 
   return (
     <Section containerClassName='relative w-full rounded-tl-[20px] rounded-b-[20px] md:flex justify-between md:p-[56px] md:bg-primary'>
-      <Image src={bavel} alt={''} className='absolute right-0 top-0 hidden md:block' />
-      <Image src={mobileBavel} alt={''} className='absolute right-0 top-0 md:hidden' />
+      <Image src={bavel} alt='' className='absolute right-0 top-0 hidden md:block' />
+      <Image src={mobileBavel} alt='' className='absolute right-0 top-0 md:hidden' />
       <div className='mb-[24px] rounded-[20px] bg-primary p-[20px] text-base-100 md:m-0 md:w-[676px] md:bg-none md:p-0'>
         <h2 className='text-header-200 mb-[16px] font-coolvetica uppercase'>
           Оставьте заявку на бесплатную консультацию
@@ -72,7 +72,7 @@ async function ContactForm() {
             </SubmitButton>
             <div className='text-base-400-lg-100 mb-[48px] text-center text-base-150 md:m-0 md:w-[332px] md:text-left'>
               Нажимая кнопку «Отправить» вы даете свое согласие на{' '}
-              <Link href={'#'} className='text-base-100'>
+              <Link href='#' className='text-base-100'>
                 обработку данных
               </Link>
             </div>
@@ -86,7 +86,7 @@ async function ContactForm() {
             {showSocials()}
           </div>
           <div className='mb-[11px] text-center md:text-left'>
-            <Link href={'tel:8 (843) 207-39-50'} className='text-base-100-reg-100'>
+            <Link href='tel:8 (843) 207-39-50' className='text-base-100-reg-100'>
               8 (843) 207-39-50
             </Link>
             <div className='text-base-400-lg-100 text-base-150'>Ежедневно с 09:00 до 19:00</div>

@@ -1,3 +1,10 @@
+interface FlatTypes {
+  id: string
+  name: string
+  'min-square': number
+  'min-price': number
+}
+
 export interface NewBuilding {
   id: string
   name: string
@@ -9,11 +16,4 @@ export interface NewBuilding {
   tags: string[]
   'flat-types': FlatTypes[]
   photos: string[]
-}
-
-interface FlatTypes {
-  id: string
-  name: string
-  'min-square': number
-  'min-price': number
 }
