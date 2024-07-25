@@ -1,19 +1,19 @@
 'use client'
 import React from 'react'
-import Button, { ButtonType } from '@/ui/buttons/Button'
+import Button, { ButtonVariation } from '@/ui/buttons/Button'
 import { useStyleState } from '@/features/styleStates'
 
 function LoginButton() {
   const { hasAnyClass } = useStyleState()
 
-  let type: ButtonType = 'transparent'
+  let type: ButtonVariation = 'transparent'
 
   if (hasAnyClass('is-black', 'catalog-menu', 'is-scrolled')) {
     type = 'second'
   }
 
   return (
-    <Button className='h-[42px] min-w-[110px]' size='small' type={type}>
+    <Button className='h-[42px] min-w-[110px]' size='small' variation={type}>
       Войти
     </Button>
   )

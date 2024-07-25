@@ -1,4 +1,4 @@
-name: Build and test
+name: Testing, linting and building
 
 on:
   push:
@@ -17,7 +17,7 @@ on:
 
 jobs:
   build:
-    name: 'build, type check and linting'
+    name: 'build and type check'
     runs-on: ubuntu-latest
 
     steps:
@@ -43,6 +43,27 @@ jobs:
           name: build
           path: .next
           retention-days: 1
+
+  linting:
+    name: 'linting'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install pnpm via corepack
+        run: corepack enable pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run linter
+        run: pnpm run linter
 
   unit-tests:
     name: 'unit and functional tests via vitest'

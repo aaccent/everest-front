@@ -1,3 +1,5 @@
+import { LogError } from '@/globals/api/LogError'
+
 /**
  * @typeParam TType - тип возвращаемый при успешной конвертации
  * @returns - JSON Объект при успешной конвертации и false при ошибке
@@ -14,48 +16,55 @@ export type APIRequest<TQuery extends object = object> = TQuery
 
 export type APIResponse<TResponse extends object = object> = {
   data: TResponse
+  message?: string
 }
+
+export type SupportedMethod = 'POST' | 'GET'
 
 /**
  * @typeParam TRequest - Тип, передаваемый в body запроса. Если false, то значит что его ненужно указывать
  * */
-type ApiCallOptions<TRequest extends APIRequest | false = false> =
-  | {
-      /** При 'GET' методе нельзя указать request */
+type ApiCallOptions<TRequest extends APIRequest | false = false> = TRequest extends false
+  ? {
+      /** Запрос к апи описан в {@link APIRequest}. */
       request?: never
-      method: 'GET'
+      method?: SupportedMethod
     }
-  | (TRequest extends false
-      ? {
-          /** Запрос к апи описан в {@link APIRequest}. */
-          request?: never
-          method?: 'POST'
-        }
-      : {
-          /** Запрос к апи описан в {@link APIRequest}. */
-          request: TRequest
-          method?: 'POST'
-        })
+  : {
+      /** Запрос к апи описан в {@link APIRequest}. */
+      request: TRequest
+      method?: SupportedMethod
+    }
 
 /**
- * @param uri - Путь к методу без слэша в начале и "/api/v1".
+ * @param uri - Путь к методу без "/api/v1".
  * @param options - Параметры запроса. Описан в {@link ApiCallOptions}
  * @example
  * Запрос к /api/v1/catalog/new-buildings с http методом 'POST':
  * ```javascript
- * apiCall('catalog/new-buildings', { method: 'POST' })
+ * apiCall('/catalog/new-buildings', { method: 'POST' })
  * ```
  * */
 export async function apiCall<TRequest extends APIRequest | false = false, TResponse extends APIResponse = APIResponse>(
-  uri: string,
+  uri: `/${string}`,
   options: ApiCallOptions<TRequest>,
 ): Promise<TResponse> {
   const { method = 'POST', request } = options
 
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/${uri}`
-  const fetchInit: RequestInit = {
-    method,
-    ...(method === 'POST' ? { body: JSON.stringify(request) } : {}),
+  let url = new URL(`${process.env.NEXT_PUBLIC_API_URL}${uri}`).toString()
+  const fetchInit: RequestInit = { method }
+
+  if (request && method === 'POST') {
+    fetchInit.body = JSON.stringify(request)
+    fetchInit.headers = {
+      'Content-Type': 'application/json',
+    }
+  }
+
+  if (request && method === 'GET') {
+    // @ts-expect-error URLSearchParams преобразовывает объекты с boolean и числами в необходимый формат
+    const searchParams = new URLSearchParams(request)
+    url += `?${searchParams.toString()}`
   }
   if (method === 'POST') {
     fetchInit.headers = {
@@ -67,14 +76,19 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   const json = await tryJSONParse(text)
 
   if (!json) {
-    console.error(`Return body from ${method}:${uri} not valid json`, {
+    throw new LogError('Return body from ${method}:${uri} not valid json', {
       path: url,
       body: text,
       request,
       requestStr: JSON.stringify(request),
     })
+  }
 
-    throw new Error('Return body not valid json')
+  if (res.status === 500) {
+    throw new LogError(`Method ${method}:${uri} ended with 500 code`, {
+      request,
+      text,
+    })
   }
 
   if (!res.ok && process.env.NODE_ENV === 'development') {
@@ -84,14 +98,6 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
       request,
       json,
     })
-  }
-
-  if (res.status === 500) {
-    console.error(`Method ${method}:${uri} ended with 500 code`, {
-      request,
-      text,
-    })
-    throw new Error(`Error 500 on api server while executing ${method}:${uri}`)
   }
 
   return json
