@@ -11,7 +11,7 @@ async function Page() {
 
   const pageTitle = {
     breadcrumbs: data.breadcrumbs,
-    title: data.breadcrumbs[data.breadcrumbs.length - 1],
+    title: data.breadcrumbs[data.breadcrumbs.length - 1].name,
     amount: data.categories.length,
   }
 

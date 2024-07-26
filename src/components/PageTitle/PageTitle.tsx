@@ -1,9 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 import Container from '@/layout/Container'
+import { breadcrumb } from '@/globals/api/methods/getComplexes'
 
 export interface PageTitleProps {
-  breadcrumbs: string[]
+  breadcrumbs: breadcrumb[]
   title: string
 }
 
@@ -17,10 +18,10 @@ function PageTitle(props: PageTitleProps) {
         {props.breadcrumbs.map((breadcrumb, index) => (
           <Link
             key={index}
-            href=''
+            href={breadcrumb.seo}
             className='text-base-500-reg-200 flex items-center gap-[6px] text-base-650 before:block before:h-[16px] before:w-[20px] before:bg-icon-full-arrow before:opacity-50 before:bg-default-contain last:text-primary last:before:opacity-100 last:before:filter-primary'
           >
-            {breadcrumb}
+            {breadcrumb.name}
           </Link>
         ))}
       </>

@@ -49,7 +49,7 @@ function ComplexFullCard(props: Complex) {
         <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(props.objectsType)}</div>
       </div>
       <div className='ml-auto flex flex-col justify-between'>
-        <Image src='/icons/donstroy.svg' alt='' unoptimized />
+        <Image src='/icons/donstroy.svg' alt='' width={102} height={26} />
         <div className='text-base-300-lg-100 flex gap-[6px] text-base-650 before:size-[19px] before:bg-icon-clip before:bg-default-auto after:block'>
           5 мин назад
         </div>
