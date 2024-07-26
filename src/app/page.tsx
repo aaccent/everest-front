@@ -13,7 +13,6 @@ export default async function Home() {
       <MainHero />
       <SliderSection data={newBuildingsOnMain} title='Новостройки' />
       <Services />
-      <SliderSection type='newBuildings' />
       <UsefulLinks />
       <ContactForm />
     </>
