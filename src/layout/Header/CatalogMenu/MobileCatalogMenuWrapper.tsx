@@ -7,6 +7,7 @@ interface Props extends PropsWithChildren {
   className: string
 }
 
+/** @description Нужен для того, чтобы хранить кнопку открытия/закрытия в клиентском компоненте */
 function MobileCatalogMenuWrapper({ className, children }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const { toggleClass } = useStyleState()

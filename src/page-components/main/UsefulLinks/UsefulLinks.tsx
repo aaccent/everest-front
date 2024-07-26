@@ -19,17 +19,6 @@ interface Category {
   linksList: Link[]
 }
 
-async function UsefulLinks() {
-  const data = await getLinks()
-
-  return (
-    <Section containerClassName='usefull'>
-      <h2 className='text-header-200 mb-[24px] uppercase md:mb-[40px]'>Полезные ссылки</h2>
-      <Carousel>{showCategories(data)}</Carousel>
-    </Section>
-  )
-}
-
 function showLinks(links: Link[]) {
   return links.map((link) => {
     return (
@@ -49,10 +38,10 @@ function showCategories(categories: Category[]) {
         key={index}
       >
         <div className='relative h-full rounded-[24px] bg-base-200 p-[24px] md:rounded-[32px] md:px-[32px] md:pb-[40px] md:pt-[32px]'>
-          <Image src={bavel} alt={'#'} className='absolute right-0 top-0' />
+          <Image src={bavel} alt='#' className='absolute right-0 top-0' />
           <div className='mb-[20px] flex items-center gap-[16px] md:mb-[40px]'>
             <div className='flex size-[60px] items-center justify-center rounded-[16px] bg-base-100 md:size-[80px]'>
-              <Image src={category.categoryIcon} alt={''} width={24} height={24} className='md:size-[42px]' />
+              <Image src={category.categoryIcon} alt='' width={24} height={24} className='md:size-[42px]' />
             </div>
             <div className='text-header-400'>{category.categoryName}</div>
           </div>
@@ -63,6 +52,17 @@ function showCategories(categories: Category[]) {
       </CarouselSlide>
     )
   })
+}
+
+async function UsefulLinks() {
+  const data = await getLinks()
+
+  return (
+    <Section containerClassName='usefull'>
+      <h2 className='text-header-200 mb-[24px] uppercase md:mb-[40px]'>Полезные ссылки</h2>
+      <Carousel>{showCategories(data)}</Carousel>
+    </Section>
+  )
 }
 
 export default UsefulLinks

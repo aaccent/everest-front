@@ -1,28 +1,33 @@
-import React, { PropsWithChildren } from 'react'
+import React, { ButtonHTMLAttributes, PropsWithChildren } from 'react'
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 
-interface Props extends PropsWithChildren {
-  text?: string
-  type?: 'primary' | 'second' | 'third' | 'transparent' | 'outline'
-  size?: 'small' | 'medium' | 'large'
-  icon?: {
-    img: IconName
-    position?: 'left' | 'right'
+export type ButtonVariation = 'primary' | 'second' | 'third' | 'transparent' | 'outline'
+type HTMLButtonProps = Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>
+
+export type Props = PropsWithChildren &
+  HTMLButtonProps & {
+    text?: string
+    variation?: ButtonVariation
+    size?: 'small' | 'medium' | 'large'
+    icon?: {
+      img: IconName
+      position?: 'left' | 'right'
+    }
+    className?: string
+    loading?: boolean
+    disabled?: boolean
+    onClick?: () => void
+    onMouseEnter?: () => void
   }
-  className?: string
-  loading?: boolean
-  disabled?: boolean
-  onClick?: () => void
-}
 
 function Button(props: Props) {
   function typeClassName() {
-    switch (props.type) {
+    switch (props.variation) {
       case 'primary':
       default:
-        return 'bg-primary text-base-100 hover:bg-primaryHover disabled:bg-system-disabled disabled:after:filter-base-100'
+        return 'bg-primary text-base-100 hover:bg-primaryHover after:filter-base-100 disabled:bg-system-disabled disabled:after:filter-base-100'
       case 'second':
-        return 'bg-base-300 text-base-600 hover:bg-primary hover:text-base-100 disabled:text-base-500 disabled:after:filter-base-500'
+        return 'bg-base-300 text-base-600 hover:bg-primary hover:after:filter-base-100 hover:text-base-100 disabled:text-base-500 disabled:after:filter-base-500'
       case 'third':
         return 'bg-base-100 text-base-600 hover:bg-primaryHover hover:text-base-100 disabled:text-base-500 disabled:after:filter-base-500'
       case 'transparent':
@@ -46,7 +51,7 @@ function Button(props: Props) {
   }
 
   function iconClassName() {
-    if (!props.icon) return
+    if (!props.icon) return 'after:hidden'
     if (props.loading) return
 
     return [
@@ -58,7 +63,7 @@ function Button(props: Props) {
       'after:size-[20px]',
       `after:bg-${ICONS_NAME[props.icon.img]}`,
       'after:bg-default-auto',
-      ['third', 'outline'].includes(props.type || '') ? 'hover:after:filter-base-100' : '',
+      ['third', 'outline'].includes(props.variation || '') ? 'hover:after:filter-base-100' : '',
     ].join(' ')
   }
 
@@ -66,7 +71,7 @@ function Button(props: Props) {
     if (!props.loading) return props.text || props.children
 
     let spinColor
-    switch (props.type) {
+    switch (props.variation) {
       case 'primary' || 'transparent':
       default:
         spinColor = 'filter-base-100'
@@ -77,6 +82,7 @@ function Button(props: Props) {
       case 'outline':
         spinColor = 'filter-primary'
     }
+
     return (
       <svg
         className={`${spinColor} m-auto size-[20px] animate-spin bg-icon-loading bg-center bg-no-repeat`}
@@ -87,9 +93,10 @@ function Button(props: Props) {
 
   return (
     <button
-      className={`rounded-[16px] uppercase ${iconClassName()} ${sizeClassName()} ${typeClassName()} ${props.className} text-base-500-reg-100-upper disabled:pointer-events-none`}
+      className={`rounded-[16px] uppercase transition-colors after:transition-[filter] ${iconClassName()} ${sizeClassName()} ${typeClassName()} ${props.className} text-base-500-reg-100-upper disabled:pointer-events-none`}
       disabled={props.disabled}
       onClick={props.onClick}
+      onMouseEnter={props.onMouseEnter}
     >
       {loading()}
     </button>

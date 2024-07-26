@@ -1,44 +1,87 @@
-[
-  {
-    "id": "a",
-    "title": "Аренда недвижимости",
-    "code": "#",
-    "showInFooter": true
-  },
-  {
-    "id": "a",
-    "title": "Квартиры в новостройке",
-    "code": "#",
-    "showInFooter": true
-  },
-  {
-    "id": "a",
-    "title": "Вторичная недвижимость",
-    "code": "#",
-    "showInFooter": true
-  },
-  {
-    "id": "a",
-    "title": "Загородные дома",
-    "code": "#",
-    "showInFooter": true
-  },
-  {
-    "id": "a",
-    "title": "Земельные участки",
-    "code": "#",
-    "showInFooter": true
-  },
-  {
-    "id": "a",
-    "title": "Коммерческие объекты",
-    "code": "#",
-    "showInFooter": true
-  },
-  {
-    "id": "a",
-    "title": "Гаражи",
-    "code": "#",
-    "showInFooter": true
-  }
-]
+{
+  "data": [
+    {
+      "id": 1,
+      "iconUrl": null,
+      "title": "Новостройки",
+      "seoUrl": "new-building",
+      "subCategories": [
+        {
+          "id": 1,
+          "name": "Квартиры",
+          "seoUrl": "apartments",
+          "iconUrl": null
+        },
+        {
+          "id": 2,
+          "name": "Пентхаусы",
+          "seoUrl": "penthouses",
+          "iconUrl": null
+        },
+        {
+          "id": 3,
+          "name": "Жилые комплексы",
+          "seoUrl": "complexes",
+          "iconUrl": null
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "iconUrl": null,
+      "title": "Вторичная недвижимость",
+      "seoUrl": "secondary",
+      "subCategories": [
+        {
+          "id": 5,
+          "name": "Квартира 1 комнатная",
+          "seoUrl": "kvartiry-odnakomnatnye",
+          "iconUrl": null
+        },
+        {
+          "id": 4,
+          "name": "Квартиры",
+          "seoUrl": "kvartiua",
+          "iconUrl": null
+        },
+        {
+          "id": 6,
+          "name": "Квартира 2 комнатная",
+          "seoUrl": "kvartiry-dvyxcomnatnya",
+          "iconUrl": null
+        },
+        {
+          "id": 7,
+          "name": "Комнаты",
+          "seoUrl": "room",
+          "iconUrl": null
+        },
+        {
+          "id": 8,
+          "name": "Аппартаменты",
+          "seoUrl": "apartment",
+          "iconUrl": null
+        },
+        {
+          "id": 9,
+          "name": "Малосемейки",
+          "seoUrl": "small-house",
+          "iconUrl": null
+        },
+        {
+          "id": 10,
+          "name": "Общежитие",
+          "seoUrl": "dormitory",
+          "iconUrl": null
+        },
+        {
+          "id": 11,
+          "name": "Пентхаусы",
+          "seoUrl": "penthouses",
+          "iconUrl": null
+        }
+      ]
+    }
+  ],
+  "message": "Успех"
+}

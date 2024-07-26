@@ -26,10 +26,16 @@ export function CatalogMenuInnerButton({ id, className, activeClass, inactiveCla
   )
 }
 
-export function CatalogMenuInnerItem({ id, className, activeClass, inactiveClass, children }: CatalogMenuItemProps) {
+export function CatalogMenuSubcategories({
+  id,
+  className,
+  activeClass,
+  inactiveClass,
+  children,
+}: CatalogMenuItemProps) {
   const { activeId, setActiveId } = useContext(CatalogMenuContext)
 
-  return <div className={`${activeId === id ? activeClass : inactiveClass} ${className}`}>{children}</div>
+  return <ul className={`${activeId === id ? activeClass : inactiveClass} ${className}`}>{children}</ul>
 }
 
 interface Props extends PropsWithChildren {
