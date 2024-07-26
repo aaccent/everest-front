@@ -23,7 +23,7 @@ export const PopupContext = createContext({} as PopupContextObject)
 
 function PopupWrapper() {
   const { activePopup } = useContext(PopupContext)
-  return activePopup && <div className={`fixed inset-0 z-50 bg-base-600/60`}>{activePopup}</div>
+  return activePopup && <div className='fixed inset-0 z-50 bg-base-600/60'>{activePopup}</div>
 }
 
 export function PopupProvider({ children }: PropsWithChildren) {
