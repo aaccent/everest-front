@@ -1,10 +1,9 @@
 import React from 'react'
 import DecorativeSection from '@/layout/DecorativeSection'
-import { IsDesktop, IsMobile } from '@/features/adaptive'
 import { getServices } from '@/globals/api'
 import Image from 'next/image'
-import MoreServicesButton from '@/components/Services/MoreServicesButton'
 import Link from 'next/link'
+import ServicesWrapperWithButton from '@/components/Services/ServicesWrapperWithButton'
 
 interface Service {
   id: string
@@ -13,7 +12,7 @@ interface Service {
   icon: string
 }
 
-export function showServices(services: Service[]) {
+function showServices(services: Service[]) {
   return (
     <>
       {services.map((service) => (
@@ -35,20 +34,15 @@ export function showServices(services: Service[]) {
 
 async function Services() {
   const services = await getServices()
-  const shownServices = services.slice(0, 3)
-  const hiddenServices = services.slice(3, services.length)
 
   return (
     <DecorativeSection className='bg-primary text-base-100 md:pb-[40px]' title='сервисы нашего агентства'>
-      <IsDesktop>
-        <div className='grid grid-cols-2 gap-[24px]'>{showServices(services)}</div>
-      </IsDesktop>
-      <IsMobile>
-        <div className=''>
-          {showServices(shownServices)}
-          <MoreServicesButton hiddenServices={hiddenServices} />
-        </div>
-      </IsMobile>
+      <ServicesWrapperWithButton
+        servicesLength={services.length - 3}
+        className='grid gap-[8px] md:grid-cols-2 md:gap-[24px] [&>*:nth-child(n+4)]:hidden group-[.active]/services:[&>*:nth-child(n+4)]:flex md:[&>*:nth-child(n+4)]:flex'
+      >
+        {showServices(services)}
+      </ServicesWrapperWithButton>
     </DecorativeSection>
   )
 }
