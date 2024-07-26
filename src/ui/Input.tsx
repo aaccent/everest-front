@@ -37,11 +37,18 @@ function Input({ className: labelClassName, type, onDark, checked, ...inputProps
     setResetBtnClass('hidden')
   }
 
+  const onEyeClick = () => {
+    showPassword.type === 'password'
+      ? setShowPassword({
+          icon: 'bg-icon-eye',
+          type: 'text',
+        })
+      : setShowPassword(passwordState)
+  }
+
   function Icon() {
     return checked ? (
-      <div
-        className={`absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 border-none bg-icon-checkmark bg-auto bg-center bg-no-repeat`}
-      ></div>
+      <div className='absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 border-none bg-icon-checkmark bg-auto bg-center bg-no-repeat'></div>
     ) : type === 'password' ? (
       <button
         className={`absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 ${showPassword.icon} border-none bg-auto bg-center bg-no-repeat opacity-50`}
@@ -57,14 +64,6 @@ function Input({ className: labelClassName, type, onDark, checked, ...inputProps
     )
   }
 
-  const onEyeClick = () => {
-    showPassword.type === 'password'
-      ? setShowPassword({
-          icon: 'bg-icon-eye',
-          type: 'text',
-        })
-      : setShowPassword(passwordState)
-  }
   return (
     <label className={`relative block w-full ${labelClassName}`}>
       <input

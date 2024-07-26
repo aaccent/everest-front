@@ -66,7 +66,11 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     const searchParams = new URLSearchParams(request)
     url += `?${searchParams.toString()}`
   }
-
+  if (method === 'POST') {
+    fetchInit.headers = {
+      'Content-Type': 'application/json',
+    }
+  }
   const res = await fetch(url, fetchInit)
   const text = await res.text()
   const json = await tryJSONParse(text)
