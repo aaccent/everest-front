@@ -7,6 +7,7 @@ import MobileDetailMenu from '@/layout/Header/mobile/MobileDetailMenu'
 
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import DesktopHeader from '@/layout/Header/desktop/DesktopHeader'
+import DesktopSaleRentMenu from '@/layout/Header/SaleRentMenu/DesktopSaleRentMenu'
 
 /** @name {Header} */
 function Header() {
@@ -22,6 +23,8 @@ function Header() {
         <DesktopHeader className={`${whiteHeaderStyles} ${blackHeaderStyles}`} />
       </IsDesktop>
       <CatalogMenu />
+      <DesktopSaleRentMenu className='peer-[:is(.sale-menu)]/style-state:flex' category='sale' />
+      <DesktopSaleRentMenu className='peer-[:is(.rent-menu)]/style-state:flex' category='rent' />
       <IsMobile>
         <MobileMenu />
         <MobileDetailMenu />

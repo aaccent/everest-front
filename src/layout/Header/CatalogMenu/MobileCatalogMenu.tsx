@@ -35,7 +35,7 @@ function outputInnerItems(list: Category[]) {
       <li>
         <SeeAllCard />
       </li>
-      {item.subCategoryList.map((subitem: any) => (
+      {item.subCategories.map((subitem: any) => (
         <MenuItemCard key={subitem.id} parent={item} item={subitem} />
       ))}
     </CatalogMenuSubcategories>

@@ -14,7 +14,7 @@ function showTopLevel(list: Category[]) {
         activeClass='bg-base-100'
         id={category.id.toString()}
       >
-        <Img className='size-[20px] object-contain object-center' src={category.iconPath} isDecorative isSVG />
+        <Img className='size-[20px] object-contain object-center' src={category.iconUrl} isDecorative isSVG />
         {category.name}
       </CatalogMenuInnerButton>
     </li>
@@ -31,9 +31,9 @@ function showSubCategories(list: Category[]) {
       id={category.id.toString()}
     >
       <li>
-        <SeeAllCard link={category.code} />
+        <SeeAllCard link={category.seoUrl} />
       </li>
-      {category.subCategoryList.map((subcategory) => (
+      {category.subCategories.map((subcategory) => (
         <li key={subcategory.id}>
           <MenuItemCard parent={category} item={subcategory}></MenuItemCard>
         </li>
