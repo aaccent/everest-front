@@ -6,6 +6,7 @@ import Container from '@/layout/Container'
 import { suggestionPlural } from '@/features/pluralRules'
 import QuickFilter from '@/layout/CategoryLayout/QuickFilter/QuickFilter'
 import { CatalogProvider } from '@/layout/CategoryLayout/CatalogContext'
+import SubCategoryLink from '@/layout/CategoryLayout/SubCategoryLink'
 
 interface Props extends PropsWithChildren {
   category: AnyCategory
@@ -13,6 +14,16 @@ interface Props extends PropsWithChildren {
 
 function CategoryLayout({ category, children }: Props) {
   const amount = category.objects.length
+
+  function showSubCategories() {
+    if (!category.categories) return null
+
+    return category.categories.map((subcategory) => (
+      <li key={subcategory.id}>
+        <SubCategoryLink parent={category} item={subcategory} />
+      </li>
+    ))
+  }
 
   return (
     <CatalogProvider>
@@ -23,6 +34,11 @@ function CategoryLayout({ category, children }: Props) {
           Найдено {amount} {suggestionPlural.get(amount)}
         </span>
       </Container>
+      {!!category.categories?.length && (
+        <Container>
+          <ul className='flex gap-[12px]'>{showSubCategories()}</ul>
+        </Container>
+      )}
       <QuickFilter />
       {children}
     </CatalogProvider>
