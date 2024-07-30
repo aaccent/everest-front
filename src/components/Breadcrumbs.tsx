@@ -35,7 +35,7 @@ function Breadcrumbs({ list, category }: Props) {
   function showItems() {
     const _list = list ? list : category.breadcrumbs
 
-    return _list.map((item, i) => <Breadcrumb key={i} href={item.name} title={item.seo} />)
+    return _list.map((item, i) => <Breadcrumb key={i} href={item.seo} title={item.name} />)
   }
 
   return (
