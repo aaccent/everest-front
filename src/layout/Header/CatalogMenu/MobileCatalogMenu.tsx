@@ -54,7 +54,7 @@ async function MobileCatalogMenu() {
           <CatalogMenuButton />
         </div>
         <CatalogMenuProvider initId={catalog[0].id.toString()}>
-          <ul className='px-container mx-[-20px] mb-[32px] flex gap-[8px] overflow-x-auto scrollbar-transparent'>
+          <ul className='px-container -mx-container mb-[32px] flex gap-[8px] overflow-x-auto scrollbar-transparent'>
             {outputTopLevel(catalog)}
           </ul>
           {outputInnerItems(catalog)}

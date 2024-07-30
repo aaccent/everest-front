@@ -36,7 +36,7 @@ function CategoryLayout({ category, children }: Props) {
       </Container>
       {!!category.categories?.length && (
         <Container>
-          <ul className='px-container mx-[-20px] flex gap-[12px] overflow-x-auto scrollbar-transparent'>
+          <ul className='-mx-container px-container flex gap-[12px] overflow-x-auto scrollbar-transparent'>
             {showSubCategories()}
           </ul>
         </Container>

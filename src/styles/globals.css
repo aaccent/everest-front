@@ -92,6 +92,10 @@
   .px-container {
     @apply px-[20px] md:px-[56px];
   }
+
+  .-mx-container {
+    @apply mx-[-20px] md:mx-[-56px];
+  }
 }
 
 .mapboxgl-control-container {
