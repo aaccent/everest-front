@@ -17,7 +17,7 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
         <div className='text-base-650'>
           от {object.minArea} м<sup>2</sup>
         </div>
-        <div className=''>{formatPrice(object.minPrice)}</div>
+        <div className=''>{formatPrice(Number(object.minPrice))}</div>
       </div>
     )
   })
