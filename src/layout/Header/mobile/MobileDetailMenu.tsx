@@ -7,6 +7,7 @@ import MobileDetailMenuWrapper from './MobileDetailMenuWrapper'
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
 import { getCatalogMenu, getServices } from '@/globals/api'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
+import MobileSaleRentMenu from '@/layout/Header/SaleRentMenu/MobileSaleRentMenu'
 
 function showItems(list: MenuItem[]) {
   return list.map((item, i) => (
@@ -49,6 +50,12 @@ async function MobileDetailMenu() {
       <div className='px-container relative h-full overflow-y-auto py-[24px] has-[.active-submenu]:overflow-hidden'>
         <nav className='mb-[32px]'>
           <ul>
+            <MobileMenuItem text='Покупка'>
+              <MobileSaleRentMenu type='sale' />
+            </MobileMenuItem>
+            <MobileMenuItem text='Аренда'>
+              <MobileSaleRentMenu type='rent' />
+            </MobileMenuItem>
             <MobileMenuItem text='Новостройки'>{showItems(newBuildingsMenu)}</MobileMenuItem>
             <MobileMenuItem href='#' text='Ипотека' />
             <MobileMenuItem text='Сервисы'>{showItems(services as any[])}</MobileMenuItem>
