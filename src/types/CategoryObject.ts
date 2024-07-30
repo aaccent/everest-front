@@ -3,7 +3,7 @@ export interface Tag {
   name: string
 }
 
-export interface Object {
+export interface CategoryObject {
   id: number
   title: string
   typeObject: string

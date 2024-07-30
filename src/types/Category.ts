@@ -24,6 +24,7 @@ export type Category<
 
 export type SubCategory<TObjects extends object | false = false> = RawCategory & {
   breadcrumbs: BreadcrumbItem[]
+  categories?: []
   objects: TObjects extends false ? [] : TObjects[]
 }
 
