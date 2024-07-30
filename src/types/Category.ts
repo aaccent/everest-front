@@ -11,17 +11,19 @@ export interface RawCategory {
   seoDescription?: string | null
 }
 
-export type SubCategory<TObjects extends object | false = false> = RawCategory & {
+type TopLevelCategory = Pick<RawCategory, 'name' | 'seoDescription' | 'seoTitle' | 'seoUrl' | 'code' | 'description'>
+
+export type Category<
+  TCategories extends object | false = object,
+  TObjects extends object | false = false,
+> = TopLevelCategory & {
   breadcrumbs: BreadcrumbItem[]
+  categories: TCategories extends false ? [] : TCategories[]
   objects: TObjects extends false ? [] : TObjects[]
 }
 
-export type Category<TCategories extends object | false = object, TObjects extends object | false = false> = Pick<
-  RawCategory,
-  'name' | 'seoDescription' | 'seoTitle'
-> & {
+export type SubCategory<TObjects extends object | false = false> = RawCategory & {
   breadcrumbs: BreadcrumbItem[]
-  categories: TCategories extends false ? [] : TCategories[]
   objects: TObjects extends false ? [] : TObjects[]
 }
 
