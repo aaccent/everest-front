@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Category } from '@/types/Category'
+import { MenuCategory } from '@/types/Menu'
 
 interface Props {
-  list: Category[]
+  list: MenuCategory[]
   title: string
   className?: string
 }
@@ -39,7 +39,7 @@ function FooterMenu(props: Props) {
       </button>
       <ul className={`text-base-300-lg-100 mt-[18px] flex flex-col gap-[12px] ${className()}`}>
         {props.list.map((item) => (
-          <Link href={item.code} key={item.id.toString()}>
+          <Link href={item.seoUrl} key={item.id.toString()}>
             <li>{item.name}</li>
           </Link>
         ))}

@@ -1,12 +1,12 @@
 import React from 'react'
-import { getCatalog } from '@/globals/api'
+import { getCatalogMenu } from '@/globals/api'
 import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories } from './components/CatalogMenuInner'
-import { Category } from '@/types/Category'
 import Img from '@/ui/Img'
 import SeeAllCard from '@/layout/Header/components/SeeAllCard'
 import MenuItemCard from '@/layout/Header/components/MenuItemCard'
+import { MenuCategory } from '@/types/Menu'
 
-function showTopLevel(list: Category[]) {
+function showTopLevel(list: MenuCategory[]) {
   return list.map((category) => (
     <li className='block w-full' key={category.id.toString()}>
       <CatalogMenuInnerButton
@@ -14,14 +14,14 @@ function showTopLevel(list: Category[]) {
         activeClass='bg-base-100'
         id={category.id.toString()}
       >
-        <Img className='size-[20px] object-contain object-center' src={category.iconPath} isDecorative isSVG />
+        <Img className='size-[20px] object-contain object-center' src={category.seoUrl} isDecorative isSVG />
         {category.name}
       </CatalogMenuInnerButton>
     </li>
   ))
 }
 
-function showSubCategories(list: Category[]) {
+function showSubCategories(list: MenuCategory[]) {
   return list.map((category) => (
     <CatalogMenuSubcategories
       className='auto-rows-max grid-cols-2 gap-x-[12px] gap-y-[13px] p-[30px] pr-[40px] transition-opacity'
@@ -31,9 +31,9 @@ function showSubCategories(list: Category[]) {
       id={category.id.toString()}
     >
       <li>
-        <SeeAllCard link={category.code} />
+        <SeeAllCard link={category.seoUrl} />
       </li>
-      {category.subCategoryList.map((subcategory) => (
+      {category.subCategories.map((subcategory) => (
         <li key={subcategory.id}>
           <MenuItemCard parent={category} item={subcategory}></MenuItemCard>
         </li>
@@ -43,7 +43,7 @@ function showSubCategories(list: Category[]) {
 }
 
 async function DesktopCatalogMenu() {
-  const catalog = await getCatalog()
+  const catalog = await getCatalogMenu()
 
   return (
     <aside className='px-container invisible fixed inset-x-0 top-0 z-10 flex w-full gap-[16px] bg-base-100 pb-[56px] pt-[145px] opacity-0 transition-opacity peer-[.catalog-menu]/style-state:visible peer-[.catalog-menu]/style-state:opacity-100'>

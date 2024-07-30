@@ -1,3 +1,10 @@
+export interface FlatTypes {
+  id: string
+  name: string
+  minArea: string // Нужен number
+  minPrice: string // Нужен number
+}
+
 export interface Complex {
   id: string
   name: string
@@ -12,11 +19,4 @@ export interface Complex {
   developerLogo: string
   presentationLink: string
   priceDiscount?: number
-}
-
-export interface FlatTypes {
-  id: string
-  name: string
-  minArea: number
-  minPrice: number
 }

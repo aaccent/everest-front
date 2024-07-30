@@ -7,7 +7,7 @@ import UpButton from '@/layout/Footer/UpButton'
 import FooterMenu from '@/layout/Footer/FooterMenu'
 
 import { getSocials } from '@/globals/api/methods/getSocials'
-import { getCatalog } from '@/globals/api/methods/getCatalog'
+import { getCatalogMenu } from '@/globals/api/methods/getCatalogMenu'
 import { getServices } from '@/globals/api/methods/getServices'
 
 import logo from '@/assets/static/logo.svg'
@@ -22,7 +22,7 @@ interface socialItem {
 async function Footer() {
   const socials: socialItem[] = await getSocials()
   const staticMenu = ['Об агенстве', 'Риелторы', 'Обучение', 'Отзывы', 'Вакансии', 'Блог', 'Контакты']
-  const catalog = await getCatalog()
+  const catalog = await getCatalogMenu()
   const services = await getServices()
 
   function showStaticMenu() {

@@ -1,11 +1,28 @@
-import { SubCategory } from '@/types/SubCategory'
+import { BreadcrumbItem } from '@/types/Breadcrumbs'
 
-export interface Category {
+export interface RawCategory {
   id: string
-  iconPath: null | string
   name: string
   code: string
+  seoUrl?: string
+  type: string
+  description: string | null
   seoTitle?: string | null
   seoDescription?: string | null
-  subCategoryList: SubCategory[]
 }
+
+export type SubCategory<TObjects extends object | false = false> = RawCategory & {
+  breadcrumbs: BreadcrumbItem[]
+  objects: TObjects extends false ? [] : TObjects[]
+}
+
+export type Category<TCategories extends object | false = object, TObjects extends object | false = false> = Pick<
+  RawCategory,
+  'name' | 'seoDescription' | 'seoTitle'
+> & {
+  breadcrumbs: BreadcrumbItem[]
+  categories: TCategories extends false ? [] : TCategories[]
+  objects: TObjects extends false ? [] : TObjects[]
+}
+
+export type AnyCategory = Category<any, any> | SubCategory<any>
