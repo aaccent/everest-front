@@ -5,7 +5,7 @@ import MobileMenuItem from './MobileMenuItem'
 import MobileDetailMenuWrapper from './MobileDetailMenuWrapper'
 
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
-import { getCatalog, getServices } from '@/globals/api'
+import { getCatalogMenu, getServices } from '@/globals/api'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 
 function showItems(list: MenuItem[]) {
@@ -41,7 +41,7 @@ function ActionButton({ accented, text, href, icon }: ActionButtonProps) {
 }
 
 async function MobileDetailMenu() {
-  const catalog = await getCatalog()
+  const catalog = await getCatalogMenu()
   const services = await getServices()
 
   return (

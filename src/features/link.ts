@@ -1,9 +1,11 @@
-import { Category } from '@/types/Category'
-import { SubCategory } from '@/types/SubCategory'
+type ItemWithCode = {
+  code?: string
+  seoUrl?: string
+}
 
-export function generateCategoryLink(item: Category | SubCategory, parent?: Category) {
+export function generateCategoryLink(item: ItemWithCode, parent?: ItemWithCode) {
   let link = '/catalog'
-  if (parent) link += `/${parent.code}`
-  link += `/${item.code}`
+  if (parent) link += `/${item.seoUrl || parent.code}`
+  link += `/${item.seoUrl || item.code}`
   return link
 }

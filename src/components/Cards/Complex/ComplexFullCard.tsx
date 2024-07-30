@@ -1,10 +1,10 @@
 import React from 'react'
 import { Complex, FlatTypes } from '@/types/Complex'
 import Link from 'next/link'
-import Image from 'next/image'
 import { showTags } from '@/components/Cards/Complex/ComplexCard'
 import { formatPrice } from '@/features/price'
 import { formatStatus } from '@/features/date'
+import Img from '@/ui/Img'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {
   return objectTypes.map((object) => {
@@ -17,7 +17,7 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
         <div className='text-base-650'>
           от {object.minArea} м<sup>2</sup>
         </div>
-        <div className=''>{formatPrice(object.minPrice)}</div>
+        <div className=''>{formatPrice(Number(object.minPrice))}</div>
       </div>
     )
   })
@@ -26,12 +26,11 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
 function ComplexFullCard(props: Complex) {
   return (
     <Link href='' className='relative flex rounded-[32px] border border-base-400 p-[40px]'>
-      <Image
+      <Img
+        className='mr-[40px] rounded-[20px] object-cover object-center'
         src='/no-photo.jpg'
-        alt=''
         width={427}
         height={342}
-        className='mr-[40px] rounded-[20px] object-cover object-center'
       />
       <div className='absolute left-[54px] top-[54px] flex gap-[4px]'>{props.tags && showTags(props.tags)}</div>
       <div>
@@ -49,7 +48,9 @@ function ComplexFullCard(props: Complex) {
         <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(props.objectsType)}</div>
       </div>
       <div className='ml-auto flex flex-col justify-between'>
-        <Image src='/icons/donstroy.svg' alt='' unoptimized />
+        <div className='relative'>
+          <Img src='/icons/donstroy.svg' isSVG />
+        </div>
         <div className='text-base-300-lg-100 flex gap-[6px] text-base-650 before:size-[19px] before:bg-icon-clip before:bg-default-auto after:block'>
           5 мин назад
         </div>

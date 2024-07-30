@@ -76,7 +76,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   const json = await tryJSONParse(text)
 
   if (!json) {
-    throw new LogError('Return body from ${method}:${uri} not valid json', {
+    throw new LogError(`Return body from ${method}:${uri} not valid json`, {
       path: url,
       body: text,
       request,

@@ -1,28 +1,31 @@
 import React from 'react'
 import { getComplexes } from '@/globals/api/methods/getComplexes'
-import CatalogPageFilter from '@/page-components/catalog/CatalogPageFilter_test/CatalogPageFilter'
-import { ViewProvider } from '@/page-components/catalog/CatalogPageFilter_test/ViewContext'
-import CatalogContent from '@/page-components/catalog/CatalogContent/CatalogContent'
-import CatalogPageTitle from '@/page-components/catalog/CatalogPageTitle'
-import Section from '@/layout/Section'
+import CatalogContent from '@/page-components/catalog/CatalogContent'
+import CategoryLayout from '@/layout/CategoryLayout/CategoryLayout'
+import ComplexCard from '@/components/Cards/Complex/ComplexCard'
+import ComplexFullCard from '@/components/Cards/Complex/ComplexFullCard'
 
 async function Page() {
   const data = await getComplexes()
+  const _list = data.objects
 
-  const pageTitle = {
-    breadcrumbs: data.breadcrumbs,
-    title: data.breadcrumbs[data.breadcrumbs.length - 1],
-    amount: data.categories.length,
+  function tileView() {
+    return _list.map((item) => <ComplexCard key={item.id} {...item} />)
+  }
+
+  function listView() {
+    return _list.map((item) => <ComplexFullCard key={item.id} {...item} />)
+  }
+
+  const categoryData = {
+    ...data,
+    name: 'Жилые Комплексы',
   }
 
   return (
-    <Section>
-      <CatalogPageTitle {...pageTitle} />
-      <ViewProvider>
-        <CatalogPageFilter />
-        <CatalogContent list={data.categories} tilePerView={2} listPerView={1} />
-      </ViewProvider>
-    </Section>
+    <CategoryLayout category={categoryData}>
+      <CatalogContent tileView={tileView()} listView={listView()} />
+    </CategoryLayout>
   )
 }
 
