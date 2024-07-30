@@ -33,7 +33,9 @@ function Img({ isSVG, src, isDecorative, alt = '', ...props }: Props) {
       unoptimized={isNeedUnoptimized()}
       onError={onError}
       placeholder='blur'
+      blurDataURL='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO0K82vBwADvgGjnPCFpAAAAABJRU5ErkJggg=='
       role={isDecorative ? 'presentation' : undefined}
+      {...(!('width' in props) && !('fill' in props) ? { fill: true } : {})}
       {...props}
     />
   )
