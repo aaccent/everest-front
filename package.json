@@ -22,7 +22,8 @@
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "react-map-gl": "^7.1.7"
+    "react-map-gl": "^7.1.7",
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "@aaccent/adaptive-sizes-next": "^1.0.2",
