@@ -51,10 +51,10 @@ async function MobileDetailMenu() {
         <nav className='mb-[32px]'>
           <ul>
             <MobileMenuItem text='Покупка'>
-              <MobileSaleRentMenu type='Покупка' />
+              <MobileSaleRentMenu type='sale' />
             </MobileMenuItem>
             <MobileMenuItem text='Аренда'>
-              <MobileSaleRentMenu type='Аренда' />
+              <MobileSaleRentMenu type='rent' />
             </MobileMenuItem>
             <MobileMenuItem text='Новостройки'>{showItems(newBuildingsMenu)}</MobileMenuItem>
             <MobileMenuItem href='#' text='Ипотека' />

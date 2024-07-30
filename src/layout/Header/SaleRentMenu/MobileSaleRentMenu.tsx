@@ -2,11 +2,14 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { suggestionPlural } from '@/features/pluralRules'
-import { getCategory } from '@/globals/api/methods/getCategory'
+import { getCatalogMenu, MenuType } from '@/globals/api'
 
-async function MobileSaleRentMenu({ type }: { type: 'Покупка' | 'Аренда' }) {
-  const category = type === 'Покупка' ? 'sale' : 'rent'
-  const data = await getCategory(category)
+interface Props {
+  type: MenuType
+}
+
+async function MobileSaleRentMenu({ type }: Props) {
+  const data = await getCatalogMenu(type)
   const fullAmount = data.reduce((inc, item) => inc + item.total, 0)
 
   function showCategories() {

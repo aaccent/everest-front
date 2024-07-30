@@ -3,10 +3,15 @@ import { IsDesktop } from '@/features/adaptive'
 import Link from 'next/link'
 import Image from 'next/image'
 import { suggestionPlural } from '@/features/pluralRules'
-import { getCategory } from '@/globals/api/methods/getCategory'
+import { getCatalogMenu, MenuType } from '@/globals/api'
 
-async function DesktopSaleRentMenu({ className, category }: { className: string; category: 'sale' | 'rent' }) {
-  const data = await getCategory(category)
+interface Props {
+  className: string
+  category: MenuType
+}
+
+async function DesktopSaleRentMenu({ className, category }: Props) {
+  const data = await getCatalogMenu(category)
   const fullAmount = data.reduce((inc, item) => inc + item.total, 0)
   const title = category === 'sale' ? 'Покупка' : 'Аренда'
 
