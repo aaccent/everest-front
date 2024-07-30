@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Category } from '@/types/Category'
+import { MenuCategory } from '@/types/Menu'
 
 interface Props {
-  list: Category[]
+  list: MenuCategory[]
   title: string
   className?: string
 }

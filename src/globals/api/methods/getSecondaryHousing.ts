@@ -1,8 +1,8 @@
 import { apiCall, APIResponse } from '@/globals/api/apiCall'
-import { Category } from '@/types/Category'
+import { SubCategory } from '@/types/Category'
 import { Object } from '@/types/Object'
 
-interface SecondaryHouseCategory extends Category {
+interface SecondaryHouseCategory extends SubCategory {
   typeId: number
 }
 

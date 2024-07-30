@@ -9,5 +9,6 @@ export class LogError extends Error {
     super(text)
     this.name = 'LogError'
     this.data = data
+    console.error(data)
   }
 }

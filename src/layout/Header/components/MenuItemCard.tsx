@@ -1,14 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
-import { suggestionPlural } from '@/features/pluralRules'
-import { SubCategory } from '@/types/SubCategory'
 import Img from '@/ui/Img'
-import { Category } from '@/types/Category'
+import { suggestionPlural } from '@/features/pluralRules'
 import { generateCategoryLink } from '@/features/link'
+import { MenuCategory, MenuSubcategory } from '@/types/Menu'
 
 interface Props {
-  item: SubCategory
-  parent: Category
+  item: MenuSubcategory
+  parent: MenuCategory
 }
 
 function MenuItemCard({ item, parent }: Props) {

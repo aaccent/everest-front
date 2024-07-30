@@ -26,6 +26,15 @@ function Img({ isSVG, src, isDecorative, alt = '', ...props }: Props) {
     return image.includes('.svg')
   }
 
+  function isNeedFillProp() {
+    if ('fill' in props) return props.fill
+
+    if (isSVG) return true
+    if ('width' in props) return true
+
+    return false
+  }
+
   return (
     <Image
       src={image}
@@ -33,8 +42,9 @@ function Img({ isSVG, src, isDecorative, alt = '', ...props }: Props) {
       unoptimized={isNeedUnoptimized()}
       onError={onError}
       placeholder='blur'
+      blurDataURL='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO0K82vBwADvgGjnPCFpAAAAABJRU5ErkJggg=='
       role={isDecorative ? 'presentation' : undefined}
-      {...props}
+      {...Object.assign(props, { fill: isNeedFillProp() })}
     />
   )
 }
