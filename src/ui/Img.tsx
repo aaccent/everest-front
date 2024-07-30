@@ -30,7 +30,7 @@ function Img({ isSVG, src, isDecorative, alt = '', ...props }: Props) {
     if ('fill' in props) return props.fill
 
     if (isSVG) return true
-    if ('width' in props) return true
+    if ('width' in props) return false
 
     return false
   }
