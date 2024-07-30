@@ -5,7 +5,7 @@ interface Props extends PropsWithChildren {
 }
 
 function Container({ className, children }: Props) {
-  return <div className={`mx-auto max-w-[1568px] ${className}`}>{children}</div>
+  return <div className={`px-container max-w-[1568px] md:mx-auto md:px-0 ${className}`}>{children}</div>
 }
 
 export default Container

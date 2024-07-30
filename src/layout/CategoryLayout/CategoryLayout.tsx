@@ -19,7 +19,7 @@ function CategoryLayout({ category, children }: Props) {
     if (!category.categories) return null
 
     return category.categories.map((subcategory) => (
-      <li key={subcategory.id}>
+      <li className='block flex-shrink-0' key={subcategory.id}>
         <SubCategoryLink parent={category} item={subcategory} />
       </li>
     ))
@@ -36,7 +36,9 @@ function CategoryLayout({ category, children }: Props) {
       </Container>
       {!!category.categories?.length && (
         <Container>
-          <ul className='flex gap-[12px]'>{showSubCategories()}</ul>
+          <ul className='px-container mx-[-20px] flex gap-[12px] overflow-x-auto scrollbar-transparent'>
+            {showSubCategories()}
+          </ul>
         </Container>
       )}
       <QuickFilter />
