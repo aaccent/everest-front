@@ -7,6 +7,7 @@ import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories }
 
 import { getCatalogMenu } from '@/globals/api'
 import { MenuCategory } from '@/types/Menu'
+import { generateCategoryLink } from '@/features/link'
 
 function outputTopLevel(list: MenuCategory[]) {
   return list.map((item) => (
@@ -33,7 +34,7 @@ function outputInnerItems(list: MenuCategory[]) {
       key={item.id}
     >
       <li>
-        <SeeAllCard />
+        <SeeAllCard link={generateCategoryLink(item)} />
       </li>
       {item.subCategories.map((subitem: any) => (
         <MenuItemCard key={subitem.id} parent={item} item={subitem} />
