@@ -3,6 +3,7 @@ import DetailFilterButton from '@/layout/CategoryLayout/QuickFilter/DetailFilter
 import Container from '@/layout/Container'
 import MapObjectsButton from '@/layout/CategoryLayout/QuickFilter/MapObjectsButton'
 import SelectorInline from '@/ui/inputs/SelectorInline'
+import CatalogViewButton from '@/layout/CategoryLayout/QuickFilter/CatalogViewButton'
 
 function QuickFilter() {
   return (
@@ -19,7 +20,9 @@ function QuickFilter() {
         </div>
         <MapObjectsButton />
       </div>
-      <div className='hidden md:flex'></div>
+      <div className='hidden md:flex'>
+        <CatalogViewButton />
+      </div>
     </Container>
   )
 }
