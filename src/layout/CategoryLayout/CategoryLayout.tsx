@@ -30,7 +30,7 @@ function CategoryLayout({ category, children }: Props) {
       <Breadcrumbs category={category} />
       <Container className='mb-[24px] flex items-start justify-between md:mb-[50px]'>
         <PageTitle title={category.seoTitle || category.name} />
-        <span className='text-base-300-lg-100 absolute right-[56px] top-[54px] hidden translate-x-0 text-base-650 md:block'>
+        <span className='text-base-300-lg-100 hidden translate-x-0 text-base-650 md:block'>
           Найдено {amount} {suggestionPlural.get(amount)}
         </span>
       </Container>
