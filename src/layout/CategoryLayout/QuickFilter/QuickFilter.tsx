@@ -4,14 +4,24 @@ import Container from '@/layout/Container'
 import MapObjectsButton from '@/layout/CategoryLayout/QuickFilter/MapObjectsButton'
 import SelectorInline from '@/ui/inputs/SelectorInline'
 import CatalogViewButton from '@/layout/CategoryLayout/QuickFilter/CatalogViewButton'
+import { AnyCategory } from '@/types/Category'
+import { flatPlural } from '@/features/pluralRules'
 
-function QuickFilter() {
+interface Props {
+  category: AnyCategory
+}
+
+function QuickFilter({ category }: Props) {
+  const amount = category.objects.length
+
   return (
     <Container>
       <div className='mb-[32px] mt-[40px] flex items-center justify-between rounded-[24px] bg-base-200 p-[20px] md:w-full md:flex-col md:items-start md:justify-start md:p-[32px] md:pb-[18px]'>
         <div className='flex w-full items-center justify-between md:hidden'>
           <DetailFilterButton />
-          <span>Найдено 112 квартир</span>
+          <span className='text-base-300-lg-100 text-base-600/50'>
+            Найдено {amount} {flatPlural.get(amount)}
+          </span>
           <MapObjectsButton />
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>

@@ -41,7 +41,7 @@ function CategoryLayout({ category, children }: Props) {
           </ul>
         </Container>
       )}
-      <QuickFilter />
+      <QuickFilter category={category} />
       {children}
     </CatalogProvider>
   )
