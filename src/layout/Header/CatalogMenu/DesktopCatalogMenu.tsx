@@ -14,7 +14,9 @@ function showTopLevel(list: MenuCategory[]) {
         activeClass='bg-base-100'
         id={category.id.toString()}
       >
-        <Img className='size-[20px] object-contain object-center' src={category.seoUrl} isDecorative isSVG />
+        <div className='relative size-[20px] flex-shrink-0'>
+          <Img className='object-contain object-center' src={category.seoUrl} isDecorative isSVG />
+        </div>
         {category.name}
       </CatalogMenuInnerButton>
     </li>
