@@ -1,11 +1,9 @@
+export * from './methods/catalog'
+
 export * from './methods/getAddresses'
-export * from './methods/getCatalogMenu'
-export * from './methods/getComplexes'
 export * from './methods/getLinks'
 export * from './methods/getNewBuildingsOnMain'
 export * from './methods/getObjects'
-export * from './methods/getSecondaryHousing'
-export * from './methods/getSecondaryHousingSubcategory'
 export * from './methods/getServices'
 export * from './methods/getSocials'
 export * from './methods/sendCallRequest'

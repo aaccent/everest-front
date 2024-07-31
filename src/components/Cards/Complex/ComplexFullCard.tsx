@@ -23,7 +23,11 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
   })
 }
 
-function ComplexFullCard(props: Complex) {
+interface Props {
+  item: Complex
+}
+
+function ComplexFullCard({ item: props }: Props) {
   return (
     <Link href='' className='relative flex rounded-[32px] border border-base-400 p-[40px]'>
       <Img

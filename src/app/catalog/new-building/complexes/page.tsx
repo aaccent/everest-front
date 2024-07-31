@@ -1,32 +1,16 @@
 import React from 'react'
 import { getComplexes } from '@/globals/api'
-import CatalogContent from '@/layout/catalog/CatalogContent'
-import CategoryLayout from '@/layout/catalog/CategoryLayout'
-import ComplexCard from '@/components/Cards/Complex/ComplexCard'
-import ComplexFullCard from '@/components/Cards/Complex/ComplexFullCard'
+import ComplexesCategory from '@/page-components/catalog/ComplexesCategory'
 
 async function Page() {
   const data = await getComplexes()
-  const _list = data.objects
 
-  function tileView() {
-    return _list.map((item) => <ComplexCard key={item.id} {...item} />)
-  }
-
-  function listView() {
-    return _list.map((item) => <ComplexFullCard key={item.id} {...item} />)
-  }
-
-  const categoryData = {
+  const _category = {
     ...data,
     name: 'Жилые Комплексы',
   }
 
-  return (
-    <CategoryLayout category={categoryData}>
-      <CatalogContent tileView={tileView()} listView={listView()} />
-    </CategoryLayout>
-  )
+  return <ComplexesCategory category={_category} />
 }
 
 export default Page
