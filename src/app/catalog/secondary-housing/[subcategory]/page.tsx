@@ -1,5 +1,5 @@
 import React from 'react'
-import { getSecondaryHousingSubcategory } from '@/globals/api/methods/getSecondaryHousingSubcategory'
+import { getSecondaryHousingSubcategory } from '@/globals/api'
 import SecondaryCategory from '@/page-components/catalog/SecondaryCategory'
 
 async function Page({ params }: { params: { subcategory: string } }) {

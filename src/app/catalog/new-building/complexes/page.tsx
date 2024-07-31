@@ -1,5 +1,5 @@
 import React from 'react'
-import { getComplexes } from '@/globals/api/methods/getComplexes'
+import { getComplexes } from '@/globals/api'
 import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
 import ComplexCard from '@/components/Cards/Complex/ComplexCard'

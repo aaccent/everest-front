@@ -6,9 +6,7 @@ import Section from '@/layout/Section'
 import UpButton from '@/layout/Footer/UpButton'
 import FooterMenu from '@/layout/Footer/FooterMenu'
 
-import { getSocials } from '@/globals/api/methods/getSocials'
-import { getCatalogMenu } from '@/globals/api/methods/getCatalogMenu'
-import { getServices } from '@/globals/api/methods/getServices'
+import { getSocials, getCatalogMenu, getServices } from '@/globals/api'
 
 import logo from '@/assets/static/logo.svg'
 import aaccentLogo from '@/assets/static/aaccent-logo.svg'
