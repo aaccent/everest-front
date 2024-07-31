@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { CatalogContext } from '@/layout/CategoryLayout/CatalogContext'
+import { CatalogContext } from '@/features/CatalogContext'
 import Container from '@/layout/Container'
 
 type CatalogContentProps = {

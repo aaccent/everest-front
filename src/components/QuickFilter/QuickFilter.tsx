@@ -1,9 +1,9 @@
 import React from 'react'
-import DetailFilterButton from '@/layout/CategoryLayout/QuickFilter/DetailFilterButton'
+import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
 import Container from '@/layout/Container'
-import MapObjectsButton from '@/layout/CategoryLayout/QuickFilter/MapObjectsButton'
+import MapObjectsButton from '@/components/QuickFilter/MapObjectsButton'
 import SelectorInline from '@/ui/inputs/SelectorInline'
-import CatalogViewButton from '@/layout/CategoryLayout/QuickFilter/CatalogViewButton'
+import CatalogViewButton from '@/components/QuickFilter/CatalogViewButton'
 import { AnyCategory } from '@/types/Category'
 import { flatPlural } from '@/features/pluralRules'
 

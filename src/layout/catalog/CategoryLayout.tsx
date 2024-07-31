@@ -4,9 +4,9 @@ import { AnyCategory } from '@/types/Category'
 import PageTitle from '@/components/PageTitle/PageTitle'
 import Container from '@/layout/Container'
 import { suggestionPlural } from '@/features/pluralRules'
-import QuickFilter from '@/layout/CategoryLayout/QuickFilter/QuickFilter'
-import { CatalogProvider } from '@/layout/CategoryLayout/CatalogContext'
-import SubCategoryLink from '@/layout/CategoryLayout/SubCategoryLink'
+import QuickFilter from '@/components/QuickFilter/QuickFilter'
+import { CatalogProvider } from '@/features/CatalogContext'
+import SubCategoryLink from '@/components/SubCategoryLink'
 
 interface Props extends PropsWithChildren {
   category: AnyCategory

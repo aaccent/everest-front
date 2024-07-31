@@ -1,7 +1,7 @@
 import React from 'react'
 import { getComplexes } from '@/globals/api/methods/getComplexes'
-import CatalogContent from '@/page-components/catalog/CatalogContent'
-import CategoryLayout from '@/layout/CategoryLayout/CategoryLayout'
+import CatalogContent from '@/layout/catalog/CatalogContent'
+import CategoryLayout from '@/layout/catalog/CategoryLayout'
 import ComplexCard from '@/components/Cards/Complex/ComplexCard'
 import ComplexFullCard from '@/components/Cards/Complex/ComplexFullCard'
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import CategoryLayout from '@/layout/CategoryLayout/CategoryLayout'
+import CategoryLayout from '@/layout/catalog/CategoryLayout'
 import { getSecondaryHousing } from '@/globals/api'
-import CatalogContent from '@/page-components/catalog/CatalogContent'
+import CatalogContent from '@/layout/catalog/CatalogContent'
 import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
 import ObjectFullCard from '@/components/Cards/ObjectCard/ObjectFullCard'
 

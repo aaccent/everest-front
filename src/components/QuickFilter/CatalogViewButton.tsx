@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext } from 'react'
-import { CatalogContext } from '@/layout/CategoryLayout/CatalogContext'
+import { CatalogContext } from '@/features/CatalogContext'
 
 export default function CatalogViewButton() {
   const { setView, view } = useContext(CatalogContext)

@@ -1,6 +1,6 @@
 import React from 'react'
-import CategoryLayout from '@/layout/CategoryLayout/CategoryLayout'
-import CatalogContent from '@/page-components/catalog/CatalogContent'
+import CategoryLayout from '@/layout/catalog/CategoryLayout'
+import CatalogContent from '@/layout/catalog/CatalogContent'
 import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
 import { getSecondaryHousingSubcategory } from '@/globals/api/methods/getSecondaryHousingSubcategory'
 
