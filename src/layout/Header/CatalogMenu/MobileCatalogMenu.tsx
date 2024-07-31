@@ -7,6 +7,7 @@ import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories }
 
 import { getCatalogMenu } from '@/globals/api'
 import { MenuCategory } from '@/types/Menu'
+import { generateCategoryLink } from '@/features/link'
 
 function outputTopLevel(list: MenuCategory[]) {
   return list.map((item) => (
@@ -33,7 +34,7 @@ function outputInnerItems(list: MenuCategory[]) {
       key={item.id}
     >
       <li>
-        <SeeAllCard />
+        <SeeAllCard link={generateCategoryLink(item)} />
       </li>
       {item.subCategories.map((subitem: any) => (
         <MenuItemCard key={subitem.id} parent={item} item={subitem} />
@@ -53,7 +54,7 @@ async function MobileCatalogMenu() {
           <CatalogMenuButton />
         </div>
         <CatalogMenuProvider initId={catalog[0].id.toString()}>
-          <ul className='px-container mx-[-20px] mb-[32px] flex gap-[8px] overflow-x-auto scrollbar-transparent'>
+          <ul className='px-container -mx-container mb-[32px] flex gap-[8px] overflow-x-auto scrollbar-transparent'>
             {outputTopLevel(catalog)}
           </ul>
           {outputInnerItems(catalog)}

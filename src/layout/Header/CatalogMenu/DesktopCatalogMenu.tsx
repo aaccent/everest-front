@@ -5,6 +5,7 @@ import Img from '@/ui/Img'
 import SeeAllCard from '@/layout/Header/components/SeeAllCard'
 import MenuItemCard from '@/layout/Header/components/MenuItemCard'
 import { MenuCategory } from '@/types/Menu'
+import { generateCategoryLink } from '@/features/link'
 
 function showTopLevel(list: MenuCategory[]) {
   return list.map((category) => (
@@ -33,7 +34,7 @@ function showSubCategories(list: MenuCategory[]) {
       id={category.id.toString()}
     >
       <li>
-        <SeeAllCard link={category.seoUrl} />
+        <SeeAllCard link={generateCategoryLink(category)} />
       </li>
       {category.subCategories.map((subcategory) => (
         <li key={subcategory.id}>

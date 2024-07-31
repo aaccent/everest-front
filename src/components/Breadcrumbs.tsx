@@ -12,13 +12,23 @@ function Breadcrumb({ title, href }: BreadcrumbProps) {
   return (
     <li className='group/breadcrumb'>
       <Link
-        className='text-base-500-reg-200 flex items-center gap-[6px] text-base-650 before:block before:h-[16px] before:w-[20px] before:bg-icon-long-arrow before:opacity-50 before:filter-base-600 before:bg-default-contain group-first/breadcrumb:before:hidden group-last/breadcrumb:text-primary group-last/breadcrumb:before:opacity-100 group-last/breadcrumb:before:filter-primary'
+        className='text-base-500-reg-200 flex items-center gap-[6px] text-base-650 before:block before:h-[16px] before:w-[20px] before:bg-icon-long-arrow before:opacity-50 before:filter-base-600 before:bg-default-contain group-first/breadcrumb:before:hidden group-last/breadcrumb:pointer-events-none group-last/breadcrumb:text-primary group-last/breadcrumb:before:opacity-100 group-last/breadcrumb:before:filter-primary'
         href={href}
       >
         {title}
       </Link>
     </li>
   )
+}
+
+function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[]) {
+  let link = '/catalog'
+
+  breadcrumbs.forEach((breadcrumb) => {
+    link += `/${breadcrumb.seo}`
+  })
+
+  return link
 }
 
 type Props =
@@ -35,7 +45,9 @@ function Breadcrumbs({ list, category }: Props) {
   function showItems() {
     const _list = list ? list : category.breadcrumbs
 
-    return _list.map((item, i) => <Breadcrumb key={i} href={item.name} title={item.seo} />)
+    return _list.map((item, i) => (
+      <Breadcrumb key={item.seo} href={generateLinkFromBreadcrumb(_list.toSpliced(i + 1))} title={item.name} />
+    ))
   }
 
   return (

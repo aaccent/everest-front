@@ -1,9 +1,9 @@
-import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 import { Complex } from '@/types/Complex'
 import { Category } from '@/types/Category'
+import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 
 type Request = APIRequest<{
-  chainUrl?: 'complexes' | 'apartments' | 'penthouses'
+  chainUrl?: string
 }>
 
 type Response = APIResponse<Category<Complex>>

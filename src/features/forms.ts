@@ -1,6 +1,6 @@
 'use server'
 
-import { sendCallRequest } from '@/globals/api/methods/sendCallRequest'
+import { sendCallRequest } from '@/globals/api'
 
 export async function callFormHandler(formData: FormData) {
   return sendCallRequest({
