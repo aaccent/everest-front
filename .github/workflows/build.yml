@@ -17,6 +17,7 @@ on:
 
 env:
   CI: TRUE
+  PORT: 3060
 
 jobs:
   build:
