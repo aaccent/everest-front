@@ -10,3 +10,5 @@ services:
       - .env
       - .env.local
     restart: unless-stopped
+    ports:
+      - ${PORT}:${PORT}
