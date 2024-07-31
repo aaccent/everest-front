@@ -15,6 +15,9 @@ on:
       - '!.idea'
   workflow_dispatch:
 
+env:
+  CI: TRUE
+
 jobs:
   build:
     name: 'build and type check'
