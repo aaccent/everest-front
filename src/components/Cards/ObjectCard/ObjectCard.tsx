@@ -2,18 +2,7 @@ import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
 import Img from '@/ui/Img'
 import { CategoryObject } from '@/types/CategoryObject'
-
-interface ActionButtonProps {
-  className?: string
-}
-
-function ActionButton({ className }: ActionButtonProps) {
-  return (
-    <button
-      className={`flex size-[36px] items-center justify-center rounded-full bg-base-600/50 transition-opacity before:size-[20px] before:filter-base-100 before:bg-default group-hover/object-card:opacity-100 md:size-[64px] md:before:size-[24px] ${className}`}
-    />
-  )
-}
+import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
 
 function InfoItem({ children }: PropsWithChildren) {
   return <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[8px]'>{children}</li>
@@ -32,6 +21,8 @@ function ObjectCard({ item }: Props) {
     ))
   }
 
+  const link = '#'
+
   return (
     <div className='group/object-card'>
       <div className='relative mb-[22px]'>
@@ -43,11 +34,11 @@ function ObjectCard({ item }: Props) {
           <ActionButton className='before:bg-icon-address md:opacity-0' />
           <ActionButton className='before:bg-icon-heart' />
         </div>
-        <Link href='#'>
+        <Link href={link}>
           <Img className='h-[340px] w-[512px] rounded-[20px]' src='/no-photo.jpg' width={512} height={340} />
         </Link>
       </div>
-      <Link href='#'>
+      <Link href={link}>
         <div className='text-header-400 mb-[12px] md:mb-[14px]'>{item.price} ₽</div>
         <ul className='mb-[8px] flex gap-[6px] md:mb-[12px]'>
           <InfoItem>1 комн</InfoItem>

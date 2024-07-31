@@ -5,7 +5,7 @@ export interface Tag {
 
 export interface CategoryObject {
   id: number
-  title: string
+  name: string
   typeObject: string
   description: string
   price: string
