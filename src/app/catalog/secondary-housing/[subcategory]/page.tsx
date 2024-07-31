@@ -1,29 +1,11 @@
 import React from 'react'
-import CategoryLayout from '@/layout/catalog/CategoryLayout'
-import CatalogContent from '@/layout/catalog/CatalogContent'
-import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
 import { getSecondaryHousingSubcategory } from '@/globals/api/methods/getSecondaryHousingSubcategory'
+import SecondaryCategory from '@/page-components/catalog/SecondaryCategory'
 
 async function Page({ params }: { params: { subcategory: string } }) {
   const category = await getSecondaryHousingSubcategory(params.subcategory)
 
-  function tileView() {
-    return category.objects.map((item) => <ObjectCard item={item} key={item.id} />)
-  }
-
-  function listView() {
-    return category.objects.map((item) => <ObjectCard item={item} key={item.id} />)
-  }
-
-  return (
-    <CategoryLayout category={category}>
-      <CatalogContent
-        containerClassName='gap-y-[32px] md:gap-y-[56px] mb-[32px] md:mb-[56px]'
-        listView={listView()}
-        tileView={tileView()}
-      />
-    </CategoryLayout>
-  )
+  return <SecondaryCategory category={category} />
 }
 
 export default Page

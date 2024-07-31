@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { CatalogContext } from '@/features/CatalogContext'
+import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import Container from '@/layout/Container'
 
 type CatalogContentProps = {
@@ -11,7 +11,7 @@ type CatalogContentProps = {
 }
 
 function CatalogContent({ tileView, listView, tileClassName, listClassName }: CatalogContentProps) {
-  const { view } = useContext(CatalogContext)
+  const { view } = useContext(CategoryContext)
 
   const onMoreBtnClick = () => {}
 

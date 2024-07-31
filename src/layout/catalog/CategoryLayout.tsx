@@ -5,7 +5,7 @@ import PageTitle from '@/components/PageTitle/PageTitle'
 import Container from '@/layout/Container'
 import { suggestionPlural } from '@/features/pluralRules'
 import QuickFilter from '@/components/QuickFilter/QuickFilter'
-import { CatalogProvider } from '@/features/CatalogContext'
+import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 import SubCategoryLink from '@/components/SubCategoryLink'
 
 interface Props extends PropsWithChildren {
@@ -26,7 +26,7 @@ function CategoryLayout({ category, children }: Props) {
   }
 
   return (
-    <CatalogProvider>
+    <CategoryProvider>
       <Breadcrumbs category={category} />
       <Container className='mb-[24px] flex items-start justify-between md:mb-[50px]'>
         <PageTitle title={category.seoTitle || category.name} />
@@ -43,7 +43,7 @@ function CategoryLayout({ category, children }: Props) {
       )}
       <QuickFilter category={category} />
       {children}
-    </CatalogProvider>
+    </CategoryProvider>
   )
 }
 

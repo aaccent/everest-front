@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useContext } from 'react'
-import { CatalogContext } from '@/features/CatalogContext'
+import { CategoryContext } from '@/layout/catalog/CategoryContext'
 
 export default function CatalogViewButton() {
-  const { setView, view } = useContext(CatalogContext)
+  const { setView, view } = useContext(CategoryContext)
 
   return (
     <div className='flex items-center gap-[2px]'>
