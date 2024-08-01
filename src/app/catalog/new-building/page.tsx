@@ -1,7 +1,11 @@
 import React from 'react'
+import Category from '@/page-components/catalog/Category'
+import { getNewBuildings } from '@/globals/api'
 
-function Page() {
-  return <></>
+async function Page() {
+  const category = await getNewBuildings()
+
+  return <Category category={category} />
 }
 
 export default Page

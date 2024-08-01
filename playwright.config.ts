@@ -1,14 +1,14 @@
 import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
-  testDir: '././src/__tests__',
+  testDir: './src/__tests__',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:3060',
+    baseURL: `http://localhost:${process.env.PORT}`,
     trace: 'on-first-retry',
   },
 
@@ -25,8 +25,8 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'pnpm run start:standalone',
-    url: 'http://localhost:3060',
+    command: 'pnpm run start:ci',
+    url: `http://localhost:${process.env.PORT}`,
     reuseExistingServer: !process.env.CI,
   },
 })

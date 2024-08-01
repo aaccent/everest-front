@@ -60,6 +60,8 @@ function CatalogButton() {
 
   function openMenu() {
     addClass('catalog-menu')
+    removeClass('sale-menu')
+    removeClass('rent-menu')
     hideScroll()
   }
 

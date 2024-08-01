@@ -1,14 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
-import { suggestionPlural } from '@/features/pluralRules'
-import { SubCategory } from '@/types/SubCategory'
 import Img from '@/ui/Img'
-import { Category } from '@/types/Category'
+import { suggestionPlural } from '@/features/pluralRules'
 import { generateCategoryLink } from '@/features/link'
+import { MenuCategory, MenuSubcategory } from '@/types/Menu'
 
 interface Props {
-  item: SubCategory
-  parent: Category
+  item: MenuSubcategory
+  parent: MenuCategory
 }
 
 function MenuItemCard({ item, parent }: Props) {
@@ -18,7 +17,7 @@ function MenuItemCard({ item, parent }: Props) {
       href={generateCategoryLink(item, parent)}
     >
       <div className='relative size-[52px] flex-shrink-0 overflow-hidden rounded-[16px] md:size-[86px] md:rounded-[24px]'>
-        <Img className='object-cover object-center' src={item.iconPath} fill />
+        <Img className='object-cover object-center' src={item.imageUrl} fill />
       </div>
       <div className='flex flex-col gap-[4px]'>
         <span className='text-base-300-reg-100-upper'>{item.name}</span>

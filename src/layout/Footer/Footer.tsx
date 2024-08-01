@@ -6,9 +6,7 @@ import Section from '@/layout/Section'
 import UpButton from '@/layout/Footer/UpButton'
 import FooterMenu from '@/layout/Footer/FooterMenu'
 
-import { getSocials } from '@/globals/api/methods/getSocials'
-import { getCatalog } from '@/globals/api/methods/getCatalog'
-import { getServices } from '@/globals/api/methods/getServices'
+import { getSocials, getCatalogMenu, getServices } from '@/globals/api'
 
 import logo from '@/assets/static/logo.svg'
 import aaccentLogo from '@/assets/static/aaccent-logo.svg'
@@ -22,7 +20,7 @@ interface socialItem {
 async function Footer() {
   const socials: socialItem[] = await getSocials()
   const staticMenu = ['Об агенстве', 'Риелторы', 'Обучение', 'Отзывы', 'Вакансии', 'Блог', 'Контакты']
-  const catalog = await getCatalog()
+  const catalog = await getCatalogMenu()
   const services = await getServices()
 
   function showStaticMenu() {
