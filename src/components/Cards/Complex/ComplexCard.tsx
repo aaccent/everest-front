@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Complex } from '@/types/Complex'
 import CardInfo from '@/components/Cards/Complex/CardInfo'
 import Link from 'next/link'
+import { generateCategoryLink } from '@/features/link'
 
 export function showTags(tags: string[]) {
   return tags.map((tag, index) => (
@@ -23,7 +24,7 @@ interface Props {
 function ComplexCard({ item: props }: Props) {
   return (
     <Link
-      href='#'
+      href={generateCategoryLink(props, { code: 'new-building/complexes' })}
       className='group relative block h-[250px] w-full overflow-hidden rounded-[20px] md:h-[388px] md:rounded-[24px]'
     >
       <Image

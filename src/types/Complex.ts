@@ -20,3 +20,15 @@ export interface Complex {
   presentationLink: string
   priceDiscount?: number
 }
+
+export interface ComplexInDetailed {
+  name: string
+  seoUrl: string
+  mainImg: string
+  description: string
+  developerLogo: string
+  minArea?: number
+  maxArea?: number
+  minPrice?: number
+  address?: string
+}
