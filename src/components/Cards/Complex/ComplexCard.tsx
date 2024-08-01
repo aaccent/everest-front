@@ -16,7 +16,11 @@ export function showTags(tags: string[]) {
   ))
 }
 
-function ComplexCard(props: Complex) {
+interface Props {
+  item: Complex
+}
+
+function ComplexCard({ item: props }: Props) {
   return (
     <Link
       href='#'

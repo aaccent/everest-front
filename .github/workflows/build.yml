@@ -15,6 +15,10 @@ on:
       - '!.idea'
   workflow_dispatch:
 
+env:
+  CI: TRUE
+  PORT: 3060
+
 jobs:
   build:
     name: 'build and type check'

@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Section from '@/layout/Section'
-import { getLinks } from '@/globals/api/methods/getLinks'
+import { getLinks } from '@/globals/api'
 import Image from 'next/image'
 import bavel from '@/assets/static/usefull-links-bavel.svg'
 import Carousel, { CarouselSlide } from '@/components/Carousel/Carousel'

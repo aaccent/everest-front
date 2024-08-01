@@ -5,10 +5,11 @@ import CatalogMenuButton from './components/CatalogMenuButton'
 import MobileCatalogMenuWrapper from './MobileCatalogMenuWrapper'
 import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories } from './components/CatalogMenuInner'
 
-import { getCatalog } from '@/globals/api'
-import { Category } from '@/types/Category'
+import { getCatalogMenu } from '@/globals/api'
+import { MenuCategory } from '@/types/Menu'
+import { generateCategoryLink } from '@/features/link'
 
-function outputTopLevel(list: Category[]) {
+function outputTopLevel(list: MenuCategory[]) {
   return list.map((item) => (
     <li key={item.id}>
       <CatalogMenuInnerButton
@@ -23,7 +24,7 @@ function outputTopLevel(list: Category[]) {
   ))
 }
 
-function outputInnerItems(list: Category[]) {
+function outputInnerItems(list: MenuCategory[]) {
   return list.map((item) => (
     <CatalogMenuSubcategories
       activeClass='block'
@@ -33,9 +34,9 @@ function outputInnerItems(list: Category[]) {
       key={item.id}
     >
       <li>
-        <SeeAllCard />
+        <SeeAllCard link={generateCategoryLink(item)} />
       </li>
-      {item.subCategoryList.map((subitem: any) => (
+      {item.subCategories.map((subitem: any) => (
         <MenuItemCard key={subitem.id} parent={item} item={subitem} />
       ))}
     </CatalogMenuSubcategories>
@@ -43,7 +44,7 @@ function outputInnerItems(list: Category[]) {
 }
 
 async function MobileCatalogMenu() {
-  const catalog = await getCatalog()
+  const catalog = await getCatalogMenu()
 
   return (
     <MobileCatalogMenuWrapper className='invisible fixed inset-0 z-30 opacity-0 transition-opacity after:absolute after:inset-x-0 after:top-full after:z-10 after:h-full after:bg-base-100 peer-[.catalog-menu]/style-state:visible peer-[.catalog-menu]/style-state:opacity-100'>
@@ -53,7 +54,7 @@ async function MobileCatalogMenu() {
           <CatalogMenuButton />
         </div>
         <CatalogMenuProvider initId={catalog[0].id.toString()}>
-          <ul className='px-container mx-[-20px] mb-[32px] flex gap-[8px] overflow-x-auto scrollbar-transparent'>
+          <ul className='px-container -mx-container mb-[32px] flex gap-[8px] overflow-x-auto scrollbar-transparent'>
             {outputTopLevel(catalog)}
           </ul>
           {outputInnerItems(catalog)}

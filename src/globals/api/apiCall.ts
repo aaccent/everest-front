@@ -1,5 +1,7 @@
 import { LogError } from '@/globals/api/LogError'
 
+export type URI = `/${string}`
+
 /**
  * @typeParam TType - тип возвращаемый при успешной конвертации
  * @returns - JSON Объект при успешной конвертации и false при ошибке
@@ -46,7 +48,7 @@ type ApiCallOptions<TRequest extends APIRequest | false = false> = TRequest exte
  * ```
  * */
 export async function apiCall<TRequest extends APIRequest | false = false, TResponse extends APIResponse = APIResponse>(
-  uri: `/${string}`,
+  uri: URI,
   options: ApiCallOptions<TRequest>,
 ): Promise<TResponse> {
   const { method = 'POST', request } = options
@@ -76,7 +78,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   const json = await tryJSONParse(text)
 
   if (!json) {
-    throw new LogError('Return body from ${method}:${uri} not valid json', {
+    throw new LogError(`Return body from ${method}:${uri} not valid json`, {
       path: url,
       body: text,
       request,
