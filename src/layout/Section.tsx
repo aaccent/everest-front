@@ -10,7 +10,7 @@ interface Props extends PropsWithChildren {
 
 export default function Section({ children, hideContainer, className, containerClassName }: Props) {
   return (
-    <section className={`px-container my-[72px] first:mt-0 last:mb-0 md:my-[160px] md:px-[56px] ${className}`}>
+    <section className={`my-[72px] first:mt-0 last:mb-0 md:my-[160px] md:px-[56px] ${className}`}>
       {hideContainer ? children : <Container className={containerClassName}>{children}</Container>}
     </section>
   )
