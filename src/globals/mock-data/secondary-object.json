@@ -1,0 +1,45 @@
+{
+  "data": {
+    "breadcrumbs": [
+      {
+        "name": "Вторичная недвижимость",
+        "seo": "secondary"
+      },
+      {
+        "name": "Комнаты",
+        "seo": "rooms"
+      },
+      {
+        "name": "Какая то комната",
+        "seo": "some-flat"
+      }
+    ],
+    "name": "Пример Названия",
+    "h1": "Пример Заголовка",
+    "title": "Пример Title",
+    "description": "Пример Описания",
+    "address": "Пример Адреса",
+    "text": "Пример Текста",
+    "gallery": [
+      "https://example.com/image1.jpg",
+      "https://example.com/image2.jpg"
+    ],
+    "id": 0,
+    "publicationTime": "2024-07-30 06:46:46",
+    "pricePerMeter": 1000,
+    "characteristics": [
+      {
+        "name": "Комнатность",
+        "value": "3"
+      },
+      {
+        "name": "Этаж",
+        "value": "5"
+      },
+      {
+        "name": "Общая площадь",
+        "value": "75 м²"
+      }
+    ]
+  }
+}

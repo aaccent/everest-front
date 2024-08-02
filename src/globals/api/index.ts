@@ -1,5 +1,7 @@
 export * from './methods/catalog'
 
+export * from './methods/catalog-details'
+
 export * from './methods/getAddresses'
 export * from './methods/getLinks'
 export * from './methods/getNewBuildingsOnMain'
