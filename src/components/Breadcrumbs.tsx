@@ -31,7 +31,9 @@ function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[]) {
   return link
 }
 
-type Props =
+type Props = {
+  className: string
+} & (
   | {
       list: BreadcrumbItem[]
       category?: never
@@ -40,8 +42,9 @@ type Props =
       list?: never
       category: AnyCategory
     }
+)
 
-function Breadcrumbs({ list, category }: Props) {
+function Breadcrumbs({ className, list, category }: Props) {
   function showItems() {
     const _list = list ? list : category.breadcrumbs
 
@@ -51,7 +54,7 @@ function Breadcrumbs({ list, category }: Props) {
   }
 
   return (
-    <nav className='px-container mb-[30px] mt-[16px] md:mb-[40px] md:mt-[27px]'>
+    <nav className={`px-container mb-[30px] mt-[16px] md:mb-[40px] md:mt-[27px] ${className}`}>
       <ul className='-mx-container px-container flex items-center gap-[6px] overflow-x-auto scrollbar-transparent'>
         <Breadcrumb href='/' title='Главная' />
         {showItems()}
