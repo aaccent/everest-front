@@ -8,7 +8,7 @@ import Link from 'next/link'
 import CustomMap from '@/components/CustomMap'
 
 import logoMini from '@/assets/static/logo-mini.svg'
-import mapBavel from '@/assets/static/map-bavel.svg'
+import mapBavel from '@/assets/static/decorative-bg/map-bavel.svg'
 
 interface Address {
   id: string

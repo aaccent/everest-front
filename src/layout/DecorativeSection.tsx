@@ -2,10 +2,10 @@ import React, { PropsWithChildren } from 'react'
 import Image from 'next/image'
 import Section from '@/layout/Section'
 
-import DecorativeBg from '@/assets/static/decorative-bg.svg'
-import DecorativeBgMobile from '@/assets/static/decorative-bg-mobile.svg'
-import DecorativeSmallBg from '@/assets/static/decorative-bg-small.svg'
-import DecorativeSmallBgMobile from '@/assets/static/decorative-bg-small-mobile.svg'
+import DecorativeBg from '@/assets/static/decorative-bg/decorative-bg.svg'
+import DecorativeBgMobile from '@/assets/static/decorative-bg/decorative-bg-mobile.svg'
+import DecorativeSmallBg from '@/assets/static/decorative-bg/decorative-bg-small.svg'
+import DecorativeSmallBgMobile from '@/assets/static/decorative-bg/decorative-bg-small-mobile.svg'
 
 interface BGProps {
   className?: string

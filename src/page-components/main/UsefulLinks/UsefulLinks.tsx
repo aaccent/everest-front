@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Section from '@/layout/Section'
 import { getLinks } from '@/globals/api'
 import Image from 'next/image'
-import bavel from '@/assets/static/usefull-links-bavel.svg'
+import bavel from '@/assets/static/decorative-bg/usefull-links-bavel.svg'
 import Carousel, { CarouselSlide } from '@/components/Carousel/Carousel'
 
 interface Link {
