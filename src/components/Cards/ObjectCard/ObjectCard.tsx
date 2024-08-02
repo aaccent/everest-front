@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Img from '@/ui/Img'
 import { CategoryObject } from '@/types/CategoryObject'
 import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
+import { AnyCategory } from '@/types/Category'
+import { generateObjectLink } from '@/features/link'
 
 function InfoItem({ children }: PropsWithChildren) {
   return <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[8px]'>{children}</li>
@@ -10,9 +12,10 @@ function InfoItem({ children }: PropsWithChildren) {
 
 interface Props {
   item: CategoryObject
+  category: AnyCategory
 }
 
-function ObjectCard({ item }: Props) {
+function ObjectCard({ item, category }: Props) {
   function showTags() {
     return item.tags.map((tag) => (
       <li className='text-base-400-lg-100 rounded-[10px] bg-base-100 px-[8px] py-[5px] text-base-600' key={tag.id}>
@@ -21,7 +24,7 @@ function ObjectCard({ item }: Props) {
     ))
   }
 
-  const link = '#'
+  const link = generateObjectLink(item, category)
 
   return (
     <div className='group/object-card'>

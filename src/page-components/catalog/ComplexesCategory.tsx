@@ -13,7 +13,7 @@ interface Props {
 function ComplexesCategory({ category }: Props) {
   return (
     <CategoryLayout category={category}>
-      <CatalogContent {...viewFunctions(category.objects, ComplexFullCard, ComplexCard)} />
+      <CatalogContent {...viewFunctions(category, ComplexFullCard, ComplexCard)} />
     </CategoryLayout>
   )
 }

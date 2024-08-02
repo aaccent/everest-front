@@ -15,7 +15,7 @@ function SecondaryCategory({ category }: Props) {
     <CategoryLayout category={category}>
       <CatalogContent
         tileClassName='gap-y-[32px] md:gap-y-[56px]'
-        {...viewFunctions(category.objects, ObjectFullCard, ObjectCard)}
+        {...viewFunctions(category, ObjectFullCard, ObjectCard)}
       />
     </CategoryLayout>
   )

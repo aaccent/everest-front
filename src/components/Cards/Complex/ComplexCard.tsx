@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { Complex } from '@/types/Complex'
 import CardInfo from '@/components/Cards/Complex/CardInfo'
 import Link from 'next/link'
+import { generateObjectLink } from '@/features/link'
+import { AnyCategory } from '@/types/Category'
 
 export function showTags(tags: string[]) {
   return tags.map((tag, index) => (
@@ -18,12 +20,13 @@ export function showTags(tags: string[]) {
 
 interface Props {
   item: Complex
+  category: AnyCategory
 }
 
-function ComplexCard({ item: props }: Props) {
+function ComplexCard({ item, category }: Props) {
   return (
     <Link
-      href='#'
+      href={generateObjectLink(item, category)}
       className='group relative block h-[250px] w-full overflow-hidden rounded-[20px] md:h-[388px] md:rounded-[24px]'
     >
       <Image
@@ -33,9 +36,9 @@ function ComplexCard({ item: props }: Props) {
         fill
       />
       <div className='absolute left-[8px] top-[10px] flex gap-[4px] md:left-[14px] md:top-[14px]'>
-        {props.tags && showTags(props.tags)}
+        {item.tags && showTags(item.tags)}
       </div>
-      <CardInfo {...props} />
+      <CardInfo {...item} />
     </Link>
   )
 }

@@ -5,6 +5,8 @@ import { showTags } from '@/components/Cards/Complex/ComplexCard'
 import { formatPrice } from '@/features/price'
 import { formatStatus } from '@/features/date'
 import Img from '@/ui/Img'
+import { AnyCategory } from '@/types/Category'
+import { generateObjectLink } from '@/features/link'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {
   return objectTypes.map((object) => {
@@ -25,31 +27,35 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
 
 interface Props {
   item: Complex
+  category: AnyCategory
 }
 
-function ComplexFullCard({ item: props }: Props) {
+function ComplexFullCard({ item, category }: Props) {
   return (
-    <Link href='' className='relative flex rounded-[32px] border border-base-400 p-[40px]'>
+    <Link
+      href={generateObjectLink(item, category)}
+      className='relative flex rounded-[32px] border border-base-400 p-[40px]'
+    >
       <Img
         className='mr-[40px] rounded-[20px] object-cover object-center'
         src='/no-photo.jpg'
         width={427}
         height={342}
       />
-      <div className='absolute left-[54px] top-[54px] flex gap-[4px]'>{props.tags && showTags(props.tags)}</div>
+      <div className='absolute left-[54px] top-[54px] flex gap-[4px]'>{item.tags && showTags(item.tags)}</div>
       <div>
         <div className='mb-[12px] flex items-center gap-[16px]'>
-          <span className='text-header-300'>{props.name}</span>
+          <span className='text-header-300'>{item.name}</span>
           <div className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[6.5px]'>
-            {formatStatus(props.status)}
+            {formatStatus(item.status)}
           </div>
         </div>
         <div className='text-base-200-lg-100 mb-[17px] flex items-center gap-[10px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-default-auto'>
-          {props.address ? props.address : 'нет адреса'}
+          {item.address ? item.address : 'нет адреса'}
         </div>
-        <span className='text-header-400 mr-[12px]'>{formatPrice(props.minPrice)}</span>
-        <span className='text-header-400 line-through opacity-50'>{formatPrice(props.priceDiscount)}</span>
-        <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(props.objectsType)}</div>
+        <span className='text-header-400 mr-[12px]'>{formatPrice(item.minPrice)}</span>
+        <span className='text-header-400 line-through opacity-50'>{formatPrice(item.priceDiscount)}</span>
+        <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(item.objectsType)}</div>
       </div>
       <div className='ml-auto flex flex-col justify-between'>
         <div className='relative'>
