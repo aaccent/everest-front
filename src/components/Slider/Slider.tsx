@@ -3,9 +3,9 @@ import React from 'react'
 import ComplexCard from '@/components/Cards/Complex/ComplexCard'
 import Carousel, {
   CarouselInner,
-  CarouselNavigations,
   CarouselProgressBar,
   CarouselSlide,
+  CarouselNavigations,
 } from '@/components/Carousel/Carousel'
 import { Complex } from '@/types/Complex'
 import SeeAllCard from '@/components/SeeAllCard'
