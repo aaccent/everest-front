@@ -4,7 +4,7 @@ import Section from '@/layout/Section'
 import { getLinks } from '@/globals/api'
 import Image from 'next/image'
 import bavel from '@/assets/static/decorative-bg/usefull-links-bavel.svg'
-import Carousel, { CarouselSlide } from '@/components/Carousel/Carousel'
+import Carousel, { CarouselInner, CarouselSlide } from '@/components/Carousel/Carousel'
 
 interface Link {
   id: string
@@ -60,7 +60,9 @@ async function UsefulLinks() {
   return (
     <Section containerClassName='usefull'>
       <h2 className='text-header-200 mb-[24px] uppercase md:mb-[40px]'>Полезные ссылки</h2>
-      <Carousel>{showCategories(data)}</Carousel>
+      <Carousel>
+        <CarouselInner>{showCategories(data)}</CarouselInner>
+      </Carousel>
     </Section>
   )
 }
