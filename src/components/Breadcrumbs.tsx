@@ -10,7 +10,7 @@ interface BreadcrumbProps {
 
 function Breadcrumb({ title, href }: BreadcrumbProps) {
   return (
-    <li className='group/breadcrumb'>
+    <li className='group/breadcrumb flex-shrink-0'>
       <Link
         className='text-base-500-reg-200 flex items-center gap-[6px] text-base-650 before:block before:h-[16px] before:w-[20px] before:bg-icon-long-arrow before:opacity-50 before:filter-base-600 before:bg-default-contain group-first/breadcrumb:before:hidden group-last/breadcrumb:pointer-events-none group-last/breadcrumb:text-primary group-last/breadcrumb:before:opacity-100 group-last/breadcrumb:before:filter-primary'
         href={href}
@@ -52,7 +52,7 @@ function Breadcrumbs({ list, category }: Props) {
 
   return (
     <nav className='px-container mb-[30px] mt-[16px] md:mb-[40px] md:mt-[27px]'>
-      <ul className='flex gap-[6px]'>
+      <ul className='-mx-container px-container flex items-center gap-[6px] overflow-x-auto scrollbar-transparent'>
         <Breadcrumb href='/' title='Главная' />
         {showItems()}
       </ul>
