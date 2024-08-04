@@ -21,6 +21,5 @@ export async function getComplexDetailed(uri: string): Promise<SubCategory<Compl
     method: 'GET',
     request: { chainUrl: `${uri}` },
   })
-
   return res.data
 }

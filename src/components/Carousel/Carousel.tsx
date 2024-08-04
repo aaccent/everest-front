@@ -3,16 +3,35 @@
 import React, { PropsWithChildren, useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
-import Link from 'next/link'
+import GrayButtons from '@/ui/navigation-buttons/GrayButtons'
+import Fade from 'embla-carousel-fade'
+import WhiteButtons from '@/ui/navigation-buttons/WhiteButtons'
 
 type CarouselProps = EmblaOptionsType &
   PropsWithChildren & {
     progressBar?: boolean
-    navigations?: boolean
+    navigations?: 'gray' | 'white'
+    btnsCLassName?: string
+    progressClassName?: string
+    fade?: boolean
+    className?: string
   }
 
-function Carousel({ children, progressBar, navigations, ...options }: CarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel(options)
+function Carousel({
+  children,
+  progressBar,
+  navigations,
+  progressClassName,
+  btnsCLassName,
+  fade,
+  className,
+  ...options
+}: CarouselProps) {
+  function isFade() {
+    return fade === true ? [Fade()] : undefined
+  }
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, isFade())
   const [scrollProgress, setScrollProgress] = useState(0)
 
   const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
@@ -35,34 +54,11 @@ function Carousel({ children, progressBar, navigations, ...options }: CarouselPr
     if (emblaApi) emblaApi.scrollNext()
   }, [emblaApi])
 
-  function navigationButtons() {
-    return (
-      <>
-        <div className='absolute right-0 top-[20px] hidden h-[42px] w-[89px] overflow-hidden rounded-[12px] bg-base-300 md:block'>
-          <div className='aftre:block aftre:block relative flex h-full w-full before:absolute before:bottom-0 before:left-[50%] before:h-[8px] before:w-[1px] before:translate-x-1/2 before:bg-base-400 after:absolute after:left-[50%] after:top-0 after:h-[8px] after:w-[1px] after:translate-x-1/2 after:bg-base-400'>
-            <button
-              className='button-prev flex w-1/2 items-center justify-center p-[16px] after:block after:size-full after:rotate-180 after:bg-icon-arrow after:bg-contain after:bg-center after:bg-no-repeat after:filter-base-600'
-              onClick={scrollPrev}
-            ></button>
-            <button
-              className='button-next flex w-1/2 items-center justify-center p-[16px] after:block after:size-full after:bg-icon-arrow after:bg-contain after:bg-center after:bg-no-repeat after:filter-base-600'
-              onClick={scrollNext}
-            ></button>
-          </div>
-        </div>
-        <Link
-          href='#'
-          className='text-base-500-reg-100-upper absolute right-0 top-0 flex w-[70px] justify-center gap-[4px] overflow-hidden rounded-[12px] bg-base-300 py-[10px] after:block after:size-[14px] after:rotate-90 after:bg-icon-arrow-up after:bg-auto after:bg-center after:bg-no-repeat md:hidden'
-        >
-          все
-        </Link>
-      </>
-    )
-  }
-
   function progress() {
     return (
-      <div className='relative bottom-[-74px] hidden h-[4px] w-full overflow-hidden rounded-[10px] bg-base-600/15 md:block'>
+      <div
+        className={`relative bottom-[-74px] h-[4px] w-full overflow-hidden rounded-[10px] bg-base-600/15 ${progressClassName}`}
+      >
         <div className='absolute bottom-0 top-0 bg-primary' style={{ width: `${scrollProgress}%` }}></div>
       </div>
     )
@@ -70,10 +66,14 @@ function Carousel({ children, progressBar, navigations, ...options }: CarouselPr
 
   return (
     <div className='embla'>
-      <div className='md:overflow-hidden' ref={emblaRef}>
+      <div className={`md:overflow-hidden ${className}`} ref={emblaRef}>
         <div className='flex'>{children}</div>
       </div>
-      {navigations && navigationButtons()}
+      {navigations === 'white' ? (
+        <WhiteButtons scrollPrev={scrollPrev} scrollNext={scrollNext} className={btnsCLassName} />
+      ) : (
+        <GrayButtons scrollPrev={scrollPrev} scrollNext={scrollNext} className={btnsCLassName} />
+      )}
       {progressBar && progress()}
     </div>
   )

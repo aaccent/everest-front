@@ -27,8 +27,10 @@ export interface ComplexInDetailed {
   mainImg: string
   description: string
   developerLogo: string
+  presentationLink: string
   minArea?: number
   maxArea?: number
   minPrice?: number
   address?: string
+  details?: []
 }
