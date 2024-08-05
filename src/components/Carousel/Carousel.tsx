@@ -57,7 +57,7 @@ function Carousel({
   function progress() {
     return (
       <div
-        className={`relative bottom-[-74px] h-[4px] w-full overflow-hidden rounded-[10px] bg-base-600/15 ${progressClassName}`}
+        className={`relative bottom-[-74px] h-[4px] overflow-hidden rounded-[10px] bg-base-600/15 ${progressClassName}`}
       >
         <div className='absolute bottom-0 top-0 bg-primary' style={{ width: `${scrollProgress}%` }}></div>
       </div>

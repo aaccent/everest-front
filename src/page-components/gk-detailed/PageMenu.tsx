@@ -1,23 +1,9 @@
-'use client'
-import React, { useEffect, useRef, useState } from 'react'
-import Container from '@/layout/Container'
+import React from 'react'
 
-function PageMenu() {
-  const [sticky, setSticky] = useState<boolean>()
-  const ref = useRef(null)
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entries]) => {
-      if (entries.boundingClientRect.top < 0) {
-        setSticky(true)
-      } else if (entries.boundingClientRect.top >= 0) {
-        setSticky(false)
-      }
-    })
-    ref.current && observer.observe(ref.current)
-  }, [])
+function PageMenu({ className }: { className?: string }) {
   return (
-    <Container>
-      <nav className='overflow-auto border-b border-b-base-600/10 pb-[32px] scrollbar-transparent' ref={ref}>
+    <div className={className}>
+      <nav className='overflow-auto border-b border-b-base-600/10 pb-[32px] scrollbar-transparent'>
         <ul className='flex items-center gap-[24px]'>
           <li className='whitespace-nowrap'>О проекте</li>
           <li className='whitespace-nowrap'>Инфраструктура</li>
@@ -26,7 +12,7 @@ function PageMenu() {
           <li className='whitespace-nowrap'>Подбор ипотеки</li>
         </ul>
       </nav>
-    </Container>
+    </div>
   )
 }
 

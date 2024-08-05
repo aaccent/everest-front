@@ -38,7 +38,7 @@ function DetailedInfo({ name, details, presentationLink }: Details) {
   const [opened, setOpened] = useState<boolean>()
   return (
     <div
-      className={`group absolute left-[40px] right-[40px] top-[48px] rounded-[20px] bg-base-100 p-[24px] md:left-[112px] md:right-auto md:top-[56px] md:min-w-[362px] ${opened ? 'active' : ''}`}
+      className={`group absolute left-[20px] right-[20px] top-[48px] rounded-[20px] bg-base-100 p-[24px] md:left-[56px] md:right-auto md:top-[56px] md:min-w-[362px] ${opened ? 'active' : ''}`}
     >
       <div className='flex items-center justify-between'>
         <div className='flex flex-col gap-[2px]'>
