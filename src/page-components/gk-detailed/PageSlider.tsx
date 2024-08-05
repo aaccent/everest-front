@@ -4,6 +4,7 @@ import Img from '@/ui/Img'
 
 function PageSlider() {
   const photos = ['/slider-1.png', '/slider-2.png', '/slider-3.png']
+  const initProgress = 100 / photos.length / 100
   return (
     <>
       <Carousel
@@ -12,6 +13,8 @@ function PageSlider() {
         navigations='white'
         btnsCLassName='hidden md:flex'
         className='overflow-hidden'
+        initProgress={initProgress}
+        fade
       >
         {photos.map((photo, index) => (
           <CarouselSlide className='h-[673px] w-full overflow-hidden rounded-[20px] md:h-[780px]' key={index}>

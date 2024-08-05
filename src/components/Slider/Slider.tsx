@@ -12,7 +12,14 @@ interface SliderProps {
 function Slider(props: SliderProps) {
   return (
     <>
-      <Carousel align='start' navigations='gray' progressBar progressClassName='hidden md:block' className='relative'>
+      <Carousel
+        align='start'
+        navigations='gray'
+        progressBar
+        progressClassName='hidden md:block'
+        className='relative'
+        initProgress={props.list.length}
+      >
         {props.list.map((card) => (
           <CarouselSlide
             className='mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'

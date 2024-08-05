@@ -15,6 +15,7 @@ type CarouselProps = EmblaOptionsType &
     progressClassName?: string
     fade?: boolean
     className?: string
+    initProgress?: number
   }
 
 function Carousel({
@@ -25,6 +26,7 @@ function Carousel({
   btnsCLassName,
   fade,
   className,
+  initProgress,
   ...options
 }: CarouselProps) {
   function isFade() {
@@ -35,7 +37,7 @@ function Carousel({
   const [scrollProgress, setScrollProgress] = useState(0)
 
   const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
-    const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()))
+    const progress = Math.max(initProgress || 0, Math.min(1, emblaApi.scrollProgress()))
     setScrollProgress(progress * 100)
   }, [])
 
@@ -59,7 +61,7 @@ function Carousel({
       <div
         className={`relative bottom-[-74px] h-[4px] overflow-hidden rounded-[10px] bg-base-600/15 ${progressClassName}`}
       >
-        <div className='absolute bottom-0 top-0 bg-primary' style={{ width: `${scrollProgress}%` }}></div>
+        <div className='h-full bg-primary' style={{ width: `${scrollProgress}%` }}></div>
       </div>
     )
   }
