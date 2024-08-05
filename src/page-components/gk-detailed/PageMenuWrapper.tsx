@@ -12,12 +12,12 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
     const observer = new IntersectionObserver(
       ([entries]) => {
         if (entries.intersectionRatio > 0) {
-          setClassName('fixed top-[60px] z-[100] bg-base-100 w-full pt-[32px] ml-[-20px] pl-[20px]')
+          setClassName(`fixed top-[62px] z-[100] bg-base-100 w-full pt-[32px] ml-[-20px] pl-[20px]`)
         } else {
           setClassName('')
         }
       },
-      { rootMargin: `0px 0px -${height}px` },
+      { rootMargin: `100px 0px -${height}px` },
     )
     ref.current && observer.observe(ref.current)
   }, [])
