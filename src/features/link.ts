@@ -6,6 +6,8 @@ type ItemWithCode = {
 }
 
 export function generateCategoryLink(item: ItemWithCode | AnyCategory, parent?: ItemWithCode) {
+  if (!item) return '#'
+
   let link = '/catalog'
 
   if ('breadcrumbs' in item && !parent) {
@@ -19,6 +21,8 @@ export function generateCategoryLink(item: ItemWithCode | AnyCategory, parent?: 
 }
 
 export function generateObjectLink(item: ItemWithCode, category: AnyCategory) {
+  if (!category) return '#'
+
   let link = generateCategoryLink(category)
 
   if (category.breadcrumbs.length === 1) {
