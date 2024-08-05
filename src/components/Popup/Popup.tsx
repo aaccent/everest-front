@@ -3,48 +3,48 @@
 import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
 import CallPopup from '@/components/Popup/CallPopup/CallPopup'
 import MapPopup from '@/components/Popup/MapPopup'
-import { createPortal } from 'react-dom'
+import { hideScroll, showScroll } from '@/features/scroll'
 
 const popups = {
   callPopup: CallPopup,
   mapPopup: MapPopup,
+} satisfies {
+  [index: string]: () => React.ReactNode
 }
 
-type E = React.JSX.Element | Promise<React.JSX.Element>
-type N = keyof typeof popups
+type PopupElement = React.ReactNode
+type PopupName = keyof typeof popups
 
 type PopupContextObject = {
   openPopup: (name: keyof typeof popups) => void
   closePopup: () => void
-  activePopup?: E
+  activePopup?: PopupElement
 }
 
 export const PopupContext = createContext({} as PopupContextObject)
 
 function PopupWrapper() {
   const { activePopup } = useContext(PopupContext)
-  return activePopup && <div className='fixed inset-0 z-50 bg-base-600/60'>{activePopup}</div>
+  if (!activePopup) return null
+  return <div className='fixed inset-0 z-50 bg-base-600/60'>{activePopup}</div>
 }
 
 export function PopupProvider({ children }: PropsWithChildren) {
-  const [popup, setPopup] = useState<E | undefined>()
+  const [popup, setPopup] = useState<PopupElement | null>()
 
-  function openPopup(name: N) {
-    document.body.style.height = '100lvh'
-    document.body.style.overflow = 'hidden'
-
+  function openPopup(name: PopupName) {
+    hideScroll()
     setPopup(popups[name])
   }
 
   function closePopup() {
     setPopup(undefined)
-    document.body.style.height = 'fit-content'
-    document.body.style.overflow = 'clip'
+    showScroll()
   }
 
   return (
     <PopupContext.Provider value={{ openPopup, closePopup, activePopup: popup }}>
-      {popup ? createPortal(<PopupWrapper />, document.body) : null}
+      <PopupWrapper />
       {children}
     </PopupContext.Provider>
   )
