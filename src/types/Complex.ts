@@ -33,4 +33,19 @@ export interface ComplexInDetailed {
   minPrice?: number
   address?: string
   details?: []
+  objects: {
+    id: number
+    name: string
+    address: null | string
+    seoUrl: string
+    minArea: string
+    typeObject: string
+    description: string
+    price: string
+    priceDiscount: string
+    userId: null | number
+    mainImageUrl: string
+    publicationTime: null | string
+    tags: string[]
+  }[]
 }
