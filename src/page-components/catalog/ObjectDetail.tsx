@@ -1,5 +1,6 @@
 import React from 'react'
 import { SecondaryDetailObject } from '@/types/SecondaryDetailObject'
+import ObjectHero from '@/components/ObjectHero/ObjectHero'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 interface Props {
@@ -10,6 +11,7 @@ function ObjectDetail({ item }: Props) {
   return (
     <>
       <Breadcrumbs className='!mb-[16px] md:mb-[20px]' list={item.breadcrumbs} />
+      <ObjectHero item={item} />
     </>
   )
 }
