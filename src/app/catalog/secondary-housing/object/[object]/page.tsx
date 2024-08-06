@@ -4,7 +4,10 @@ import { getSecondaryObject } from '@/globals/api'
 import ObjectDetail from '@/page-components/catalog/ObjectDetail'
 
 async function Page({ params }: ObjectPage) {
-  const object = await getSecondaryObject(params.object)
+  const object = await getSecondaryObject({
+    category: 'secondary-housing',
+    object: params.object,
+  })
 
   return <ObjectDetail item={object} />
 }

@@ -1,21 +1,37 @@
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 
-export interface SecondaryObjectProperty {
-  name: string
-  value: string
-}
-
-export interface SecondaryDetailObject {
-  breadcrumbs: BreadcrumbItem[]
-  name: string
+export interface RawSecondaryObject {
+  id: number
   h1: string
-  title: string
+  name: string
   description: string
+  mainImageUrl: string
   address: string
   text: string
-  gallery: string[]
-  id: number
   publicationTime: string
-  pricePerMeter: number
+  priceForMeter: number
+  price: number
+}
+
+export interface SecondaryObjectPropertyValue {
+  name: string
+  value: string | number
+}
+
+export interface SecondaryObjectProperty {
+  name: string
+  characteristics: SecondaryObjectPropertyValue[]
+}
+
+export interface RawSecondaryDetailObject {
+  breadcrumbs: BreadcrumbItem[]
+  object: RawSecondaryObject
+  gallery: string[]
   characteristics: SecondaryObjectProperty[]
+}
+
+export interface SecondaryDetailObject extends RawSecondaryObject {
+  breadcrumbs: RawSecondaryDetailObject['breadcrumbs']
+  gallery: RawSecondaryDetailObject['gallery']
+  characteristics: RawSecondaryDetailObject['characteristics']
 }
