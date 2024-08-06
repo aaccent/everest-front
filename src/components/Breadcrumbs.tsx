@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import { AnyCategory } from '@/types/Category'
+import { PATHS } from '@/globals/paths'
 
 interface BreadcrumbProps {
   title: string
@@ -22,7 +23,7 @@ function Breadcrumb({ title, href }: BreadcrumbProps) {
 }
 
 function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[]) {
-  let link = '/catalog'
+  let link = `/${PATHS.CATALOG}`
 
   breadcrumbs.forEach((breadcrumb) => {
     link += `/${breadcrumb.seo}`
