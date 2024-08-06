@@ -47,7 +47,7 @@ export const OBJECT_PROPS_ID = 'object-properties'
 
 function ObjectProperties({ item }: Props) {
   return (
-    <Section>
+    <Section id={OBJECT_PROPS_ID}>
       <ObjectPropertiesWrapper
         propsTabContent={<Properties item={item} />}
         descTabContent={<Description item={item} />}
