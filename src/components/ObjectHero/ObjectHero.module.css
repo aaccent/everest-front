@@ -22,6 +22,6 @@
     @apply md:pb-0;
 }
 
-.propItems:has(> *:last-child:nth-child(even)) > :is(*:nth-child(1), *:nth-child(2)) {
+.propItems:has(> *:last-child:nth-child(even)) > :is(*:nth-last-child(1), *:nth-last-child(2)) {
     @apply md:pb-0;
 }

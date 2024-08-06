@@ -12,6 +12,7 @@ import Button from '@/ui/buttons/Button'
 import { showDate } from '@/features/date'
 
 import styles from './ObjectHero.module.css'
+import { formatFullPrice, formatPriceForArea } from '@/features/price'
 
 function ActionButton({ className }: { className?: string }) {
   return (
@@ -52,7 +53,7 @@ interface Props {
 
 function ObjectHero({ item }: Props) {
   function showProps() {
-    return item.characteristics.map((prop, index) => (
+    return item.characteristics[0].characteristics.slice(0, 4).map((prop, index) => (
       <PropItem title={prop.name} key={index}>
         {prop.value}
       </PropItem>
@@ -108,7 +109,7 @@ function ObjectHero({ item }: Props) {
         </div>
         <div>
           <div className='mb-[18px] flex items-baseline gap-[8px] md:mb-[32px]'>
-            <span className='text-header-400'>5 000 000 ₽</span>
+            <span className='text-header-400'>{formatFullPrice(item.price)}</span>
           </div>
           <div className='flex flex-col gap-[20px] md:flex-row'>
             <Button className='h-[50px] w-full md:h-[42px] md:w-fit md:p-0 md:px-[46px]'>Забронировать</Button>
@@ -121,7 +122,7 @@ function ObjectHero({ item }: Props) {
               </div>
               <div className='text-base-400-lg-100 flex flex-col items-end gap-[4px]'>
                 <span className='text-base-600/50'>Цена за метр:</span>
-                <span>{item.pricePerMeter} ₽ / м2</span>
+                <span>{formatPriceForArea(item.priceForMeter)}</span>
               </div>
             </div>
           </div>
