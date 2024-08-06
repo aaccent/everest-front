@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { formatPrice } from '@/features/price'
+import { formatPriceShortBy } from '@/features/price'
 import { formatStatus } from '@/features/date'
 import { Complex, FlatTypes } from '@/types/Complex'
 
@@ -12,7 +12,7 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
       <div className='text-base-650'>
         от {flat.minArea} м<sup>2</sup>
       </div>
-      <div className=''>{formatPrice(Number(flat.minPrice))}</div>
+      <div className=''>{formatPriceShortBy(Number(flat.minPrice))}</div>
     </Link>
   ))
 }
@@ -52,7 +52,7 @@ function CardInfo(props: Complex) {
       <div className='absolute bottom-[8px] left-[8px] right-[8px] rounded-[20px] bg-base-100 p-[16px] md:bottom-[14px] md:left-[14px] md:right-[14px]'>
         <div className='mb-[8px] flex items-end justify-between font-coolvetica'>
           <div className='text-header-400'>{props.name}</div>
-          <div className='text-header-500'>{props.minPrice ? formatPrice(props.minPrice) : 'нет цены'}</div>
+          <div className='text-header-500'>{props.minPrice ? formatPriceShortBy(props.minPrice) : 'нет цены'}</div>
         </div>
         <div className='text-base-300-lg-100 flex gap-[8px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-auto before:bg-center before:bg-no-repeat before:filter-base-600'>
           {props.address}

@@ -9,7 +9,7 @@ interface AdaptiveContextObject {
   isDesktop: boolean
 }
 
-const AdaptiveContext = createContext({} as AdaptiveContextObject)
+export const AdaptiveContext = createContext({} as AdaptiveContextObject)
 
 interface AdaptiveProviderProps extends PropsWithChildren {
   viewport?: Viewport

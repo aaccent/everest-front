@@ -1,3 +1,5 @@
+import { Tag } from '@/types/Tag'
+
 export interface FlatTypes {
   id: string
   name: string
@@ -12,7 +14,7 @@ export interface Complex {
   code: string
   minPrice?: number
   status?: number
-  tags?: string[]
+  tags?: Tag[]
   objectsType: FlatTypes[]
   mainImg: string
   description: string

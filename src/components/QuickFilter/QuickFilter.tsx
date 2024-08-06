@@ -1,7 +1,7 @@
 import React from 'react'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
 import Container from '@/layout/Container'
-import MapObjectsButton from '@/components/QuickFilter/MapObjectsButton'
+import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import SelectorInline from '@/ui/inputs/SelectorInline'
 import CatalogViewButton from '@/components/QuickFilter/CatalogViewButton'
 import { AnyCategory } from '@/types/Category'

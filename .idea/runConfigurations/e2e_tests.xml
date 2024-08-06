@@ -6,6 +6,7 @@
     <working-dir value="$PROJECT_DIR$" />
     <envs>
       <env name="PORT" value="3060" />
+      <env name="NODE_ENV" value="development" />
     </envs>
     <scope-kind value="ALL" />
     <method v="2" />

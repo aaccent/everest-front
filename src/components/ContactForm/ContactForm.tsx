@@ -8,8 +8,8 @@ import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
 import { getAddresses, getSocials } from '@/globals/api'
 
-import mobileBavel from '@/assets/static/decorative-bavel-mobile.svg'
-import bavel from '@/assets/static/decorative-bavel.svg'
+import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
+import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
 import { callFormHandler } from '@/features/forms'
 import Form from '@/ui/Form'
 

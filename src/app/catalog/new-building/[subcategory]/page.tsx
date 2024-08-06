@@ -1,7 +1,7 @@
 import React from 'react'
-import { SubcategoryPage } from '@/types/SubcategoryPage'
 import Category from '@/page-components/catalog/Category'
 import { getNewBuildingsSubcategory } from '@/globals/api'
+import { SubcategoryPage } from '@/types/Page'
 
 async function Page({ params }: SubcategoryPage) {
   const category = await getNewBuildingsSubcategory(params.subcategory)
