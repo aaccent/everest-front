@@ -1,11 +1,19 @@
 import { AnyCategory } from '@/types/Category'
+import { BreadcrumbItem } from '@/types/Breadcrumbs'
 
-type ItemWithCode = {
+type ObjectForLinkGeneration = {
   code?: string
   seoUrl?: string
 }
 
-export function generateCategoryLink(item: ItemWithCode | AnyCategory, parent?: ItemWithCode) {
+type CategoryForLinkGeneration = ObjectForLinkGeneration & {
+  breadcrumbs: BreadcrumbItem[]
+}
+
+export function generateCategoryLink(
+  item: CategoryForLinkGeneration | AnyCategory,
+  parent?: CategoryForLinkGeneration,
+) {
   if (!item) return '#'
 
   let link = '/catalog'
@@ -20,7 +28,7 @@ export function generateCategoryLink(item: ItemWithCode | AnyCategory, parent?: 
   return link
 }
 
-export function generateObjectLink(item: ItemWithCode, category: AnyCategory) {
+export function generateObjectLink(item: ObjectForLinkGeneration, category: CategoryForLinkGeneration) {
   if (!category) return '#'
 
   let link = generateCategoryLink(category)
@@ -32,4 +40,17 @@ export function generateObjectLink(item: ItemWithCode, category: AnyCategory) {
   link += `/${item.seoUrl || item.code}`
 
   return link
+}
+
+export const COMPLEXES_CATEGORY: CategoryForLinkGeneration = {
+  breadcrumbs: [
+    {
+      name: '',
+      seo: 'new-building',
+    },
+    {
+      name: '',
+      seo: 'complexes',
+    },
+  ],
 }
