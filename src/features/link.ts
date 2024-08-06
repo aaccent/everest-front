@@ -7,7 +7,7 @@ type ObjectForLinkGeneration = {
 }
 
 type CategoryForLinkGeneration = ObjectForLinkGeneration & {
-  breadcrumbs: BreadcrumbItem[]
+  breadcrumbs?: BreadcrumbItem[]
 }
 
 export function generateCategoryLink(
@@ -19,7 +19,7 @@ export function generateCategoryLink(
   let link = '/catalog'
 
   if ('breadcrumbs' in item && !parent) {
-    link += item.breadcrumbs.map((item) => `/${item.seo}`).join('')
+    link += item.breadcrumbs!.map((item) => `/${item.seo}`).join('')
     return link
   }
 
@@ -33,7 +33,7 @@ export function generateObjectLink(item: ObjectForLinkGeneration, category: Cate
 
   let link = generateCategoryLink(category)
 
-  if (category.breadcrumbs.length === 1) {
+  if (category.breadcrumbs!.length === 1) {
     link += '/object'
   }
 
