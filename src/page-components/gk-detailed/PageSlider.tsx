@@ -1,11 +1,14 @@
 import React from 'react'
-import Carousel, { CarouselSlide } from '@/components/Carousel/Carousel'
+import Carousel, {
+  CarouselInner,
+  CarouselProgressBar,
+  CarouselSlide,
+  CarouselWhiteNavigations,
+} from '@/components/Carousel/Carousel'
 import Img from '@/ui/Img'
 import { ComplexDetailed } from '@/types/Complex'
 
 type PageSliderProps = Pick<ComplexDetailed, 'gallery'>
-
-const photos = ['/slider-1.png', '/slider-2.png', '/slider-3.png']
 
 function showSlides(images: string[]) {
   return images.map((img, index) => (
@@ -16,19 +19,12 @@ function showSlides(images: string[]) {
 }
 
 function PageSlider({ gallery }: PageSliderProps) {
-  const initProgress = 100 / photos.length / 100
   return (
     <>
-      <Carousel
-        progressBar
-        progressClassName='top-[-32px] inset-x-[61px] w-[228px]'
-        navigations='white'
-        btnsCLassName='hidden md:flex'
-        className='overflow-hidden'
-        initProgress={initProgress}
-        fade
-      >
-        {gallery?.length ? showSlides(gallery) : showSlides(photos)}
+      <Carousel className='overflow-hidden' fade>
+        <CarouselInner>{!!gallery?.length && showSlides(gallery)}</CarouselInner>
+        <CarouselProgressBar className='inset-x-[61px] top-[-32px] w-[228px]' />
+        <CarouselWhiteNavigations className='hidden md:flex' />
       </Carousel>
     </>
   )
