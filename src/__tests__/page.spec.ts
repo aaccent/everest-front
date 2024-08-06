@@ -24,6 +24,5 @@ test('Should load catalog/secondary-housing subcategory page', async ({ page }) 
   expect(res?.status()).toEqual(200)
 
   await page.getByTestId('subcategory').first().click()
-  expect(res?.status()).toEqual(200)
   await expect(page.getByRole('heading', { level: 1 })).not.toHaveText('Вторичная недвижимость', { ignoreCase: true })
 })
