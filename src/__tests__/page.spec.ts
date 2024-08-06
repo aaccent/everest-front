@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { TEST_ID } from '@/globals/testIds'
 
 test('Should load main page', async ({ page }) => {
   const res = await page.goto('/')
@@ -23,6 +24,6 @@ test('Should load catalog/secondary-housing subcategory page', async ({ page }) 
 
   expect(res?.status()).toEqual(200)
 
-  await page.getByTestId('subcategory').first().click()
+  await page.getByTestId(TEST_ID.SUBCATEGORY).first().click()
   await expect(page.getByRole('heading', { level: 1 })).not.toHaveText('Вторичная недвижимость', { ignoreCase: true })
 })
