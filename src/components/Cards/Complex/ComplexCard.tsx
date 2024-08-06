@@ -6,13 +6,15 @@ import CardInfo from '@/components/Cards/Complex/CardInfo'
 import Link from 'next/link'
 import { generateCategoryLink } from '@/features/link'
 
-export function showTags(tags: string[]) {
-  return tags.map((tag, index) => (
+import { Tag } from '@/types/Tag'
+
+export function showTags(tags: Tag[]) {
+  return tags.map((tag) => (
     <div
       className='text-base-400-lg-100 flex w-fit items-center justify-center rounded-[10px] bg-base-600 px-[8px] py-[5px] text-base-100 md:px-[12px] md:py-[6.5px]'
-      key={index}
+      key={tag.id}
     >
-      {tag}
+      {tag.name}
     </div>
   ))
 }

@@ -1,7 +1,4 @@
-export interface Tag {
-  id: number
-  name: string
-}
+import { Tag } from '@/types/Tag'
 
 export interface CategoryObject {
   id: number

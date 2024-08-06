@@ -1,3 +1,4 @@
+import { Tag } from '@/types/Tag'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import { CategoryObject } from '@/types/CategoryObject'
 
@@ -15,7 +16,7 @@ export interface Complex {
   code: string
   minPrice?: number
   status?: number
-  tags?: string[]
+  tags?: Tag[]
   objectsType: FlatTypes[]
   mainImg: string
   description: string
