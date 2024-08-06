@@ -4,15 +4,24 @@ export interface MenuItem {
 }
 
 export const newBuildingsMenu: MenuItem[] = [
-  { title: 'Квартиры', href: '#' },
-  { title: 'Жилые комплексы', href: '#' },
+  {
+    title: 'Квартиры',
+    href: 'catalog/new-building/apartments',
+  },
+  { title: 'Жилые комплексы', href: 'catalog/new-building/complexes' },
 ]
 
 export const aboutMenu: MenuItem[] = [
   { title: 'Об агентстве', href: '#' },
-  { title: 'Риелторы', href: '#' },
+  {
+    title: 'Риелторы',
+    href: '#',
+  },
   { title: 'Обучение', href: '#' },
   { title: 'Вакансии', href: '#' },
   { title: 'Отзывы', href: '#' },
-  { title: 'Блог', href: '#' },
+  {
+    title: 'Блог',
+    href: '#',
+  },
 ]
