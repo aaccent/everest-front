@@ -2,7 +2,7 @@ import React from 'react'
 import { Complex, FlatTypes } from '@/types/Complex'
 import Link from 'next/link'
 import { showTags } from '@/components/Cards/Complex/ComplexCard'
-import { formatPrice } from '@/features/price'
+import { formatPriceShortBy } from '@/features/price'
 import { formatStatus } from '@/features/date'
 import Img from '@/ui/Img'
 import { AnyCategory } from '@/types/Category'
@@ -19,7 +19,7 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
         <div className='text-base-650'>
           от {object.minArea} м<sup>2</sup>
         </div>
-        <div className=''>{formatPrice(Number(object.minPrice))}</div>
+        <div className=''>{formatPriceShortBy(Number(object.minPrice))}</div>
       </div>
     )
   })
@@ -53,8 +53,8 @@ function ComplexFullCard({ item, category }: Props) {
         <div className='text-base-200-lg-100 mb-[17px] flex items-center gap-[10px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-default-auto'>
           {item.address ? item.address : 'нет адреса'}
         </div>
-        <span className='text-header-400 mr-[12px]'>{formatPrice(item.minPrice)}</span>
-        <span className='text-header-400 line-through opacity-50'>{formatPrice(item.priceDiscount)}</span>
+        <span className='text-header-400 mr-[12px]'>{formatPriceShortBy(item.minPrice)}</span>
+        <span className='text-header-400 line-through opacity-50'>{formatPriceShortBy(item.priceDiscount)}</span>
         <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(item.objectsType)}</div>
       </div>
       <div className='ml-auto flex flex-col justify-between'>
