@@ -1,6 +1,6 @@
 import { LogError } from '@/globals/api/LogError'
 
-export type URI = `/${string}`
+export type SlashPath = `/${string}`
 
 /**
  * @typeParam TType - тип возвращаемый при успешной конвертации
@@ -48,7 +48,7 @@ type ApiCallOptions<TRequest extends APIRequest | false = false> = TRequest exte
  * ```
  * */
 export async function apiCall<TRequest extends APIRequest | false = false, TResponse extends APIResponse = APIResponse>(
-  uri: URI,
+  uri: SlashPath,
   options: ApiCallOptions<TRequest>,
 ): Promise<TResponse> {
   const { method = 'POST', request } = options
