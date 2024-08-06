@@ -5,13 +5,14 @@ interface Props extends PropsWithChildren {
 }
 
 /**
- * @description Для корректного отображения слайдов нужно обернуть их в {@link CarouselInner}.
- * @example
+ * Для корректного отображения слайдов нужно обернуть их в {@link CarouselInner}.
  * ```jsx
- * <CarouselInner>
- *   <CarouselSlide>some slide 1</CarouselSlide>
- *   <CarouselSlide>some slide 2</CarouselSlide>
- * </CarouselInner>
+ * <Carousel>
+ *   <CarouselInner>
+ *     <CarouselSlide>some slide 1</CarouselSlide>
+ *     <CarouselSlide>some slide 2</CarouselSlide>
+ *   </CarouselInner>
+ * </Carousel>
  * ```
  *  */
 export function CarouselSlide(props: Props) {
