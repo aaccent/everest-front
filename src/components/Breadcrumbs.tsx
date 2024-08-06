@@ -32,7 +32,7 @@ function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[]) {
 }
 
 type Props = {
-  className: string
+  className?: string
 } & (
   | {
       list: BreadcrumbItem[]
