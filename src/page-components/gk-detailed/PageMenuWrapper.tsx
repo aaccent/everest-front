@@ -9,6 +9,7 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
 
   useEffect(() => {
     const height = ref.current?.offsetHeight
+    const bottom = ref.current?.getBoundingClientRect().bottom
     const observer = new IntersectionObserver(
       ([entries]) => {
         if (entries.intersectionRatio > 0) {
@@ -19,7 +20,7 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
           setClassName('')
         }
       },
-      { rootMargin: `100px 0px -${height}px` },
+      { rootMargin: `${bottom}px 0px -${height}px` },
     )
     ref.current && observer.observe(ref.current)
   }, [])

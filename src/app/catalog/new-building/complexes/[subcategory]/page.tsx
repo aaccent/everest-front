@@ -10,16 +10,15 @@ import LayoutChoice from '@/page-components/gk-detailed/LayoutChoice/LayoutChoic
 
 async function Page({ params }: SubcategoryPage) {
   const gkDetailed = await getComplexDetailed(params.subcategory)
-  //const objects = gkDetailed.complex?.objects
   return (
     <>
       <Breadcrumbs list={gkDetailed.breadcrumbs} />
-      <MainHero {...gkDetailed.complex!} />
+      <MainHero {...gkDetailed.complex} />
       <PageMenuWrapper>
-        <PageSlider />
-        <DetailedInfo {...gkDetailed.complex!} />
+        <PageSlider {...gkDetailed} />
+        <DetailedInfo {...gkDetailed.complex} />
       </PageMenuWrapper>
-      <LayoutChoice objects={gkDetailed.complex?.objects!} />
+      <LayoutChoice houses={gkDetailed.objects} />
     </>
   )
 }

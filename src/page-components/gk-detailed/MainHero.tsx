@@ -8,6 +8,7 @@ import { formatPrice } from '@/features/price'
 import Button from '@/ui/buttons/Button'
 import DecorativeBgMobile from '@/assets/static/decorative-bg-mobile.svg'
 import DecorativeSmallBg from '@/assets/static/decorative-bg-small.svg'
+import NoPhoto from '@/assets/static/no-photo.jpg'
 
 type Props = Omit<ComplexInDetailed, 'seoUrl'>
 
@@ -45,7 +46,7 @@ function MainHero({ name, address, mainImg, description, minArea, maxArea, minPr
 
       <div className='relative mb-[32px] overflow-hidden md:order-1 md:m-0'>
         <Img
-          src={mainImg}
+          src={NoPhoto}
           className='h-[344px] rounded-[20px] object-cover object-center md:h-full md:w-[908px]'
           width={310}
           height={344}

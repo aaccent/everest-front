@@ -93,7 +93,7 @@ function Button(props: Props) {
 
   return (
     <button
-      className={`rounded-[16px] uppercase transition-colors after:transition-[filter] ${iconClassName()} ${sizeClassName()} ${typeClassName()} ${props.className} text-base-500-reg-100-upper disabled:pointer-events-none`}
+      className={`rounded-[16px] uppercase transition-colors after:transition-[filter] ${iconClassName()} ${sizeClassName()} ${typeClassName()} text-base-500-reg-100-upper disabled:pointer-events-none ${props.className}`}
       disabled={props.disabled}
       onClick={props.onClick}
       onMouseEnter={props.onMouseEnter}

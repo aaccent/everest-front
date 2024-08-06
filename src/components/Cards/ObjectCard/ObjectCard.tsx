@@ -3,13 +3,14 @@ import Link from 'next/link'
 import Img from '@/ui/Img'
 import { CategoryObject } from '@/types/CategoryObject'
 import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
+import { LayoutObject } from '@/types/Complex'
 
 function InfoItem({ children }: PropsWithChildren) {
   return <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[8px]'>{children}</li>
 }
 
 interface Props {
-  item: CategoryObject
+  item: CategoryObject | LayoutObject
 }
 
 function ObjectCard({ item }: Props) {

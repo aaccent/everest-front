@@ -1,9 +1,21 @@
 import React from 'react'
 import Carousel, { CarouselSlide } from '@/components/Carousel/Carousel'
 import Img from '@/ui/Img'
+import { ComplexDetailed } from '@/types/Complex'
 
-function PageSlider() {
-  const photos = ['/slider-1.png', '/slider-2.png', '/slider-3.png']
+type PageSliderProps = Pick<ComplexDetailed, 'gallery'>
+
+const photos = ['/slider-1.png', '/slider-2.png', '/slider-3.png']
+
+function showSlides(images: string[]) {
+  return images.map((img, index) => (
+    <CarouselSlide className='h-[673px] w-full overflow-hidden rounded-[20px] md:h-[780px]' key={index}>
+      <Img src={img} width={1568} height={780} className='size-full object-cover object-center' />
+    </CarouselSlide>
+  ))
+}
+
+function PageSlider({ gallery }: PageSliderProps) {
   const initProgress = 100 / photos.length / 100
   return (
     <>
@@ -16,11 +28,7 @@ function PageSlider() {
         initProgress={initProgress}
         fade
       >
-        {photos.map((photo, index) => (
-          <CarouselSlide className='h-[673px] w-full overflow-hidden rounded-[20px] md:h-[780px]' key={index}>
-            <Img src={photo} width={1568} height={780} className='size-full object-cover object-center' />
-          </CarouselSlide>
-        ))}
+        {gallery?.length ? showSlides(gallery) : showSlides(photos)}
       </Carousel>
     </>
   )

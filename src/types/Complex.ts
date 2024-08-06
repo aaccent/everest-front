@@ -1,3 +1,6 @@
+import { BreadcrumbItem } from '@/types/Breadcrumbs'
+import { CategoryObject } from '@/types/CategoryObject'
+
 export interface FlatTypes {
   id: string
   name: string
@@ -32,20 +35,35 @@ export interface ComplexInDetailed {
   maxArea?: number
   minPrice?: number
   address?: string
-  details?: []
-  objects: {
-    id: number
-    name: string
-    address: null | string
-    seoUrl: string
-    minArea: string
-    typeObject: string
-    description: string
-    price: string
-    priceDiscount: string
-    userId: null | number
-    mainImageUrl: string
-    publicationTime: null | string
-    tags: string[]
-  }[]
+  characteristics: [Characteristics[]]
+}
+
+export interface Characteristics {
+  name: string
+  value: string | number
+}
+
+export interface LayoutObject extends CategoryObject {
+  id: number
+  title: string
+  h1: string | null
+  seoUrl: string
+  name: string
+  description: string
+  priceDiscount: string
+  dealType: 'sale' | 'rent'
+  houseNumber: number
+  characteristics: Characteristics[]
+  gallery: string[]
+}
+
+export interface ComplexDetailedHouse {
+  objects: LayoutObject[]
+}
+
+export type ComplexDetailed = {
+  breadcrumbs: BreadcrumbItem[]
+  complex: ComplexInDetailed
+  gallery?: string[]
+  objects: ComplexDetailedHouse[]
 }
