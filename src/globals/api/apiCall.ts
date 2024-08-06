@@ -1,5 +1,14 @@
 import { LogError } from '@/globals/api/LogError'
 
+/**
+ * Убирает из `object` ключи со значениями `undefined` и преобразовывает в {@link URLSearchParams}
+ * @param object - Любой объект
+ */
+function convertObjectToURLSearchParams(object: object) {
+  const filtered = Object.entries(object).filter(([_, value]) => value !== undefined)
+  return new URLSearchParams(filtered)
+}
+
 export type SlashPath = `/${string}`
 
 /**
@@ -71,8 +80,9 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   }
 
   if (request && method === 'GET') {
-    // @ts-expect-error URLSearchParams преобразовывает объекты с boolean и числами в необходимый формат
-    const searchParams = new URLSearchParams(request)
+    // URLSearchParams преобразовывает объекты с boolean и числами в необходимый формат.
+    // Но не убирает свойства со значением undefined, поэтому используем функцию обертку для URLSearchParams
+    const searchParams = convertObjectToURLSearchParams(request)
     url += `?${searchParams.toString()}`
   }
   if (method === 'POST') {
