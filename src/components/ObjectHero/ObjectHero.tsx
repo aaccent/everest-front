@@ -10,9 +10,10 @@ import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import PropItem from '@/components/PropItem'
 import Button from '@/ui/buttons/Button'
 import { formatDate } from '@/features/date'
+import { formatFullPrice, formatPriceForArea } from '@/features/price'
+import { OBJECT_PROPS_ID } from '@/components/ObjectProperties/ObjectProperties'
 
 import styles from './ObjectHero.module.css'
-import { formatFullPrice, formatPriceForArea } from '@/features/price'
 
 function ActionButton({ className }: { className?: string }) {
   return (
@@ -102,7 +103,7 @@ function ObjectHero({ item }: Props) {
           </ul>
           <a
             className='text-base-500-reg-100-upper flex items-center gap-[4px] text-primary after:size-[18px] after:bg-icon-full-arrow after:filter-primary after:bg-default'
-            href='#'
+            href={`#${OBJECT_PROPS_ID}`}
           >
             Все характеристики
           </a>
