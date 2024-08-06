@@ -1,0 +1,130 @@
+{
+  "data": {
+    "breadcrumbs": [
+      {
+        "name": "Вторичная недвижимость",
+        "seo": "secondary-housing"
+      },
+      {
+        "name": "Комнаты",
+        "seo": "room"
+      }
+    ],
+    "object": {
+      "id": 29,
+      "h1": "Комната 1 (аренда)",
+      "name": "Комната 1 (аренда)",
+      "description": "Описание комнаты 1 для аренды",
+      "mainImageUrl": "https://s3.timeweb.com/fb44783f-c46d91fc-d1f3-4fbb-915e-3fea5507aa85/images/room.png",
+      "address": "Адрес комнаты 1 (аренда)",
+      "text": "Полное описание объекта.",
+      "publicationTime": "2024-08-05 12:11:25",
+      "priceForMeter": 500000
+    },
+    "gallery": [
+      "https://s3.timeweb.com/fb44783f-c46d91fc-d1f3-4fbb-915e-3fea5507aa85/images/penthouses.png",
+      "https://s3.timeweb.com/fb44783f-c46d91fc-d1f3-4fbb-915e-3fea5507aa85/images/small-house.png",
+      "https://s3.timeweb.com/fb44783f-c46d91fc-d1f3-4fbb-915e-3fea5507aa85/images/dormitory.png",
+      "https://s3.timeweb.com/fb44783f-c46d91fc-d1f3-4fbb-915e-3fea5507aa85/images/penthouses.png",
+      "https://s3.timeweb.com/fb44783f-c46d91fc-d1f3-4fbb-915e-3fea5507aa85/images/room.png"
+    ],
+    "characteristics": [
+      {
+        "name": "Основные",
+        "characteristics": [
+          {
+            "name": "ID объекта",
+            "value": 1272130
+          },
+          {
+            "name": "Тип недвижимости",
+            "value": "Квартира"
+          },
+          {
+            "name": "Комнатность",
+            "value": 1
+          },
+          {
+            "name": "Этаж",
+            "value": "2/19"
+          },
+          {
+            "name": "Общая площадь",
+            "value": "35 м²"
+          },
+          {
+            "name": "Чистовая отделка",
+            "value": "Нет"
+          },
+          {
+            "name": "Площадь кухни",
+            "value": "8 м²"
+          },
+          {
+            "name": "Площадь комнаты",
+            "value": "15 м²"
+          },
+          {
+            "name": "Площадь санузла",
+            "value": "4 м²"
+          },
+          {
+            "name": "Площадь лоджии",
+            "value": "3 м²"
+          },
+          {
+            "name": "Вид из окон",
+            "value": "Во двор"
+          }
+        ]
+      },
+      {
+        "name": "Дом",
+        "characteristics": [
+          {
+            "name": "Год постройки",
+            "value": 2016
+          },
+          {
+            "name": "Тип постройки",
+            "value": "Кирпич"
+          },
+          {
+            "name": "Количество этажей",
+            "value": 19
+          },
+          {
+            "name": "Лифт",
+            "value": "Да"
+          },
+          {
+            "name": "Тип отопления",
+            "value": "Централизованное"
+          },
+          {
+            "name": "Тип водоснабжения",
+            "value": "Централизованное"
+          }
+        ]
+      },
+      {
+        "name": "Двор",
+        "characteristics": [
+          {
+            "name": "Тип двора",
+            "value": "Закрытый"
+          },
+          {
+            "name": "Парковка",
+            "value": "Подземная"
+          },
+          {
+            "name": "Благоустройство",
+            "value": "Зоны отдыха"
+          }
+        ]
+      }
+    ]
+  },
+  "message": "Успех"
+}

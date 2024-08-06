@@ -1,10 +1,21 @@
 import { LogError } from '@/globals/api/LogError'
 
-export type URI = `/${string}`
+/**
+ * Убирает из `object` ключи со значениями `undefined` и преобразовывает в {@link URLSearchParams}
+ * @param object - Любой объект
+ */
+function convertObjectToURLSearchParams(object: object) {
+  const filtered = Object.entries(object).filter(([_, value]) => value !== undefined)
+  return new URLSearchParams(filtered)
+}
+
+export type SlashPath = `/${string}`
 
 /**
+ * Преобразовывает строку в JSON Объект.
+ * Оборачивает try catch объявление в `async` функцию для использования `await` оператора
  * @typeParam TType - тип возвращаемый при успешной конвертации
- * @returns - JSON Объект при успешной конвертации и false при ошибке
+ * @return JSON Объект если успешно, иначе `false`
  * */
 export async function tryJSONParse<TType extends any = any>(value: any): Promise<TType | false> {
   try {
@@ -24,31 +35,38 @@ export type APIResponse<TResponse extends object = object> = {
 export type SupportedMethod = 'POST' | 'GET'
 
 /**
- * @typeParam TRequest - Тип, передаваемый в body запроса. Если false, то значит что его ненужно указывать
+ * @typeParam TRequest - Тип, передаваемый в `body` запроса. Если `false`, то значит что его ненужно указывать
  * */
 type ApiCallOptions<TRequest extends APIRequest | false = false> = TRequest extends false
   ? {
       /** Запрос к апи описан в {@link APIRequest}. */
       request?: never
+      /** @default - POST */
       method?: SupportedMethod
     }
   : {
       /** Запрос к апи описан в {@link APIRequest}. */
       request: TRequest
+      /** @default - POST */
       method?: SupportedMethod
     }
 
 /**
- * @param uri - Путь к методу без "/api/v1".
- * @param options - Параметры запроса. Описан в {@link ApiCallOptions}
- * @example
- * Запрос к /api/v1/catalog/new-buildings с http методом 'POST':
- * ```javascript
+ * Отправляет запрос на указанный `uri` с методом `options.method` и телом `options.body`.
+ *
+ * Если `method` - `GET`, то `body` преобразовывается в {@link URLSearchParams}.
+ *
+ * Если `method` - `POST`, то `body` преобразовывается с помощью [JSON.stringify()]{@link JSON.stringify}.
+ *
+ * Запрос к `/api/v1/catalog/new-buildings` с http методом `POST`:
+ * ```js
  * apiCall('/catalog/new-buildings', { method: 'POST' })
  * ```
+ * @param uri - Путь к методу без `/api/v1` и с `/` в начале.
+ * @param options - Параметры запроса. Описан в {@link ApiCallOptions}
  * */
 export async function apiCall<TRequest extends APIRequest | false = false, TResponse extends APIResponse = APIResponse>(
-  uri: URI,
+  uri: SlashPath,
   options: ApiCallOptions<TRequest>,
 ): Promise<TResponse> {
   const { method = 'POST', request } = options
@@ -64,8 +82,9 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   }
 
   if (request && method === 'GET') {
-    // @ts-expect-error URLSearchParams преобразовывает объекты с boolean и числами в необходимый формат
-    const searchParams = new URLSearchParams(request)
+    // URLSearchParams преобразовывает объекты с boolean и числами в необходимый формат.
+    // Но не убирает свойства со значением undefined, поэтому используем функцию обертку для URLSearchParams
+    const searchParams = convertObjectToURLSearchParams(request)
     url += `?${searchParams.toString()}`
   }
   if (method === 'POST') {
@@ -94,6 +113,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     })
   }
 
+  // Чтобы не спамил ошибками АПИ на проде
   if (!res.ok && process.env.NODE_ENV === 'development') {
     console.error(`Error from api while fetching ${method}:${uri}`, {
       path: url,

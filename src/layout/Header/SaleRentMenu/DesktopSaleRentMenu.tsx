@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { suggestionPlural } from '@/features/pluralRules'
 import { getCatalogMenu, MenuType } from '@/globals/api'
+import { generateCategoryLink } from '@/features/link'
 
 interface Props {
   className: string
@@ -21,7 +22,7 @@ async function DesktopSaleRentMenu({ className, category }: Props) {
         <li key={item.id}>
           <Link
             className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
-            href={item.seoUrl}
+            href={generateCategoryLink(item)}
           >
             {item.iconUrl ? (
               <Image

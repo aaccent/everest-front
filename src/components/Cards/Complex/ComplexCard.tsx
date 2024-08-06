@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Complex } from '@/types/Complex'
 import CardInfo from '@/components/Cards/Complex/CardInfo'
 import Link from 'next/link'
-import { generateCategoryLink } from '@/features/link'
+import { COMPLEXES_CATEGORY, generateObjectLink } from '@/features/link'
 
 import { Tag } from '@/types/Tag'
 
@@ -23,8 +23,9 @@ interface Props {
   item: Complex
 }
 
-function ComplexCard({ item: props }: Props) {
-  const link = generateCategoryLink(props, { code: 'new-building/complexes' })
+function ComplexCard({ item }: Props) {
+  const link = generateObjectLink(item, COMPLEXES_CATEGORY)
+
   return (
     <div className='relative block h-[250px] w-full overflow-hidden rounded-[20px] md:h-[388px] md:rounded-[24px]'>
       <Link href={link}>
@@ -36,9 +37,9 @@ function ComplexCard({ item: props }: Props) {
         />
       </Link>
       <div className='absolute left-[8px] top-[10px] flex gap-[4px] md:left-[14px] md:top-[14px]'>
-        {props.tags && showTags(props.tags)}
+        {item.tags && showTags(item.tags)}
       </div>
-      <CardInfo complex={{ ...props }} link={link} />
+      <CardInfo complex={item} link={link} />
     </div>
   )
 }

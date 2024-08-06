@@ -3,13 +3,16 @@ import { CategoryObject } from '@/types/CategoryObject'
 import Link from 'next/link'
 import Img from '@/ui/Img'
 import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
+import { AnyCategory } from '@/types/Category'
+import { generateObjectLink } from '@/features/link'
 
 interface Props {
   item: CategoryObject
+  category: AnyCategory
 }
 
-function ObjectFullCard({ item }: Props) {
-  const link = '#'
+function ObjectFullCard({ item, category }: Props) {
+  const link = generateObjectLink(item, category)
 
   return (
     <div className='group/object-card flex w-full rounded-[32px] border border-base-400 p-[40px]'>

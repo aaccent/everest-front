@@ -1,0 +1,27 @@
+.propItems {
+
+}
+
+.propItems > * {
+    @apply md:pb-[20px];
+}
+
+.propItems > :is(*:nth-child(1), *:nth-child(2)) {
+    @apply md:border-t md:border-t-base-600/10 pt-[20px];
+}
+
+.propItems > *:nth-child(odd) {
+    @apply md:border-r md:border-r-base-600/10 md:pr-[20px];
+}
+
+.propItems > *:nth-child(even) {
+    @apply md:pl-[20px];
+}
+
+.propItems:has(> *:last-child:nth-child(odd)) > *:last-child {
+    @apply md:pb-0;
+}
+
+.propItems:has(> *:last-child:nth-child(even)) > :is(*:nth-last-child(1), *:nth-last-child(2)) {
+    @apply md:pb-0;
+}

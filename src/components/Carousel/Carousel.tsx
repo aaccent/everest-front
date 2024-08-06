@@ -1,92 +1,72 @@
 'use client'
 
-import React, { PropsWithChildren, useCallback, useEffect, useState } from 'react'
-import useEmblaCarousel from 'embla-carousel-react'
+import React, { createContext, PropsWithChildren, useContext } from 'react'
+import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react'
 import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
-import GrayButtons from '@/ui/navigation-buttons/GrayButtons'
-import Fade from 'embla-carousel-fade'
-import WhiteButtons from '@/ui/navigation-buttons/WhiteButtons'
 
-type CarouselProps = EmblaOptionsType &
-  PropsWithChildren & {
-    progressBar?: boolean
-    navigations?: 'gray' | 'white'
-    btnsCLassName?: string
-    progressClassName?: string
-    fade?: boolean
-    className?: string
-    initProgress?: number
-  }
+interface CarouselContextObject {
+  emblaApi: EmblaCarouselType | undefined
+  emblaRef: UseEmblaCarouselType[0]
+}
 
-function Carousel({
-  children,
-  progressBar,
-  navigations,
-  progressClassName,
-  btnsCLassName,
-  fade,
-  className,
-  initProgress,
-  ...options
-}: CarouselProps) {
-  function isFade() {
-    return fade === true ? [Fade()] : undefined
-  }
+/** Нужен для передачи `emblaRef` и `emblaApi` в компоненты слайда, навигации, прогресса и другие. */
+export const CarouselContext = createContext<CarouselContextObject>({} as CarouselContextObject)
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(options, isFade())
-  const [scrollProgress, setScrollProgress] = useState(0)
-
-  const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
-    const progress = Math.max(initProgress || 0, Math.min(1, emblaApi.scrollProgress()))
-    setScrollProgress(progress * 100)
-  }, [])
-
-  useEffect(() => {
-    if (!emblaApi) return
-
-    onScroll(emblaApi)
-    emblaApi.on('reInit', onScroll).on('scroll', onScroll).on('slideFocus', onScroll)
-  }, [emblaApi, onScroll])
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev()
-  }, [emblaApi])
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext()
-  }, [emblaApi])
-
-  function progress() {
-    return (
-      <div
-        className={`relative bottom-[-74px] h-[4px] overflow-hidden rounded-[10px] bg-base-600/15 ${progressClassName}`}
-      >
-        <div className='h-full bg-primary' style={{ width: `${scrollProgress}%` }}></div>
-      </div>
-    )
-  }
+/**
+ * Контейнер для [CarouselSlide'ов]{@link CarouselSlide}.
+ * Нужен из-за того, что [Слайды]{@link CarouselSlide} вставляются в один контейнер, а
+ * [Кнопки навигации]{@link CarouselNavigations} и [Прогресс бар]{@link CarouselProgressBar}
+ * вставляются во втором контейнере.
+ *
+ * Причина деления на все эти компоненты заключается
+ * в возможности передавать конфигурацию связанную с навигацией и прогрессом.
+ * Это позволяет использовать другие компоненты навигаций и прогресса.
+ * Позволяет добавлять новый функционал с минимальными или вообще без изменения {@link Carousel}
+ * */
+export function CarouselInner({ children }: PropsWithChildren) {
+  const { emblaRef } = useContext(CarouselContext)
 
   return (
-    <div className='embla'>
-      <div className={`md:overflow-hidden ${className}`} ref={emblaRef}>
-        <div className='flex'>{children}</div>
-      </div>
-      {navigations === 'white' ? (
-        <WhiteButtons scrollPrev={scrollPrev} scrollNext={scrollNext} className={btnsCLassName} />
-      ) : (
-        <GrayButtons scrollPrev={scrollPrev} scrollNext={scrollNext} className={btnsCLassName} />
-      )}
-      {progressBar && progress()}
+    <div className='h-full md:overflow-hidden' ref={emblaRef}>
+      <div className='flex h-full'>{children}</div>
     </div>
   )
 }
 
-interface CarouselSlideProps extends PropsWithChildren {
-  className: string
+type CarouselProps = EmblaOptionsType &
+  PropsWithChildren & {
+    className?: string
+  }
+
+/**
+ * @description - Оборачивает детей в {@link CarouselContext}.
+ *
+ * Для корректного отображения слайдов нужно обернуть их в {@link CarouselInner}.
+ *
+ * Для добавления полосы прогресса используй {@link CarouselProgressBar}.
+ *
+ * Для добавления кнопок переключения используй {@link CarouselNavigations}.
+ * ```jsx
+ * <Carousel>
+ *   <CarouselInner>
+ *     <CarouselSlide>some slide</CarouselSlide>
+ *   </CarouselInner>
+ *   <CarouselNavigations />
+ *   <CarouselProgressBar />
+ * </Carousel>
+ * ```
+ *  */
+export default function Carousel({ className, children, ...options }: CarouselProps) {
+  const emblaOptions = Object.assign({ align: 'start' }, options)
+  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions)
+
+  return (
+    <CarouselContext.Provider value={{ emblaApi, emblaRef }}>
+      <div className={className}>{children}</div>
+    </CarouselContext.Provider>
+  )
 }
 
-export function CarouselSlide(props: CarouselSlideProps) {
-  return <div className={`slide shrink-0 grow-0 basis-full ${props.className}`}>{props.children}</div>
-}
-
-export default Carousel
+export * from './CarouselSlide'
+export * from './CarouselNavigations'
+export * from './CarouselProgressBar'
