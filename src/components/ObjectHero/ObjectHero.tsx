@@ -9,7 +9,7 @@ import { CarouselSlide } from '@/components/Carousel/CarouselSlide'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import PropItem from '@/components/PropItem'
 import Button from '@/ui/buttons/Button'
-import { showDate } from '@/features/date'
+import { formatDate } from '@/features/date'
 
 import styles from './ObjectHero.module.css'
 import { formatFullPrice, formatPriceForArea } from '@/features/price'
@@ -81,7 +81,7 @@ function ObjectHero({ item }: Props) {
               <div className='text-base-300-lg-100 mt-[15px] hidden flex-col gap-[8px] md:flex'>
                 <span>Марат Лутфуллин</span>
                 <span className='flex items-center gap-[6px] text-base-600/50 before:size-[19px] before:bg-icon-clip before:opacity-50 before:filter-base-600 before:bg-default'>
-                  {showDate(item.publicationTime)}
+                  {formatDate(item.publicationTime)}
                 </span>
               </div>
             </div>

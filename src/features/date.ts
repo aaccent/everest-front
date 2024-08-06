@@ -39,7 +39,7 @@ export function formatStatus(timestamp: number | null | undefined) {
  * Выводит дату вида дд.мм.гггг
  * @param timestamp - Вид временной метки должен быть валиден для [Date]{@link Date} конструктора
  */
-export function showDate(timestamp: string | number): string {
+export function formatDate(timestamp: string | number): string {
   const date = new Date(timestamp)
   return `${getMonthDay(date)}.${getMonth(date)}.${date.getFullYear()}`
 }
