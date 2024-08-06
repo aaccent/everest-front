@@ -12,8 +12,10 @@ function convertObjectToURLSearchParams(object: object) {
 export type SlashPath = `/${string}`
 
 /**
- * Возвращает JSON Объект при успешной конвертации и `false` при ошибке
+ * Преобразовывает строку в JSON Объект.
+ * Оборачивает try catch объявление в `async` функцию для использования `await` оператора
  * @typeParam TType - тип возвращаемый при успешной конвертации
+ * @return JSON Объект если успешно, иначе `false`
  * */
 export async function tryJSONParse<TType extends any = any>(value: any): Promise<TType | false> {
   try {
@@ -50,7 +52,7 @@ type ApiCallOptions<TRequest extends APIRequest | false = false> = TRequest exte
     }
 
 /**
- * Делает запрос на указанный `uri` с методом `options.method` и телом `options.body`.
+ * Отправляет запрос на указанный `uri` с методом `options.method` и телом `options.body`.
  *
  * Если `method` - `GET`, то `body` преобразовывается в {@link URLSearchParams}.
  *
