@@ -12,7 +12,9 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
     const observer = new IntersectionObserver(
       ([entries]) => {
         if (entries.intersectionRatio > 0) {
-          setClassName(`fixed top-[62px] z-[100] bg-base-100 w-full pt-[32px] ml-[-20px] pl-[20px]`)
+          setClassName(
+            `fixed top-[62px] z-[100] bg-base-100 w-full pt-[32px] ml-[-20px] pl-[20px] md:top-[0] md:z-[100] md:pl-[56px] md:pt-[32px] md:m-[0] md:inset-x-[0] `,
+          )
         } else {
           setClassName('')
         }
