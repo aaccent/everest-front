@@ -100,6 +100,9 @@ export default function DecorativeSection({ title, className, decorativeClassNam
     <Section
       containerClassName={`relative pt-[33px] pb-[22px] px-[19px] rounded-[24px] overflow-hidden ${sectionClassName}`}
     >
+      {title && (
+        <h2 className='text-header-100 mb-[18px] max-w-[500px] uppercase text-base-100 md:mb-[48px]'>{title}</h2>
+      )}
       <DecorativeInner className={`${decorativeClassName} ${reverse ? '-scale-x-100' : ''}`} {...props} />
     </Section>
   )
