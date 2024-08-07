@@ -39,6 +39,11 @@ function showCharacteristics(characteristics: Characteristics[]) {
 
 function ObjectsList({ objects }: ComplexDetailedHouse) {
   const [object, setObject] = useState<LayoutObject | null>(null)
+
+  // TODO: Решить проблему с формированием ссылок, сделать более дружелюбнее
+  // @ts-expect-error Временно
+  const objectEl = object ? <ObjectCard item={object} /> : null
+
   return (
     <div className='mb-[32px] justify-between md:mb-[64px] md:flex'>
       <div className='text-base-400-reg-100 mb-[20px] uppercase md:hidden'>{`дом №${objects[0].houseNumber}`}</div>
@@ -62,11 +67,7 @@ function ObjectsList({ objects }: ComplexDetailedHouse) {
         <Button variation='outline' text='показать ещё 32 объекта' size='medium' className='w-full' />
       </div>
       <div className='hidden max-w-[380px] md:block'>
-        {object && (
-          <div className='rounded-[32px] border border-base-400 p-[24px]'>
-            <ObjectCard item={object} />
-          </div>
-        )}
+        {object && <div className='rounded-[32px] border border-base-400 p-[24px]'>{objectEl}</div>}
       </div>
     </div>
   )
