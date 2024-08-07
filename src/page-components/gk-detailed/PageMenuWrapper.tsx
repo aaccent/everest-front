@@ -7,9 +7,11 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
   const [className, setClassName] = useState<string>('')
   const ref = useRef<HTMLDivElement>(null)
 
+  const turnOff = true
+
   useEffect(() => {
     // Отключено для показа 8 августа
-    if (false) return
+    if (turnOff) return
 
     const height = ref.current?.offsetHeight
     const bottom = ref.current?.getBoundingClientRect().bottom
