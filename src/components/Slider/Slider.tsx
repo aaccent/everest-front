@@ -9,21 +9,41 @@ import Carousel, {
 } from '@/components/Carousel/Carousel'
 import { Complex } from '@/types/Complex'
 import SeeAllCard from '@/components/SeeAllCard'
+import { CategoryObject } from '@/types/CategoryObject'
+import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
 
-interface SliderProps {
-  list: Complex[]
-}
+export type SliderProps =
+  | {
+      type: 'complex'
+      list: Complex[]
+    }
+  | {
+      type: 'objects'
+      list: CategoryObject[]
+    }
 
-function Slider(props: SliderProps) {
+function Slider({ list, type }: SliderProps) {
   function showSlides() {
-    return props.list.map((card) => (
-      <CarouselSlide
-        className='mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
-        key={card.id}
-      >
-        <ComplexCard item={card} />
-      </CarouselSlide>
-    ))
+    switch (type) {
+      case 'complex':
+        return list.map((card) => (
+          <CarouselSlide
+            className='mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
+            key={card.id}
+          >
+            <ComplexCard item={card} />
+          </CarouselSlide>
+        ))
+      case 'objects':
+        return list.map((card) => (
+          <CarouselSlide
+            className='mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
+            key={card.id}
+          >
+            <ObjectCard category={{ breadcrumbs: [{ name: '', seo: card.typeObject }] }} item={card} />
+          </CarouselSlide>
+        ))
+    }
   }
 
   return (

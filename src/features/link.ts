@@ -6,7 +6,7 @@ type ObjectForLinkGeneration = {
   seoUrl?: string
 }
 
-type CategoryForLinkGeneration = ObjectForLinkGeneration & {
+export type CategoryForLinkGeneration = ObjectForLinkGeneration & {
   breadcrumbs?: BreadcrumbItem[]
 }
 

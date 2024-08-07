@@ -1,6 +1,6 @@
 import React from 'react'
 import { SubcategoryPage } from '@/types/Page'
-import { getComplexDetailed } from '@/globals/api/methods/catalog/getComplexDetailed'
+import { getComplexDetailed } from '@/globals/api'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import MainHero from '@/page-components/gk-detailed/MainHero'
 import PageSlider from '@/page-components/gk-detailed/PageSlider'

@@ -15,7 +15,7 @@ function ServicesWrapperWithButton({ servicesLength, className, children }: More
   }
   return (
     <>
-      <div className={`group/services ${full ? 'active' : ''} ${className}`}>
+      <div className={`group/services ${full ? 'active' : ''}`}>
         <div className={className}>{children}</div>
       </div>
       <button
