@@ -71,6 +71,7 @@ async function DesktopSaleRentMenu({ className, category }: Props) {
               {showCategories()}
             </ul>
           </div>
+          <div className='w-full max-w-[644px]'></div>
         </div>
       </IsDesktop>
     </>
