@@ -7,6 +7,7 @@ import Carousel, {
 } from '@/components/Carousel/Carousel'
 import Img from '@/ui/Img'
 import { ComplexDetailed } from '@/types/Complex'
+import { DecorativeBlock } from '@/layout/DecorativeSection'
 
 type PageSliderProps = Pick<ComplexDetailed, 'gallery'>
 
@@ -23,11 +24,13 @@ const tempGallery = ['/no-photo.jpg', '/no-photo.jpg', '/no-photo.jpg']
 function PageSlider({ gallery }: PageSliderProps) {
   return (
     <>
-      <Carousel className='overflow-hidden' fade>
-        <CarouselInner>{!!gallery?.length ? showSlides(gallery) : showSlides(tempGallery)}</CarouselInner>
-        <CarouselProgressBar className='inset-x-[60px] top-[-32px] *:bg-base-100 md:w-[230px]' />
-        <CarouselWhiteNavigations className='hidden md:flex' />
-      </Carousel>
+      <DecorativeBlock>
+        <Carousel className='overflow-hidden' fade>
+          <CarouselInner>{!!gallery?.length ? showSlides(gallery) : showSlides(tempGallery)}</CarouselInner>
+          <CarouselProgressBar className='inset-x-[60px] top-[-32px] *:bg-base-100 md:w-[230px]' />
+          <CarouselWhiteNavigations className='hidden md:flex' />
+        </Carousel>
+      </DecorativeBlock>
     </>
   )
 }
