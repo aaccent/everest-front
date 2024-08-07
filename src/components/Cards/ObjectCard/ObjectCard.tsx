@@ -3,8 +3,7 @@ import Link from 'next/link'
 import Img from '@/ui/Img'
 import { CategoryObject } from '@/types/CategoryObject'
 import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
-import { AnyCategory } from '@/types/Category'
-import { generateObjectLink } from '@/features/link'
+import { CategoryForLinkGeneration, generateObjectLink } from '@/features/link'
 import { LayoutObject } from '@/types/Complex'
 
 function InfoItem({ children }: PropsWithChildren) {
@@ -12,7 +11,7 @@ function InfoItem({ children }: PropsWithChildren) {
 }
 
 interface Props {
-  category: AnyCategory
+  category: CategoryForLinkGeneration
   item: CategoryObject | LayoutObject
 }
 
