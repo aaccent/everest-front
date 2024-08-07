@@ -23,6 +23,8 @@ export type SliderProps =
     }
 
 function Slider({ list, type }: SliderProps) {
+  const initProgress = (100 / (list.length + 1) / 100) * 3
+
   function showSlides() {
     switch (type) {
       case 'complex':
@@ -48,13 +50,13 @@ function Slider({ list, type }: SliderProps) {
 
   return (
     <>
-      <Carousel className='relative'>
+      <Carousel>
         <CarouselInner>
           {showSlides()}
           <SeeAllCard />
         </CarouselInner>
         <CarouselNavigations />
-        <CarouselProgressBar className='hidden md:block' />
+        <CarouselProgressBar className='hidden md:block' initProgress={initProgress} />
       </Carousel>
     </>
   )

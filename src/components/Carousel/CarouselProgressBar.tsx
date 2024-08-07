@@ -6,14 +6,15 @@ import { CarouselContext } from '@/components/Carousel/Carousel'
 
 interface Props {
   className?: string
+  initProgress?: number
 }
 
-export function CarouselProgressBar({ className }: Props) {
+export function CarouselProgressBar({ className, initProgress }: Props) {
   const { emblaApi } = useContext(CarouselContext)
-  const [scrollProgress, setScrollProgress] = useState(0)
+  const [scrollProgress, setScrollProgress] = useState(initProgress)
 
   const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
-    const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()))
+    const progress = Math.max(initProgress || 0, Math.min(1, emblaApi.scrollProgress()))
     setScrollProgress(progress * 100)
   }, [])
 
