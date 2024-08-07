@@ -4,10 +4,10 @@ import { ComplexInDetailed } from '@/types/Complex'
 import Img from '@/ui/Img'
 import Image from 'next/image'
 import DeveloperLogo from '@/assets/static/donstroy.svg'
-import { formatPrice } from '@/features/price'
+import { formatPriceShortBy } from '@/features/price'
 import Button from '@/ui/buttons/Button'
-import DecorativeBgMobile from '@/assets/static/decorative-bg-mobile.svg'
-import DecorativeSmallBg from '@/assets/static/decorative-bg-small.svg'
+import DecorativeBgMobile from '@/assets/static/decorative-bg/decorative-bg-mobile.svg'
+import DecorativeSmallBg from '@/assets/static/decorative-bg/decorative-bg-small.svg'
 import NoPhoto from '@/assets/static/no-photo.jpg'
 
 type Props = Omit<ComplexInDetailed, 'seoUrl'>
@@ -67,7 +67,7 @@ function MainHero({ name, address, mainImg, description, minArea, maxArea, minPr
               <div className='text-base-400-reg-100 min-w-[128px] uppercase opacity-50'>площадь квартир</div>
             </div>
             <div className='min-w-[184px] rounded-[20px] bg-base-600 px-[18px] py-[14px]'>
-              <div className='text-header-300 mb-[12px]'>{`от ${formatPrice(minPrice)} ₽`}</div>
+              <div className='text-header-300 mb-[12px]'>{formatPriceShortBy(minPrice)}</div>
               <div className='text-base-400-reg-100 min-w-[128px] uppercase opacity-50'>стоимость квартир</div>
             </div>
           </div>
