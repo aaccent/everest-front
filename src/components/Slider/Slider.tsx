@@ -28,13 +28,13 @@ function Slider(props: SliderProps) {
 
   return (
     <>
-      <Carousel>
+      <Carousel className='relative'>
         <CarouselInner>
           {showSlides()}
           <SeeAllCard />
         </CarouselInner>
         <CarouselNavigations />
-        <CarouselProgressBar />
+        <CarouselProgressBar className='hidden md:block' />
       </Carousel>
     </>
   )

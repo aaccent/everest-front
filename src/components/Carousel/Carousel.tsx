@@ -3,6 +3,7 @@
 import React, { createContext, PropsWithChildren, useContext } from 'react'
 import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react'
 import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
+import Fade from 'embla-carousel-fade'
 
 interface CarouselContextObject {
   emblaApi: EmblaCarouselType | undefined
@@ -36,6 +37,7 @@ export function CarouselInner({ children }: PropsWithChildren) {
 type CarouselProps = EmblaOptionsType &
   PropsWithChildren & {
     className?: string
+    fade?: boolean
   }
 
 /**
@@ -56,9 +58,9 @@ type CarouselProps = EmblaOptionsType &
  * </Carousel>
  * ```
  *  */
-export default function Carousel({ className, children, ...options }: CarouselProps) {
+export default function Carousel({ className, children, fade, ...options }: CarouselProps) {
   const emblaOptions = Object.assign({ align: 'start' }, options)
-  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions)
+  const [emblaRef, emblaApi] = useEmblaCarousel(emblaOptions, fade ? [Fade()] : undefined)
 
   return (
     <CarouselContext.Provider value={{ emblaApi, emblaRef }}>

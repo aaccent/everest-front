@@ -5,7 +5,6 @@ import { SubcategoryPage } from '@/types/Page'
 
 async function Page({ params }: SubcategoryPage) {
   const category = await getSecondaryHousingSubcategory(params.subcategory)
-
   return <SecondaryCategory category={category} />
 }
 

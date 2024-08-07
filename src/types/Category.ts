@@ -1,4 +1,5 @@
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
+import { ComplexInDetailed } from '@/types/Complex'
 
 export interface RawCategory {
   id: string
@@ -25,6 +26,7 @@ export type Category<
 export type SubCategory<TObjects extends object | false = false> = RawCategory & {
   breadcrumbs: BreadcrumbItem[]
   categories?: []
+  complex?: ComplexInDetailed
   objects: TObjects extends false ? [] : TObjects[]
 }
 
