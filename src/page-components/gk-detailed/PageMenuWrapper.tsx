@@ -17,7 +17,7 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
       ([entries]) => {
         if (entries.intersectionRatio > 0) {
           setClassName(
-            `fixed top-[62px] z-[100] bg-base-100 w-full pt-[32px] ml-[-20px] pl-[20px] md:top-[0] md:z-[100] md:pl-[56px] md:pt-[32px] md:m-[0] md:inset-x-[0] `,
+            `fixed top-[62px] z-[100] bg-base-100 w-full pt-[32px] md:top-[0] md:z-50 md:m-[0] md:inset-x-[0]`,
           )
         } else {
           setClassName('')
@@ -29,7 +29,7 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
   }, [])
 
   return (
-    <Section hideContainer>
+    <Section>
       <PageMenu className={className} />
       <div className='relative mt-[32px] md:mt-[60px]' ref={ref}>
         {children}

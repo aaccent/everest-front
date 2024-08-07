@@ -18,12 +18,14 @@ function showSlides(images: string[]) {
   ))
 }
 
+const tempGallery = ['/no-photo.jpg', '/no-photo.jpg', '/no-photo.jpg']
+
 function PageSlider({ gallery }: PageSliderProps) {
   return (
     <>
       <Carousel className='overflow-hidden' fade>
-        <CarouselInner>{!!gallery?.length && showSlides(gallery)}</CarouselInner>
-        <CarouselProgressBar className='inset-x-[61px] top-[-32px] w-[228px]' />
+        <CarouselInner>{!!gallery?.length ? showSlides(gallery) : showSlides(tempGallery)}</CarouselInner>
+        <CarouselProgressBar className='inset-x-[60px] top-[-32px] *:bg-base-100 md:w-[230px]' />
         <CarouselWhiteNavigations className='hidden md:flex' />
       </Carousel>
     </>

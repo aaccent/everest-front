@@ -3,8 +3,8 @@ import React from 'react'
 function PageMenu({ className }: { className?: string }) {
   return (
     <div className={className}>
-      <nav className='overflow-auto border-b border-b-base-600/10 pb-[32px] scrollbar-transparent'>
-        <ul className='flex items-center gap-[24px]'>
+      <nav className='border-b border-b-base-600/10 pb-[32px]'>
+        <ul className='-mx-container px-container flex items-center gap-[24px] overflow-auto scrollbar-transparent'>
           <li className='whitespace-nowrap'>О проекте</li>
           <li className='whitespace-nowrap'>Инфраструктура</li>
           <li className='whitespace-nowrap'>Наши предложения</li>
