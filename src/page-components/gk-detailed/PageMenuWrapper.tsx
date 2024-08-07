@@ -8,6 +8,9 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Отключено для показа 8 августа
+    if (false) return
+
     const height = ref.current?.offsetHeight
     const bottom = ref.current?.getBoundingClientRect().bottom
     const observer = new IntersectionObserver(
