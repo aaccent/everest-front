@@ -5,6 +5,7 @@ import Link from 'next/link'
 import LoginButton from '@/layout/Header/desktop/LoginButton'
 import CatalogButton from '@/layout/Header/components/CatalogButton'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
+import CallPopupButton from '@/layout/Header/components/CallPopupButton'
 
 import Logo from '@/assets/static/logo.svg'
 import SaleButton from '@/layout/Header/components/SaleButton'
@@ -77,9 +78,7 @@ function DesktopHeader({ className }: Props) {
           <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-add before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:before:filter-primary'>
             добавить объявление
           </button>
-          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-phone before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:before:filter-primary'>
-            заказать звонок
-          </button>
+          <CallPopupButton />
         </div>
       </div>
       <div className='flex justify-between border-b border-b-base-100/15 peer-any-parent-[.is-scrolled]/style-state:border-b-0 peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled,.sale-menu,.rent-menu)]/style-state:border-b-base-600/10'>
