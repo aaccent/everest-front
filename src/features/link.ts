@@ -1,6 +1,6 @@
 import { AnyCategory } from '@/types/Category'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
-import { PATHS } from '@/globals/paths.js'
+import { ROUTES } from '@/globals/paths.js'
 
 type ObjectForLinkGeneration = {
   seoUrl?: string
@@ -16,7 +16,7 @@ export function generateCategoryLink(
 ) {
   if (!item) return '#'
 
-  let link = '/catalog'
+  let link = ROUTES.CATALOG
 
   if ('breadcrumbs' in item && !parent) {
     link += item.breadcrumbs!.map((item) => `/${item.seo}`).join('')
@@ -43,7 +43,7 @@ export function generateObjectLink(item: ObjectForLinkGeneration, category: Cate
 }
 
 export function createComplexLink(item: ObjectForLinkGeneration) {
-  let link = `/${PATHS.CATALOG}/complexes`
+  let link = ROUTES.COMPLEXES
   link += `/${item.seoUrl}`
   return link
 }

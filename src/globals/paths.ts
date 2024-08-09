@@ -4,3 +4,9 @@ export const PATHS = {
   COMPLEXES: 'complexes',
   APARTMENTS: 'apartments',
 }
+
+export const ROUTES = {
+  CATALOG: `/${PATHS.CATALOG}`,
+  COMPLEXES: `/${PATHS.CATALOG}/${PATHS.COMPLEXES}`,
+  NEW_BUILDINGS: `/${PATHS.CATALOG}/${PATHS.NEW_BUILDINGS}`,
+}

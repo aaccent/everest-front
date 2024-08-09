@@ -1,6 +1,4 @@
-import { PATHS } from './src/globals/paths.js'
-
-console.log(`/${PATHS.CATALOG}/${PATHS.NEW_BUILDINGS}/${PATHS.COMPLEXES}`)
+import { PATHS, ROUTES } from './src/globals/paths.js'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -17,7 +15,7 @@ const nextConfig = {
     return [
       {
         source: `/${PATHS.CATALOG}/${PATHS.NEW_BUILDINGS}/${PATHS.COMPLEXES}`,
-        destination: `/${PATHS.CATALOG}/${PATHS.COMPLEXES}`,
+        destination: ROUTES.COMPLEXES,
         permanent: true,
       }
     ]
