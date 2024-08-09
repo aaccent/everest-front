@@ -22,6 +22,10 @@ export const filters = plugin(function ({ addUtilities }) {
       filter:
         'brightness(0) saturate(100%) invert(63%) sepia(12%) saturate(2257%) hue-rotate(124deg) brightness(97%) contrast(93%)',
     },
+    '.filter-base-650': {
+      filter:
+        'brightness(0) saturate(100%) invert(100%) sepia(4%) saturate(119%) hue-rotate(329deg) brightness(116%) contrast(93%)',
+    },
   })
 })
 

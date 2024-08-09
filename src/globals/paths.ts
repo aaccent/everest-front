@@ -1,6 +1,6 @@
 export const PATHS = {
   CATALOG: 'catalog',
-  NEW_BUILDINGS: 'new-buildings',
+  NEW_BUILDING: 'new-building',
   COMPLEXES: 'complexes',
   APARTMENTS: 'apartments',
 }
