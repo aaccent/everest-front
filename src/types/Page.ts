@@ -9,3 +9,7 @@ export type SubcategoryPage = Page<{
 export type ObjectPage = Page<{
   object: string
 }>
+
+export type ComplexPage = Page<{
+  complex: string
+}>

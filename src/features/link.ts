@@ -1,8 +1,8 @@
 import { AnyCategory } from '@/types/Category'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
+import { PATHS } from '@/globals/paths.js'
 
 type ObjectForLinkGeneration = {
-  code?: string
   seoUrl?: string
 }
 
@@ -23,8 +23,8 @@ export function generateCategoryLink(
     return link
   }
 
-  if (parent) link += `/${parent.seoUrl || parent.code}`
-  link += `/${item.seoUrl || item.code}`
+  if (parent) link += `/${parent.seoUrl}`
+  link += `/${item.seoUrl}`
   return link
 }
 
@@ -37,20 +37,13 @@ export function generateObjectLink(item: ObjectForLinkGeneration, category: Cate
     link += '/object'
   }
 
-  link += `/${item.seoUrl || item.code}`
+  link += `/${item.seoUrl}`
 
   return link
 }
 
-export const COMPLEXES_CATEGORY: CategoryForLinkGeneration = {
-  breadcrumbs: [
-    {
-      name: '',
-      seo: 'new-building',
-    },
-    {
-      name: '',
-      seo: 'complexes',
-    },
-  ],
+export function createComplexLink(item: ObjectForLinkGeneration) {
+  let link = `/${PATHS.CATALOG}/complexes`
+  link += `/${item.seoUrl}`
+  return link
 }

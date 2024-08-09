@@ -1,5 +1,5 @@
 import React from 'react'
-import { SubcategoryPage } from '@/types/Page'
+import { ComplexPage } from '@/types/Page'
 import { getComplexDetailed } from '@/globals/api'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import MainHero from '@/page-components/gk-detailed/MainHero'
@@ -8,8 +8,8 @@ import DetailedInfo from '@/page-components/gk-detailed/DetailedInfo'
 import PageMenuWrapper from '@/page-components/gk-detailed/PageMenuWrapper'
 import LayoutChoice from '@/page-components/gk-detailed/LayoutChoice/LayoutChoice'
 
-async function Page({ params }: SubcategoryPage) {
-  const gkDetailed = await getComplexDetailed(params.subcategory)
+async function Page({ params }: ComplexPage) {
+  const gkDetailed = await getComplexDetailed(params.complex)
   return (
     <>
       <Breadcrumbs list={gkDetailed.breadcrumbs} />

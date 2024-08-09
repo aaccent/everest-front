@@ -5,7 +5,7 @@ import { showTags } from '@/components/Cards/Complex/ComplexCard'
 import { formatPriceShortBy } from '@/features/price'
 import { formatStatus } from '@/features/date'
 import Img from '@/ui/Img'
-import { COMPLEXES_CATEGORY, generateObjectLink } from '@/features/link'
+import { createComplexLink } from '@/features/link'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {
   return objectTypes.map((object) => {
@@ -30,10 +30,7 @@ interface Props {
 
 function ComplexFullCard({ item }: Props) {
   return (
-    <Link
-      href={generateObjectLink(item, COMPLEXES_CATEGORY)}
-      className='relative flex rounded-[32px] border border-base-400 p-[40px]'
-    >
+    <Link href={createComplexLink(item)} className='relative flex rounded-[32px] border border-base-400 p-[40px]'>
       <Img
         className='mr-[40px] rounded-[20px] object-cover object-center'
         src='/no-photo.jpg'
