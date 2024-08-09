@@ -1,16 +1,17 @@
 import React from 'react'
-import { SecondaryDetailObject, SecondaryObjectPropertyValue } from '@/types/SecondaryDetailObject'
+import { SecondaryDetailObject } from '@/types/SecondaryDetailObject'
 import Section from '@/layout/Section'
 import ObjectPropertiesWrapper from '@/components/ObjectProperties/ObjectPropertiesWrapper'
 import PropItem from '@/components/PropItem'
 import { formatDate } from '@/features/date'
+import { Characteristic } from '@/types/Characteristic'
 
 interface Props {
   item: SecondaryDetailObject
 }
 
 function Properties({ item }: Props) {
-  function showSubList(list: SecondaryObjectPropertyValue[]) {
+  function showSubList(list: Characteristic[]) {
     return list.map((item, index) => (
       <PropItem key={index} title={item.name}>
         {item.value}

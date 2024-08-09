@@ -9,16 +9,17 @@ import PageMenuWrapper from '@/page-components/complex/PageMenuWrapper'
 import LayoutChoice from '@/page-components/complex/LayoutChoice/LayoutChoice'
 
 async function Page({ params }: ComplexPage) {
-  const gkDetailed = await getComplexDetailed(params.complex)
+  const complex = await getComplexDetailed(params.complex)
+
   return (
     <>
-      <Breadcrumbs list={gkDetailed.breadcrumbs} />
-      <ComplexHero {...gkDetailed.complex} />
+      <Breadcrumbs list={complex.breadcrumbs.slice(1)} />
+      <ComplexHero complex={complex} />
       <PageMenuWrapper>
-        <PageSlider {...gkDetailed} />
-        <DetailedInfo {...gkDetailed.complex} />
+        <PageSlider complex={complex} />
+        <DetailedInfo complex={complex} />
       </PageMenuWrapper>
-      <LayoutChoice houses={gkDetailed.objects} />
+      <LayoutChoice complex={complex} />
     </>
   )
 }

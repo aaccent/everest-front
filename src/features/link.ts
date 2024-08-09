@@ -1,25 +1,23 @@
-import { AnyCategory } from '@/types/Category'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import { ROUTES } from '@/globals/paths.js'
 
-type ObjectForLinkGeneration = {
-  seoUrl?: string
+interface CategoryWithSeoUrl {
+  seoUrl: string
 }
 
-export type CategoryForLinkGeneration = ObjectForLinkGeneration & {
-  breadcrumbs?: BreadcrumbItem[]
+interface CategoryWithBreadcrumbs {
+  breadcrumbs: BreadcrumbItem[]
 }
 
-export function generateCategoryLink(
-  item: CategoryForLinkGeneration | AnyCategory,
-  parent?: CategoryForLinkGeneration,
-) {
+export type CategoryForGeneratingLink = CategoryWithSeoUrl | CategoryWithBreadcrumbs
+
+export function generateCategoryLink(item: CategoryForGeneratingLink | undefined, parent?: CategoryWithSeoUrl) {
   if (!item) return '#'
 
   let link = ROUTES.CATALOG
 
-  if ('breadcrumbs' in item && !parent) {
-    link += item.breadcrumbs!.map((item) => `/${item.seo}`).join('')
+  if ('breadcrumbs' in item) {
+    link += item.breadcrumbs.map((item) => `/${item.seo}`).join('')
     return link
   }
 
@@ -28,15 +26,18 @@ export function generateCategoryLink(
   return link
 }
 
-export function generateObjectLink(item: ObjectForLinkGeneration, category: CategoryForLinkGeneration) {
-  if (!category) return '#'
+type ObjectForLinkGeneration = {
+  seoUrl: string
+}
+
+export function generateObjectLink(
+  item: ObjectForLinkGeneration | undefined,
+  category: CategoryForGeneratingLink | undefined,
+) {
+  if (!category || !item) return '#'
 
   let link = generateCategoryLink(category)
-
-  if (category.breadcrumbs!.length === 1) {
-    link += '/object'
-  }
-
+  link += '/object'
   link += `/${item.seoUrl}`
 
   return link

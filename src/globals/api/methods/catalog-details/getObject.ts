@@ -13,7 +13,7 @@ type Request = APIRequest<{
 
 type Response = APIResponse<RawSecondaryDetailObject>
 
-export async function getSecondaryObject(props: Props): Promise<SecondaryDetailObject> {
+export async function getObject(props: Props): Promise<SecondaryDetailObject> {
   const path: SlashPath = `/catalog/${props.category}/${props.object}`
   const res = await apiCall<Request, Response>(path, {
     method: 'GET',

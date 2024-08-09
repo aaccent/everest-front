@@ -3,12 +3,11 @@ import { CategoryObject } from '@/types/CategoryObject'
 import Link from 'next/link'
 import Img from '@/ui/Img'
 import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
-import { AnyCategory } from '@/types/Category'
-import { generateObjectLink } from '@/features/link'
+import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
 
 interface Props {
   item: CategoryObject
-  category: AnyCategory
+  category: CategoryForGeneratingLink
 }
 
 function ObjectFullCard({ item, category }: Props) {

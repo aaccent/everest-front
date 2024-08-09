@@ -1,6 +1,7 @@
 import { Tag } from '@/types/Tag'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import { CategoryObject } from '@/types/CategoryObject'
+import { Characteristic } from '@/types/Characteristic'
 
 export interface FlatTypes {
   id: string
@@ -9,62 +10,51 @@ export interface FlatTypes {
   minPrice: string // Нужен number
 }
 
-export interface Complex {
-  id: string
+export interface ComplexCard {
+  id: number
   name: string
-  address: string
-  seoUrl: string
   minPrice: number
-  status: number
   tags: Tag[]
-  objectsType: FlatTypes[]
+  status: string
+  seoUrl: string
   mainImg: string
   description: string
   developerLogo: string
   presentationLink: string
-  priceDiscount?: number
+  objectsType: FlatTypes[]
 }
 
-export interface DetailComplex {
+export type LayoutObject = Pick<CategoryObject, 'id' | 'seoUrl' | 'name' | 'description' | 'priceDiscount'> & {
+  title: string
+  h1: string
+  dealType: string
+  houseNumber: number
+  characteristics: Characteristic[]
+  gallery: string[]
+  address: string | null
+  price: number
+}
+
+export interface RawComplex {
+  id: number
   name: string
   code: string
   mainImg: string
   description: string
   developerLogo: string
   presentationLink: string
-  minArea: number
-  maxArea: number
-  minPrice: number
-  address: string
-  characteristics: [Characteristics[]]
+  characteristics: [Characteristic[]]
 }
 
-export interface Characteristics {
-  name: string
-  value: string | number
-}
-
-export interface LayoutObject extends CategoryObject {
-  id: number
-  title: string
-  h1: string | null
-  seoUrl: string
-  name: string
-  description: string
-  priceDiscount: string
-  dealType: 'sale' | 'rent'
-  houseNumber: number
-  characteristics: Characteristics[]
-  gallery: string[]
-}
-
-export interface ComplexDetailedHouse {
+export interface DetailComplexHouse {
   objects: LayoutObject[]
 }
 
-export type ComplexDetailed = {
+export interface RawDetailComplex {
   breadcrumbs: BreadcrumbItem[]
-  complex: DetailComplex
-  gallery?: string[]
-  objects: ComplexDetailedHouse[]
+  complex: RawComplex
+  gallery: string[]
+  objects: DetailComplexHouse[]
 }
+
+export type DetailComplex = RawComplex & Omit<RawDetailComplex, 'complex'>

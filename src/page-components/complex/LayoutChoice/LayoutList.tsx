@@ -1,13 +1,13 @@
 import React from 'react'
-import { ComplexDetailedHouse } from '@/types/Complex'
+import { DetailComplex } from '@/types/Complex'
 import ObjectsList from '@/page-components/complex/LayoutChoice/ObjectsList'
 
 interface LayoutListProps {
-  houses: ComplexDetailedHouse[]
+  complex: DetailComplex
 }
 
-function LayoutList({ houses }: LayoutListProps) {
-  return houses.map((house) => <ObjectsList {...house} key={house.objects[0].id} />)
+function LayoutList({ complex }: LayoutListProps) {
+  return complex.objects.map((house) => <ObjectsList complex={complex} house={house} key={house.objects[0].id} />)
 }
 
 export default LayoutList
