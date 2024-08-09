@@ -12,7 +12,7 @@ import NoPhoto from '@/assets/static/no-photo.jpg'
 
 type Props = Omit<DetailComplex, 'seoUrl'>
 
-function MainHero({ name, address, mainImg, description, minArea, maxArea, minPrice, developerLogo }: Props) {
+function ComplexHero({ name, address, mainImg, description, minArea, maxArea, minPrice, developerLogo }: Props) {
   return (
     <Section
       className=''
@@ -87,4 +87,4 @@ function MainHero({ name, address, mainImg, description, minArea, maxArea, minPr
   )
 }
 
-export default MainHero
+export default ComplexHero

@@ -4,9 +4,9 @@ import Container from '@/layout/Container'
 import SelectorInline from '@/ui/inputs/SelectorInline'
 import Button from '@/ui/buttons/Button'
 import { ComplexDetailedHouse } from '@/types/Complex'
-import LayoutInner from '@/page-components/gk-detailed/LayoutChoice/LayoutInner'
-import LayoutList from '@/page-components/gk-detailed/LayoutChoice/LayoutList'
-import LayoutTypes from '@/page-components/gk-detailed/LayoutChoice/LayoutTypes'
+import LayoutInner from '@/page-components/complex/LayoutChoice/LayoutInner'
+import LayoutList from '@/page-components/complex/LayoutChoice/LayoutList'
+import LayoutTypes from '@/page-components/complex/LayoutChoice/LayoutTypes'
 
 interface LayoutChoiceProps {
   houses: ComplexDetailedHouse[]

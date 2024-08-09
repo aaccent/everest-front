@@ -1,6 +1,6 @@
 import React from 'react'
 import { ComplexDetailedHouse } from '@/types/Complex'
-import ObjectsList from '@/page-components/gk-detailed/LayoutChoice/ObjectsList'
+import ObjectsList from '@/page-components/complex/LayoutChoice/ObjectsList'
 
 interface LayoutListProps {
   houses: ComplexDetailedHouse[]
