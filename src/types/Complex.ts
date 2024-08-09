@@ -12,11 +12,11 @@ export interface FlatTypes {
 export interface Complex {
   id: string
   name: string
-  address?: string
-  code: string
-  minPrice?: number
-  status?: number
-  tags?: Tag[]
+  address: string
+  seoUrl: string
+  minPrice: number
+  status: number
+  tags: Tag[]
   objectsType: FlatTypes[]
   mainImg: string
   description: string
@@ -25,17 +25,17 @@ export interface Complex {
   priceDiscount?: number
 }
 
-export interface ComplexInDetailed {
+export interface DetailComplex {
   name: string
-  seoUrl: string
+  code: string
   mainImg: string
   description: string
   developerLogo: string
   presentationLink: string
-  minArea?: number
-  maxArea?: number
-  minPrice?: number
-  address?: string
+  minArea: number
+  maxArea: number
+  minPrice: number
+  address: string
   characteristics: [Characteristics[]]
 }
 
@@ -64,7 +64,7 @@ export interface ComplexDetailedHouse {
 
 export type ComplexDetailed = {
   breadcrumbs: BreadcrumbItem[]
-  complex: ComplexInDetailed
+  complex: DetailComplex
   gallery?: string[]
   objects: ComplexDetailedHouse[]
 }

@@ -1,10 +1,10 @@
 'use client'
 import React, { useState } from 'react'
-import { Characteristics, ComplexInDetailed } from '@/types/Complex'
+import { Characteristics, DetailComplex } from '@/types/Complex'
 import Link from 'next/link'
 import { formatStatus } from '@/features/date'
 
-type DetailedInfoProps = Pick<ComplexInDetailed, 'name' | 'presentationLink' | 'characteristics'>
+type DetailedInfoProps = Pick<DetailComplex, 'name' | 'presentationLink' | 'characteristics'>
 
 function showDetails(array: Characteristics[]) {
   return array.map((item, index) => {

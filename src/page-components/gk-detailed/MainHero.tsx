@@ -1,6 +1,6 @@
 import React from 'react'
 import Section from '@/layout/Section'
-import { ComplexInDetailed } from '@/types/Complex'
+import { DetailComplex } from '@/types/Complex'
 import Img from '@/ui/Img'
 import Image from 'next/image'
 import DeveloperLogo from '@/assets/static/donstroy.svg'
@@ -10,7 +10,7 @@ import DecorativeBgMobile from '@/assets/static/decorative-bg/decorative-bg-mobi
 import DecorativeSmallBg from '@/assets/static/decorative-bg/decorative-bg-small.svg'
 import NoPhoto from '@/assets/static/no-photo.jpg'
 
-type Props = Omit<ComplexInDetailed, 'seoUrl'>
+type Props = Omit<DetailComplex, 'seoUrl'>
 
 function MainHero({ name, address, mainImg, description, minArea, maxArea, minPrice, developerLogo }: Props) {
   return (
