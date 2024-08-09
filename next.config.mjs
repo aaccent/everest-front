@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: !process.env.CI ? 'standalone' : undefined,
   staticPageGenerationTimeout: 100,
   images: {
     deviceSizes: [640, 750, 828, 1080, 1200, 1680, 1920, 2048],
@@ -8,7 +8,7 @@ const nextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
-  }
+  },
 }
 
 export default nextConfig

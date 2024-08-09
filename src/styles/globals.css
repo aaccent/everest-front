@@ -11,7 +11,7 @@
   }
 
   body {
-    @apply overflow-x-clip text-base-200-lg-100 text-base-600;
+    @apply text-base-200-lg-100 overflow-x-clip text-base-600;
   }
 
   @media screen(md) {
@@ -91,6 +91,10 @@
 @layer utilities {
   .px-container {
     @apply px-[20px] md:px-[56px];
+  }
+
+  .-mx-container {
+    @apply mx-[-20px] md:mx-[-56px];
   }
 }
 

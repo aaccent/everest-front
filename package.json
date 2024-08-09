@@ -4,10 +4,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3060",
+    "dev": "dotenvx run --env-file=.env -- next dev",
     "build": "next build",
-    "start": "next start -p 3060",
-    "start:standalone": "cross-env PORT=3060 node .next/standalone/server.js",
+    "build:ci": "cross-env CI=TRUE next build",
+    "start": "dotenvx run --env-file=.env -- next start",
+    "start:ci": "cross-env CI=TRUE dotenvx run --env-file=.env -- next start",
     "lint": "next lint",
     "prepare": "husky",
     "linter": "eslint .",
@@ -15,14 +16,16 @@
   },
   "dependencies": {
     "@aaccent/adaptive-sizes-next": "^1.0.2",
+    "@dotenvx/dotenvx": "^1.6.4",
     "cross-env": "^7.0.3",
     "embla-carousel": "^8.1.6",
     "embla-carousel-react": "^8.1.6",
     "mapbox-gl": "^3.4.0",
-    "next": "14.2.4",
+    "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "react-map-gl": "^7.1.7"
+    "react-map-gl": "^7.1.7",
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
     "@aaccent/adaptive-sizes-next": "^1.0.2",
@@ -35,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^7.17.0",
     "@typescript-eslint/parser": "^7.17.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "embla-carousel-fade": "^8.1.8",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "eslint-config-prettier": "^9.1.0",

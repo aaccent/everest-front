@@ -6,11 +6,10 @@ import Input from '@/ui/Input'
 import Section from '@/layout/Section'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
-import { getAddresses } from '@/globals/api/methods/getAddresses'
-import { getSocials } from '@/globals/api/methods/getSocials'
+import { getAddresses, getSocials } from '@/globals/api'
 
-import mobileBavel from '@/assets/static/decorative-bavel-mobile.svg'
-import bavel from '@/assets/static/decorative-bavel.svg'
+import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
+import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
 import { callFormHandler } from '@/features/forms'
 import Form from '@/ui/Form'
 
@@ -40,7 +39,7 @@ async function ContactForm() {
   }
 
   return (
-    <Section containerClassName='relative w-full rounded-tl-[20px] rounded-b-[20px] md:flex justify-between md:p-[56px] md:bg-primary'>
+    <Section containerClassName='relative w-full rounded-tl-[20px] rounded-b-[20px] md:flex justify-between md:px-[56px] md:py-[56px] md:bg-primary'>
       <Image src={bavel} alt='' className='absolute right-0 top-0 hidden md:block' />
       <Image src={mobileBavel} alt='' className='absolute right-0 top-0 md:hidden' />
       <div className='mb-[24px] rounded-[20px] bg-primary p-[20px] text-base-100 md:m-0 md:w-[676px] md:bg-none md:p-0'>

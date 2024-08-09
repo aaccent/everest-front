@@ -6,6 +6,10 @@ services:
       context: .
       no_cache: true
     container_name: front
+    env_file:
+      - .env
+      - path: .env.local
+        required: false
     restart: unless-stopped
     ports:
-      - '3060:3060'
+      - ${PORT}:${PORT}

@@ -1,10 +1,11 @@
 import React from 'react'
 import { Complex, FlatTypes } from '@/types/Complex'
 import Link from 'next/link'
-import Image from 'next/image'
 import { showTags } from '@/components/Cards/Complex/ComplexCard'
-import { formatPrice } from '@/features/price'
+import { formatPriceShortBy } from '@/features/price'
 import { formatStatus } from '@/features/date'
+import Img from '@/ui/Img'
+import { COMPLEXES_CATEGORY, generateObjectLink } from '@/features/link'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {
   return objectTypes.map((object) => {
@@ -17,39 +18,47 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
         <div className='text-base-650'>
           от {object.minArea} м<sup>2</sup>
         </div>
-        <div className=''>{formatPrice(object.minPrice)}</div>
+        <div className=''>{formatPriceShortBy(Number(object.minPrice))}</div>
       </div>
     )
   })
 }
 
-function ComplexFullCard(props: Complex) {
+interface Props {
+  item: Complex
+}
+
+function ComplexFullCard({ item }: Props) {
   return (
-    <Link href='' className='relative flex rounded-[32px] border border-base-400 p-[40px]'>
-      <Image
+    <Link
+      href={generateObjectLink(item, COMPLEXES_CATEGORY)}
+      className='relative flex rounded-[32px] border border-base-400 p-[40px]'
+    >
+      <Img
+        className='mr-[40px] rounded-[20px] object-cover object-center'
         src='/no-photo.jpg'
-        alt=''
         width={427}
         height={342}
-        className='mr-[40px] rounded-[20px] object-cover object-center'
       />
-      <div className='absolute left-[54px] top-[54px] flex gap-[4px]'>{props.tags && showTags(props.tags)}</div>
+      <div className='absolute left-[54px] top-[54px] flex gap-[4px]'>{item.tags && showTags(item.tags)}</div>
       <div>
         <div className='mb-[12px] flex items-center gap-[16px]'>
-          <span className='text-header-300'>{props.name}</span>
+          <span className='text-header-300'>{item.name}</span>
           <div className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[6.5px]'>
-            {formatStatus(props.status)}
+            {formatStatus(item.status)}
           </div>
         </div>
         <div className='text-base-200-lg-100 mb-[17px] flex items-center gap-[10px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-default-auto'>
-          {props.address ? props.address : 'нет адреса'}
+          {item.address ? item.address : 'нет адреса'}
         </div>
-        <span className='text-header-400 mr-[12px]'>{formatPrice(props.minPrice)}</span>
-        <span className='text-header-400 line-through opacity-50'>{formatPrice(props.priceDiscount)}</span>
-        <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(props.objectsType)}</div>
+        <span className='text-header-400 mr-[12px]'>{formatPriceShortBy(item.minPrice)}</span>
+        <span className='text-header-400 line-through opacity-50'>{formatPriceShortBy(item.priceDiscount)}</span>
+        <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(item.objectsType)}</div>
       </div>
       <div className='ml-auto flex flex-col justify-between'>
-        <Image src='/icons/donstroy.svg' alt='' unoptimized />
+        <div className='relative'>
+          <Img src='/icons/donstroy.svg' isSVG />
+        </div>
         <div className='text-base-300-lg-100 flex gap-[6px] text-base-650 before:size-[19px] before:bg-icon-clip before:bg-default-auto after:block'>
           5 мин назад
         </div>

@@ -65,6 +65,9 @@ export const customVariants = plugin(function ({ addVariant, matchVariant }) {
   matchVariant('peer-any-parent', function (value, { modifier }) {
     return modifier ? `:merge(.peer\\/${modifier})${value} ~ * &` : `:merge(.peer)${value} ~ * &`
   })
+  matchVariant('previous-has', function (value, { modifier }) {
+    return modifier ? `:merge(.peer\\/${modifier})${value} + &` : `:merge(.peer)${value} + &`
+  })
   addVariant('scroll-btn-yt', ['&::-webkit-scrollbar-button:vertical:decrement'])
   addVariant('scroll-btn-yb', ['&::-webkit-scrollbar-button:vertical:increment'])
 })

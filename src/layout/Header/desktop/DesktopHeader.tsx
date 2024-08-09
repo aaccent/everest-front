@@ -8,6 +8,8 @@ import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 import CallPopupButton from '@/layout/Header/components/CallPopupButton'
 
 import Logo from '@/assets/static/logo.svg'
+import SaleButton from '@/layout/Header/components/SaleButton'
+import RentButton from '@/layout/Header/components/RentButton'
 
 interface CircleButtonProps {
   className?: string
@@ -16,7 +18,7 @@ interface CircleButtonProps {
 function CircleButton({ className }: CircleButtonProps) {
   return (
     <button
-      className={`flex size-[42px] items-center justify-center rounded-full bg-base-100/15 before:block before:size-[20px] before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled)]/style-state:bg-base-300 peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled)]/style-state:before:filter-base-600 ${className}`}
+      className={`flex size-[42px] items-center justify-center rounded-full bg-base-100/15 before:block before:size-[20px] before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled,.sale-menu,.rent-menu)]/style-state:bg-base-300 peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled,.sale-menu,.rent-menu)]/style-state:before:filter-base-600 ${className}`}
     />
   )
 }
@@ -53,11 +55,11 @@ interface Props {
 function DesktopHeader({ className }: Props) {
   return (
     <header
-      className={`px-container fixed top-0 z-20 w-full pt-[14px] text-base-100 peer-[:is(.is-black,.catalog-menu)]/style-state:sticky peer-[.is-scrolled]/style-state:border-b peer-[.is-scrolled]/style-state:border-b-base-400 peer-[.is-scrolled]/style-state:bg-base-100 peer-[.is-scrolled]/style-state:pt-0 peer-[:is(.is-black,.catalog-menu,.is-scrolled)]/style-state:text-base-600 ${className}`}
+      className={`px-container fixed top-0 z-20 w-full pt-[14px] text-base-100 peer-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:sticky peer-[.is-scrolled]/style-state:border-b peer-[.is-scrolled]/style-state:border-b-base-400 peer-[.is-scrolled]/style-state:bg-base-100 peer-[.is-scrolled]/style-state:pt-0 peer-[:is(.is-black,.catalog-menu,.is-scrolled,.sale-menu,.rent-menu)]/style-state:text-base-600 ${className}`}
     >
-      <div className='flex items-center justify-between border-b border-b-base-100/15 pb-[13px] peer-any-parent-[.is-scrolled]/style-state:hidden peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:border-b-base-600/10'>
+      <div className='flex items-center justify-between border-b border-b-base-100/15 pb-[13px] peer-any-parent-[.is-scrolled]/style-state:hidden peer-any-parent-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:border-b-base-600/10'>
         <nav>
-          <ul className='text-base-500-reg-200 flex items-center gap-[14px] opacity-50 peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:text-base-650 peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:opacity-100'>
+          <ul className='text-base-500-reg-200 flex items-center gap-[14px] opacity-50 peer-any-parent-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:text-base-650 peer-any-parent-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:opacity-100'>
             <li>
               <button>Сервисы</button>
             </li>
@@ -69,21 +71,21 @@ function DesktopHeader({ className }: Props) {
             </li>
           </ul>
         </nav>
-        <div className='flex items-center gap-[24px] peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:text-primary'>
-          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-location before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:before:filter-primary'>
+        <div className='flex items-center gap-[24px] peer-any-parent-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:text-primary'>
+          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-location before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:before:filter-primary'>
             Абакан
           </button>
-          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-add before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu)]/style-state:before:filter-primary'>
+          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-add before:filter-base-100 before:bg-default peer-any-parent-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:before:filter-primary'>
             добавить объявление
           </button>
           <CallPopupButton />
         </div>
       </div>
-      <div className='flex justify-between border-b border-b-base-100/15 peer-any-parent-[.is-scrolled]/style-state:border-b-0 peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled)]/style-state:border-b-base-600/10'>
-        <div className='flex w-full items-center justify-between border-r border-r-base-100/15 py-[15px] pr-[43px] peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled)]/style-state:border-r-base-600/10'>
+      <div className='flex justify-between border-b border-b-base-100/15 peer-any-parent-[.is-scrolled]/style-state:border-b-0 peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled,.sale-menu,.rent-menu)]/style-state:border-b-base-600/10'>
+        <div className='flex w-full items-center justify-between border-r border-r-base-100/15 py-[15px] pr-[43px] peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled,.sale-menu,.rent-menu)]/style-state:border-r-base-600/10'>
           <Link href='/'>
             <Image
-              className='h-[33px] w-[160px] object-contain object-left peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled)]/style-state:filter-primary'
+              className='h-[33px] w-[160px] object-contain object-left peer-any-parent-[:is(.is-black,.catalog-menu,.is-scrolled,.sale-menu,.rent-menu)]/style-state:filter-primary'
               src={Logo}
               alt='Логотип АН Эверест'
             />
@@ -93,10 +95,12 @@ function DesktopHeader({ className }: Props) {
               <CatalogButton />
             </li>
             <li>
-              <Link href='#'>Покупка</Link>
+              {/*<Link href='#'>Покупка</Link>*/}
+              <SaleButton />
             </li>
             <li>
-              <Link href='#'>Аренда</Link>
+              {/*<Link href='#'>Аренда</Link>*/}
+              <RentButton />
             </li>
             <li className='group relative'>
               <button className='uppercase'>Новостройки</button>

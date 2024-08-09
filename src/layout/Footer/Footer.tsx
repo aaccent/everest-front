@@ -6,9 +6,7 @@ import Section from '@/layout/Section'
 import UpButton from '@/layout/Footer/UpButton'
 import FooterMenu from '@/layout/Footer/FooterMenu'
 
-import { getSocials } from '@/globals/api/methods/getSocials'
-import { getCatalog } from '@/globals/api/methods/getCatalog'
-import { getServices } from '@/globals/api/methods/getServices'
+import { getSocials, getCatalogMenu, getServices } from '@/globals/api'
 
 import logo from '@/assets/static/logo.svg'
 import aaccentLogo from '@/assets/static/aaccent-logo.svg'
@@ -22,7 +20,7 @@ export interface socialItem {
 async function Footer() {
   const socials: socialItem[] = await getSocials()
   const staticMenu = ['Об агенстве', 'Риелторы', 'Обучение', 'Отзывы', 'Вакансии', 'Блог', 'Контакты']
-  const catalog = await getCatalog()
+  const catalog = await getCatalogMenu()
   const services = await getServices()
 
   function showStaticMenu() {
@@ -61,7 +59,9 @@ async function Footer() {
       <div className='flex flex-col md:flex-row md:border-b md:border-b-base-100/10 md:pb-[65px] md:pt-[61px]'>
         <div className='flex items-end justify-between border-b border-b-base-100/10 pb-[23px] md:items-start md:border-none'>
           <div className='w-full max-w-[206px] md:mr-[153px] md:max-w-[243px]'>
-            <Image src={logo} alt='' width={198} height={42} />
+            <Link href='/'>
+              <Image src={logo} alt='' width={198} height={42} />
+            </Link>
             <div className='text-base-400-lg-100 mb-[31px] mt-[16px] text-base-150 md:mb-[73px] md:mt-[20px]'>
               Индивидуальный подбор объектов для вашего комфорта
             </div>
@@ -88,7 +88,9 @@ async function Footer() {
       </div>
       <div className='mt-[23px] md:flex md:items-center'>
         <UpButton />
-        <Image src={aaccentLogo} alt='' width={138} height={38} className='md:order-3' />
+        <Link href='https://www.aaccent.ru/' className='block md:order-3'>
+          <Image src={aaccentLogo} alt='' width={138} height={38} />
+        </Link>
         <div className='text-base-500-reg-200 mt-[24px] flex flex-col gap-[12px] text-base-150 md:order-2 md:mt-0 md:flex-row'>
           <p className='md:mr-[118px]'>© 2023, ООО «Эверест»</p>
           <Link href='#' className='md:mr-[139px]'>

@@ -37,6 +37,6 @@ RUN corepack enable pnpm && pnpm add sharp
 
 USER nextjs
 
-EXPOSE 3060
+EXPOSE ${PORT}
 
-CMD HOSTNAME="0.0.0.0" PORT=3060 node server.js
+CMD HOSTNAME="0.0.0.0" PORT=${PORT} node server.js

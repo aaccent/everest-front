@@ -5,11 +5,21 @@ on:
     types: [published]
   workflow_dispatch:
 
+env:
+  URL: https://everest.aaccent.su
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+
       - name: Connect via ssh and run deploy script
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -17,3 +27,21 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: ./scripts/update-front.sh
+
+      - name: Set success deployment
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          state: 'success'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Set failure deployment
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          state: 'failure'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
