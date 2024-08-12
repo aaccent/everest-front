@@ -5,7 +5,7 @@ export interface RawCategory {
   id: string
   name: string
   code: string
-  seoUrl?: string
+  seoUrl: string
   type: string
   description: string | null
   seoTitle?: string | null
