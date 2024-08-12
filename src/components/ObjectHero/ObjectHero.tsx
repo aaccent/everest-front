@@ -1,6 +1,6 @@
 import React from 'react'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
-import { SecondaryDetailObject } from '@/types/SecondaryDetailObject'
+import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
 import Section from '@/layout/Section'
 import Img from '@/ui/Img'
 import Carousel, { CarouselInner } from '@/components/Carousel/Carousel'
@@ -49,7 +49,7 @@ function Gallery({ list }: GalleryProps) {
 }
 
 interface Props {
-  item: SecondaryDetailObject
+  item: DetailSecondaryObject
 }
 
 function ObjectHero({ item }: Props) {

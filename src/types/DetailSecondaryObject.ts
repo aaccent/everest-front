@@ -19,11 +19,11 @@ export interface SecondaryObjectProperty {
   characteristics: Characteristic[]
 }
 
-export interface RawSecondaryDetailObject {
+export interface RawDetailSecondaryObject {
   breadcrumbs: BreadcrumbItem[]
   object: RawSecondaryObject
   gallery: string[]
   characteristics: SecondaryObjectProperty[]
 }
 
-export type SecondaryDetailObject = RawSecondaryObject & Omit<RawSecondaryDetailObject, 'object'>
+export type DetailSecondaryObject = RawSecondaryObject & Omit<RawDetailSecondaryObject, 'object'>
