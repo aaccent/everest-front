@@ -1,7 +1,7 @@
 import { apiCall, APIResponse } from '@/globals/api/apiCall'
-import { Complex } from '@/types/Complex'
+import { ComplexCard } from '@/types/Complex'
 
-type Response = APIResponse<Complex[]>
+type Response = APIResponse<ComplexCard[]>
 
 export async function getNewBuildingsOnMain() {
   const res = await apiCall<Request | false, Response>(`/info/get-new-buildings`, { method: 'GET' })

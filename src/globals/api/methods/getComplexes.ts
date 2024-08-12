@@ -1,5 +1,5 @@
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
-import { Complex } from '@/types/Complex'
+import { ComplexCard } from '@/types/Complex'
 
 type Request = APIRequest<{
   chainUrl?: 'complexes' | 'apartments' | 'penthouses'
@@ -12,7 +12,7 @@ export type breadcrumb = {
 
 type Response = APIResponse<{
   breadcrumbs: breadcrumb[]
-  categories: Complex[]
+  categories: ComplexCard[]
 }>
 
 export async function getComplexes() {
