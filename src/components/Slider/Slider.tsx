@@ -9,7 +9,7 @@ import Carousel, {
 } from '@/components/Carousel/Carousel'
 import { ComplexCard as ComplexCardType } from '@/types/Complex'
 import SeeAllCard from '@/components/SeeAllCard'
-import { CategoryObject } from '@/types/CategoryObject'
+import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
 
 export type SliderProps =
@@ -19,7 +19,7 @@ export type SliderProps =
     }
   | {
       type: 'objects'
-      list: CategoryObject[]
+      list: ObjectCardType[]
     }
 
 function Slider({ list, type }: SliderProps) {

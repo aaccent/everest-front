@@ -1,6 +1,6 @@
 import { Tag } from '@/types/Tag'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
-import { CategoryObject } from '@/types/CategoryObject'
+import { ObjectCard } from '@/types/ObjectCard'
 import { Characteristic } from '@/types/Characteristic'
 
 export interface FlatTypes {
@@ -26,7 +26,7 @@ export interface ComplexCard {
   address: string | null
 }
 
-export type LayoutObject = Pick<CategoryObject, 'id' | 'seoUrl' | 'name' | 'description' | 'priceDiscount'> & {
+export type LayoutObject = Pick<ObjectCard, 'id' | 'seoUrl' | 'name' | 'description' | 'priceDiscount'> & {
   title: string
   h1: string
   dealType: string

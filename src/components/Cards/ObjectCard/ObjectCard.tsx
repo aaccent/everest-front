@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
 import Img from '@/ui/Img'
-import { CategoryObject } from '@/types/CategoryObject'
+import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
 import { LayoutObject } from '@/types/Complex'
@@ -13,7 +13,7 @@ function InfoItem({ children }: PropsWithChildren) {
 
 interface Props {
   category: CategoryForGeneratingLink
-  item: CategoryObject | LayoutObject
+  item: ObjectCardType | LayoutObject
 }
 
 function ObjectCard({ item, category }: Props) {
