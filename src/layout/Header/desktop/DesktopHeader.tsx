@@ -54,7 +54,7 @@ interface Props {
 function DesktopHeader({ className }: Props) {
   return (
     <header
-      className={`px-container fixed top-0 z-20 w-full pt-[14px] text-base-100 peer-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:sticky peer-[.is-scrolled]/style-state:border-b peer-[.is-scrolled]/style-state:border-b-base-400 peer-[.is-scrolled]/style-state:bg-base-100 peer-[.is-scrolled]/style-state:pt-0 peer-[:is(.is-black,.catalog-menu,.is-scrolled,.sale-menu,.rent-menu)]/style-state:text-base-600 ${className}`}
+      className={`px-container fixed top-0 z-30 w-full pt-[14px] text-base-100 peer-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:sticky peer-[.is-scrolled]/style-state:border-b peer-[.is-scrolled]/style-state:border-b-base-400 peer-[.is-scrolled]/style-state:bg-base-100 peer-[.is-scrolled]/style-state:pt-0 peer-[:is(.is-black,.catalog-menu,.is-scrolled,.sale-menu,.rent-menu)]/style-state:text-base-600 ${className}`}
     >
       <div className='flex items-center justify-between border-b border-b-base-100/15 pb-[13px] peer-any-parent-[.is-scrolled]/style-state:hidden peer-any-parent-[:is(.is-black,.catalog-menu,.sale-menu,.rent-menu)]/style-state:border-b-base-600/10'>
         <nav>
