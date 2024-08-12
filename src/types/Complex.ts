@@ -14,6 +14,7 @@ export interface ComplexCard {
   id: number
   name: string
   minPrice: number
+  minPriceDiscount: number | null
   tags: Tag[]
   status: string
   seoUrl: string

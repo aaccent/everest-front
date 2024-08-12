@@ -1,5 +1,5 @@
 import React from 'react'
-import { Complex, FlatTypes } from '@/types/Complex'
+import { ComplexCard, FlatTypes } from '@/types/Complex'
 import Link from 'next/link'
 import { showTags } from '@/components/Cards/Complex/ComplexCard'
 import { formatPriceShortBy } from '@/features/price'
@@ -25,7 +25,7 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
 }
 
 interface Props {
-  item: Complex
+  item: ComplexCard
 }
 
 function ComplexFullCard({ item }: Props) {
@@ -49,7 +49,9 @@ function ComplexFullCard({ item }: Props) {
           {item.address ? item.address : 'нет адреса'}
         </div>
         <span className='text-header-400 mr-[12px]'>{formatPriceShortBy(item.minPrice)}</span>
-        <span className='text-header-400 line-through opacity-50'>{formatPriceShortBy(item.priceDiscount)}</span>
+        {!!item.minPriceDiscount && (
+          <span className='text-header-400 line-through opacity-50'>{formatPriceShortBy(item.minPriceDiscount)}</span>
+        )}
         <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(item.objectsType)}</div>
       </div>
       <div className='ml-auto flex flex-col justify-between'>
