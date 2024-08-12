@@ -22,6 +22,7 @@ export interface ComplexCard {
   developerLogo: string
   presentationLink: string
   objectsType: FlatTypes[]
+  address: string | null
 }
 
 export type LayoutObject = Pick<CategoryObject, 'id' | 'seoUrl' | 'name' | 'description' | 'priceDiscount'> & {
