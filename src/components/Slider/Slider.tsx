@@ -56,7 +56,7 @@ function Slider({ list, type }: SliderProps) {
           <SeeAllCard />
         </CarouselInner>
         <CarouselNavigations />
-        <CarouselProgressBar className='hidden md:block' initProgress={initProgress} />
+        <CarouselProgressBar className='hidden md:block' slides={{ amount: list.length, perView: 3 }} />
       </Carousel>
     </>
   )
