@@ -5,8 +5,9 @@ import SelectorInline from '@/ui/inputs/SelectorInline'
 import Button from '@/ui/buttons/Button'
 import { ComplexDetailedHouse } from '@/types/Complex'
 import LayoutInner from '@/page-components/gk-detailed/LayoutChoice/LayoutInner'
-import LayoutList from '@/page-components/gk-detailed/LayoutChoice/LayoutList'
 import LayoutTypes from '@/page-components/gk-detailed/LayoutChoice/LayoutTypes'
+import ObjectsTable from '@/page-components/gk-detailed/LayoutChoice/ObjectsTable'
+import { LayoutContextProvider } from '@/page-components/gk-detailed/LayoutChoice/LayoutListContext'
 
 interface LayoutChoiceProps {
   houses: ComplexDetailedHouse[]
@@ -20,7 +21,9 @@ function LayoutChoice(props: LayoutChoiceProps) {
         <SelectorInline list={['Студия', 1, 2, 3, 4]} className='rounded-[16px] bg-base-100' />
         <Button variation='primary' size='small' text='Показать 442 объекта' />
       </Container>
-      <LayoutInner listView={<LayoutList houses={props.houses} />} typeView={<LayoutTypes />} />
+      <LayoutContextProvider>
+        <LayoutInner listView={<ObjectsTable {...props} />} typeView={<LayoutTypes />} />
+      </LayoutContextProvider>
     </Section>
   )
 }

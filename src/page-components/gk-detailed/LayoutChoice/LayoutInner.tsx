@@ -31,7 +31,10 @@ function LayoutInner({ listView, typeView }: LayoutInnerProps) {
         </div>
         <div className='flex size-[35px] items-center justify-center rounded-[12px] bg-base-300 after:block after:size-full after:bg-icon-filter after:bg-default-auto md:hidden'></div>
       </div>
-      <div className='p-[20px] md:py-[32px] md:pl-[32px] md:pr-[39px]'>{view === 'list' ? listView : typeView}</div>
+      <div className='justify-between p-[20px] md:flex md:py-[32px] md:pl-[32px] md:pr-[39px]'>
+        {' '}
+        {view === 'list' ? listView : typeView}
+      </div>
     </div>
   )
 }
