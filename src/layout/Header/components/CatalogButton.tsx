@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react'
-import { useStyleState } from '@/features/styleStates'
+import React, { useContext } from 'react'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import Button, { ButtonVariation } from '@/ui/buttons/Button'
 import { hideScroll, showScroll, toggleScroll } from '@/features/scroll'
+import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
+import { usePathname } from 'next/navigation'
 
 interface ButtonProps {
   openMenu?: () => void
@@ -22,17 +23,17 @@ function MobileCatalogButton({ toggleMenu }: ButtonProps) {
 }
 
 function DesktopCatalogButton({ openMenu, closeMenu }: ButtonProps) {
-  const { hasAnyClass } = useStyleState()
-
-  const className = hasAnyClass('catalog-menu') ? 'after:bg-icon-mobile-close' : 'after:bg-icon-catalog-btn'
+  const pathName = usePathname()
+  const header = useContext(HeaderContext)
+  const className = header.hasMenu(HEADER_MENUS.CATALOG) ? 'after:bg-icon-mobile-close' : 'after:bg-icon-catalog-btn'
 
   let type: ButtonVariation = 'third'
 
-  if (hasAnyClass('is-black')) {
+  if (pathName !== '/' || header.scrolled) {
     type = 'primary'
   }
 
-  if (hasAnyClass('catalog-menu', 'is-scrolled')) {
+  if (header.hasMenu(HEADER_MENUS.CATALOG)) {
     type = 'second'
   }
 
@@ -51,22 +52,24 @@ function DesktopCatalogButton({ openMenu, closeMenu }: ButtonProps) {
 }
 
 function CatalogButton() {
-  const { toggleClass, removeClass, addClass } = useStyleState()
+  const header = useContext(HeaderContext)
 
   function toggleMenu() {
-    toggleClass('catalog-menu')
+    if (header.hasMenu(HEADER_MENUS.CATALOG)) {
+      header.setMenu(null)
+    } else {
+      header.setMenu(HEADER_MENUS.CATALOG)
+    }
     toggleScroll()
   }
 
   function openMenu() {
-    addClass('catalog-menu')
-    removeClass('sale-menu')
-    removeClass('rent-menu')
+    header.setMenu(HEADER_MENUS.CATALOG)
     hideScroll()
   }
 
   function closeMenu() {
-    removeClass('catalog-menu')
+    header.setMenu(null)
     showScroll()
   }
 

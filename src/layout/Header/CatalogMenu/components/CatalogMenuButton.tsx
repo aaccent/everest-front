@@ -1,14 +1,14 @@
 'use client'
 
-import React from 'react'
-import { useStyleState } from '@/features/styleStates'
+import React, { useContext } from 'react'
 import { toggleScroll } from '@/features/scroll'
+import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
 
 function CatalogMenuButton() {
-  const { toggleClass } = useStyleState()
+  const header = useContext(HeaderContext)
 
   function clickHandler() {
-    toggleClass('catalog-menu')
+    header.toggleMenu(HEADER_MENUS.CATALOG)
     toggleScroll()
   }
 

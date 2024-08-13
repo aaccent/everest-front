@@ -1,16 +1,14 @@
 'use client'
-import React from 'react'
-import { useStyleState } from '@/features/styleStates'
-import { hideScroll, showScroll } from '@/features/scroll'
+import React, { useContext } from 'react'
+import { toggleScroll } from '@/features/scroll'
+import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
 
 function SaleButton() {
-  const { toggleClass, hasAnyClass, removeClass } = useStyleState()
+  const header = useContext(HeaderContext)
 
   const onClick = () => {
-    toggleClass('sale-menu')
-    hasAnyClass('sale-menu') ? showScroll() : hideScroll()
-    removeClass('catalog-menu')
-    removeClass('rent-menu')
+    header.toggleMenu(HEADER_MENUS.SALE)
+    toggleScroll()
   }
 
   return (

@@ -1,14 +1,16 @@
 'use client'
-import React from 'react'
+import React, { useContext } from 'react'
 import Button, { ButtonVariation } from '@/ui/buttons/Button'
-import { useStyleState } from '@/features/styleStates'
+import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
+import { usePathname } from 'next/navigation'
 
 function LoginButton() {
-  const { hasAnyClass } = useStyleState()
+  const pathName = usePathname()
+  const header = useContext(HeaderContext)
 
   let type: ButtonVariation = 'transparent'
 
-  if (hasAnyClass('is-black', 'catalog-menu', 'is-scrolled')) {
+  if (header.hasMenu(HEADER_MENUS.CATALOG) || header.scrolled || pathName !== '/') {
     type = 'second'
   }
 

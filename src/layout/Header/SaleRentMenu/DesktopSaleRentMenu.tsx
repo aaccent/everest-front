@@ -7,7 +7,7 @@ import { getCatalogMenu, MenuType } from '@/globals/api'
 import { generateCategoryLink } from '@/features/link'
 
 interface Props {
-  className: string
+  className?: string
   category: MenuType
 }
 
@@ -50,6 +50,7 @@ async function DesktopSaleRentMenu({ className, category }: Props) {
       <IsDesktop>
         <div
           className={`px-container fixed inset-x-0 top-[115px] z-10 hidden w-full gap-[16px] bg-base-100 pb-[56px] pt-[32px] ${className}`}
+          data-menu-type={category}
         >
           <div className='w-[908px] rounded-[32px] bg-base-300 p-[40px]'>
             <span className='text-header-300 text-base-600'>{`${title} — `}</span>
