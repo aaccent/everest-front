@@ -87,7 +87,7 @@ export function HeaderProvider({ children, pathname }: HeaderStateProps & PropsW
 
   const dataset = {
     ...(menu ? { 'data-menu': menu } : {}),
-    ...(menuItem ? { 'menu-item': '' } : {}),
+    ...(pathname !== '/' ? { 'data-inner-page': '' } : { 'data-main-page': '' }),
   }
 
   return (

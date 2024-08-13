@@ -5,10 +5,10 @@ import Link from 'next/link'
 import LoginButton from '@/layout/Header/desktop/LoginButton'
 import CatalogButton from '@/layout/Header/components/CatalogButton'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
-import CallPopupButton from '@/layout/Header/components/CallPopupButton'
 
 import Logo from '@/assets/static/logo.svg'
 import SaleRentButton from '@/layout/Header/components/SaleRentButton'
+import HeaderTop from '@/layout/Header/desktop/HeaderTop'
 
 interface CircleButtonProps {
   className?: string
@@ -49,86 +49,66 @@ function Submenu({ list }: SubmenuProps) {
 
 function DesktopHeader() {
   return (
-    <header className='px-container fixed top-0 z-20 w-full pt-[14px] text-base-100 peer-[.is-black]/header-state:sticky peer-[.is-fixed]/header-state:border-b peer-[.is-fixed]/header-state:border-b-base-400 peer-[.is-fixed]/header-state:bg-base-100 peer-[.is-fixed]/header-state:pt-0 peer-[.is-black]/header-state:text-base-600'>
-      <div className='flex items-center justify-between border-b border-b-base-100/15 pb-[13px] peer-any-parent-[.is-fixed]/header-state:hidden peer-any-parent-[.is-black]/header-state:border-b-base-600/10'>
-        <nav>
-          <ul className='text-base-500-reg-200 flex items-center gap-[14px] opacity-50 peer-any-parent-[.is-black]/header-state:text-base-650 peer-any-parent-[.is-black]/header-state:opacity-100'>
-            <li>
-              <button>Сервисы</button>
-            </li>
-            <li>
-              <Link href='#'>Отзывы</Link>
-            </li>
-            <li>
-              <Link href='#'>Trade-in</Link>
-            </li>
-          </ul>
-        </nav>
-        <div className='flex items-center gap-[24px] peer-any-parent-[.is-black]/header-state:text-primary'>
-          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-location before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/header-state:before:filter-primary'>
-            Абакан
-          </button>
-          <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-add before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/header-state:before:filter-primary'>
-            добавить объявление
-          </button>
-          <CallPopupButton />
-        </div>
-      </div>
-      <div className='flex justify-between border-b border-b-base-100/15 peer-any-parent-[.is-fixed]/header-state:border-b-0 peer-any-parent-[.is-black]/header-state:border-b-base-600/10'>
-        <div className='flex w-full items-center justify-between border-r border-r-base-100/15 py-[15px] pr-[43px] peer-any-parent-[.is-black]/header-state:border-r-base-600/10'>
-          <Link href='/'>
-            <Image
-              className='h-[33px] w-[160px] object-contain object-left peer-any-parent-[.is-black]/header-state:filter-primary'
-              src={Logo}
-              alt='Логотип АН Эверест'
-            />
-          </Link>
-          <ul className='text-base-500-reg-100-upper ml-[20px] flex items-center gap-[27px]'>
-            <li>
-              <CatalogButton />
-            </li>
-            <li>
-              <SaleRentButton type='sale' />
-            </li>
-            <li>
-              <SaleRentButton type='rent' />
-            </li>
-            <li className='group relative'>
-              <button className='uppercase'>Новостройки</button>
-              <Submenu list={newBuildingsMenu} />
-            </li>
-            <li className='flex'>
-              <Link href='#'>Ипотека</Link>
-              <span className='relative right-[-8px] top-[2px] flex h-[4px] w-[4px]'>
-                <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75'></span>
-                <span className='relative inline-flex h-[4px] w-[4px] rounded-full bg-primary'></span>
-              </span>
-            </li>
-            <li className='group relative'>
-              <button className='uppercase'>О нас</button>
-              <Submenu list={aboutMenu} />
-            </li>
-            <li>
-              <Link href='#'>Контакты</Link>
-            </li>
-          </ul>
-        </div>
-        <div className='flex w-full max-w-[575px] items-center justify-between gap-[15px] py-[15px] pl-[49px]'>
-          <div className='flex flex-col gap-[2px]'>
-            <a className='text-base-200-med-100' href='tel:8 (843) 207-39-50'>
-              8 (843) 207-39-50
-            </a>
-            <div className='text-base-500-reg-200 opacity-50'>Ежедневно с 09:00 до 19:00</div>
+    <>
+      <HeaderTop className='px-container flex pt-[14px] peer-[[data-main-page]]/header-state:hidden peer-[[data-menu]]/header-state:hidden peer-[.is-black]/header-state:border-b-base-600/10' />
+      <header className='px-container sticky top-0 z-20 w-full text-base-100 peer-[[data-main-page]]/header-state:fixed peer-[.is-fixed]/header-state:border-b peer-[.is-fixed]/header-state:border-b-base-400 peer-[.is-fixed]/header-state:bg-base-100 peer-[.is-fixed]/header-state:pt-0 peer-[:is([data-menu],[data-main-page])]/header-state:pt-[14px] peer-[.is-black]/header-state:text-base-600'>
+        <HeaderTop className='hidden peer-any-parent-[[data-main-page]]/header-state:flex peer-any-parent-[[data-menu]]/header-state:flex peer-any-parent-[.is-black]/header-state:border-b-base-600/10' />
+        <div className='flex justify-between border-b border-b-base-100/15 peer-any-parent-[.is-fixed]/header-state:border-b-0 peer-any-parent-[.is-black]/header-state:border-b-base-600/10'>
+          <div className='flex w-full items-center justify-between border-r border-r-base-100/15 py-[15px] pr-[43px] peer-any-parent-[.is-black]/header-state:border-r-base-600/10'>
+            <Link href='/'>
+              <Image
+                className='h-[33px] w-[160px] object-contain object-left peer-any-parent-[.is-black]/header-state:filter-primary'
+                src={Logo}
+                alt='Логотип АН Эверест'
+              />
+            </Link>
+            <ul className='text-base-500-reg-100-upper ml-[20px] flex items-center gap-[27px]'>
+              <li>
+                <CatalogButton />
+              </li>
+              <li>
+                <SaleRentButton type='sale' />
+              </li>
+              <li>
+                <SaleRentButton type='rent' />
+              </li>
+              <li className='group relative'>
+                <button className='uppercase'>Новостройки</button>
+                <Submenu list={newBuildingsMenu} />
+              </li>
+              <li className='flex'>
+                <Link href='#'>Ипотека</Link>
+                <span className='relative right-[-8px] top-[2px] flex h-[4px] w-[4px]'>
+                  <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75'></span>
+                  <span className='relative inline-flex h-[4px] w-[4px] rounded-full bg-primary'></span>
+                </span>
+              </li>
+              <li className='group relative'>
+                <button className='uppercase'>О нас</button>
+                <Submenu list={aboutMenu} />
+              </li>
+              <li>
+                <Link href='#'>Контакты</Link>
+              </li>
+            </ul>
           </div>
-          <div className='flex items-center gap-[10px]'>
-            <CircleButton className='before:bg-icon-search' />
-            <CircleButton className='before:bg-icon-heart' />
-            <CircleButton className='before:bg-icon-scale' />
+          <div className='flex w-full max-w-[575px] items-center justify-between gap-[15px] py-[15px] pl-[49px]'>
+            <div className='flex flex-col gap-[2px]'>
+              <a className='text-base-200-med-100' href='tel:8 (843) 207-39-50'>
+                8 (843) 207-39-50
+              </a>
+              <div className='text-base-500-reg-200 opacity-50'>Ежедневно с 09:00 до 19:00</div>
+            </div>
+            <div className='flex items-center gap-[10px]'>
+              <CircleButton className='before:bg-icon-search' />
+              <CircleButton className='before:bg-icon-heart' />
+              <CircleButton className='before:bg-icon-scale' />
+            </div>
+            <LoginButton />
           </div>
-          <LoginButton />
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   )
 }
 
