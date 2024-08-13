@@ -1,4 +1,4 @@
-import { RawSecondaryDetailObject, SecondaryDetailObject } from '@/types/SecondaryDetailObject'
+import { RawDetailSecondaryObject, DetailSecondaryObject } from '@/types/DetailSecondaryObject'
 import { apiCall, APIRequest, APIResponse, SlashPath } from '@/globals/api/apiCall'
 
 interface Props {
@@ -11,9 +11,9 @@ type Request = APIRequest<{
   chainUrl?: string
 }>
 
-type Response = APIResponse<RawSecondaryDetailObject>
+type Response = APIResponse<RawDetailSecondaryObject>
 
-export async function getSecondaryObject(props: Props): Promise<SecondaryDetailObject> {
+export async function getObject(props: Props): Promise<DetailSecondaryObject> {
   const path: SlashPath = `/catalog/${props.category}/${props.object}`
   const res = await apiCall<Request, Response>(path, {
     method: 'GET',

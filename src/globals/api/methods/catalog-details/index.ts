@@ -1,2 +1,2 @@
-export * from './getSecondaryObject'
+export * from './getObject'
 export * from './getComplexDetailed'

@@ -95,11 +95,9 @@ function DesktopHeader({ className }: Props) {
               <CatalogButton />
             </li>
             <li>
-              {/*<Link href='#'>Покупка</Link>*/}
               <SaleButton />
             </li>
             <li>
-              {/*<Link href='#'>Аренда</Link>*/}
               <RentButton />
             </li>
             <li className='group relative'>

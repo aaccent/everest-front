@@ -1,11 +1,11 @@
 import React from 'react'
-import { Complex, FlatTypes } from '@/types/Complex'
+import { ComplexCard, FlatTypes } from '@/types/Complex'
 import Link from 'next/link'
 import { showTags } from '@/components/Cards/Complex/ComplexCard'
 import { formatPriceShortBy } from '@/features/price'
 import { formatStatus } from '@/features/date'
 import Img from '@/ui/Img'
-import { COMPLEXES_CATEGORY, generateObjectLink } from '@/features/link'
+import { createComplexLink } from '@/features/link'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {
   return objectTypes.map((object) => {
@@ -25,15 +25,12 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
 }
 
 interface Props {
-  item: Complex
+  item: ComplexCard
 }
 
 function ComplexFullCard({ item }: Props) {
   return (
-    <Link
-      href={generateObjectLink(item, COMPLEXES_CATEGORY)}
-      className='relative flex rounded-[32px] border border-base-400 p-[40px]'
-    >
+    <Link href={createComplexLink(item)} className='relative flex rounded-[32px] border border-base-400 p-[40px]'>
       <Img
         className='mr-[40px] rounded-[20px] object-cover object-center'
         src='/no-photo.jpg'
@@ -52,7 +49,9 @@ function ComplexFullCard({ item }: Props) {
           {item.address ? item.address : 'нет адреса'}
         </div>
         <span className='text-header-400 mr-[12px]'>{formatPriceShortBy(item.minPrice)}</span>
-        <span className='text-header-400 line-through opacity-50'>{formatPriceShortBy(item.priceDiscount)}</span>
+        {!!item.minPriceDiscount && (
+          <span className='text-header-400 line-through opacity-50'>{formatPriceShortBy(item.minPriceDiscount)}</span>
+        )}
         <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(item.objectsType)}</div>
       </div>
       <div className='ml-auto flex flex-col justify-between'>
