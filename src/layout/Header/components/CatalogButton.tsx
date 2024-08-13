@@ -3,13 +3,11 @@
 import React, { useContext } from 'react'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import Button, { ButtonVariation } from '@/ui/buttons/Button'
-import { hideScroll, showScroll, toggleScroll } from '@/features/scroll'
+import { toggleScroll } from '@/features/scroll'
 import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
 import { usePathname } from 'next/navigation'
 
 interface ButtonProps {
-  openMenu?: () => void
-  closeMenu?: () => void
   toggleMenu?: () => void
 }
 
@@ -22,7 +20,7 @@ function MobileCatalogButton({ toggleMenu }: ButtonProps) {
   )
 }
 
-function DesktopCatalogButton({ openMenu, closeMenu }: ButtonProps) {
+function DesktopCatalogButton({ toggleMenu }: ButtonProps) {
   const pathName = usePathname()
   const header = useContext(HeaderContext)
   const className = header.hasMenu(HEADER_MENUS.CATALOG) ? 'after:bg-icon-mobile-close' : 'after:bg-icon-catalog-btn'
@@ -38,14 +36,7 @@ function DesktopCatalogButton({ openMenu, closeMenu }: ButtonProps) {
   }
 
   return (
-    <Button
-      className={className}
-      size='small'
-      variation={type}
-      icon={{ img: 'CATALOG_BTN' }}
-      onClick={closeMenu}
-      onMouseEnter={openMenu}
-    >
+    <Button className={className} size='small' variation={type} icon={{ img: 'CATALOG_BTN' }} onClick={toggleMenu}>
       Каталог объектов
     </Button>
   )
@@ -63,23 +54,13 @@ function CatalogButton() {
     toggleScroll()
   }
 
-  function openMenu() {
-    header.setMenu(HEADER_MENUS.CATALOG)
-    hideScroll()
-  }
-
-  function closeMenu() {
-    header.setMenu(null)
-    showScroll()
-  }
-
   return (
     <>
       <IsMobile>
         <MobileCatalogButton toggleMenu={toggleMenu} />
       </IsMobile>
       <IsDesktop>
-        <DesktopCatalogButton closeMenu={closeMenu} openMenu={openMenu} />
+        <DesktopCatalogButton toggleMenu={toggleMenu} />
       </IsDesktop>
     </>
   )
