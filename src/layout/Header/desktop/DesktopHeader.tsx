@@ -8,8 +8,7 @@ import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 import CallPopupButton from '@/layout/Header/components/CallPopupButton'
 
 import Logo from '@/assets/static/logo.svg'
-import SaleButton from '@/layout/Header/components/SaleButton'
-import RentButton from '@/layout/Header/components/RentButton'
+import SaleRentButton from '@/layout/Header/components/SaleRentButton'
 
 interface CircleButtonProps {
   className?: string
@@ -89,10 +88,10 @@ function DesktopHeader() {
               <CatalogButton />
             </li>
             <li>
-              <SaleButton />
+              <SaleRentButton type='sale' />
             </li>
             <li>
-              <RentButton />
+              <SaleRentButton type='rent' />
             </li>
             <li className='group relative'>
               <button className='uppercase'>Новостройки</button>
