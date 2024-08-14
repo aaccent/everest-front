@@ -6,7 +6,7 @@ import Section from '@/layout/Section'
 import UpButton from '@/layout/Footer/UpButton'
 import FooterMenu from '@/layout/Footer/FooterMenu'
 
-import { getSocials, getCatalogMenu, getServices } from '@/globals/api'
+import { getSocials, getCatalogMenu } from '@/globals/api'
 
 import logo from '@/assets/static/logo.svg'
 import aaccentLogo from '@/assets/static/aaccent-logo.svg'
@@ -21,7 +21,6 @@ async function Footer() {
   const socials: socialItem[] = await getSocials()
   const staticMenu = ['Об агенстве', 'Риелторы', 'Обучение', 'Отзывы', 'Вакансии', 'Блог', 'Контакты']
   const catalog = await getCatalogMenu()
-  const services = await getServices()
 
   function showStaticMenu() {
     return staticMenu.map((item, index) => (
@@ -88,7 +87,7 @@ async function Footer() {
       </div>
       <div className='mt-[23px] md:flex md:items-center'>
         <UpButton />
-        <Link href='https://www.aaccent.ru/' className='block md:order-3'>
+        <Link href='https://www.aaccent.ru/' className='block md:order-3' target='_blank'>
           <Image src={aaccentLogo} alt='' width={138} height={38} />
         </Link>
         <div className='text-base-500-reg-200 mt-[24px] flex flex-col gap-[12px] text-base-150 md:order-2 md:mt-0 md:flex-row'>
