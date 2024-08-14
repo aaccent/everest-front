@@ -3,6 +3,7 @@
   "name": "everest-front",
   "version": "0.4.0",
   "private": true,
+  "repository": "github:aaccent/everest-front",
   "scripts": {
     "dev": "dotenvx run --env-file=.env -- next dev",
     "build": "next build",
@@ -12,7 +13,8 @@
     "lint": "next lint",
     "prepare": "husky",
     "linter": "eslint .",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "dotenvx run --env-file=.env.local -- node scripts/create-release.js"
   },
   "dependencies": {
     "@aaccent/adaptive-sizes-next": "^1.0.2",
