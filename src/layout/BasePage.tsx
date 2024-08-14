@@ -5,11 +5,16 @@ import { AdaptiveProvider } from '@/features/adaptive'
 import { basePageProps } from '@/globals/pageProps'
 import { PopupProvider } from '@/components/Popup/Popup'
 
+import packageJSON from '@/../package.json'
+
 function BasePage({ children }: PropsWithChildren) {
   const baseProps = basePageProps()
 
   return (
     <AdaptiveProvider viewport={baseProps.viewport}>
+      <span id='app-version' className='absolute hidden'>
+        {'v' + packageJSON.version}
+      </span>
       <PopupProvider>
         <Header />
         <div className='flex min-h-screen w-full flex-col justify-between'>
