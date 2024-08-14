@@ -1,6 +1,7 @@
 'use client'
-import { createContext, PropsWithChildren, useCallback, useRef, useState } from 'react'
+import { createContext, PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react'
 import { useScroll } from '@/features/scroll'
+import { usePathname } from 'next/navigation'
 
 export const HEADER_MENUS = {
   CATALOG: 'catalog',
@@ -29,30 +30,58 @@ type HeaderContextObject = {
 
 export const HeaderContext = createContext<HeaderContextObject>({} as HeaderContextObject)
 
-export function HeaderProvider({ children, pathname }: HeaderStateProps & PropsWithChildren) {
+export function HeaderProvider({ children, pathname: serverPathname }: HeaderStateProps & PropsWithChildren) {
   const spanRef = useRef<HTMLSpanElement | null>(null)
   const { scrollPos } = useScroll()
+  const pathname = usePathname()
   const [menu, setMenu] = useState<HeaderMenu | null>(null)
   const [menuItem, setMenuItem] = useState<string | null>(null)
 
-  const isBlack = useCallback(() => {
-    if (scrollPos >= 20) return true
-    if (pathname !== '/') return true
-    if (menu) return true
+  const isBlack = useCallback(
+    (pathname: string) => {
+      if (scrollPos >= 20) return true
+      if (pathname !== '/') return true
+      if (menu) return true
 
-    return false
-  }, [pathname, scrollPos, menu])
+      return false
+    },
+    [pathname, scrollPos, menu],
+  )
 
-  const isFixed = useCallback(() => {
-    return scrollPos >= 20
+  const [styles, setStyles] = useState({ isBlack: isBlack(serverPathname), isFixed: false })
+
+  useEffect(() => {
+    setStyles((current) => {
+      const copy = { ...current }
+      if (scrollPos >= 20 && !current.isFixed) copy.isFixed = true
+      if (scrollPos < 20 && current.isFixed) copy.isFixed = false
+
+      return copy.isFixed !== current.isFixed ? copy : current
+    })
   }, [scrollPos])
+
+  useEffect(() => {
+    setStyles((current) => {
+      const copy = { ...current }
+      copy.isBlack = isBlack(pathname)
+
+      return copy.isBlack !== current.isBlack ? copy : current
+    })
+  }, [pathname, scrollPos, menu, isBlack])
+
+  // Закрытие элемента мобильного меню из MobileDetailMenu если закрывается всё меню
+  useEffect(() => {
+    if (menu !== 'mobile') return
+
+    setMenuItem(null)
+  }, [menu])
 
   const className = [
     // prettier-ignore
     'peer/header-state',
     'hidden',
-    ...(isBlack() ? ['is-black'] : []),
-    ...(isFixed() ? ['is-fixed'] : []),
+    ...(styles.isBlack ? ['is-black'] : []),
+    ...(styles.isFixed ? ['is-fixed'] : []),
   ].join(' ')
 
   const value: HeaderContextObject = {
@@ -83,7 +112,7 @@ export function HeaderProvider({ children, pathname }: HeaderStateProps & PropsW
       return scrollPos >= 20
     },
     get isBlack() {
-      return isBlack()
+      return isBlack(pathname)
     },
   }
 

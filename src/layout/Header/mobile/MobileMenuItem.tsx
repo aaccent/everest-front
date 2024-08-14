@@ -1,6 +1,6 @@
 'use client'
 
-import React, { PropsWithChildren, useContext, useEffect } from 'react'
+import React, { PropsWithChildren, useContext } from 'react'
 import { HeaderContext } from '@/layout/Header/Header.context'
 
 type Props = {
@@ -18,12 +18,6 @@ type Props = {
 
 function MobileMenuItem({ text, children }: Props) {
   const header = useContext(HeaderContext)
-
-  useEffect(() => {
-    if (header.menu !== 'mobile') return
-
-    header.setMenuItem(null)
-  }, [header.menu])
 
   function clickHandler() {
     header.toggleMenuItem(text)
