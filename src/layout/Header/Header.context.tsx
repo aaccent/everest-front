@@ -28,6 +28,7 @@ type HeaderContextObject = {
   get isBlack(): boolean
 }
 
+/** Хранит и управляет состояниями шапки */
 export const HeaderContext = createContext<HeaderContextObject>({} as HeaderContextObject)
 
 export function HeaderProvider({ children, pathname: serverPathname }: HeaderStateProps & PropsWithChildren) {
@@ -45,7 +46,7 @@ export function HeaderProvider({ children, pathname: serverPathname }: HeaderSta
 
       return false
     },
-    [pathname, scrollPos, menu],
+    [scrollPos, menu],
   )
 
   const [styles, setStyles] = useState({ isBlack: isBlack(serverPathname), isFixed: false })
@@ -65,9 +66,19 @@ export function HeaderProvider({ children, pathname: serverPathname }: HeaderSta
       const copy = { ...current }
       copy.isBlack = isBlack(pathname)
 
+      // Проверка нужна чтобы избавится от лишних перерисовок.
+      // Объекты в состояниях являются всегда новым значением и
+      // это заставляет реакт пересовывать компонент.
+      // Если отдавать тот же самый объект, то состояние не будет считаться измененным.
+      // Подробнее тут https://react.dev/learn/updating-objects-in-state
       return copy.isBlack !== current.isBlack ? copy : current
     })
   }, [pathname, scrollPos, menu, isBlack])
+
+  // Закрывает меню если меняется ссылка
+  useEffect(() => {
+    setMenu(null)
+  }, [pathname])
 
   // Закрытие элемента мобильного меню из MobileDetailMenu если закрывается всё меню
   useEffect(() => {
