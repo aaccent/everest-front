@@ -17,9 +17,9 @@ const nextConfig = {
         source: `/${PATHS.CATALOG}/${PATHS.NEW_BUILDINGS}/${PATHS.COMPLEXES}`,
         destination: ROUTES.COMPLEXES,
         permanent: true,
-      }
+      },
     ]
-  }
+  },
 }
 
 export default nextConfig
