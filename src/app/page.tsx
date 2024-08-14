@@ -1,4 +1,3 @@
-import ContactForm from '@/components/ContactForm/ContactForm'
 import SliderSection from '@/components/Slider/SliderSection'
 import UsefulLinks from '@/page-components/main/UsefulLinks/UsefulLinks'
 import MainHero from '@/page-components/main/MainHero'
@@ -17,7 +16,6 @@ export default async function Home() {
       <Services />
       <SliderSection type='objects' list={newObjects} title='Новинки в каталоге' />
       <UsefulLinks />
-      <ContactForm />
     </>
   )
 }
