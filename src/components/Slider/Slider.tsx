@@ -12,7 +12,9 @@ import SeeAllCard from '@/components/SeeAllCard'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
 
-export type SliderProps =
+export type SliderProps = {
+  link: string
+} & (
   | {
       type: 'complex'
       list: ComplexCardType[]
@@ -21,8 +23,9 @@ export type SliderProps =
       type: 'objects'
       list: ObjectCardType[]
     }
+)
 
-function Slider({ list, type }: SliderProps) {
+function Slider({ list, type, link }: SliderProps) {
   function showSlides() {
     switch (type) {
       case 'complex':
@@ -51,7 +54,7 @@ function Slider({ list, type }: SliderProps) {
       <Carousel className='relative'>
         <CarouselInner>
           {showSlides()}
-          <SeeAllCard />
+          <SeeAllCard link={link} />
         </CarouselInner>
         <CarouselNavigations />
         <CarouselProgressBar className='hidden md:block' />

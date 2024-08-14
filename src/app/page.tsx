@@ -4,6 +4,7 @@ import MainHero from '@/page-components/main/MainHero'
 import { getNewObjects } from '@/globals/api/methods/main-page'
 import { getNewBuildingsOnMain } from '@/globals/api'
 import Services from '@/components/Services/Services'
+import { ROUTES } from '@/globals/paths'
 
 export default async function Home() {
   const newBuildingsOnMain = await getNewBuildingsOnMain()
@@ -12,9 +13,9 @@ export default async function Home() {
   return (
     <>
       <MainHero />
-      <SliderSection type='complex' list={newBuildingsOnMain} title='Новостройки' />
+      <SliderSection type='complex' link={ROUTES.COMPLEXES} list={newBuildingsOnMain} title='Новостройки' />
       <Services />
-      <SliderSection type='objects' list={newObjects} title='Новинки в каталоге' />
+      <SliderSection type='objects' link='#' list={newObjects} title='Новинки в каталоге' />
       <UsefulLinks />
     </>
   )
