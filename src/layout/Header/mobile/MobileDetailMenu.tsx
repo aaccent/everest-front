@@ -5,7 +5,7 @@ import MobileMenuItem from './MobileMenuItem'
 import MobileDetailMenuWrapper from './MobileDetailMenuWrapper'
 
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
-import { getCatalogMenu, getServices } from '@/globals/api'
+import { getServices } from '@/globals/api'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 import MobileSaleRentMenu from '@/layout/Header/SaleRentMenu/MobileSaleRentMenu'
 
@@ -42,11 +42,10 @@ function ActionButton({ accented, text, href, icon }: ActionButtonProps) {
 }
 
 async function MobileDetailMenu() {
-  const catalog = await getCatalogMenu()
   const services = await getServices()
 
   return (
-    <MobileDetailMenuWrapper className='invisible fixed bottom-0 z-20 h-full w-full bg-base-100 opacity-0 transition-opacity peer-[.menu-open]/style-state:visible peer-[.menu-open]/style-state:opacity-100'>
+    <MobileDetailMenuWrapper className='invisible fixed bottom-0 z-20 h-full w-full bg-base-100 opacity-0 transition-opacity peer-[[data-menu="mobile"]]/header-state:visible peer-[[data-menu="mobile"]]/header-state:opacity-100'>
       <div className='px-container relative h-full overflow-y-auto py-[24px] has-[.active-submenu]:overflow-hidden'>
         <nav className='mb-[32px]'>
           <ul>

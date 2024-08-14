@@ -1,7 +1,7 @@
 'use client'
 
-import React, { PropsWithChildren, useState } from 'react'
-import { useStyleState } from '@/features/styleStates'
+import React, { PropsWithChildren, useContext } from 'react'
+import { HeaderContext } from '@/layout/Header/Header.context'
 
 type Props = {
   text: string
@@ -17,13 +17,13 @@ type Props = {
 )
 
 function MobileMenuItem({ text, children }: Props) {
-  const [active, setActive] = useState(false)
-  const { toggleClass } = useStyleState()
+  const header = useContext(HeaderContext)
 
   function clickHandler() {
-    setActive((prev) => !prev)
-    toggleClass('menu-item')
+    header.toggleMenuItem(text)
   }
+
+  const active = header.menuItem == text
 
   return (
     <li className='group/menu-item w-full'>

@@ -33,7 +33,7 @@ export function CatalogMenuSubcategories({
   inactiveClass,
   children,
 }: CatalogMenuItemProps) {
-  const { activeId, setActiveId } = useContext(CatalogMenuContext)
+  const { activeId } = useContext(CatalogMenuContext)
 
   return <ul className={`${activeId === id ? activeClass : inactiveClass} ${className}`}>{children}</ul>
 }

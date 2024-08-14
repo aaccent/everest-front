@@ -47,7 +47,7 @@ async function MobileCatalogMenu() {
   const catalog = await getCatalogMenu()
 
   return (
-    <MobileCatalogMenuWrapper className='invisible fixed inset-0 z-30 opacity-0 transition-opacity after:absolute after:inset-x-0 after:top-full after:z-10 after:h-full after:bg-base-100 peer-[.catalog-menu]/style-state:visible peer-[.catalog-menu]/style-state:opacity-100'>
+    <MobileCatalogMenuWrapper className='invisible fixed inset-0 z-30 opacity-0 transition-opacity after:absolute after:inset-x-0 after:top-full after:z-10 after:h-full after:bg-base-100 peer-[[data-menu="catalog"]]/header-state:visible peer-[[data-menu="catalog"]]/header-state:opacity-100'>
       <div className='px-container absolute inset-x-0 bottom-0 z-10 flex h-full max-h-[90%] flex-col rounded-t-[24px] bg-base-100 pt-[24px]'>
         <div className='relative mb-[40px] flex justify-center'>
           <span className='text-header-300'>Каталог</span>
