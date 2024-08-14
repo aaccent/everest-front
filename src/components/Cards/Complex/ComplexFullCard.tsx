@@ -54,7 +54,8 @@ function ComplexFullCard({ item }: Props) {
         )}
         <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(item.objectsType)}</div>
       </div>
-      <div className='ml-auto flex flex-col justify-between'>
+      <div className='relative ml-auto flex flex-col justify-between'>
+        <Img className='absolute right-0 top-0 !h-[26px] !w-[102px]' src={item.developerLogo} width={102} height={26} />
         <div className='relative'>
           <Img src='/icons/donstroy.svg' isSVG />
         </div>
