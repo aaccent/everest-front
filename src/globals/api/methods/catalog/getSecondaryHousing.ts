@@ -1,8 +1,8 @@
 import { apiCall, APIResponse } from '@/globals/api/apiCall'
 import { Category, RawCategory } from '@/types/Category'
-import { CategoryObject } from '@/types/CategoryObject'
+import { ObjectCard } from '@/types/ObjectCard'
 
-type Response = APIResponse<Category<RawCategory, CategoryObject>>
+type Response = APIResponse<Category<RawCategory, ObjectCard>>
 
 export async function getSecondaryHousing() {
   const res = await apiCall<false, Response>('/catalog/secondary-housing', { method: 'GET' })

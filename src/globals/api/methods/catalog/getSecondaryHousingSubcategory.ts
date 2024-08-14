@@ -1,13 +1,13 @@
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 import { Category, RawCategory, SubCategory } from '@/types/Category'
-import { CategoryObject } from '@/types/CategoryObject'
+import { ObjectCard } from '@/types/ObjectCard'
 
 type Request = APIRequest<{
   chainUrl: string
 }>
-type Response = APIResponse<Category<RawCategory, CategoryObject>>
+type Response = APIResponse<Category<RawCategory, ObjectCard>>
 
-export async function getSecondaryHousingSubcategory(subcategory: string): Promise<SubCategory<CategoryObject>> {
+export async function getSecondaryHousingSubcategory(subcategory: string): Promise<SubCategory<ObjectCard>> {
   const res = await apiCall<Request, Response>('/catalog/secondary-housing', {
     method: 'GET',
     request: { chainUrl: subcategory },

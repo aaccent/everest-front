@@ -6,9 +6,7 @@ import Carousel, {
   CarouselWhiteNavigations,
 } from '@/components/Carousel/Carousel'
 import Img from '@/ui/Img'
-import { ComplexDetailed } from '@/types/Complex'
-
-type PageSliderProps = Pick<ComplexDetailed, 'gallery'>
+import { DetailComplex } from '@/types/Complex'
 
 function showSlides(images: string[]) {
   return images.map((img, index) => (
@@ -20,11 +18,17 @@ function showSlides(images: string[]) {
 
 const tempGallery = ['/no-photo.jpg', '/no-photo.jpg', '/no-photo.jpg']
 
-function PageSlider({ gallery }: PageSliderProps) {
+interface Props {
+  complex: DetailComplex
+}
+
+function PageSlider({ complex }: Props) {
   return (
     <>
       <Carousel className='overflow-hidden' fade>
-        <CarouselInner>{!!gallery?.length ? showSlides(gallery) : showSlides(tempGallery)}</CarouselInner>
+        <CarouselInner>
+          {!!complex.gallery?.length ? showSlides(complex.gallery) : showSlides(tempGallery)}
+        </CarouselInner>
         <CarouselProgressBar className='inset-x-[60px] top-[-32px] *:bg-base-100 md:w-[230px]' />
         <CarouselWhiteNavigations className='hidden md:flex' />
       </Carousel>
