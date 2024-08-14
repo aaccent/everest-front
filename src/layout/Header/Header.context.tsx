@@ -18,6 +18,7 @@ interface HeaderStateProps {
 type HeaderContextObject = {
   toggleMenu: (name: HeaderMenu | null) => void
   toggleMenuItem: (item: string | null) => void
+  setMenuItem: (item: string | null) => void
   get menuItem(): string | null
   setMenu: (name: HeaderMenu | null) => void
   hasMenu: (...name: HeaderMenu[]) => boolean
@@ -68,6 +69,7 @@ export function HeaderProvider({ children, pathname }: HeaderStateProps & PropsW
     hasMenu(...name) {
       return name.includes(menu || '')
     },
+    setMenuItem,
     toggleMenuItem(item) {
       setMenuItem((current) => {
         if (current === item) return null
