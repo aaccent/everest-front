@@ -19,6 +19,11 @@ function FilterSelect({ values = testValues, defaultValue, title }: FilterSelect
     const btnClasses = opened ? 'after:-rotate-90' : 'after:rotate-90'
     return { listClasses, containerClasses, btnClasses }
   }
+
+  function showOptions() {
+    return values?.map((value, index) => <Checkbox key={index} text={value} isInSelect />)
+  }
+
   return (
     <div>
       <div className='text-base-100-reg-100 md:text-base-500-reg-100-upper flex items-center justify-between pb-[18px] text-base-600'>
@@ -29,7 +34,7 @@ function FilterSelect({ values = testValues, defaultValue, title }: FilterSelect
         />
       </div>
       <div
-        className={`relative flex w-full items-center justify-between border-b border-base-400 bg-base-100 md:w-[260px] md:rounded-t-[16px] md:border md:px-[16px] md:py-[12px] ${openedClasses().containerClasses}`}
+        className={`relative z-10 flex w-full items-center justify-between border-b border-base-400 bg-base-100 md:w-[260px] md:rounded-t-[16px] md:border md:px-[16px] md:py-[12px] ${openedClasses().containerClasses}`}
       >
         <div className='hidden items-center justify-between md:flex md:w-full'>
           <div className='text-base-400-lg-10 capitalize'>{defaultValue ? defaultValue : values[0]}</div>
@@ -41,7 +46,7 @@ function FilterSelect({ values = testValues, defaultValue, title }: FilterSelect
         <div
           className={`text-base-500-reg-100-upper md:text-base-400-lg-100 absolute inset-x-0 left-0 top-[100%] cursor-pointer flex-col gap-[16px] border-b border-base-400 bg-base-100 py-[24px] md:rounded-b-[16px] md:border md:p-[16px] ${openedClasses().listClasses}`}
         >
-          {values?.map((value, index) => <Checkbox key={index} text={value} />)}
+          {showOptions()}
         </div>
       </div>
     </div>
