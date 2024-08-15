@@ -1,13 +1,15 @@
 'use client'
 
-import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
+import React, { createContext, PropsWithChildren, useState } from 'react'
 import CallPopup from '@/components/Popup/CallPopup/CallPopup'
 import MapPopup from '@/components/Popup/MapPopup'
 import { hideScroll, showScroll } from '@/features/scroll'
+import FilterPopup from '@/components/Popup/FilterPopup/FilterPopup'
 
 const popups = {
   callPopup: CallPopup,
   mapPopup: MapPopup,
+  filterPopup: FilterPopup,
 } satisfies {
   [index: string]: () => React.ReactNode
 }
@@ -23,12 +25,6 @@ type PopupContextObject = {
 
 export const PopupContext = createContext({} as PopupContextObject)
 
-function PopupWrapper() {
-  const { activePopup } = useContext(PopupContext)
-  if (!activePopup) return null
-  return <div className='fixed inset-0 z-50 bg-base-600/60'>{activePopup}</div>
-}
-
 export function PopupProvider({ children }: PropsWithChildren) {
   const [popup, setPopup] = useState<PopupElement | null>()
 
@@ -38,14 +34,9 @@ export function PopupProvider({ children }: PropsWithChildren) {
   }
 
   function closePopup() {
-    setPopup(undefined)
+    setPopup(null)
     showScroll()
   }
 
-  return (
-    <PopupContext.Provider value={{ openPopup, closePopup, activePopup: popup }}>
-      <PopupWrapper />
-      {children}
-    </PopupContext.Provider>
-  )
+  return <PopupContext.Provider value={{ openPopup, closePopup, activePopup: popup }}>{children}</PopupContext.Provider>
 }

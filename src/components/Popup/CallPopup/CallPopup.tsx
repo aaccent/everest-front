@@ -67,7 +67,7 @@ async function CallPopup() {
           </div>
         </div>
       </div>
-      <ClosePopupButton />
+      <ClosePopupButton className='absolute right-[24px] top-[24px]' />
     </div>
   )
 }
