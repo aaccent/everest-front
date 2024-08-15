@@ -28,10 +28,7 @@ function PageSlider({ gallery }: PageSliderProps) {
       <DecorativeBlock>
         <Carousel className='overflow-hidden' fade>
           <CarouselInner>{!!gallery?.length ? showSlides(gallery) : showSlides(tempGallery)}</CarouselInner>
-          <CarouselProgressBar
-            className='inset-x-[60px] top-[-32px] *:bg-base-100 md:w-[230px]'
-            slides={{ amount: amount, perView: 1 }}
-          />
+          <CarouselProgressBar className='inset-x-[60px] top-[-32px] *:bg-base-100 md:w-[230px]' perView={1} />
           <CarouselWhiteNavigations className='hidden md:flex' />
         </Carousel>
       </DecorativeBlock>
