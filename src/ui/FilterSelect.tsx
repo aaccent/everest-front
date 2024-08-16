@@ -3,15 +3,15 @@ import React, { useState } from 'react'
 import Checkbox from '@/ui/Checkbox'
 
 interface FilterSelectProps {
-  values?: string[]
+  values: string[]
   defaultValue?: string
-  title: string
+  title?: string
 }
 
 const testValues = ['квартира', 'комната', 'малосемейка', 'общежитие', 'коммуналка', 'со скидкой']
 
 function FilterSelect({ values = testValues, defaultValue, title }: FilterSelectProps) {
-  const [opened, setOpened] = useState(true)
+  const [opened, setOpened] = useState(false)
 
   const openedClasses = () => {
     const listClasses = opened ? 'flex ' : 'hidden'
@@ -26,8 +26,10 @@ function FilterSelect({ values = testValues, defaultValue, title }: FilterSelect
 
   return (
     <div>
-      <div className='text-base-100-reg-100 md:text-base-500-reg-100-upper flex items-center justify-between pb-[18px] text-base-600'>
-        {title}
+      <div className='flex items-center justify-between'>
+        {title && (
+          <div className='text-base-100-reg-100 md:text-base-500-reg-100-upper pb-[18px] text-base-600'>{title}</div>
+        )}
         <div
           className={`after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain md:hidden ${openedClasses().btnClasses}`}
           onClick={() => setOpened((prev) => !prev)}
@@ -37,7 +39,7 @@ function FilterSelect({ values = testValues, defaultValue, title }: FilterSelect
         className={`relative z-10 flex w-full items-center justify-between border-b border-base-400 bg-base-100 md:w-[260px] md:rounded-t-[16px] md:border md:px-[16px] md:py-[12px] ${openedClasses().containerClasses}`}
       >
         <div className='hidden items-center justify-between md:flex md:w-full'>
-          <div className='text-base-400-lg-10 capitalize'>{defaultValue ? defaultValue : values[0]}</div>
+          <div className='text-base-400-lg-100 capitalize text-base-650'>{defaultValue ? defaultValue : values[0]}</div>
           <div
             className={`cursor-pointer after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain md:block md:pb-0 ${openedClasses().btnClasses}`}
             onClick={() => setOpened((prev) => !prev)}
