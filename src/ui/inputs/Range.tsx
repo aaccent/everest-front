@@ -6,9 +6,10 @@ interface RangeProps {
   min: number
   max: number
   units?: string
+  className?: string
 }
 
-function Range({ min, max, units }: RangeProps) {
+function Range({ min, max, units, className }: RangeProps) {
   const [value, setValue] = useState({ min, max })
   const step = 0.1
 
@@ -42,7 +43,9 @@ function Range({ min, max, units }: RangeProps) {
   const maxPos = ((value.max - min) / (max - min)) * 100
 
   return (
-    <div className='text-base-400-lg-100 relative min-w-[260px] rounded-[16px] bg-base-100 px-[15px] py-[12px]'>
+    <div
+      className={`text-base-400-lg-100 relative min-w-[260px] rounded-[20px] bg-base-100 px-[16px] py-[18px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
+    >
       <div className='text-base-400-lg-100 flex items-center justify-between'>
         <label>
           <span className='text-base-650'>от</span>

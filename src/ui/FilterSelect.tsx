@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Checkbox from '@/ui/Checkbox'
+import { IsMobile } from '@/features/adaptive'
 
 interface FilterSelectProps {
   values: string[]
@@ -15,8 +16,8 @@ function FilterSelect({ values = testValues, defaultValue, title }: FilterSelect
 
   const openedClasses = () => {
     const listClasses = opened ? 'flex ' : 'hidden'
-    const containerClasses = opened ? 'rounded-b-0 border-b-none' : 'md:rounded-b-[16px]'
-    const btnClasses = opened ? 'after:-rotate-90' : 'after:rotate-90'
+    const containerClasses = opened ? 'rounded-b-0 border-b-none' : ''
+    const btnClasses = opened ? 'after:-rotate-90' : ''
     return { listClasses, containerClasses, btnClasses }
   }
 
@@ -28,7 +29,12 @@ function FilterSelect({ values = testValues, defaultValue, title }: FilterSelect
     <div>
       <div className='flex items-center justify-between'>
         {title && (
-          <div className='text-base-100-reg-100 md:text-base-500-reg-100-upper pb-[18px] text-base-600'>{title}</div>
+          <>
+            <IsMobile></IsMobile>
+            <div className='text-base-100-reg-100 md:text-base-500-reg-100-upper pb-[18px] text-base-600 md:after:rotate-90'>
+              {title}
+            </div>
+          </>
         )}
         <div
           className={`after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain md:hidden ${openedClasses().btnClasses}`}
@@ -36,7 +42,7 @@ function FilterSelect({ values = testValues, defaultValue, title }: FilterSelect
         />
       </div>
       <div
-        className={`relative z-10 flex w-full items-center justify-between border-b border-base-400 bg-base-100 md:w-[260px] md:rounded-t-[16px] md:border md:px-[16px] md:py-[12px] ${openedClasses().containerClasses}`}
+        className={`relative z-10 flex w-full items-center justify-between border-b border-base-400 bg-base-100 md:w-[260px] md:rounded-b-[16px] md:rounded-t-[16px] md:border md:px-[16px] md:py-[12px] ${openedClasses().containerClasses}`}
       >
         <div className='hidden items-center justify-between md:flex md:w-full'>
           <div className='text-base-400-lg-100 capitalize text-base-650'>{defaultValue ? defaultValue : values[0]}</div>
