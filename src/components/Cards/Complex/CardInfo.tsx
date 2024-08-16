@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { formatPriceShortBy } from '@/features/price'
 import { formatStatus } from '@/features/date'
-import { Complex, FlatTypes } from '@/types/Complex'
+import { ComplexCard, FlatTypes } from '@/types/Complex'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {
   return objectTypes.map((flat) => (
@@ -18,7 +18,7 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
 }
 
 interface CardInfoProps {
-  complex: Complex
+  complex: ComplexCard
   link: string
 }
 

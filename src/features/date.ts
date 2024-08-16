@@ -25,7 +25,7 @@ export function convertToRoman(num: number): string {
   }
 }
 
-export function formatStatus(timestamp: number | null | undefined) {
+export function formatStatus(timestamp: number | string | null | undefined) {
   if (!timestamp) return 'неизвестно'
 
   const date = new Date(timestamp)
