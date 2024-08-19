@@ -1,6 +1,12 @@
 export type FiltersType<Type extends Choice | MinMax | Toggle> = {
-  title: string
+  name: string
   filters: FilterInput<Type>[]
+  sorts: Sort[]
+}
+
+type Sort = {
+  name: string
+  value: string
 }
 
 type FilterInput<View> = {
@@ -8,7 +14,7 @@ type FilterInput<View> = {
 } & { title: string }
 
 export type Choice = {
-  type: 'radio' | 'selector' | 'selector-inline' | 'tabs'
+  type: 'radio' | 'multilist' | 'selector-inline' | 'tabs'
   value: string[]
   defaultValue?: string
 }

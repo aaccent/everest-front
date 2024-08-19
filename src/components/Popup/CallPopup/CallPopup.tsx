@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Input from '@/ui/Input'
+import Input from '@/ui/inputs/Input'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import Image from 'next/image'
 import bgLogo from '@/assets/static/call-popup-bg.svg'
