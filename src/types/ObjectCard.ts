@@ -1,6 +1,6 @@
 import { Tag } from '@/types/Tag'
 
-export interface CategoryObject {
+export interface ObjectCard {
   id: number
   name: string
   typeObject: string

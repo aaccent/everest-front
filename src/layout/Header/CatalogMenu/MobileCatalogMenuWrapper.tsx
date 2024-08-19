@@ -1,7 +1,7 @@
 'use client'
 
-import React, { PropsWithChildren, useEffect, useRef } from 'react'
-import { useStyleState } from '@/features/styleStates'
+import React, { PropsWithChildren, useContext, useEffect, useRef } from 'react'
+import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
 
 interface Props extends PropsWithChildren {
   className: string
@@ -10,7 +10,7 @@ interface Props extends PropsWithChildren {
 /** @description Нужен для того, чтобы хранить кнопку открытия/закрытия в клиентском компоненте */
 function MobileCatalogMenuWrapper({ className, children }: Props) {
   const ref = useRef<HTMLDivElement>(null)
-  const { toggleClass } = useStyleState()
+  const header = useContext(HeaderContext)
 
   useEffect(() => {
     if (typeof window === 'undefined' || !ref.current) return
@@ -23,7 +23,7 @@ function MobileCatalogMenuWrapper({ className, children }: Props) {
 
   return (
     <div className={className} ref={ref}>
-      <div className='absolute inset-0 bg-[#000]/60' onClick={() => toggleClass('catalog-menu')} />
+      <div className='absolute inset-0 bg-[#000]/60' onClick={() => header.setMenu(HEADER_MENUS.CATALOG)} />
       {children}
     </div>
   )

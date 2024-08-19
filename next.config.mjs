@@ -1,3 +1,5 @@
+import { PATHS, ROUTES } from './src/globals/paths.js'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: !process.env.CI ? 'standalone' : undefined,
@@ -8,6 +10,15 @@ const nextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  async redirects() {
+    return [
+      {
+        source: `/${PATHS.CATALOG}/${PATHS.NEW_BUILDINGS}/${PATHS.COMPLEXES}`,
+        destination: ROUTES.COMPLEXES,
+        permanent: true,
+      },
+    ]
   },
 }
 

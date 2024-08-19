@@ -1,56 +1,50 @@
-import { AnyCategory } from '@/types/Category'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
+import { ROUTES } from '@/globals/paths.js'
 
-type ObjectForLinkGeneration = {
-  code?: string
-  seoUrl?: string
+interface CategoryWithSeoUrl {
+  seoUrl: string
 }
 
-export type CategoryForLinkGeneration = ObjectForLinkGeneration & {
-  breadcrumbs?: BreadcrumbItem[]
+interface CategoryWithBreadcrumbs {
+  breadcrumbs: BreadcrumbItem[]
 }
 
-export function generateCategoryLink(
-  item: CategoryForLinkGeneration | AnyCategory,
-  parent?: CategoryForLinkGeneration,
-) {
+export type CategoryForGeneratingLink = CategoryWithSeoUrl | CategoryWithBreadcrumbs
+
+export function generateCategoryLink(item: CategoryForGeneratingLink | undefined, parent?: CategoryWithSeoUrl) {
   if (!item) return '#'
 
-  let link = '/catalog'
+  let link = ROUTES.CATALOG
 
-  if ('breadcrumbs' in item && !parent) {
-    link += item.breadcrumbs!.map((item) => `/${item.seo}`).join('')
+  if ('breadcrumbs' in item) {
+    link += item.breadcrumbs.map((item) => `/${item.seo}`).join('')
     return link
   }
 
-  if (parent) link += `/${parent.seoUrl || parent.code}`
-  link += `/${item.seoUrl || item.code}`
+  if (parent) link += `/${parent.seoUrl}`
+  link += `/${item.seoUrl}`
   return link
 }
 
-export function generateObjectLink(item: ObjectForLinkGeneration, category: CategoryForLinkGeneration) {
-  if (!category) return '#'
+type ObjectForLinkGeneration = {
+  seoUrl: string
+}
+
+export function generateObjectLink(
+  item: ObjectForLinkGeneration | undefined,
+  category: CategoryForGeneratingLink | undefined,
+) {
+  if (!category || !item) return '#'
 
   let link = generateCategoryLink(category)
-
-  if (category.breadcrumbs!.length === 1) {
-    link += '/object'
-  }
-
-  link += `/${item.seoUrl || item.code}`
+  link += '/object'
+  link += `/${item.seoUrl}`
 
   return link
 }
 
-export const COMPLEXES_CATEGORY: CategoryForLinkGeneration = {
-  breadcrumbs: [
-    {
-      name: '',
-      seo: 'new-building',
-    },
-    {
-      name: '',
-      seo: 'complexes',
-    },
-  ],
+export function createComplexLink(item: ObjectForLinkGeneration) {
+  let link = ROUTES.COMPLEXES
+  link += `/${item.seoUrl}`
+  return link
 }

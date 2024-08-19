@@ -1,4 +1,5 @@
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
+import { Characteristic } from '@/types/Characteristic'
 
 export interface RawSecondaryObject {
   id: number
@@ -13,25 +14,16 @@ export interface RawSecondaryObject {
   price: number
 }
 
-export interface SecondaryObjectPropertyValue {
-  name: string
-  value: string | number
-}
-
 export interface SecondaryObjectProperty {
   name: string
-  characteristics: SecondaryObjectPropertyValue[]
+  characteristics: Characteristic[]
 }
 
-export interface RawSecondaryDetailObject {
+export interface RawDetailSecondaryObject {
   breadcrumbs: BreadcrumbItem[]
   object: RawSecondaryObject
   gallery: string[]
   characteristics: SecondaryObjectProperty[]
 }
 
-export interface SecondaryDetailObject extends RawSecondaryObject {
-  breadcrumbs: RawSecondaryDetailObject['breadcrumbs']
-  gallery: RawSecondaryDetailObject['gallery']
-  characteristics: RawSecondaryDetailObject['characteristics']
-}
+export type DetailSecondaryObject = RawSecondaryObject & Omit<RawDetailSecondaryObject, 'object'>

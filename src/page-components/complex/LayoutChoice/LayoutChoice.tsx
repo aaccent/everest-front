@@ -3,17 +3,17 @@ import Section from '@/layout/Section'
 import Container from '@/layout/Container'
 import SelectorInline from '@/ui/inputs/SelectorInline'
 import Button from '@/ui/buttons/Button'
-import { ComplexDetailedHouse } from '@/types/Complex'
-import LayoutInner from '@/page-components/gk-detailed/LayoutChoice/LayoutInner'
-import LayoutTypes from '@/page-components/gk-detailed/LayoutChoice/LayoutTypes'
-import ObjectsTable from '@/page-components/gk-detailed/LayoutChoice/ObjectsTable'
+import { DetailComplex } from '@/types/Complex'
+import LayoutInner from '@/page-components/complex/LayoutChoice/LayoutInner'
+import LayoutTypes from '@/page-components/complex/LayoutChoice/LayoutTypes'
 import { LayoutContextProvider } from '@/page-components/gk-detailed/LayoutChoice/LayoutListContext'
+import ObjectsTable from '@/page-components/gk-detailed/LayoutChoice/ObjectsTable'
 
 interface LayoutChoiceProps {
-  houses: ComplexDetailedHouse[]
+  complex: DetailComplex
 }
 
-function LayoutChoice(props: LayoutChoiceProps) {
+function LayoutChoice({ complex }: LayoutChoiceProps) {
   return (
     <Section>
       <h2 className='text-header-200 mb-[32px] font-coolvetica uppercase'>Выбор планировки</h2>
@@ -22,7 +22,7 @@ function LayoutChoice(props: LayoutChoiceProps) {
         <Button variation='primary' size='small' text='Показать 442 объекта' />
       </Container>
       <LayoutContextProvider>
-        <LayoutInner listView={<ObjectsTable {...props} />} typeView={<LayoutTypes />} />
+        <LayoutInner listView={<ObjectsTable complex={complex} />} typeView={<LayoutTypes />} />
       </LayoutContextProvider>
     </Section>
   )

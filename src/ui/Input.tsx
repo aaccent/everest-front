@@ -19,7 +19,9 @@ function Input({ className: labelClassName, type, onDark, checked, ...inputProps
   const inputRef = useRef<HTMLInputElement>(null)
 
   function className() {
-    return onDark ? 'bg-base-115' : 'bg-base-100 border border-base-400'
+    return onDark
+      ? 'bg-base-115  placeholder:text-base-150'
+      : 'bg-base-100 border border-base-400 placeholder:text-base-650'
   }
 
   function checkedClassName() {

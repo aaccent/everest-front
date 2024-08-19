@@ -1,6 +1,6 @@
 import React from 'react'
 import Section from '@/layout/Section'
-import { ComplexInDetailed } from '@/types/Complex'
+import { DetailComplex } from '@/types/Complex'
 import Img from '@/ui/Img'
 import Image from 'next/image'
 import DeveloperLogo from '@/assets/static/donstroy.svg'
@@ -9,9 +9,11 @@ import Button from '@/ui/buttons/Button'
 import NoPhoto from '@/assets/static/no-photo.jpg'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
 
-type Props = Omit<ComplexInDetailed, 'seoUrl'>
+interface Props {
+  complex: DetailComplex
+}
 
-function MainHero({ name, address, mainImg, description, minArea, maxArea, minPrice, developerLogo }: Props) {
+function ComplexHero({ complex }: Props) {
   return (
     <Section
       className='relative m-auto flex w-[90%] flex-col rounded-[20px] bg-base-200 pb-[20px] md:w-full md:flex-row md:gap-[16px] md:bg-transparent md:pb-0'
@@ -20,13 +22,13 @@ function MainHero({ name, address, mainImg, description, minArea, maxArea, minPr
       <DecorativeBlock type='medium' className='px-container md:order-2 md:px-0'>
         <div className='mt-[33px] bg-transparent md:mt-0 md:h-full md:w-[644px] md:rounded-[20px] md:bg-base-200'>
           <div className='md:flex md:h-full md:flex-col md:px-[40px] md:pb-[40px] md:pt-[68px]'>
-            <h1 className='text-header-100 mb-[16px] text-base-600'>{name}</h1>
+            <h1 className='text-header-100 mb-[16px] text-base-600'>{complex.name}</h1>
             <div className='mb-[32px] flex items-center gap-[10px] md:mb-[56px] md:gap-0'>
               <div className='flex size-[34px] items-center justify-center rounded-full border border-base-400 after:block after:size-[14px] after:bg-icon-address after:filter-base-600 after:bg-default-contain md:border-none md:after:filter-primary'></div>
-              <div className='text-base-300-lg-100 text-base-650 md:text-primary'>{address || 'нет адреса'}</div>
+              <div className='text-base-300-lg-100 text-base-650 md:text-primary'>Нет адреса</div>
             </div>
             <div className='text-base-200-lg-100 hidden w-full max-w-[464px] text-base-650 md:mb-[20px] md:block'>
-              {description}
+              {complex.description}
             </div>
 
             <div className='hidden items-center gap-[24px] md:mt-auto md:flex'>
@@ -70,7 +72,7 @@ function MainHero({ name, address, mainImg, description, minArea, maxArea, minPr
                 <div className='text-base-400-reg-100 min-w-[128px] uppercase opacity-50'>площадь квартир</div>
               </div>
               <div className='min-w-[184px] rounded-[20px] bg-base-600 px-[18px] py-[14px]'>
-                <div className='text-header-300 mb-[12px]'>{formatPriceShortBy(minPrice)}</div>
+                <div className='text-header-300 mb-[12px]'>{formatPriceShortBy(50000)}</div>
                 <div className='text-base-400-reg-100 min-w-[128px] uppercase opacity-50'>стоимость квартир</div>
               </div>
             </div>
@@ -91,4 +93,4 @@ function MainHero({ name, address, mainImg, description, minArea, maxArea, minPr
   )
 }
 
-export default MainHero
+export default ComplexHero
