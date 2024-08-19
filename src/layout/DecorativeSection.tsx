@@ -111,7 +111,7 @@ export default function DecorativeSection({ title, className, decorativeClassNam
 export function DecorativeBlock({ className, reverse, decorativeClassName, ...props }: Props) {
   return (
     <div className={`relative overflow-hidden rounded-[24px] ${className}`}>
-      <DecorativeInner className={`${decorativeClassName} ${reverse ? '-scale-x-100' : ''}`} {...props} />
+      <DecorativeInner className={`${reverse ? '-scale-x-100' : ''} ${decorativeClassName} `} {...props} />
     </div>
   )
 }
