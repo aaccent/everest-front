@@ -27,9 +27,7 @@ export function CarouselProgressBar({ className }: Props) {
   }, [emblaApi])
 
   return (
-    <div
-      className={`relative bottom-[-74px] hidden h-[4px] w-full overflow-hidden rounded-[10px] bg-base-600/15 md:block ${className}`}
-    >
+    <div className={`h-[4px] w-full overflow-hidden rounded-[10px] bg-base-600/15 md:block ${className}`}>
       <div className='absolute bottom-0 top-0 bg-primary' style={{ width: `${scrollProgress}%` }}></div>
     </div>
   )

@@ -54,7 +54,7 @@ function Slider({ list, type }: SliderProps) {
           <SeeAllCard />
         </CarouselInner>
         <CarouselNavigations />
-        <CarouselProgressBar className='hidden md:block' />
+        <CarouselProgressBar className='absolute bottom-[-74px] hidden md:block' />
       </Carousel>
     </>
   )

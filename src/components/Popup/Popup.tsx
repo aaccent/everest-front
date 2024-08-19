@@ -4,10 +4,12 @@ import React, { createContext, PropsWithChildren, useContext, useState } from 'r
 import CallPopup from '@/components/Popup/CallPopup/CallPopup'
 import MapPopup from '@/components/Popup/MapPopup'
 import { hideScroll, showScroll } from '@/features/scroll'
+import GalleryPopup from '@/components/Popup/GalleryPopup/GalleryPopup'
 
 const popups = {
   callPopup: CallPopup,
   mapPopup: MapPopup,
+  galleryPopup: GalleryPopup,
 } satisfies {
   [index: string]: () => React.ReactNode
 }
@@ -43,7 +45,13 @@ export function PopupProvider({ children }: PropsWithChildren) {
   }
 
   return (
-    <PopupContext.Provider value={{ openPopup, closePopup, activePopup: popup }}>
+    <PopupContext.Provider
+      value={{
+        openPopup,
+        closePopup,
+        activePopup: popup,
+      }}
+    >
       <PopupWrapper />
       {children}
     </PopupContext.Provider>
