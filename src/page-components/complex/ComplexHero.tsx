@@ -67,7 +67,7 @@ function ComplexHero({ complex }: Props) {
             <div className='mx-[20px] flex w-fit items-center gap-[10px] text-base-100'>
               <div className='min-w-[184px] rounded-[20px] bg-base-600 px-[18px] py-[14px]'>
                 <div className='text-header-300 mb-[12px]'>
-                  {`${minArea || '0'} — ${maxArea || '0'}`} м<sup>2</sup>
+                  23.41 — 75.67 м<sup>2</sup>
                 </div>
                 <div className='text-base-400-reg-100 min-w-[128px] uppercase opacity-50'>площадь квартир</div>
               </div>

@@ -1,15 +1,16 @@
 import React from 'react'
-import { Characteristics, ComplexDetailedHouse } from '@/types/Complex'
+import { DetailComplex, DetailComplexHouse } from '@/types/Complex'
 import Button from '@/ui/buttons/Button'
 import Row from '@/ui/Row'
 import Cell from '@/ui/Cell'
-import LayoutCard from '@/page-components/gk-detailed/LayoutChoice/LayoutCard'
+import { Characteristic } from '@/types/Characteristic'
+import LayoutCard from '@/components/Cards/LayoutCard'
 
 function isHidden(value: string | number) {
   return value === 'Номер квартиры' || value === 'Тип отделки' ? 'hidden md:table-cell' : ''
 }
 
-function showHeadRow(characteristics: Characteristics[], houseNumber: number) {
+function showHeadRow(characteristics: Characteristic[], houseNumber: number) {
   return (
     <Row className='text-base-400-lg-100 text-base-650'>
       <th className='text-base-400-reg-100 hidden uppercase text-base-600 md:table-cell md:pb-[20px]'>{`дом №${houseNumber}`}</th>
@@ -20,7 +21,7 @@ function showHeadRow(characteristics: Characteristics[], houseNumber: number) {
   )
 }
 
-function showCharacteristicsCells(characteristics: Characteristics[]) {
+function showCharacteristicsCells(characteristics: Characteristic[]) {
   return characteristics.map((item, index) => (
     <Cell
       content={item.value}
@@ -31,11 +32,11 @@ function showCharacteristicsCells(characteristics: Characteristics[]) {
 }
 
 interface ObjectsTableProps {
-  houses: ComplexDetailedHouse[]
+  complex: DetailComplex
 }
 
-function ObjectsTable({ houses }: ObjectsTableProps) {
-  function showBody({ objects }: ComplexDetailedHouse) {
+function ObjectsTable({ complex }: ObjectsTableProps) {
+  function showBody({ objects }: DetailComplexHouse) {
     return objects.map((object) => {
       return (
         <Row className='group cursor-pointer text-center' key={object.id} object={object}>
@@ -47,7 +48,7 @@ function ObjectsTable({ houses }: ObjectsTableProps) {
   }
 
   function showHousesTable() {
-    return houses.map((house, index) => {
+    return complex.objects.map((house, index) => {
       return (
         <div className='mb-[32px] last:mb-0 md:mb-[64px]' key={index}>
           <div className='text-base-400-reg-100 mb-[20px] uppercase md:hidden'>{`дом №${house.objects[0].houseNumber}`}</div>
@@ -67,7 +68,7 @@ function ObjectsTable({ houses }: ObjectsTableProps) {
   return (
     <>
       <div className='w-full md:max-w-[910px]'>{showHousesTable()}</div>
-      <LayoutCard />
+      <LayoutCard complex={complex} />
     </>
   )
 }

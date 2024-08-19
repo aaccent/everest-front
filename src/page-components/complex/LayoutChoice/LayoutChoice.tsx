@@ -6,8 +6,8 @@ import Button from '@/ui/buttons/Button'
 import { DetailComplex } from '@/types/Complex'
 import LayoutInner from '@/page-components/complex/LayoutChoice/LayoutInner'
 import LayoutTypes from '@/page-components/complex/LayoutChoice/LayoutTypes'
-import { LayoutContextProvider } from '@/page-components/gk-detailed/LayoutChoice/LayoutListContext'
-import ObjectsTable from '@/page-components/gk-detailed/LayoutChoice/ObjectsTable'
+import { LayoutContextProvider } from './LayoutListContext'
+import ObjectsTable from './ObjectsTable'
 
 interface LayoutChoiceProps {
   complex: DetailComplex
