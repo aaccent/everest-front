@@ -6,6 +6,7 @@ import { basePageProps } from '@/globals/pageProps'
 import { PopupProvider } from '@/components/Popup/Popup'
 
 import packageJSON from '@/../package.json'
+import ContactForm from '@/components/ContactForm/ContactForm'
 
 function BasePage({ children }: PropsWithChildren) {
   const baseProps = basePageProps()
@@ -18,7 +19,10 @@ function BasePage({ children }: PropsWithChildren) {
       <PopupProvider>
         <Header />
         <div className='flex min-h-screen w-full flex-col justify-between'>
-          <main className='h-full flex-[1_1_0]'>{children}</main>
+          <main className='h-full flex-[1_1_0]'>
+            {children}
+            <ContactForm />
+          </main>
           <Footer />
         </div>
       </PopupProvider>

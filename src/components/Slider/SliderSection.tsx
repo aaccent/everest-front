@@ -11,9 +11,9 @@ async function SliderSection(props: Props) {
   function showSlider() {
     switch (props.type) {
       case 'complex':
-        return <Slider type={props.type} list={props.list} />
+        return <Slider type={props.type} list={props.list} link={props.link} />
       case 'objects':
-        return <Slider type={props.type} list={props.list} />
+        return <Slider type={props.type} list={props.list} link={props.link} />
       default:
         null
     }
