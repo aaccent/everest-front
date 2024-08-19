@@ -49,7 +49,7 @@ async function DesktopSaleRentMenu({ className, category }: Props) {
     <>
       <IsDesktop>
         <div
-          className={`px-container fixed inset-x-0 top-[115px] z-10 hidden w-full gap-[16px] bg-base-100 pb-[56px] pt-[32px] ${className}`}
+          className={`px-container fixed inset-x-0 top-[115px] z-20 hidden w-full gap-[16px] bg-base-100 pb-[56px] pt-[32px] ${className}`}
           data-menu-type={category}
         >
           <div className='w-[908px] rounded-[32px] bg-base-300 p-[40px]'>
@@ -72,6 +72,7 @@ async function DesktopSaleRentMenu({ className, category }: Props) {
               {showCategories()}
             </ul>
           </div>
+          <div className='w-full max-w-[644px]'></div>
         </div>
       </IsDesktop>
     </>

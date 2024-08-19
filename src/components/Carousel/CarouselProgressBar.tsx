@@ -6,14 +6,18 @@ import { CarouselContext } from '@/components/Carousel/Carousel'
 
 interface Props {
   className?: string
+  perView?: number
 }
 
-export function CarouselProgressBar({ className }: Props) {
+export function CarouselProgressBar({ className, perView = 1 }: Props) {
   const { emblaApi } = useContext(CarouselContext)
-  const [scrollProgress, setScrollProgress] = useState(0)
+  const slidesAmount = emblaApi?.slideNodes().length
+  const initProgress = slidesAmount ? (100 / (slidesAmount + 1) / 100) * perView : 0
+
+  const [scrollProgress, setScrollProgress] = useState(initProgress)
 
   const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
-    const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()))
+    const progress = Math.max(initProgress, Math.min(1, emblaApi.scrollProgress()))
     setScrollProgress(progress * 100)
   }, [])
 
