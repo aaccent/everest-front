@@ -1,9 +1,8 @@
-name: Deploy on ssh server
+name: Production deploy on ssh server
 
 on:
   release:
     types: [published]
-  workflow_dispatch:
 
 env:
   URL: https://everest.aaccent.su
@@ -26,7 +25,11 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: ./scripts/update-front.sh
+          script: |
+            cd ~/everest-front
+            git fetch
+            git checkout ${{ github.ref_name }}
+            docker compose up -d --build --force-recreate
 
       - name: Set success deployment
         if: success()
