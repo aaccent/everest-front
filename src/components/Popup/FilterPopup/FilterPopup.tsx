@@ -30,15 +30,24 @@ function FilterPopup() {
               ]}
               isRadio
               title='Сортировать'
+              name='filter'
             />
           </MobileFilterItem>
           <MobileFilterItem title='Основное'>
             <SelectorInline list={['Студия', '1', '2', '3', '4 +']} className='border border-base-400' />
-            <Range min={11} max={127} units='м2' className='border border-base-400' title='площадь' />
-            <Range min={0.4} max={17.4} units='млн.₽' className='border border-base-400' title='цена' />
+            <Range min={11} max={127} units='м2' className='border border-base-400' showTitle='площадь' name='filter' />
+            <Range
+              min={0.4}
+              max={17.4}
+              units='млн.₽'
+              className='border border-base-400'
+              showTitle='цена'
+              name='filter'
+            />
             <Selector
               values={['квартира', 'комната', 'малосемейка', 'общежитие', 'коммуналка', 'со скидкой']}
               title='Тип недвижимости'
+              name='type'
             />
           </MobileFilterItem>
         </div>
