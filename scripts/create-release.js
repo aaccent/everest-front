@@ -5,6 +5,7 @@ import { join } from 'path'
 
 const PACKAGE_FILE_PATH = join(process.cwd(), 'package.json')
 const MASTER_BRANCH_NAME = 'master'
+const REMOTE_NAME = 'origin'
 
 function getPackageFile() {
   const rawPackageFile = readFileSync(PACKAGE_FILE_PATH).toString()
@@ -96,14 +97,15 @@ async function isHaveAccessToRepo(octokit, { owner, repo }) {
  * @param {string} owner - Владелец репозитория
  * @param {string} repo - Название репозитория
  * @param {`v${string}`} versionTag - Текст для тэга и названия релиза
+ * @param {string} target - Название ветки для создания релиза
  * @return {Promise<string>} - Ссылку для загрузки файлов в релиз
  */
-async function createRelease(octokit, { owner, repo, versionTag }) {
+async function createRelease(octokit, { owner, repo, versionTag, target }) {
   const release = await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: owner,
     repo: repo,
     tag_name: versionTag,
-    target_commitish: MASTER_BRANCH_NAME,
+    target_commitish: target,
     name: versionTag,
     body: '',
     draft: false,
@@ -112,6 +114,28 @@ async function createRelease(octokit, { owner, repo, versionTag }) {
   })
 
   return release.data.upload_url
+}
+
+/**
+ * Создаёт Пулл реквест из ветки `from` в ветку 'master' и заголовком `title`
+ * @param {Octokit} octokit - Сессия гитхаба
+ * @param {string} owner - Владелец репозитория
+ * @param {string} repo - Название репозитория
+ * @param {string} title - Заголовок Пулл реквеста
+ * @param {string} from - ветка в удаленном репозитории из которого создаётся ПР
+ * @return {Promise<string>}
+ */
+async function createPullRequestToMaster(octokit, { owner, repo, title, from }) {
+  const pr = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
+    owner,
+    repo,
+    title,
+    body: 'Автоматический ПР с измененной версией в `package.json`',
+    head: from,
+    base: MASTER_BRANCH_NAME,
+  })
+
+  return pr.data.html_url
 }
 
 /**
@@ -132,14 +156,15 @@ function changeVersion(symVer, type) {
   }
 }
 
-async function checkIsCurrentBranchMaster() {
-  const branches = await simpleGit().branchLocal()
+/** @param {string} version */
+async function createReleaseBranch(version) {
+  await simpleGit().checkout(MASTER_BRANCH_NAME)
+  console.info('Checkout on %s', MASTER_BRANCH_NAME)
 
-  if (branches.current !== MASTER_BRANCH_NAME) {
-    console.error('Текущая ветка должна быть master. Сейчас выбрана %s', branches.current)
-  }
-
-  return branches.current === MASTER_BRANCH_NAME
+  const newBranchName = `release/${version}`
+  await simpleGit().checkoutLocalBranch(newBranchName)
+  console.info('Create branch %s', newBranchName)
+  return newBranchName
 }
 
 void (async function () {
@@ -148,9 +173,6 @@ void (async function () {
       'Необходимо указать гитхаб токен в env переменной GITHUB_TOKEN. Это можно сделать через cli или в файле .env.local. Ни в коем случае не указывайте токен в .env',
     )
   }
-
-  const branchCheck = await checkIsCurrentBranchMaster()
-  if (!branchCheck) return
 
   const status = await simpleGit().status()
 
@@ -185,6 +207,7 @@ void (async function () {
   }
 
   changeVersion(symVer, cliArgs.major || cliArgs.minor || cliArgs.patch)
+  const newBranchName = await createReleaseBranch(`v${symVer.version}`)
 
   /** @type {`v${string}`} */
   const versionTag = `v${symVer.version}`
@@ -203,10 +226,17 @@ void (async function () {
     throw error
   }
 
-  await simpleGit().push()
+  await simpleGit().push(REMOTE_NAME, newBranchName)
   console.info('Commited and pushed new version with tag %s', versionTag)
 
+  const link = await createPullRequestToMaster(octokit, { ...githubLink, title: versionTag, from: newBranchName })
+  console.info('Created PR from branch %s to master. Please merge while its been ready:\n%s', newBranchName, link)
+
   // Создаём релиз
-  const uploadUrl = await createRelease(octokit, { ...githubLink, versionTag })
+  await createRelease(octokit, {
+    ...githubLink,
+    versionTag,
+    target: newBranchName,
+  })
   console.info('Create release for version v%s', symVer.version)
 })()
