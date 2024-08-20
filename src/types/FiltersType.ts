@@ -14,7 +14,7 @@ type FilterInput<View> = {
 } & { title: string }
 
 export type Choice = {
-  type: 'radio' | 'multilist' | 'selector-inline' | 'tabs'
+  type: 'radio' | 'multilist' | 'multilist-inline' | 'tabs'
   value: string[]
   defaultValue?: string
 }

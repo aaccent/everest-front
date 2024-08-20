@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import Container from '@/layout/Container'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
@@ -7,8 +8,15 @@ import Range from '@/ui/inputs/Range'
 import Button from '@/ui/buttons/Button'
 import Selector from '@/ui/inputs/Selector'
 import MobileFilterItem from '@/components/Popup/FilterPopup/MobileFilterItem'
+import { getFilters } from '@/globals/api/methods/getFilters'
+import { Choice, FiltersType, MinMax, Toggle } from '@/types/FiltersType'
 
 function FilterPopup() {
+  const [data, setData] = useState<FiltersType<Choice | MinMax | Toggle>>()
+  useEffect(() => {
+    getFilters().then(setData)
+  }, [])
+
   return (
     <div className='relative mt-[64px] h-[1200px] rounded-t-[24px] bg-base-100 md:p-[56px]'>
       <Container className='py-[24px] md:py-0'>
