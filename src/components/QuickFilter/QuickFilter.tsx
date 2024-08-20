@@ -6,6 +6,8 @@ import SelectorInline from '@/ui/inputs/SelectorInline'
 import CatalogViewButton from '@/components/QuickFilter/CatalogViewButton'
 import { AnyCategory } from '@/types/Category'
 import { flatPlural } from '@/features/pluralRules'
+import Range from '@/ui/inputs/Range'
+import Selector from '@/ui/inputs/Selector'
 
 interface Props {
   category: AnyCategory
@@ -28,6 +30,9 @@ function QuickFilter({ category }: Props) {
           <DetailFilterButton className='mr-[16px]' />
           <div className='flex gap-[16px]'>
             <SelectorInline list={['Студия', 1, 2, 3, '4+']} />
+            <Range min={1} max={17.7} units='млн.₽' title='цена' />
+            <Range min={11} max={127} units='м2' title='площадь' />
+            <Selector values={['1', '3', '5']} defaultValue='Этаж' />
           </div>
           <MapObjectsButton className='ml-auto' />
         </div>
