@@ -29,7 +29,7 @@ jobs:
             cd ~/everest-front
             git fetch
             git checkout ${{ github.ref_name }}
-            docker compose up -d --build --force-recreate
+            docker compose up -d --build --force-recreate everest
 
       - name: Set success deployment
         if: success()
