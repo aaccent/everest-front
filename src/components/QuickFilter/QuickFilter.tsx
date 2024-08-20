@@ -32,7 +32,7 @@ function QuickFilter({ category }: Props) {
             <SelectorInline list={['Студия', 1, 2, 3, '4+']} />
             <Range min={1} max={17.7} units='млн.₽' title='цена' />
             <Range min={11} max={127} units='м2' title='площадь' />
-            <Selector values={['1', '3', '5']} defaultValue='Этаж' />
+            <Selector values={['1', '3', '5']} title='Этаж' inQuickFilter />
           </div>
           <MapObjectsButton className='ml-auto' />
         </div>

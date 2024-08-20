@@ -10,7 +10,7 @@ import MobileFilterItem from '@/components/Popup/FilterPopup/MobileFilterItem'
 
 function FilterPopup() {
   return (
-    <div className='relative mt-[64px] h-[1200px] rounded-t-[24px] bg-base-100 md:p-[56px]'>
+    <div className='relative top-[64px] h-full rounded-t-[24px] bg-base-100 md:top-[48px] md:p-[56px]'>
       <Container className='py-[24px] md:py-0'>
         <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
           <MapObjectsButton className='md:hidden' />
