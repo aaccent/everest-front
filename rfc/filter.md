@@ -134,7 +134,12 @@ function useCategoryFilter() {
    */
   function addFilter(id: number, value: number[] | string[] | boolean): void {}
 
-  return { filter, getFilterFromUrl, addFilter }
+  return {
+    filter,
+    parseSearchParamsToFilter,
+    getFilterSearchParams,
+    addFilter,
+  }
 }
 ````
 
