@@ -42,8 +42,8 @@ console.log(obj) // {a:1}
 ```
 
 Изначально функции задумывались для работы только с латиницей, а у нас используется кириллица.
-Поэтому нужно превращать сначала буфер, а потом уже в `base64`.
-Подробнее с кодом в [документации MDN](https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem)
+Поэтому нужно превращать сначала в буфер, а потом уже в `base64`.
+Подробнее с кодом в [документации MDN](https://developer.mozilla.org/en-US/docs/Glossary/Base64#the_unicode_problem) под заголовком `The "Unicode Problem"`
 
 В `base64` есть символы `=` и `+`, которые используются в ссылках, то строку нужно экранировать с помощью
 [`encodeURIComponent()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent)
