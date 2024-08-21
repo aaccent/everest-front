@@ -242,7 +242,7 @@ function useCategoryObjects<TType extends object>({ initList, getObjects }: Prop
    ```
    и в ссылку:<br>
    `/catalog/complexes?filter=W3tpZDoxLHZhbHVlOlsiMSDQutC-0LzQvdCw0YLQsCIsIjIg0LrQvtC80L3QsNGC0YsiXX1d`
-3. Пользователь выставил у фильтра с `id: 5` значение на `value: true` - получится ссылка:<br>
+3. Пользователь выставил у фильтра с `id: 5` значение на `value: true` - получился объект:<br>
    ```json
    [
      { "id": 1, "value": ["1 комната", "2 комнаты"] },
@@ -255,7 +255,7 @@ function useCategoryObjects<TType extends object>({ initList, getObjects }: Prop
    ```
    и в ссылку:<br>
    `/catalog/complexes?filter=W3siaWQiOjEsInZhbHVlIjpbIjEg0LrQvtC80L3QsNGC0LAiLCIyINC60L7QvNC90LDRgtGLIl19LHsiaWQiOjUsInZhbHVlIjp0cnVlfV0%3D`
-4. Пользователь поменял у фильтра с `id: 1` значение на `value: [ "1 комната" ]` - получится ссылка:<br>
+4. Пользователь поменял у фильтра с `id: 1` значение на `value: [ "1 комната" ]` - получился объект:<br>
    ```json
    [
      { "id": 1, "value": ["1 комната"] },
