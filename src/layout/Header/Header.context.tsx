@@ -1,6 +1,6 @@
 'use client'
 import { createContext, PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react'
-import { useScroll } from '@/features/scroll'
+import { showScroll, useScroll } from '@/features/scroll'
 import { usePathname } from 'next/navigation'
 
 export const HEADER_MENUS = {
@@ -78,6 +78,7 @@ export function HeaderProvider({ children, pathname: serverPathname }: HeaderSta
   // Закрывает меню если меняется ссылка
   useEffect(() => {
     setMenu(null)
+    showScroll()
   }, [pathname])
 
   // Закрытие элемента мобильного меню из MobileDetailMenu если закрывается всё меню
