@@ -1,5 +1,5 @@
-import React from 'react'
-import Input from '@/ui/Input'
+import React, { useEffect, useState } from 'react'
+import Input from '@/ui/inputs/Input'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import Image from 'next/image'
 import bgLogo from '@/assets/static/call-popup-bg.svg'
@@ -10,11 +10,15 @@ import Form from '@/ui/Form'
 import { getSocials } from '@/globals/api/methods/getSocials'
 import { socialItem } from '@/layout/Footer/Footer'
 
-async function CallPopup() {
-  const socials: socialItem[] = await getSocials()
+function CallPopup() {
+  const [socials, setSocials] = useState<socialItem[]>()
+
+  useEffect(() => {
+    getSocials().then((result) => setSocials(result))
+  }, [])
 
   function showSocials() {
-    return socials.map((social, index) => {
+    return socials?.map((social, index) => {
       return (
         <Link
           className='flex size-[55px] items-center justify-center rounded-full bg-base-300'
@@ -67,7 +71,7 @@ async function CallPopup() {
           </div>
         </div>
       </div>
-      <ClosePopupButton />
+      <ClosePopupButton className='absolute right-[24px] top-[24px]' />
     </div>
   )
 }
