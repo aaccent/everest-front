@@ -257,6 +257,7 @@ void (async function () {
   console.info('Created PR from branch %s to master. link:\n%s', newBranchName, link)
 
   await mergePullRequest(octokit, { ...githubLink, pull_number: prNumber })
+  console.info('Merged PR by number #%d', prNumber)
 
   // Создаём релиз
   await createRelease(octokit, {
