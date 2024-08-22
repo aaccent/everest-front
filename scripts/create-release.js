@@ -246,7 +246,7 @@ void (async function () {
   await simpleGit().push(REMOTE_NAME, newBranchName)
   console.info('Commited and pushed new version with tag %s', versionTag)
 
-  await simpleGit().checkoutLocalBranch(currentBranch)
+  await simpleGit().checkout(currentBranch)
   console.info('Checkout back to %s branch', currentBranch)
 
   const { link, number: prNumber } = await createPullRequestToMaster(octokit, {
@@ -257,6 +257,7 @@ void (async function () {
   console.info('Created PR from branch %s to master. link:\n%s', newBranchName, link)
 
   await mergePullRequest(octokit, { ...githubLink, pull_number: prNumber })
+  console.info('Merged PR by number #%d', prNumber)
 
   // Создаём релиз
   await createRelease(octokit, {
@@ -264,5 +265,5 @@ void (async function () {
     versionTag,
     target: newBranchName,
   })
-  console.info('Create release for version v%s', symVer.version)
+  console.info('Created release for version v%s', symVer.version)
 })()
