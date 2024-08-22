@@ -246,7 +246,7 @@ void (async function () {
   await simpleGit().push(REMOTE_NAME, newBranchName)
   console.info('Commited and pushed new version with tag %s', versionTag)
 
-  await simpleGit().checkoutLocalBranch(currentBranch)
+  await simpleGit().checkout(currentBranch)
   console.info('Checkout back to %s branch', currentBranch)
 
   const { link, number: prNumber } = await createPullRequestToMaster(octokit, {
