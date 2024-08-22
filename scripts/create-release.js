@@ -265,5 +265,5 @@ void (async function () {
     versionTag,
     target: newBranchName,
   })
-  console.info('Create release for version v%s', symVer.version)
+  console.info('Created release for version v%s', symVer.version)
 })()
