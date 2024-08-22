@@ -12,19 +12,52 @@ export const HEADER_MENUS = {
 
 export type HeaderMenu = (typeof HEADER_MENUS)[keyof typeof HEADER_MENUS] | string
 
+/** Значение вертикальной прокрутки, в какой момент шапка должна изменить стили */
+const SCROLL_TRIGGER_POSITION = 20
+
 interface HeaderStateProps {
   pathname: string
 }
 
 type HeaderContextObject = {
+  /**
+   * Если `name` меню открыто, то закрывает его, иначе открывает.
+   * Если передать `null`, то ничего не произойдет.
+   * */
   toggleMenu: (name: HeaderMenu | null) => void
+  /**
+   * Если `item` элемент меню открыт, то закрывает его, иначе открывает.
+   * Если передать `null`, то ничего не произойдет
+   * */
   toggleMenuItem: (item: string | null) => void
   setMenuItem: (item: string | null) => void
+  /**
+   * Получить активный элемент из открытого меню {@link HEADER_MENUS.MOBILE}
+   * @return id типа `string` активного меню, если присутствует, иначе `null`
+   * */
   get menuItem(): string | null
+  /**
+   * Установить активное меню с названием `name`.
+   * Если передать `null`, то меню закроется.
+   * */
   setMenu: (name: HeaderMenu | null) => void
+  /**
+   * Проверить активно ли одно из меню шапки `name`.
+   * @return `true` если хотя бы одно меню активно, иначе `false`
+   * */
   hasMenu: (...name: HeaderMenu[]) => boolean
+  /**
+   * Получить текущее активное меню шапки.
+   * Возможные меню описаны в {@link HEADER_MENUS}
+   * @return `string` если есть активное меню, иначе `null`
+   * */
   get menu(): HeaderMenu | null
+  /**
+   * `true` когда прокрутка страницы ровна или более
+   * порога из {@link SCROLL_TRIGGER_POSITION}, иначе `false`
+   * */
   get scrolled(): boolean
+  /** `true` когда находится не на главной странице, иначе `false` */
   get isBlack(): boolean
 }
 
@@ -40,7 +73,7 @@ export function HeaderProvider({ children, pathname: serverPathname }: HeaderSta
 
   const isBlack = useCallback(
     (pathname: string) => {
-      if (scrollPos >= 20) return true
+      if (scrollPos >= SCROLL_TRIGGER_POSITION) return true
       if (pathname !== '/') return true
       if (menu) return true
 
@@ -54,8 +87,8 @@ export function HeaderProvider({ children, pathname: serverPathname }: HeaderSta
   useEffect(() => {
     setStyles((current) => {
       const copy = { ...current }
-      if (scrollPos >= 20 && !current.isFixed) copy.isFixed = true
-      if (scrollPos < 20 && current.isFixed) copy.isFixed = false
+      if (scrollPos >= SCROLL_TRIGGER_POSITION && !current.isFixed) copy.isFixed = true
+      if (scrollPos < SCROLL_TRIGGER_POSITION && current.isFixed) copy.isFixed = false
 
       return copy.isFixed !== current.isFixed ? copy : current
     })
@@ -121,7 +154,7 @@ export function HeaderProvider({ children, pathname: serverPathname }: HeaderSta
       return menuItem
     },
     get scrolled() {
-      return scrollPos >= 20
+      return scrollPos >= SCROLL_TRIGGER_POSITION
     },
     get isBlack() {
       return isBlack(pathname)
