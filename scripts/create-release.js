@@ -254,7 +254,7 @@ void (async function () {
     title: versionTag,
     from: newBranchName,
   })
-  console.info('Created PR from branch %s to master. Please merge while its been ready:\n%s', newBranchName, link)
+  console.info('Created PR from branch %s to master. link:\n%s', newBranchName, link)
 
   await mergePullRequest(octokit, { ...githubLink, pull_number: prNumber })
 
