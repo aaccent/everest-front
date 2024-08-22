@@ -11,6 +11,7 @@ interface Props {
 }
 
 function MenuItemCard({ item, parent }: Props) {
+  const total = item.count
   return (
     <Link
       className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
@@ -22,7 +23,7 @@ function MenuItemCard({ item, parent }: Props) {
       <div className='flex flex-col gap-[4px]'>
         <span className='text-base-300-reg-100-upper'>{item.name}</span>
         <span className='text-base-400-lg-100 text-base-600/50'>
-          {1} {suggestionPlural.get(1)}
+          {total} {suggestionPlural.get(total)}
         </span>
       </div>
     </Link>
