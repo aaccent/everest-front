@@ -10,7 +10,7 @@ import { getAddresses, getSocials } from '@/globals/api'
 
 import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
-import { callFormHandler } from '@/features/forms'
+import { callFormHandler } from '@/features/actions/call-form'
 import Form from '@/ui/Form'
 
 interface socialItem {
