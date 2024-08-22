@@ -63,7 +63,7 @@ function writeVersionToPackage(newVersion) {
 
 function parseCLIArgs() {
   const rawArgs = process.argv.slice(2)
-  const parsedArgs = rawArgs.map((arg) => arg.replace('--', '').split('=')).map(([name, value]) => [name, name])
+  const parsedArgs = rawArgs.map((arg) => arg.replace('--', '').split('=')).map(([name]) => [name, name])
 
   return Object.fromEntries(parsedArgs)
 }
@@ -123,7 +123,7 @@ async function createRelease(octokit, { owner, repo, versionTag, target }) {
  * @param {string} repo - Название репозитория
  * @param {string} title - Заголовок Пулл реквеста
  * @param {string} from - ветка в удаленном репозитории из которого создаётся ПР
- * @return {Promise<string>}
+ * @return {Promise<{link: string; number: number}>}
  */
 async function createPullRequestToMaster(octokit, { owner, repo, title, from }) {
   const pr = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
@@ -135,7 +135,23 @@ async function createPullRequestToMaster(octokit, { owner, repo, title, from }) 
     base: MASTER_BRANCH_NAME,
   })
 
-  return pr.data.html_url
+  return { link: pr.data.html_url, number: pr.data.number }
+}
+
+/**
+ * Мерджит ПР по номеру `pull_number`
+ * @param {Octokit} octokit
+ * @param {string} owner
+ * @param {string} repo
+ * @param {number} pull_number
+ * @return {Promise<void>}
+ */
+async function mergePullRequest(octokit, { owner, repo, pull_number }) {
+  await octokit.request('PUT /repos/{owner}/{repo}/pulls/{pull_number}/merge', {
+    owner,
+    repo,
+    pull_number,
+  })
 }
 
 /**
@@ -158,8 +174,8 @@ function changeVersion(symVer, type) {
 
 /** @param {string} version */
 async function createReleaseBranch(version) {
-  await simpleGit().checkout(MASTER_BRANCH_NAME)
-  console.info('Checkout on %s', MASTER_BRANCH_NAME)
+  await simpleGit().checkout(MASTER_BRANCH_NAME).fetch().pull()
+  console.info('Checkout, fetched and pulled %s', MASTER_BRANCH_NAME)
 
   const newBranchName = `release/${version}`
   await simpleGit().checkoutLocalBranch(newBranchName)
@@ -207,6 +223,7 @@ void (async function () {
   }
 
   changeVersion(symVer, cliArgs.major || cliArgs.minor || cliArgs.patch)
+  const currentBranch = (await simpleGit().branchLocal()).current
   const newBranchName = await createReleaseBranch(`v${symVer.version}`)
 
   /** @type {`v${string}`} */
@@ -229,8 +246,17 @@ void (async function () {
   await simpleGit().push(REMOTE_NAME, newBranchName)
   console.info('Commited and pushed new version with tag %s', versionTag)
 
-  const link = await createPullRequestToMaster(octokit, { ...githubLink, title: versionTag, from: newBranchName })
+  await simpleGit().checkoutLocalBranch(currentBranch)
+  console.info('Checkout back to %s branch', currentBranch)
+
+  const { link, number: prNumber } = await createPullRequestToMaster(octokit, {
+    ...githubLink,
+    title: versionTag,
+    from: newBranchName,
+  })
   console.info('Created PR from branch %s to master. Please merge while its been ready:\n%s', newBranchName, link)
+
+  await mergePullRequest(octokit, { ...githubLink, pull_number: prNumber })
 
   // Создаём релиз
   await createRelease(octokit, {
