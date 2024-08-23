@@ -18,7 +18,7 @@ function FilterPopup() {
   }, [])
 
   return (
-    <div className='relative mt-[64px] h-[1200px] rounded-t-[24px] bg-base-100 md:p-[56px]'>
+    <div className='relative top-[64px] h-full rounded-t-[24px] bg-base-100 md:top-[48px] md:p-[56px]'>
       <Container className='py-[24px] md:py-0'>
         <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
           <MapObjectsButton className='md:hidden' />
@@ -38,15 +38,24 @@ function FilterPopup() {
               ]}
               isRadio
               title='Сортировать'
+              name='filter'
             />
           </MobileFilterItem>
           <MobileFilterItem title='Основное'>
             <SelectorInline list={['Студия', '1', '2', '3', '4 +']} className='border border-base-400' />
-            <Range min={11} max={127} units='м2' className='border border-base-400' title='площадь' />
-            <Range min={0.4} max={17.4} units='млн.₽' className='border border-base-400' title='цена' />
+            <Range min={11} max={127} units='м2' className='border border-base-400' showTitle='площадь' name='filter' />
+            <Range
+              min={0.4}
+              max={17.4}
+              units='млн.₽'
+              className='border border-base-400'
+              showTitle='цена'
+              name='filter'
+            />
             <Selector
               values={['квартира', 'комната', 'малосемейка', 'общежитие', 'коммуналка', 'со скидкой']}
               title='Тип недвижимости'
+              name='type'
             />
           </MobileFilterItem>
         </div>

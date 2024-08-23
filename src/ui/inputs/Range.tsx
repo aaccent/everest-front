@@ -7,12 +7,11 @@ interface RangeProps {
   max: number
   units?: string
   className?: string
-  /*это временное, позже сделаю компонент, который принимает title и тип инпута*/
-  title: string
-  showTitle?: boolean
+  name: string
+  showTitle?: string
 }
 
-function Range({ min, max, units, className, title, showTitle }: RangeProps) {
+function Range({ min, max, units, className, name, showTitle }: RangeProps) {
   const [value, setValue] = useState({ min, max })
   const step = 0.1
 
@@ -31,15 +30,18 @@ function Range({ min, max, units, className, title, showTitle }: RangeProps) {
     })
   }
 
-  const onMinInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value >= min && +e.target.value < value.max) {
-      setValue({ min: +e.target.value, max: value.max })
-    }
+  const onMinInputChange = (newValue: string) => {
+    const numberValue = newValue.match(/\d+\.?\d?/)
+
+    if (!numberValue || +numberValue < min) return
+    if (+numberValue[0] > value.max) return setValue({ min, max: value.max })
+    return setValue({ min: +numberValue, max: value.max })
   }
-  const onMaxInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value > value.min && +e.target.value <= max) {
-      setValue({ min: value.min, max: +e.target.value })
-    }
+  const onMaxInputChange = (newValue: string) => {
+    const numberValue = newValue.match(/\d+\.?\d?/)
+
+    if (!numberValue || +numberValue > max || +numberValue[0] < value.min) return
+    return setValue({ min: value.min, max: +numberValue })
   }
 
   const minPos = ((value.min - min) / (max - min)) * 100
@@ -47,35 +49,59 @@ function Range({ min, max, units, className, title, showTitle }: RangeProps) {
 
   return (
     <div className='flex flex-col'>
-      {showTitle && <div className='text-base-500-reg-100-upper mb-[8px]'>{title}</div>}
+      <div className='md:text-base-500-reg-100-upper text-base-100-reg-100 capitalize'>{showTitle}</div>
       <div
-        className={`text-base-400-lg-100 relative w-full min-w-[260px] rounded-[20px] bg-base-100 px-[16px] py-[18px] md:w-fit md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
+        className={`text-base-400-lg-100 relative mt-[8px] w-full min-w-[260px] rounded-[20px] bg-base-100 px-[16px] py-[18px] md:max-w-[273px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
       >
+        <input type='hidden' name={name} value={`${[value.min, value.max]}`} />
         <div className='text-base-400-lg-100 flex items-center justify-between'>
           <label>
-            <span className='text-base-650'>от</span>
             <IMaskInput
-              size={3}
-              mask='0[00][.][0]'
-              min={min}
-              max={value.max}
-              className='px-[3px] text-center focus:outline-0'
+              mask={[
+                {
+                  mask: `от num ${units}`,
+
+                  lazy: false,
+                  blocks: {
+                    num: {
+                      mask: Number,
+                      min,
+                      max,
+                      scale: 1,
+                      normalizeZeros: false,
+                      radix: '.',
+                    },
+                  },
+                },
+              ]}
+              className='w-full focus:outline-0'
               value={value.min.toString()}
-              onChange={onMinInputChange}
+              onAccept={(value) => onMinInputChange(value)}
             />
-            <span>{units}</span>
           </label>
           <div className='absolute inset-1/2 h-[12px] w-[1px] -translate-x-1/2 -translate-y-1/2 bg-base-400' />
           <label>
-            <span className='text-base-650'>до</span>
             <IMaskInput
-              size={3}
-              mask='0[00][.][0]'
-              className='px-[3px] text-center focus:outline-0'
+              mask={[
+                {
+                  mask: `до num ${units}`,
+                  lazy: false,
+                  blocks: {
+                    num: {
+                      mask: Number,
+                      min,
+                      max,
+                      scale: 1,
+                      normalizeZeros: false,
+                      radix: '.',
+                    },
+                  },
+                },
+              ]}
+              className='w-full text-end focus:outline-0'
               value={value.max.toString()}
-              onChange={onMaxInputChange}
+              onAccept={(value) => onMaxInputChange(value)}
             />
-            <span>{units}</span>
           </label>
         </div>
         <div className='absolute inset-x-0 bottom-0 h-[12px]'>
