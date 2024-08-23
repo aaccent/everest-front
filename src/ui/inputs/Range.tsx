@@ -1,19 +1,30 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IMaskInput } from 'react-imask'
+import { useCategoryFilter } from '@/features/useCategoryFilter'
 
 interface RangeProps {
+  id: number
   min: number
   max: number
   units?: string
   className?: string
   name: string
-  showTitle?: string
+  showTitle?: boolean
 }
 
-function Range({ min, max, units, className, name, showTitle }: RangeProps) {
+function Range({ id, min, max, units = '', className, name, showTitle }: RangeProps) {
   const [value, setValue] = useState({ min, max })
+  const { addFilter, findFilter } = useCategoryFilter()
+
   const step = 0.1
+
+  useEffect(() => {
+    const currentFilters = findFilter<{ id: number; value: { min: number; max: number } }>(id)
+    if (currentFilters) {
+      setValue(currentFilters.value)
+    }
+  }, [])
 
   const onMinValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value > value.max || +e.target.value < min) return
@@ -35,23 +46,29 @@ function Range({ min, max, units, className, name, showTitle }: RangeProps) {
 
     if (!numberValue || +numberValue < min) return
     if (+numberValue[0] > value.max) return setValue({ min, max: value.max })
-    return setValue({ min: +numberValue, max: value.max })
+    setValue({ min: +numberValue, max: value.max })
+    setTimeout(() => {
+      if (+numberValue !== value.min) addFilter(id, { min: +numberValue, max: value.max })
+    }, 1500)
   }
   const onMaxInputChange = (newValue: string) => {
     const numberValue = newValue.match(/\d+\.?\d?/)
 
     if (!numberValue || +numberValue > max || +numberValue[0] < value.min) return
-    return setValue({ min: value.min, max: +numberValue })
+    setValue({ min: value.min, max: +numberValue })
+    setTimeout(() => {
+      if (+numberValue !== value.max) addFilter(id, { min: value.min, max: +numberValue })
+    }, 1500)
   }
 
   const minPos = ((value.min - min) / (max - min)) * 100
   const maxPos = ((value.max - min) / (max - min)) * 100
 
   return (
-    <div className='flex flex-col'>
-      <div className='md:text-base-500-reg-100-upper text-base-100-reg-100 capitalize'>{showTitle}</div>
+    <div className='flex flex-col gap-[8px]'>
+      {showTitle && <div className='text-base-500-reg-100-upper'>{name}</div>}
       <div
-        className={`text-base-400-lg-100 relative mt-[8px] w-full min-w-[260px] rounded-[20px] bg-base-100 px-[16px] py-[18px] md:max-w-[273px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
+        className={`text-base-400-lg-100 relative w-full min-w-[260px] rounded-[20px] bg-base-100 px-[16px] py-[18px] md:max-w-[260px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
       >
         <input type='hidden' name={name} value={`${[value.min, value.max]}`} />
         <div className='text-base-400-lg-100 flex items-center justify-between'>
@@ -60,13 +77,12 @@ function Range({ min, max, units, className, name, showTitle }: RangeProps) {
               mask={[
                 {
                   mask: `от num ${units}`,
-
                   lazy: false,
                   blocks: {
                     num: {
                       mask: Number,
                       min,
-                      max,
+                      max: value.max,
                       scale: 1,
                       normalizeZeros: false,
                       radix: '.',
@@ -89,7 +105,7 @@ function Range({ min, max, units, className, name, showTitle }: RangeProps) {
                   blocks: {
                     num: {
                       mask: Number,
-                      min,
+                      min: value.min,
                       max,
                       scale: 1,
                       normalizeZeros: false,
@@ -114,6 +130,7 @@ function Range({ min, max, units, className, name, showTitle }: RangeProps) {
               value={value.min}
               min={min}
               max={max}
+              onMouseUp={() => addFilter(id, value)}
             />
             <input
               type='range'
@@ -123,6 +140,7 @@ function Range({ min, max, units, className, name, showTitle }: RangeProps) {
               onChange={onMaxValChange}
               className='track-transparent'
               value={value.max}
+              onMouseUp={() => addFilter(id, value)}
             />
           </div>
 

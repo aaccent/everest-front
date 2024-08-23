@@ -2,20 +2,17 @@ import React from 'react'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
 import Container from '@/layout/Container'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
-import SelectorInline from '@/ui/inputs/SelectorInline'
 import CatalogViewButton from '@/components/QuickFilter/CatalogViewButton'
-import { AnyCategory } from '@/types/Category'
 import { flatPlural } from '@/features/pluralRules'
-import Range from '@/ui/inputs/Range'
-import Selector from '@/ui/inputs/Selector'
+import { QuickFilters } from '@/types/FiltersType'
+import { showFilterItems } from '@/features/showFilters'
 
 interface Props {
-  category: AnyCategory
+  amount: number
+  filters: QuickFilters
 }
 
-function QuickFilter({ category }: Props) {
-  const amount = category.objects.length
-
+function QuickFilter({ amount, filters }: Props) {
   return (
     <Container>
       <div className='mb-[32px] mt-[40px] flex items-center justify-between rounded-[24px] bg-base-200 p-[20px] md:w-full md:flex-col md:items-start md:justify-start md:p-[32px] md:pb-[18px]'>
@@ -28,12 +25,7 @@ function QuickFilter({ category }: Props) {
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>
           <DetailFilterButton className='mr-[16px]' />
-          <div className='flex gap-[16px]'>
-            <SelectorInline list={['Студия', 1, 2, 3, '4+']} />
-            <Range min={1} max={17.7} units='млн.₽' name='filter' />
-            <Range min={11} max={127} units='м2' name='filter' />
-            <Selector values={['1', '3', '5']} title='Этаж' inQuickFilter name='filter' />
-          </div>
+          <div className='flex gap-[16px]'>{showFilterItems(filters.filters, true)}</div>
           <MapObjectsButton className='ml-auto' />
         </div>
         <div className='hidden w-full items-center pt-[17px] md:flex'>

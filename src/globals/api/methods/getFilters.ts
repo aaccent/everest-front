@@ -1,16 +1,18 @@
 import { apiCall, APIResponse, SlashPath } from '@/globals/api/apiCall'
-import { Choice, FiltersType, MinMax, Toggle } from '@/types/FiltersType'
+import { Filters, QuickFilters } from '@/types/FiltersType'
 
-type Response = APIResponse<FiltersType<Choice | MinMax | Toggle>>
+type Response<F extends QuickFilters | Filters> = APIResponse<F>
 
-export async function getFilters(objectType: string | null = null) {
-  const path: SlashPath = objectType
-    ? `/filter/${objectType}`
-    : `/${window.location.pathname.replace('/catalog', 'filter')}`
-
-  const res = await apiCall<false, Response>(path, {
+export async function getFilters(objectType: string) {
+  const path: SlashPath = `/filter/${objectType}`
+  const res = await apiCall<false, Response<Filters>>(path, {
     method: 'GET',
   })
+  return res.data
+}
 
+export async function getQuickFilters(objectType: string) {
+  const path: SlashPath = `/filter/${objectType}/main`
+  const res = await apiCall<false, Response<QuickFilters>>(path, { method: 'GET' })
   return res.data
 }
