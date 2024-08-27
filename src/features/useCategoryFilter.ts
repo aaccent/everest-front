@@ -97,5 +97,5 @@ export function useCategoryFilter() {
     window.history.replaceState(null, '', `?filter=${encodeURIComponent(convertToBase64(newFilter))}`)
   }
 
-  return { filter, getFiltersSearchParams, parseSearchParamsToFilter, addFilter, findFilter }
+  return { filter, getFiltersSearchParams, parseSearchParamsToFilter, addFilter, findFilter, setFilters }
 }

@@ -4,6 +4,7 @@ interface RadioProps {
   text: string
   name: string
   onClick?: (value: string) => void
+  id: number
 }
 
 function Radio({ text, name, onClick }: RadioProps) {

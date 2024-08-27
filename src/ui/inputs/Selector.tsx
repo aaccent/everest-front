@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Checkbox from '@/ui/inputs/Checkbox'
 import Radio from '@/ui/inputs/Radio'
 import { useCategoryFilter } from '@/features/useCategoryFilter'
@@ -15,32 +15,52 @@ interface FilterSelectProps {
 
 function Selector({ values, isRadio, showTitle, name, id, className }: FilterSelectProps) {
   const [opened, setOpened] = useState(false)
-  const [selectedValues, setSelectedValues] = useState<string[]>([])
-  const { findFilter, addFilter } = useCategoryFilter()
+  const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set())
+  const { addFilter, findFilter } = useCategoryFilter()
 
-  const onCheckboxClick = (clickedValue: string) => {
-    if (selectedValues.includes(clickedValue)) {
-      setSelectedValues([...values, clickedValue])
-    } else {
-      setSelectedValues(values.filter((val) => val !== clickedValue))
+  useEffect(() => {
+    const currentFilter = findFilter<{ id: number; value: string[] }>(id)
+    if (currentFilter) {
+      setSelectedValues(new Set([...currentFilter.value]))
     }
-  }
-
-  // useEffect(() => {
-  //   const currentFilter = findFilter<{ id: number; value: string[] }>(id)
-  //   if (currentFilter && valuesRef.current) {
-  //     valuesRef.current.textContent = currentFilter.value.join(',')
-  //   }
-  // }, [])
+  }, [])
 
   const openedClasses = opened ? 'opened' : ''
+
+  const onOptionClick = (checked: boolean, clickedValue: string) => {
+    const newValues = new Set([...selectedValues])
+    if (checked) {
+      newValues.add(clickedValue)
+    } else {
+      newValues.delete(clickedValue)
+    }
+
+    setSelectedValues(newValues)
+    addFilter(id, [...newValues])
+  }
+
+  function showSelected() {
+    const selectedNames = selectedValues.size ? Array.from(selectedValues).join(', ') : 'Выбрать'
+
+    if (selectedNames.length > 25) return selectedNames.slice(0, 25) + `...`
+
+    return selectedNames
+  }
 
   function showOptions() {
     return values?.map((value, index) =>
       isRadio ? (
-        <Radio key={index} text={value} name={name} />
+        <Radio key={index} text={value} name={name} id={id} />
       ) : (
-        <Checkbox key={index} text={value} isInSelect name={name} onClick={onCheckboxClick} />
+        <Checkbox
+          key={index}
+          text={value}
+          isInSelect
+          name={name}
+          id={id}
+          isSelected={selectedValues.has(value)}
+          onClick={onOptionClick}
+        />
       ),
     )
   }
@@ -56,7 +76,7 @@ function Selector({ values, isRadio, showTitle, name, id, className }: FilterSel
           type='button'
           className='text-base-100-reg-100 md:text-base-400-lg-100 flex w-full select-none items-center justify-between after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain group-[.opened]:after:-rotate-90 md:pb-0 md:text-base-650 md:after:rotate-90'
         >
-          <div>{selectedValues.length ? selectedValues.join(',') : 'Выбрать'}</div>
+          <div>{showSelected()}</div>
         </button>
         <div className='text-base-500-reg-100-upper md:text-base-400-lg-100 absolute inset-x-0 z-10 hidden select-none flex-col gap-[16px] border-b border-b-base-600/10 bg-base-100 py-[24px] group-[.opened]:flex md:rounded-b-[16px] md:px-[16px] md:group-[.opened]:border-b-0'>
           {showOptions()}
