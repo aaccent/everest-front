@@ -6,7 +6,7 @@ import CatalogViewButton from '@/components/QuickFilter/CatalogViewButton'
 import { flatPlural } from '@/features/pluralRules'
 import { QuickFilters } from '@/types/FiltersType'
 import { showFilterItems } from '@/features/showFilters'
-import Checkbox from '@/ui/inputs/Checkbox'
+import SortButton from '@/components/QuickFilter/SortButton'
 
 interface Props {
   amount: number
@@ -26,17 +26,11 @@ function QuickFilter({ amount, filters }: Props) {
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>
           <DetailFilterButton className='mr-[16px]' />
-          <div className='flex gap-[16px]'>
-            {showFilterItems(filters.filters, true)}
-            <Checkbox id={125} name='New' />
-          </div>
+          <div className='flex gap-[16px]'>{showFilterItems(filters.filters, true)}</div>
           <MapObjectsButton className='ml-auto' />
         </div>
         <div className='hidden w-full items-center pt-[17px] md:flex'>
-          <div className='text-base-500-reg-100-upper'>
-            <span className='mr-[6px] text-base-600/50'>Сортировка:</span>
-            <button className='text-base-500-reg-100-upper'>по умолчанию</button>
-          </div>
+          <SortButton sorts={filters.sorts} />
           <button
             className='text-base-500-reg-100-upper ml-auto mr-[30px] flex items-center gap-[8px] before:size-[22px] before:bg-icon-search-favorite before:bg-default'
             type='button'
