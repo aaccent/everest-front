@@ -54,7 +54,7 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
           />
         )
       case 'toggle':
-        return <Checkbox name={filter.name} />
+        return <Checkbox name={filter.name} id={filter.id} />
     }
   })
 }

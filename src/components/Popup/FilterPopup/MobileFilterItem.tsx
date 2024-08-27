@@ -12,7 +12,7 @@ function MobileFilterItem({ filters, name }: FilterItemProps) {
   const [opened, setOpened] = useState(false)
 
   return (
-    <div className='md:hidden'>
+    <div>
       <div
         className='text-base-100-reg-100 md:text-base-500-reg-100-upper flex items-center justify-between pb-[18px] text-base-600 after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain md:after:rotate-90'
         onClick={() => setOpened(true)}
@@ -20,7 +20,7 @@ function MobileFilterItem({ filters, name }: FilterItemProps) {
         {name}
       </div>
       <div
-        className={`absolute inset-0 z-10 rounded-[24px] bg-base-100 px-[20px] py-[24px] ${!opened && 'invisible opacity-0'}`}
+        className={`absolute inset-x-0 top-0 z-10 block h-auto rounded-[24px] bg-base-100 px-[20px] py-[24px] ${!opened && 'hidden'}`}
       >
         <div className='flex items-center gap-[88px]'>
           <div

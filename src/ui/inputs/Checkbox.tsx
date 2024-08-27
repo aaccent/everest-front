@@ -4,14 +4,13 @@ import { useCategoryFilter } from '@/features/useCategoryFilter'
 
 interface CheckboxProps {
   id: number
-  text?: string
   isInSelect?: boolean
   name: string
   onClick?: (checked: boolean, value: string) => void
   isSelected?: boolean
 }
 
-function Checkbox({ text, isInSelect, name, onClick, id, isSelected }: CheckboxProps) {
+function Checkbox({ isInSelect, name, onClick, id, isSelected }: CheckboxProps) {
   const [selected, setSelected] = useState(isSelected)
   const { addFilter, findFilter } = useCategoryFilter()
 
@@ -26,7 +25,7 @@ function Checkbox({ text, isInSelect, name, onClick, id, isSelected }: CheckboxP
 
   function changeHandle(e: React.ChangeEvent<HTMLInputElement>) {
     if (isInSelect) {
-      if (text && onClick) onClick(e.target.checked, text)
+      onClick ? onClick(e.target.checked, name) : null
       setSelected(e.target.checked)
     } else {
       addFilter(id, e.target.checked)
@@ -40,7 +39,7 @@ function Checkbox({ text, isInSelect, name, onClick, id, isSelected }: CheckboxP
       >
         <input type='checkbox' className='absolute -z-10 opacity-0' name={name} onChange={changeHandle} />
       </div>
-      {text}
+      {name}
     </label>
   ) : (
     <label className='text-base-100-reg-100 md:text-base-500-reg-100-upper flex cursor-pointer items-center justify-between border-b border-t border-b-base-600/10 border-t-base-600/10 py-[16px] md:gap-[10px] md:border-none md:py-0'>

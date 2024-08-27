@@ -42,7 +42,7 @@ function Selector({ values, isRadio, showTitle, name, id, className }: FilterSel
   function showSelected() {
     const selectedNames = selectedValues.size ? Array.from(selectedValues).join(', ') : 'Выбрать'
 
-    if (selectedNames.length > 25) return selectedNames.slice(0, 25) + `...`
+    if (selectedNames.length > 20) return selectedNames.slice(0, 20) + `...`
 
     return selectedNames
   }
@@ -54,9 +54,8 @@ function Selector({ values, isRadio, showTitle, name, id, className }: FilterSel
       ) : (
         <Checkbox
           key={index}
-          text={value}
           isInSelect
-          name={name}
+          name={value}
           id={id}
           isSelected={selectedValues.has(value)}
           onClick={onOptionClick}

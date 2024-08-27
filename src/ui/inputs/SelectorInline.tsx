@@ -15,7 +15,7 @@ interface Props {
 
 function SelectorInline({ name, list, initValue, className, id, showTitle }: Props) {
   const [activeIndexes, setActiveIndexes] = useState<number[]>(initValue || [])
-  const { findFilter, addFilter } = useCategoryFilter()
+  const { findFilter, addFilter, filter } = useCategoryFilter()
 
   function getIndex(item: string | number): number {
     return list.indexOf(item)
