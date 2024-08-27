@@ -3,9 +3,14 @@
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+/** Функциональность для управления сортировкой категории в GET параметрах ссылки */
 export function useCategorySort() {
   const searchParams = useSearchParams()
 
+  /**
+   * Получить установленное в GET параметрах ссылки значение сортировки.
+   * @return Если значение установлено, то `string`, иначе `null`.
+   * */
   function getSortFromUrl(): string | null {
     return searchParams.has('sort') ? searchParams.get('sort') : null
   }
@@ -16,6 +21,11 @@ export function useCategorySort() {
     setSort(getSortFromUrl())
   }, [searchParams])
 
+  /**
+   * Устанавливает сортировку `value` в GET параметры ссылки.
+   * Если передано `null`, то GET параметр убирается.
+   * @param value - `string` для установки значения и `null`, чтобы убрать значение
+   * */
   function addSort(value: string | null) {
     const params = new URLSearchParams(searchParams.toString())
 

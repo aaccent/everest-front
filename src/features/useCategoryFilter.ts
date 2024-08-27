@@ -1,24 +1,7 @@
 'use client'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-
-function convertToBase64(array: any[]) {
-  const string = JSON.stringify(array)
-  const buffer = new TextEncoder().encode(string)
-  const utf8Arr = Array.from(buffer)
-  const utf8 = utf8Arr.map((byte) => String.fromCodePoint(byte)).join('')
-  return btoa(utf8)
-}
-
-function convertBase64ToArray(base64: string) {
-  const utf8 = atob(base64)
-  const byteArr = utf8.split('').map((char) => char.codePointAt(0))
-
-  // @ts-ignore
-  const utf8Arr = Uint8Array.from(byteArr)
-  const str = new TextDecoder().decode(utf8Arr)
-  return JSON.parse(str)
-}
+import { convertToBase64, convertBase64ToArray } from '@/features/convertBase64'
 
 export interface Filter {
   id: number
@@ -94,7 +77,9 @@ export function useCategoryFilter() {
       newFilter[sameId].value = value
     }
 
-    window.history.replaceState(null, '', `?filter=${encodeURIComponent(convertToBase64(newFilter))}`)
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('filter', decodeURIComponent(convertToBase64(newFilter)))
+    window.history.replaceState(null, '', `?${params.toString()}`)
   }
 
   return { filter, getFiltersSearchParams, parseSearchParamsToFilter, addFilter, findFilter, setFilters }
