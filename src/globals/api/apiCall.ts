@@ -72,7 +72,12 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   const { method = 'POST', request } = options
 
   let url = new URL(`${process.env.NEXT_PUBLIC_API_URL}${uri}`).toString()
-  const fetchInit: RequestInit = { method }
+  const fetchInit: RequestInit = {
+    method,
+    headers: {
+      Accept: 'application/json',
+    },
+  }
 
   if (request && method === 'POST') {
     fetchInit.body = JSON.stringify(request)
@@ -88,9 +93,9 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     url += `?${searchParams.toString()}`
   }
   if (method === 'POST') {
-    fetchInit.headers = {
+    fetchInit.headers = Object.assign(fetchInit.headers || {}, {
       'Content-Type': 'application/json',
-    }
+    })
   }
 
   const res = await fetch(url, fetchInit)
