@@ -10,9 +10,8 @@ const PRICE_PLACEHOLDER = 'нет цены'
  * иначе результат конвертации.
  */
 function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) {
-  if (!rawPrice) return null
-
   if (typeof rawPrice === 'number') return rawPrice
+  if (!rawPrice) return null
 
   const price = parseInt(rawPrice)
   if (Number.isNaN(price)) return null
@@ -34,8 +33,9 @@ function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) 
  * * `number` - возвращает форматированную строку.
  */
 export function formatPriceShortBy(price: number | string | null | undefined, onlyNumbers = false) {
-  const _price = safeConvertToPriceNumber(price)
-  if (!_price) return PRICE_PLACEHOLDER
+  const _price = typeof price !== 'number' ? safeConvertToPriceNumber(price) : price
+
+  if (_price === undefined || _price === null) return PRICE_PLACEHOLDER
 
   let shortPrice = _price
   const digits = _price.toString().length

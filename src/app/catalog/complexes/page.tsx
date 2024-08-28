@@ -1,9 +1,6 @@
 import React from 'react'
 import { getComplexes } from '@/globals/api'
 import CatalogContent from '@/layout/catalog/CatalogContent'
-import { viewFunctions } from '@/features/viewFunctions'
-import ComplexFullCard from '@/components/Cards/Complex/ComplexFullCard'
-import ComplexCard from '@/components/Cards/Complex/ComplexCard'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
 
 async function Page() {
@@ -14,9 +11,15 @@ async function Page() {
     name: 'Жилые Комплексы',
   }
 
+  async function getObjects(filter: string | undefined, sort: string | undefined) {
+    'use server'
+    const category = await getComplexes(filter, sort)
+    return category.objects
+  }
+
   return (
     <CategoryLayout category={_category}>
-      <CatalogContent {...viewFunctions(_category, ComplexFullCard, ComplexCard)} />
+      <CatalogContent type='complex' category={_category} initList={data.objects} getObjects={getObjects} />
     </CategoryLayout>
   )
 }

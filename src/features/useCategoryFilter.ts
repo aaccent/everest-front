@@ -16,7 +16,7 @@ export function useCategoryFilter() {
    * @return `base64` строку
    */
   function getFiltersSearchParams() {
-    return searchParams.has('filter') ? searchParams.get('filter') : null
+    return searchParams.get('filter')
   }
 
   /**
@@ -78,7 +78,7 @@ export function useCategoryFilter() {
     }
 
     const params = new URLSearchParams(searchParams.toString())
-    params.set('filter', decodeURIComponent(convertToBase64(newFilter)))
+    params.set('filter', convertToBase64(newFilter))
     window.history.replaceState(null, '', `?${params.toString()}`)
   }
 

@@ -4,14 +4,19 @@ import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 
 type Request = APIRequest<{
   chainUrl?: string
+  filter: string | undefined
+  sort: string | undefined
 }>
 
 type Response = APIResponse<Category<ComplexCard>>
 
-export async function getComplexes(): Promise<Category<false, ComplexCard>> {
+export async function getComplexes(
+  filter: string | undefined = undefined,
+  sort: string | undefined = undefined,
+): Promise<Category<false, ComplexCard>> {
   const res = await apiCall<Request | false, Response>(`/catalog/new-buildings`, {
     method: 'GET',
-    request: { chainUrl: 'complexes' },
+    request: { chainUrl: 'complexes', sort, filter },
   })
 
   return {
