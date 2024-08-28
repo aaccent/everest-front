@@ -41,7 +41,7 @@ function ObjectCard({ item, category }: Props) {
           <ActionButton className='before:bg-icon-heart' />
         </div>
         <Link href={link}>
-          <Img className='h-[340px] w-[512px] rounded-[20px]' src='/no-photo.jpg' width={512} height={340} />
+          <Img className='h-[340px] w-[512px] rounded-[20px]' src={item.mainImageUrl} width={512} height={340} />
         </Link>
       </div>
       <Link href={link}>

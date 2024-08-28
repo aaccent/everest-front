@@ -26,7 +26,10 @@ export interface ComplexCard {
   address: string | null
 }
 
-export type LayoutObject = Pick<ObjectCard, 'id' | 'seoUrl' | 'name' | 'description' | 'priceDiscount'> & {
+export type LayoutObject = Pick<
+  ObjectCard,
+  'id' | 'seoUrl' | 'name' | 'description' | 'priceDiscount' | 'mainImageUrl'
+> & {
   title: string
   h1: string
   dealType: string

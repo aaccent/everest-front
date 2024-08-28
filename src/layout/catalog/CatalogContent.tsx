@@ -2,15 +2,30 @@
 import React, { useContext } from 'react'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import Container from '@/layout/Container'
+import { Props as CategoryObjectsHookProps, useCategoryObjects } from '@/features/useCategoryObject'
+import { CategoryForGeneratingLink } from '@/features/link'
+import { ComplexCard, LayoutObject } from '@/types/Complex'
+import { ObjectCard } from '@/types/ObjectCard'
 
 type CatalogContentProps = {
-  tileView: React.ReactNode
-  listView: React.ReactNode
+  category: CategoryForGeneratingLink
   tileClassName?: string
   listClassName?: string
-}
+} & (
+  | ({
+      type: 'complex'
+    } & CategoryObjectsHookProps<ComplexCard>)
+  | ({
+      type: 'secondary'
+    } & CategoryObjectsHookProps<ObjectCard>)
+  | ({
+      type: 'layout'
+    } & CategoryObjectsHookProps<LayoutObject>)
+)
 
-function CatalogContent({ tileView, listView, tileClassName, listClassName }: CatalogContentProps) {
+function CatalogContent({ type, category, initList, getObjects, tileClassName, listClassName }: CatalogContentProps) {
+  const { list, isLoading } = useCategoryObjects<ObjectCard>({ initList, getObjects })
+
   const { view } = useContext(CategoryContext)
 
   const onMoreBtnClick = () => {}

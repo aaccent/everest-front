@@ -1,5 +1,3 @@
-import objects from '@/globals/mock-data/objects.json'
-
-export async function getObjects(type: string) {
-  return objects.find((obj) => obj.type === type)
+export async function getObjects(filter: any, sort: any) {
+  return
 }
