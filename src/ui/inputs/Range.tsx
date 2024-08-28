@@ -20,9 +20,9 @@ function Range({ id, min, max, units = '', className, name, showTitle }: RangePr
   const step = 0.1
 
   useEffect(() => {
-    const currentFilters = findFilter<{ id: number; value: { min: number; max: number } }>(id)
+    const currentFilters = findFilter<{ id: number; value: number[] }>(id)
     if (currentFilters) {
-      setValue(currentFilters.value)
+      setValue({ min: currentFilters.value[0], max: currentFilters.value[1] })
     }
   }, [])
 
@@ -48,7 +48,7 @@ function Range({ id, min, max, units = '', className, name, showTitle }: RangePr
     if (+numberValue[0] > value.max) return setValue({ min, max: value.max })
     setValue({ min: +numberValue, max: value.max })
     setTimeout(() => {
-      if (+numberValue !== value.min) addFilter(id, { min: +numberValue, max: value.max })
+      if (+numberValue !== value.min) addFilter(id, [+numberValue, value.max])
     }, 1500)
   }
   const onMaxInputChange = (newValue: string) => {
@@ -57,7 +57,7 @@ function Range({ id, min, max, units = '', className, name, showTitle }: RangePr
     if (!numberValue || +numberValue > max || +numberValue[0] < value.min) return
     setValue({ min: value.min, max: +numberValue })
     setTimeout(() => {
-      if (+numberValue !== value.max) addFilter(id, { min: value.min, max: +numberValue })
+      if (+numberValue !== value.max) addFilter(id, [value.min, +numberValue])
     }, 1500)
   }
 
@@ -130,7 +130,7 @@ function Range({ id, min, max, units = '', className, name, showTitle }: RangePr
               value={value.min}
               min={min}
               max={max}
-              onMouseUp={() => addFilter(id, value)}
+              onMouseUp={() => addFilter(id, [value.min, value.max])}
             />
             <input
               type='range'
@@ -140,7 +140,7 @@ function Range({ id, min, max, units = '', className, name, showTitle }: RangePr
               onChange={onMaxValChange}
               className='track-transparent'
               value={value.max}
-              onMouseUp={() => addFilter(id, value)}
+              onMouseUp={() => addFilter(id, [value.min, value.max])}
             />
           </div>
 

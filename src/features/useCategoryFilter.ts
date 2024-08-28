@@ -5,7 +5,7 @@ import { convertToBase64, convertBase64ToArray } from '@/features/convertBase64'
 
 export interface Filter {
   id: number
-  value: string[] | (string | number)[] | { min: number; max: number } | boolean
+  value: string[] | (string | number)[] | boolean
 }
 
 export function useCategoryFilter() {

@@ -1,7 +1,6 @@
 import { FilterType, FilterView } from '@/types/FiltersType'
 import Selector from '@/ui/inputs/Selector'
 import SelectorInline from '@/ui/inputs/SelectorInline'
-import { formatPriceShortBy } from '@/features/price'
 import Range from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
 import React from 'react'
@@ -39,13 +38,10 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
           />
         )
       case 'range':
-        const isPrice = filter.name === 'Стоимость'
-        const min = isPrice ? +formatPriceShortBy(filter.value.min, true) : filter.value.min
-        const max = isPrice ? +formatPriceShortBy(filter.value.max, true) : filter.value.max
         return (
           <Range
-            min={min}
-            max={max}
+            min={filter.value.min}
+            max={filter.value.max}
             id={filter.id}
             key={filter.id}
             name={filter.name}
