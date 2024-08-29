@@ -1,5 +1,5 @@
+'use client'
 import React from 'react'
-
 import ComplexCard from '@/components/Cards/Complex/ComplexCard'
 import Carousel, {
   CarouselInner,
