@@ -18,7 +18,7 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
       case 'multilist':
         return (
           <Selector
-            values={filter.value}
+            values={filter.value.value}
             name={filter.name}
             key={filter.id}
             id={filter.id}
@@ -29,7 +29,7 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
       case 'inline-multilist':
         return (
           <SelectorInline
-            list={filter.value}
+            list={filter.value.value}
             key={filter.id}
             id={filter.id}
             name={filter.name}
@@ -40,10 +40,9 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
       case 'range':
         return (
           <Range
-            min={filter.value.min}
-            max={filter.value.max}
+            min={filter.value.value.min}
+            max={filter.value.value.max}
             id={filter.id}
-            key={filter.id}
             name={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}

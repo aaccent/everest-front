@@ -24,16 +24,20 @@ export type FilterType<T extends FilterView> = {
 
 export type Choice = {
   fieldType: 'multilist' | 'inline-multilist'
-  value: string[]
+  value: {
+    value: string[]
+  }
 }
 export type Range = {
   fieldType: 'range'
-  value: { min: number; max: number }
+  value: { value: { min: number; max: number } }
 }
 
 export type Toggle = {
   fieldType: 'toggle'
-  value: boolean
+  value: {
+    value: boolean
+  }
 }
 
 export type FilterView = Choice | Range | Toggle
