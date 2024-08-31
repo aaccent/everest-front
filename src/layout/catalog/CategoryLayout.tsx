@@ -15,7 +15,7 @@ interface Props extends PropsWithChildren {
 
 async function CategoryLayout({ category, children }: Props) {
   const amount = category.objects.length
-  const filters = await getQuickFilters(category.seoUrl)
+  const filters = await getQuickFilters(category.breadcrumbs[0].seo)
 
   function showSubCategories() {
     if (!category.categories) return null
