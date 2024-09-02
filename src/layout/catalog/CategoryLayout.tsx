@@ -43,7 +43,7 @@ async function CategoryLayout({ category, children }: Props) {
           </ul>
         </Container>
       )}
-      <QuickFilter amount={amount} filters={filters} />
+      <QuickFilter amount={amount} filters={filters} categoryName={category.breadcrumbs[0].seo} />
       {children}
     </CategoryProvider>
   )

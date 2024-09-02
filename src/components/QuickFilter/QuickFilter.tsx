@@ -11,21 +11,22 @@ import SortButton from '@/components/QuickFilter/SortButton'
 interface Props {
   amount: number
   filters: QuickFilters
+  categoryName: string
 }
 
-function QuickFilter({ amount, filters }: Props) {
+function QuickFilter({ amount, filters, categoryName }: Props) {
   return (
     <Container>
       <div className='mb-[32px] mt-[40px] flex items-center justify-between rounded-[24px] bg-base-200 p-[20px] md:w-full md:flex-col md:items-start md:justify-start md:p-[32px] md:pb-[18px]'>
         <div className='flex w-full items-center justify-between md:hidden'>
-          <DetailFilterButton />
+          <DetailFilterButton category={categoryName} />
           <span className='text-base-300-lg-100 text-base-600/50'>
             Найдено {amount} {flatPlural.get(amount)}
           </span>
           <MapObjectsButton />
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>
-          <DetailFilterButton className='mr-[16px]' />
+          <DetailFilterButton className='mr-[16px]' category={categoryName} />
           <div className='flex gap-[16px]'>{showFilterItems(filters.filters, true)}</div>
           <MapObjectsButton className='ml-auto' />
         </div>

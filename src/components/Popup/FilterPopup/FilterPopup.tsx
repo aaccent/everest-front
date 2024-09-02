@@ -3,22 +3,21 @@ import React, { useEffect, useState } from 'react'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
-import { usePathname } from 'next/navigation'
 import { getFilters } from '@/globals/api/methods/getFilters'
 import { FilterBlock } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import MobileFilterItem from '@/components/Popup/FilterPopup/MobileFilterItem'
 import { showFilterItems } from '@/features/showFilters'
 
-function FilterPopup() {
+interface Props {
+  category: string
+}
+
+function FilterPopup({ category }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>()
-  const path = usePathname()
 
   useEffect(() => {
-    const pathObjectType = path.match(/[^\/][a-zA-Z0-9_-]+$/g)
-    if (pathObjectType?.length) {
-      getFilters(pathObjectType[0]).then((res) => setFilters(res.filters))
-    }
+    getFilters(category).then((res) => setFilters(res.filters))
   }, [])
 
   function showFiltersBlocks() {
