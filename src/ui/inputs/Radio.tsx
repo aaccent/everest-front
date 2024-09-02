@@ -9,8 +9,7 @@ interface RadioProps {
 
 function Radio({ text, name, onClick }: RadioProps) {
   const clickHandle = () => {
-    if (!onClick) return
-    onClick(text)
+    onClick?.(text)
   }
   return (
     <label className='text-base-500-reg-100-upper' onClick={clickHandle}>

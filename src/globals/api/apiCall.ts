@@ -5,7 +5,7 @@ import { LogError } from '@/globals/api/LogError'
  * @param object - Любой объект
  */
 function convertObjectToURLSearchParams(object: object) {
-  const filtered = Object.entries(object).filter(([_, value]) => value !== undefined)
+  const filtered = Object.entries(object).filter(([_, value]) => value !== undefined && value !== null)
   return new URLSearchParams(filtered)
 }
 
@@ -81,9 +81,9 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
 
   if (request && method === 'POST') {
     fetchInit.body = JSON.stringify(request)
-    fetchInit.headers = {
+    fetchInit.headers = Object.assign(fetchInit.headers || {}, {
       'Content-Type': 'application/json',
-    }
+    })
   }
 
   if (request && method === 'GET') {
@@ -93,9 +93,9 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     url += `?${searchParams.toString()}`
   }
   if (method === 'POST') {
-    fetchInit.headers = Object.assign(fetchInit.headers || {}, {
+    fetchInit.headers = {
       'Content-Type': 'application/json',
-    })
+    }
   }
 
   const res = await fetch(url, fetchInit)

@@ -21,10 +21,10 @@ export function useCategoryFilter() {
 
   /**
    * Читает из GET параметров ссылки значение фильтра,
-   * парсит из base64 в JSON строку, затем в [Filter[]]{@link Filter}.
+   * парсит из base64 в JSON строку, затем в массив {@link Filter} элементов.
    * @return `Filter[]` если значение установлено, иначе пустой массив.
    */
-  const parseSearchParamsToFilter = useCallback((): Filter[] | [] => {
+  const parseSearchParamsToFilter = useCallback((): Filter[] => {
     const currentFilter = getFiltersSearchParams()
     if (!currentFilter) return []
     return convertBase64ToArray(currentFilter)
@@ -82,5 +82,5 @@ export function useCategoryFilter() {
     window.history.replaceState(null, '', `?${params.toString()}`)
   }
 
-  return { filter, getFiltersSearchParams, parseSearchParamsToFilter, addFilter, findFilter, setFilters }
+  return { filter, addFilter, findFilter, setFilters }
 }

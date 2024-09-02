@@ -20,9 +20,9 @@ function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) 
 }
 
 /**
- * Форматирование `price` для вывода вида `от 5.5 млн ₽` или 5.5 если true указан вторым аргументом
+ * Форматирование `price` для вывода вида `от 5.5 млн ₽` или `5.5` если `onlyNumbers` будет `true`
  * @param price Любой примитивный тип
- * @param onlyNumbers булево значение.
+ * @param onlyNumbers  вернуть только цифры без единицы измерения и валюты.
  * Переданный тип преобразуется в нужный для работы функции.
  * Безопасно работает с пустыми и неопределенными значениями
  * @return В зависимости от типа `price`:
@@ -33,7 +33,7 @@ function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) 
  * * `number` - возвращает форматированную строку.
  */
 export function formatPriceShortBy(price: number | string | null | undefined, onlyNumbers = false) {
-  const _price = typeof price !== 'number' ? safeConvertToPriceNumber(price) : price
+  const _price = safeConvertToPriceNumber(price)
 
   if (_price === undefined || _price === null) return PRICE_PLACEHOLDER
 

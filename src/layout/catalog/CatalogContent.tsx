@@ -7,7 +7,6 @@ import { CategoryForGeneratingLink } from '@/features/link'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import { ComplexCard as ComplexCardType, LayoutObject } from '@/types/Complex'
 import ComplexCard from '@/components/Cards/Complex/ComplexCard'
-import ComplexFullCard from '@/components/Cards/Complex/ComplexFullCard'
 import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
 import ObjectFullCard from '@/components/Cards/ObjectCard/ObjectFullCard'
 
@@ -46,11 +45,7 @@ function CatalogContent({ type, category, initList, getObjects, tileClassName, l
     return list.map((item) => {
       switch (type) {
         case 'complex':
-          return view === 'tile' ? (
-            <ComplexCard item={item as ComplexCardType} />
-          ) : (
-            <ComplexFullCard item={item as ComplexCardType} />
-          )
+          return <ComplexCard item={item as ComplexCardType} view={view} />
         case 'secondary':
           return view === 'tile' ? (
             <ObjectCard category={category} item={item as ObjectCardType} />

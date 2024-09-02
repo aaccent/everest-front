@@ -1,12 +1,9 @@
 import React from 'react'
 
-import Image from 'next/image'
-import CardInfo from '@/components/Cards/Complex/CardInfo'
-import Link from 'next/link'
-
 import { Tag } from '@/types/Tag'
-import { createComplexLink } from '@/features/link'
 import { ComplexCard as ComplexCardType } from '@/types/Complex'
+import ComplexListCard from '@/components/Cards/Complex/ComplexListCard'
+import { ComplexTileCard } from '@/components/Cards/Complex/ComplexTileCard'
 
 export function showTags(tags: Tag[]) {
   return tags.map((tag) => (
@@ -21,27 +18,15 @@ export function showTags(tags: Tag[]) {
 
 interface Props {
   item: ComplexCardType
+  view?: 'tile' | 'list'
 }
 
-function ComplexCard({ item }: Props) {
-  const link = createComplexLink(item)
+function ComplexCard({ item, view = 'tile' }: Props) {
+  if (view === 'list') {
+    return <ComplexListCard item={item} />
+  }
 
-  return (
-    <div className='relative block h-[250px] w-full overflow-hidden rounded-[20px] md:h-[388px] md:rounded-[24px]'>
-      <Link href={link}>
-        <Image
-          className='object-cover object-center transition-transform duration-500 hover:scale-110 hover:transition-transform hover:duration-500'
-          src='/no-photo.jpg'
-          alt=''
-          fill
-        />
-      </Link>
-      <div className='absolute left-[8px] top-[10px] flex gap-[4px] md:left-[14px] md:top-[14px]'>
-        {item.tags && showTags(item.tags)}
-      </div>
-      <CardInfo complex={item} link={link} />
-    </div>
-  )
+  return <ComplexTileCard item={item} />
 }
 
 export default ComplexCard
