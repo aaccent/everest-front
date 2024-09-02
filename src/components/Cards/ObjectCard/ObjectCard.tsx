@@ -1,11 +1,11 @@
 import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
-import Img from '@/ui/Img'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
 import { LayoutObject } from '@/types/Complex'
 import { Tag } from '@/types/Tag'
+import Gallery from '@/components/Cards/ObjectCard/Gallery'
 
 function InfoItem({ children }: PropsWithChildren) {
   return <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[8px]'>{children}</li>
@@ -31,17 +31,18 @@ function ObjectCard({ item, category }: Props) {
     <div className='group/object-card'>
       <div className='relative mb-[22px]'>
         {'tags' in item && (
-          <ul className='absolute left-[16px] top-[16px] flex gap-[4px] md:right-[14px] md:top-[14px]'>
+          <ul className='absolute left-[16px] top-[16px] z-10 flex gap-[4px] md:right-[14px] md:top-[14px]'>
             {showTags(item.tags)}
           </ul>
         )}
-        <div className='absolute right-[16px] top-[16px] flex gap-[4px] md:right-[14px] md:top-[14px] md:gap-[8px]'>
+        <div className='absolute right-[16px] top-[16px] z-10 flex gap-[4px] md:right-[14px] md:top-[14px] md:gap-[8px]'>
           <ActionButton className='before:bg-icon-scale md:opacity-0' />
           <ActionButton className='before:bg-icon-address md:opacity-0' />
           <ActionButton className='before:bg-icon-heart' />
         </div>
         <Link href={link}>
-          <Img className='h-[340px] w-[512px] rounded-[20px]' src='/no-photo.jpg' width={512} height={340} />
+          <Gallery />
+          {/*<Img className='h-[340px] w-[512px] rounded-[20px]' src={item.mainImageUrl} width={512} height={340} />*/}
         </Link>
       </div>
       <Link href={link}>
