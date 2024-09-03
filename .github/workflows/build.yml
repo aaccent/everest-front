@@ -50,6 +50,9 @@ jobs:
       - name: 'output ls'
         run: ls -la
 
+      - name: 'output ls .next'
+        run: ls -la .next
+
       - name: Upload build to artifact
         uses: actions/upload-artifact@v4
         with:
