@@ -11,7 +11,7 @@ async function Page() {
     name: 'Жилые Комплексы',
   }
 
-  async function getObjects(filter: string | undefined, sort: string | undefined) {
+  async function getObjects(filter: string | null, sort: string | null) {
     'use server'
     const category = await getComplexes(filter, sort)
     return category.objects

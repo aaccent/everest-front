@@ -40,7 +40,7 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
         return (
           <Range
             min={filter.value ? filter.value.min : 0}
-            max={filter.value ? filter.value.max : 174000000}
+            max={filter.value ? filter.value.max : 0}
             id={filter.id}
             name={filter.name}
             showTitle={!isQuick}
