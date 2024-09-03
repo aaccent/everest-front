@@ -1,22 +1,27 @@
 'use client'
-import React, { InputHTMLAttributes, useRef, useState } from 'react'
+import React, { InputHTMLAttributes, useState } from 'react'
+import { InputError, useInputRegister } from '@/features/form/useInputRegister'
 
-type HTMLInputProps = Pick<InputHTMLAttributes<HTMLInputElement>, 'type' | 'name' | 'placeholder' | 'value'>
+type RequiredHTMLInputProps = Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value'>
+type NotRequiredHTMLInputProps = Required<Pick<InputHTMLAttributes<HTMLInputElement>, 'name'>>
 
-type Props = HTMLInputProps & {
-  checked?: boolean
-  onDark?: boolean
-  className?: string
-}
+type Props = RequiredHTMLInputProps &
+  NotRequiredHTMLInputProps & {
+    checked?: boolean
+    onDark?: boolean
+    className?: string
+    type: 'tel' | 'text' | 'email' | 'password'
+  }
 
-function Input({ className: labelClassName, type, onDark, checked, ...inputProps }: Props) {
+function Input({ className: labelClassName, type = 'text', onDark, checked, ...inputProps }: Props) {
+  const { inputRef, error } = useInputRegister(inputProps.name, { type })
+
   const [resetBtnCLass, setResetBtnClass] = useState<string>('hidden')
   const passwordState = {
     icon: 'bg-icon-eye-closed',
     type: type,
   }
   const [showPassword, setShowPassword] = useState(passwordState)
-  const inputRef = useRef<HTMLInputElement>(null)
 
   function className() {
     return onDark
@@ -65,15 +70,18 @@ function Input({ className: labelClassName, type, onDark, checked, ...inputProps
   }
 
   return (
-    <label className={`relative block w-full ${labelClassName}`}>
-      <input
-        ref={inputRef}
-        type={showPassword.type}
-        className={`text-base-400-reg-100 w-full rounded-[16px] py-[18px] pl-[14px] pr-[40px] uppercase text-base-650 placeholder:text-base-150 focus-visible:border-base-600 focus-visible:outline-0 ${checkedClassName()} ${className()}`}
-        onChange={type !== 'password' ? onChange : undefined}
-        {...inputProps}
-      />
-      {Icon()}
+    <label className={`relative flex w-full flex-col ${labelClassName}`}>
+      <div>
+        <input
+          ref={inputRef}
+          type={showPassword.type}
+          className={`text-base-400-reg-100 w-full rounded-[16px] py-[18px] pl-[14px] pr-[40px] uppercase text-base-650 placeholder:text-base-150 focus-visible:border-base-600 focus-visible:outline-0 ${checkedClassName()} ${className()}`}
+          onChange={type !== 'password' ? onChange : undefined}
+          {...inputProps}
+        />
+        {Icon()}
+      </div>
+      <InputError code={error} />
     </label>
   )
 }
