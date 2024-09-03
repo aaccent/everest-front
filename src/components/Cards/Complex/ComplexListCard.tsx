@@ -28,7 +28,7 @@ interface Props {
   item: ComplexCard
 }
 
-function ComplexFullCard({ item }: Props) {
+function ComplexListCard({ item }: Props) {
   return (
     <Link href={createComplexLink(item)} className='relative flex rounded-[32px] border border-base-400 p-[40px]'>
       <Img
@@ -67,4 +67,4 @@ function ComplexFullCard({ item }: Props) {
   )
 }
 
-export default ComplexFullCard
+export default ComplexListCard

@@ -1,35 +1,39 @@
-export type FiltersType<Type extends Choice | MinMax | Toggle> = {
-  name: string
-  filters: FilterInput<Type>[]
+export type Filters = {
+  filters: FilterBlock[]
   sorts: Sort[]
 }
 
-type Sort = {
+export type QuickFilters = {
+  filters: FilterType<Choice | Range | Toggle>[]
+  sorts: Sort[]
+}
+
+export type Sort = {
   name: string
   value: string
 }
 
-type FilterInput<View> = {
-  [key in keyof View]: View[key]
-} & { title: string }
-
-export type Choice = {
-  type: 'radio' | 'multilist' | 'selector-inline' | 'tabs'
-  value: string[]
-  defaultValue?: string
+export type FilterBlock = {
+  name: string
+  filters: FilterType<Choice | Range | Toggle>[]
 }
 
-export type MinMax = {
-  type: 'range' | 'range-price'
-  value: {
-    min: number
-    max: number
-  }
-  defaultValue?: [number, number]
+export type FilterType<T extends FilterView> = {
+  [key in keyof T]: T[key]
+} & { id: number; name: string }
+
+export type Choice = {
+  fieldType: 'multilist' | 'inline-multilist'
+  value: string[]
+}
+export type Range = {
+  fieldType: 'range'
+  value: { min: number; max: number }
 }
 
 export type Toggle = {
-  type: 'toggle'
+  fieldType: 'toggle'
   value: boolean
-  defaultValue?: boolean
 }
+
+export type FilterView = Choice | Range | Toggle

@@ -7,13 +7,15 @@ import { suggestionPlural } from '@/features/pluralRules'
 import QuickFilter from '@/components/QuickFilter/QuickFilter'
 import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 import SubCategoryLink from '@/components/SubCategoryLink'
+import { getQuickFilters } from '@/globals/api/methods/getFilters'
 
 interface Props extends PropsWithChildren {
   category: AnyCategory
 }
 
-function CategoryLayout({ category, children }: Props) {
+async function CategoryLayout({ category, children }: Props) {
   const amount = category.objects.length
+  const filters = await getQuickFilters(category.breadcrumbs[0].seo)
 
   function showSubCategories() {
     if (!category.categories) return null
@@ -41,7 +43,7 @@ function CategoryLayout({ category, children }: Props) {
           </ul>
         </Container>
       )}
-      <QuickFilter category={category} />
+      <QuickFilter amount={amount} filters={filters} categoryName={category.breadcrumbs[0].seo} />
       {children}
     </CategoryProvider>
   )
