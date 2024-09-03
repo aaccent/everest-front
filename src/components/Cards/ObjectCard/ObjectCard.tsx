@@ -42,7 +42,6 @@ function ObjectCard({ item, category }: Props) {
         </div>
         <Link href={link}>
           <Gallery />
-          {/*<Img className='h-[340px] w-[512px] rounded-[20px]' src={item.mainImageUrl} width={512} height={340} />*/}
         </Link>
       </div>
       <Link href={link}>
