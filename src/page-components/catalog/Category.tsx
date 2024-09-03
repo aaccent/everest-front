@@ -9,7 +9,7 @@ interface Props {
 }
 
 function Category({ category }: Props) {
-  async function getObjects(filter: string | undefined, sort: string | undefined) {
+  async function getObjects(filter: string | undefined | null, sort: string | undefined | null) {
     'use server'
     const category = await getNewBuildings(filter, sort)
     return category.objects

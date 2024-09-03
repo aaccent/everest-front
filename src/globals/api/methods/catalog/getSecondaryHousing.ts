@@ -4,13 +4,13 @@ import { ObjectCard } from '@/types/ObjectCard'
 
 type Response = APIResponse<Category<RawCategory, ObjectCard>>
 type Request = APIRequest<{
-  filter: string | undefined
-  sort: string | undefined
+  filter: string | undefined | null
+  sort: string | undefined | null
 }>
 
 export async function getSecondaryHousing(
-  filter: string | undefined = undefined,
-  sort: string | undefined = undefined,
+  filter: string | undefined | null = undefined,
+  sort: string | undefined | null = undefined,
 ) {
   const res = await apiCall<Request, Response>('/catalog/secondary-housing', {
     method: 'GET',
