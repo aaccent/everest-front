@@ -13,6 +13,7 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
   const classNameMobile = `border border-base-400`
 
   return filters.map((filter) => {
+    if (!filter.value) return null
     switch (filter.fieldType) {
       case 'multilist':
         return (

@@ -10,7 +10,7 @@ interface Props {
   category: CategoryForGeneratingLink
 }
 
-function ObjectFullCard({ item, category }: Props) {
+function ObjectListCard({ item, category }: Props) {
   const link = generateObjectLink(item, category)
 
   return (
@@ -42,4 +42,4 @@ function ObjectFullCard({ item, category }: Props) {
   )
 }
 
-export default ObjectFullCard
+export default ObjectListCard
