@@ -41,23 +41,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: 'output ls'
-        run: ls -la
-
       - name: Build Next.JS app
         run: pnpm run build
-
-      - name: 'output ls'
-        run: ls -la
-
-      - name: 'output ls .next'
-        run: ls -la .next
 
       - name: Upload build to artifact
         uses: actions/upload-artifact@v4
         with:
           name: build
-          path: .next
+          path: ./.next/*
           retention-days: 1
 
   linting:
