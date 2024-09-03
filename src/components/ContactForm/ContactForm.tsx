@@ -11,7 +11,7 @@ import { getAddresses, getSocials } from '@/globals/api'
 import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
 import { callFormHandler } from '@/features/actions/call-form'
-import Form from '@/ui/Form'
+import ClientForm from '@/ui/ClientForm'
 
 interface socialItem {
   name: string
@@ -49,7 +49,7 @@ async function ContactForm() {
         <div className='text-base-200-lg-100 mb-[26px] text-base-150 md:mb-[56px] md:max-w-[576px]'>
           Наш менеджер свяжется с вами в течение 15 минут или закажите звонок, перезвоним в удобное время
         </div>
-        <Form className='flex flex-col gap-[8px] md:block' action={callFormHandler}>
+        <ClientForm className='flex flex-col gap-[8px] md:block' action={callFormHandler}>
           <Input
             className='w-full md:mr-[16px] md:inline-flex md:w-[330px]'
             type='text'
@@ -76,7 +76,7 @@ async function ContactForm() {
               </Link>
             </div>
           </div>
-        </Form>
+        </ClientForm>
         <div className='text-base-200-lg-100 mb-[20px] text-center text-base-150 md:text-left'>
           Связаться c помощью:
         </div>

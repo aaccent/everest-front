@@ -6,7 +6,7 @@ import bgLogo from '@/assets/static/call-popup-bg.svg'
 import Link from 'next/link'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import { callFormHandler } from '@/features/actions/call-form'
-import Form from '@/ui/Form'
+import ClientForm from '@/ui/ClientForm'
 import { getSocials } from '@/globals/api/methods/getSocials'
 import { socialItem } from '@/layout/Footer/Footer'
 
@@ -41,7 +41,7 @@ function CallPopup() {
         <div className='text-base-200-lg-100 mb-[40px] text-base-650 md:w-full md:max-w-[472px]'>
           Мандрикова Наталья Вячеславовна свяжется вами в течение 15 минут или выберите удобное время
         </div>
-        <Form className='mb-[40px] flex flex-col gap-[8px] md:block' action={callFormHandler}>
+        <ClientForm className='mb-[40px] flex flex-col gap-[8px] md:block' action={callFormHandler}>
           <Input
             className='w-full md:mr-[12px] md:inline-flex md:w-[275px]'
             type='text'
@@ -59,7 +59,7 @@ function CallPopup() {
           <SubmitButton className='mt-[32px] w-full' variation='primary' size='medium'>
             Отправить
           </SubmitButton>
-        </Form>
+        </ClientForm>
         <div className='text-base-200-lg-100 mb-[20px] text-base-650'>Связаться c помощью:</div>
         <div className='flex items-center gap-[61px]'>
           <div className='relative flex w-fit items-center gap-[10px] after:absolute after:right-[-30px] after:top-1/2 after:block after:h-[31px] after:w-[1px] after:-translate-y-1/2 after:bg-base-500'>
