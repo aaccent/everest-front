@@ -4,9 +4,10 @@ import Link from 'next/link'
 import Img from '@/ui/Img'
 import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
+import { LayoutObject } from '@/types/Complex'
 
 interface Props {
-  item: ObjectCard
+  item: ObjectCard | LayoutObject
   category: CategoryForGeneratingLink
 }
 

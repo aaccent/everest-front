@@ -2,9 +2,10 @@ import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import ObjectListCard from '@/components/Cards/ObjectCard/ObjectListCard'
 import { CategoryForGeneratingLink } from '@/features/link'
 import ObjectTileCard from '@/components/Cards/ObjectCard/ObjectTileCard'
+import { LayoutObject } from '@/types/Complex'
 
 interface Props {
-  item: ObjectCardType
+  item: ObjectCardType | LayoutObject
   view?: 'tile' | 'list'
   category: CategoryForGeneratingLink
 }
