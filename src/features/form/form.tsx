@@ -70,16 +70,39 @@ type FormInput = {
     }
 )
 
-type InputsMap = {
+export type InputsMap = {
   [Key: string]: FormInput
 }
 
-type CustomInputsMap<TMap extends { [key: string]: Pick<FormInput, 'type'> & Partial<Pick<FormInput, 'value'>> }> = {
+interface CustomInputJSX<TInputType extends InputType = InputType> {
+  name: string
+  type: TInputType
+  value?: InputValue<TInputType>
+}
+
+export interface CustomInputJSXMap {
+  [index: string]: CustomInputJSX
+}
+
+export type CustomInputsMap<
+  TMap extends { [key: string]: Pick<FormInput, 'type'> & Partial<Pick<FormInput, 'value'>> },
+> = {
   [K in keyof TMap]: Pick<FormInput, 'name' | 'setError' | 'required'> & {
     type: TMap[K]['type']
     get value(): InputValue<TMap[K]['type']>
   }
 }
+
+export type ConvertToCustomInputsMap<TInputNames extends CustomInputJSXMap> = CustomInputsMap<{
+  [Key in TInputNames[keyof TInputNames]['name']]: TInputNames[Key]['value'] extends undefined
+    ? {
+        type: TInputNames[Key]['type']
+      }
+    : {
+        type: TInputNames[Key]['type']
+        get value(): TInputNames[Key]['value']
+      }
+}>
 
 export type RegisterInputProps = Pick<FormInput, 'type' | 'setError' | 'required' | 'value'>
 
@@ -104,7 +127,7 @@ interface FormContextObject {
 
 export const FormContext = createContext<FormContextObject>({} as FormContextObject)
 
-interface FormImperativeRef {
+export interface FormImperativeRef {
   /** Вернуть все поля к исходным значениям */
   reset: () => void
   /**
@@ -146,7 +169,7 @@ interface Props extends PropsWithChildren {
  * Хранит в референсе поля зарегистрированные через [registerInput()]{@link registerInput}.
  */
 export const Form = forwardRef<FormImperativeRef, Props>(function Form(
-  { children, onSubmit, onChange, onCompleteFill, onErrorFill, validator, className }: Props,
+  { children, onSubmit, onChange, onCompleteFill, onErrorFill, validator, className },
   ref,
 ) {
   const formRef = useRef<HTMLFormElement>(null)
