@@ -15,7 +15,7 @@ export default function CallForm({ className, children }: Props) {
   const formRef = useRef<FormImperativeRef>(null)
 
   async function callFormHandler(inputs: InputsMap) {
-    const _inputs = inputs as Inputs
+    const _inputs = inputs as unknown as Inputs
 
     const ok = await sendCallRequest({
       phone: _inputs.tel.value,

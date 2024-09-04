@@ -82,10 +82,46 @@ interface CustomInputJSX<TInputType extends InputType = InputType> {
   value?: InputValue<TInputType>
 }
 
+/**
+ * Используется когда имена и типы полей используются в
+ * разных местах одного и того же типа формы.
+ *
+ * Для одной формы имеет смысл использовать в связке с {@link ConvertToCustomInputsMap}.
+ *
+ * Тип нужно использовать только с `as const` и `satisfies`.
+ * ```tsx
+ * const FORM_INPUTS = {
+ *   PHONE: { name: 'telephone', type: 'tel' },
+ * } as const satisfies CustomInputJSX
+ *
+ * function SomeForm() {
+ *    return <form>
+ *      <input name={FORM_INPUTS.PHONE.name} type={FORM_INPUTS.PHONE.type} />
+ *    </form>
+ * }
+ * ```
+ * @see ConvertToCustomInputsMap
+ */
 export interface CustomInputJSXMap {
   [index: string]: CustomInputJSX
 }
 
+/**
+ * Используется в обработчиках форм, которые обернуты в {@link FormContext} с известными именами полей.
+ * Тип существует потому что реализовать подобную типизацию внутрь {@link InputsMap} сложнее.
+ *
+ * ```ts
+ * type Inputs = CustomInputsMap<{ phone: { type: 'tel' } }>
+ *
+ * function formHandler(inputs: InputsMap) {
+ *    const _inputs = inputs as unknown as Inputs
+ *    console.log(_inputs.phone.value)
+ * }
+ * ```
+ *
+ * Если был создан объект с помощью {@link CustomInputJSXMap}, то
+ * возможно тебе нужен {@link ConvertToCustomInputsMap}.
+ */
 export type CustomInputsMap<
   TMap extends { [key: string]: Pick<FormInput, 'type'> & Partial<Pick<FormInput, 'value'>> },
 > = {
@@ -95,6 +131,23 @@ export type CustomInputsMap<
   }
 }
 
+/**
+ * Используется для конвертирования {@link CustomInputJSXMap} в {@link CustomInputsMap}.
+ * Без `CustomInputJSXMap` не имеет смысла.
+ *
+ * ```ts
+ * const FORM_INPUTS = {
+ *   PHONE: { name: 'telephone', type: 'tel' },
+ * } as const satisfies CustomInputJSX
+ *
+ * type Inputs = ConvertToCustomInputsMap<typeof FORM_INPUTS>
+ *
+ * function formHandler(inputs: InputsMap) {
+ *    const _inputs = inputs as unknown as Inputs
+ *    console.log(_inputs.phone.value)
+ * }
+ * ```
+ */
 export type ConvertToCustomInputsMap<TInputNames extends CustomInputJSXMap> = CustomInputsMap<{
   [Key in TInputNames[keyof TInputNames]['name']]: TInputNames[Key]['value'] extends undefined
     ? {
@@ -143,7 +196,7 @@ interface Props extends PropsWithChildren {
   ref?: RefObject<HTMLFormElement>
   /**
    * Вызывается когда пользователь нажимает `submit` кнопку и
-   * все `inputs` проходят валидацию через {@link inputsValidator} и {@link validator}
+   * все `inputs` проходят валидацию через {@link isInputValid} и {@link validator}
    * @param inputs - Все зарегистрированные поля в форме
    */
   onSubmit?: (inputs: InputsMap) => void
@@ -153,7 +206,7 @@ interface Props extends PropsWithChildren {
    * */
   onChange?: (input: FormInput) => void
   /**
-   * Вызывается во время выполнения {@link inputsValidator} когда пользователь нажимает `submit`.
+   * Вызывается во время выполнения {@link allInputsValid} когда пользователь нажимает `submit`.
    * Если функция вернёт `false`, то проверка не пройдет и не вызовется {@link onSubmit}.
    * @param inputs
    */
