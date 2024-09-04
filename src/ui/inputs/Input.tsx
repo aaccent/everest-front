@@ -2,11 +2,13 @@
 import React, { InputHTMLAttributes, useState } from 'react'
 import { InputError, useInputRegister } from '@/features/form/useInputRegister'
 
-type RequiredHTMLInputProps = Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value'>
-type NotRequiredHTMLInputProps = Required<Pick<InputHTMLAttributes<HTMLInputElement>, 'name'>>
+type NotRequiredHTMLInputProps = Partial<
+  Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'required'>
+>
+type RequiredHTMLInputProps = Required<Pick<InputHTMLAttributes<HTMLInputElement>, 'name'>>
 
-type Props = RequiredHTMLInputProps &
-  NotRequiredHTMLInputProps & {
+type Props = NotRequiredHTMLInputProps &
+  RequiredHTMLInputProps & {
     checked?: boolean
     onDark?: boolean
     className?: string
@@ -59,12 +61,14 @@ function Input({ className: labelClassName, type = 'text', onDark, checked, ...i
         className={`absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 ${showPassword.icon} border-none bg-auto bg-center bg-no-repeat opacity-50`}
         onClick={onEyeClick}
         type='button'
+        tabIndex={-1}
       ></button>
     ) : (
       <button
         className={`${resetBtnCLass} absolute right-[18px] top-[50%] size-[20px] -translate-y-2/4 border-none bg-icon-close bg-auto bg-center bg-no-repeat`}
         onClick={onResetBtnClick}
         type='button'
+        tabIndex={-1}
       ></button>
     )
   }
