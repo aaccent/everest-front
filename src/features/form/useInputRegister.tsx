@@ -25,7 +25,7 @@ export function InputError({ code }: InputErrorProps) {
   if (!code) return null
 
   const unexpected = INPUT_ERROR_TEXTS[INPUT_ERRORS_CODES.UNEXPECTED]
-  return <div className='text-system-red'>{INPUT_ERROR_TEXTS[code] || unexpected}</div>
+  return <div className='text-base-400-reg-100 mt-[4px] text-system-red'>{INPUT_ERROR_TEXTS[code] || unexpected}</div>
 }
 
 type InputRegisterProps<TInputType extends InputType = InputType> = {
