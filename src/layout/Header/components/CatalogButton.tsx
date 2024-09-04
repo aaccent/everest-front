@@ -3,7 +3,7 @@
 import React, { useContext } from 'react'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import Button, { ButtonVariation } from '@/ui/buttons/Button'
-import { toggleScroll } from '@/features/scroll'
+import { hideScroll, showScroll } from '@/features/scroll'
 import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
 import { usePathname } from 'next/navigation'
 
@@ -27,7 +27,7 @@ function DesktopCatalogButton({ toggleMenu }: ButtonProps) {
 
   let type: ButtonVariation = 'third'
 
-  if (pathName !== '/' || header.scrolled) {
+  if (pathName !== '/' || header.scrolled || header.hasMenu(HEADER_MENUS.RENT, HEADER_MENUS.SALE)) {
     type = 'primary'
   }
 
@@ -48,10 +48,11 @@ function CatalogButton() {
   function toggleMenu() {
     if (header.hasMenu(HEADER_MENUS.CATALOG)) {
       header.setMenu(null)
+      showScroll()
     } else {
       header.setMenu(HEADER_MENUS.CATALOG)
+      hideScroll()
     }
-    toggleScroll()
   }
 
   return (

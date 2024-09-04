@@ -22,6 +22,10 @@ export const filters = plugin(function ({ addUtilities }) {
       filter:
         'brightness(0) saturate(100%) invert(63%) sepia(12%) saturate(2257%) hue-rotate(124deg) brightness(97%) contrast(93%)',
     },
+    '.filter-base-650': {
+      filter:
+        'brightness(0) saturate(100%) invert(100%) sepia(4%) saturate(119%) hue-rotate(329deg) brightness(116%) contrast(93%)',
+    },
   })
 })
 
@@ -52,6 +56,67 @@ export const scrollbarUtilities = plugin(function ({ addUtilities, theme }) {
       },
       '&::-webkit-scrollbar-track': {
         backgroundColor: theme('colors.base.400'),
+      },
+    },
+  })
+})
+export const inputRangeTrackUtilities = plugin(function ({ addUtilities }) {
+  addUtilities({
+    '.track-transparent': {
+      position: 'absolute',
+      pointerEvents: 'none',
+      appearance: 'none',
+      width: '100%',
+      opacity: '0',
+      zIndex: '3',
+      padding: '0',
+      top: '0',
+      bottom: '0',
+
+      '&::-ms-track': {
+        appearance: 'none',
+        background: 'transparent',
+        border: 'transparent',
+      },
+      '&::-moz-range-track': {
+        appearance: 'none',
+        background: 'transparent',
+        border: 'transparent',
+      },
+      '&:focus::-webkit-slider-runnable-track': {
+        appearance: 'none',
+        background: 'transparent',
+        border: 'transparent',
+      },
+      '&::-ms-thumb': {
+        appearance: 'none',
+        pointerEvents: 'all',
+        borderRadius: '0px',
+        border: '0 none',
+        cursor: 'pointer',
+        zIndex: '5',
+        width: '12px',
+        height: '12px',
+      },
+      '&::-moz-range-thumb': {
+        appearance: 'none',
+        pointerEvents: 'all',
+        borderRadius: '0px',
+        border: '0 none',
+        cursor: 'pointer',
+        zIndex: '5',
+        width: '12px',
+        height: '12px',
+      },
+      '&::-webkit-slider-thumb': {
+        appearance: 'none',
+        pointerEvents: 'all',
+        borderRadius: '0px',
+        border: '0 none',
+        cursor: 'pointer',
+        zIndex: '5',
+        width: '12px',
+        height: '12px',
       },
     },
   })
@@ -91,4 +156,16 @@ export const miscUtilities = plugin(function ({ matchUtilities, theme }) {
     },
     { values: theme('bg-size') },
   )
+  matchUtilities({
+    thumb: () => ({
+      appearance: 'none',
+      pointerEvents: 'all',
+      borderRadius: '0px',
+      border: '0 none',
+      cursor: 'grab',
+      zIndex: '5',
+      width: '12px',
+      height: '12px',
+    }),
+  })
 })

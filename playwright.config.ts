@@ -1,4 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
+import { config } from '@dotenvx/dotenvx'
+
+config()
 
 export default defineConfig({
   testDir: './src/__tests__',
@@ -25,7 +28,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: process.env.NODE_ENV === 'development' ? '' : 'pnpm run start:ci',
+    command: 'pnpm run start:ci',
     url: `http://localhost:${process.env.PORT}`,
     reuseExistingServer: !process.env.CI,
   },
