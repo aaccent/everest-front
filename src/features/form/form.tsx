@@ -244,7 +244,7 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
         unregisterInput,
       }}
     >
-      <form className={className} onSubmit={_onSubmit} onChange={_onChange} ref={formRef}>
+      <form className={className} onSubmit={_onSubmit} onChange={_onChange} ref={formRef} noValidate>
         {children}
       </form>
     </FormContext.Provider>
