@@ -56,6 +56,9 @@ export function useInputRegister(name: string, props: InputRegisterProps) {
       get required() {
         return inputRef.current?.required || false
       },
+      get error() {
+        return error
+      },
       setError,
       type: props.type,
     })

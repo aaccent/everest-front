@@ -10,6 +10,7 @@ import React, {
   SetStateAction,
   useImperativeHandle,
   useRef,
+  useState,
 } from 'react'
 import { INPUT_ERRORS_CODES, InputErrorCode } from '@/features/form/useInputRegister'
 
@@ -47,6 +48,7 @@ type FormInput = {
    * */
   setError: Dispatch<SetStateAction<InputErrorCode | null>>
   get required(): boolean
+  get error(): InputErrorCode | null
 } & (
   | {
       type: 'text' | 'password' | 'tel' | 'email'
@@ -104,7 +106,7 @@ export type ConvertToCustomInputsMap<TInputNames extends CustomInputJSXMap> = Cu
       }
 }>
 
-export type RegisterInputProps = Pick<FormInput, 'type' | 'setError' | 'required' | 'value'>
+export type RegisterInputProps = Pick<FormInput, 'type' | 'setError' | 'required' | 'value' | 'error'>
 
 interface FormContextObject {
   /**
@@ -173,6 +175,7 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
   ref,
 ) {
   const formRef = useRef<HTMLFormElement>(null)
+  const [error, setError] = useState<boolean>(false)
   const inputsRef = useRef<InputsMap>({})
 
   useImperativeHandle(ref, () => ({
@@ -208,18 +211,24 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
 
   /**
    * Проверяет поля с помощью функции {@link isInputValid}.
-   * @param onlyCheck - Если `true`, то у полей с ошибками вызывается функция {@link FormInput.setError}
+   * @param onlyCheck - Если `false`, то у полей с ошибками вызывается функция {@link FormInput.setError} и
+   * у формы будет выставляться состояние {@link error}.
    */
-  function allInputsValid(onlyCheck?: boolean) {
+  function allInputsValid(onlyCheck: boolean = false) {
     let valid = true
 
     for (const name in inputsRef.current) {
-      const check = isInputValid(inputsRef.current[name])
+      const input = inputsRef.current[name]
+      const check = isInputValid(input)
+
+      if (check.valid && !input.error) {
+        input.setError(null)
+      }
       if (check.valid) continue
 
       valid = false
       if (!onlyCheck) {
-        inputsRef.current[name].setError(check.error)
+        input.setError(check.error)
       }
     }
 
@@ -227,6 +236,9 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
       valid = validator(Object.values(inputsRef.current))
     }
 
+    if (!onlyCheck) {
+      setError(!valid)
+    }
     return valid
   }
 
@@ -244,7 +256,10 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
 
     onChange?.(inputsRef.current[targetInput.name])
 
-    if (allInputsValid(true)) {
+    // `!error` - Если в форме есть ошибка, то проверять верно ли введено поле.
+    // Если пользователь попробовал отправить форму и получил ошибки на поля,
+    // то при вводе у полей при вводе будут автоматически пропадать ошибки
+    if (allInputsValid(!error)) {
       onCompleteFill?.()
     } else {
       onErrorFill?.()
@@ -261,6 +276,9 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
       },
       get required() {
         return props.required
+      },
+      get error() {
+        return props.error
       },
       name,
     }
