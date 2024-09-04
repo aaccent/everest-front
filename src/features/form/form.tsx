@@ -183,7 +183,11 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
     return result
   }
 
-  function allInputsValid() {
+  /**
+   * Проверяет поля с помощью функции {@link isInputValid}.
+   * @param onlyCheck - Если `true`, то у полей с ошибками вызывается функция {@link FormInput.setError}
+   */
+  function allInputsValid(onlyCheck?: boolean) {
     let valid = true
 
     for (const name in inputsRef.current) {
@@ -191,7 +195,9 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
       if (check.valid) continue
 
       valid = false
-      inputsRef.current[name].setError(check.error)
+      if (!onlyCheck) {
+        inputsRef.current[name].setError(check.error)
+      }
     }
 
     if (validator) {
@@ -215,7 +221,7 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
 
     onChange?.(inputsRef.current[targetInput.name])
 
-    if (allInputsValid()) {
+    if (allInputsValid(true)) {
       onCompleteFill?.()
     } else {
       onErrorFill?.()
