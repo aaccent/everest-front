@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import Input from '@/ui/inputs/Input'
-import SubmitButton from '@/ui/buttons/SubmitButton'
 import Image from 'next/image'
-import bgLogo from '@/assets/static/call-popup-bg.svg'
 import Link from 'next/link'
+
+import Input from '@/ui/inputs/Input'
+import CallForm from '@/ui/forms/CallForm'
+import SubmitButton from '@/ui/buttons/SubmitButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
-import { callFormHandler } from '@/features/forms'
-import Form from '@/ui/Form'
+
 import { getSocials } from '@/globals/api/methods/getSocials'
 import { socialItem } from '@/layout/Footer/Footer'
+
+import bgLogo from '@/assets/static/call-popup-bg.svg'
+import { INPUT_NAMES } from '@/globals/inputs/call-form'
 
 function CallPopup() {
   const [socials, setSocials] = useState<socialItem[]>()
@@ -41,15 +44,28 @@ function CallPopup() {
         <div className='text-base-200-lg-100 mb-[40px] text-base-650 md:w-full md:max-w-[472px]'>
           Мандрикова Наталья Вячеславовна свяжется вами в течение 15 минут или выберите удобное время
         </div>
-        <Form className='mb-[40px] flex flex-col gap-[8px] md:block' action={callFormHandler}>
+        <CallForm className='mb-[40px] flex flex-col gap-[8px] md:block'>
           <Input
             className='w-full md:mr-[12px] md:inline-flex md:w-[275px]'
-            type='text'
-            name='name'
+            type={INPUT_NAMES.NAME.type}
+            name={INPUT_NAMES.NAME.name}
             placeholder='имя*'
+            required
           />
-          <Input className='w-full md:inline-flex md:w-[275px]' type='tel' placeholder='Телефон*' name='tel' />
-          <Input className='w-full md:mt-[16px]' type='tel' placeholder='время звонка*' name='time' />
+          <Input
+            className='w-full md:inline-flex md:w-[275px]'
+            type={INPUT_NAMES.PHONE.type}
+            name={INPUT_NAMES.PHONE.name}
+            placeholder='Телефон*'
+            required
+          />
+          <Input
+            className='w-full md:mt-[16px]'
+            type={INPUT_NAMES.CALL_TIME.type}
+            name={INPUT_NAMES.CALL_TIME.name}
+            placeholder='время звонка*'
+            required
+          />
           <div className='text-base-400-lg-100 mt-[20px] text-base-650'>
             Нажимая кнопку «Отправить» вы даете свое согласие на{' '}
             <Link href='#' className='text-base-100'>
@@ -59,7 +75,7 @@ function CallPopup() {
           <SubmitButton className='mt-[32px] w-full' variation='primary' size='medium'>
             Отправить
           </SubmitButton>
-        </Form>
+        </CallForm>
         <div className='text-base-200-lg-100 mb-[20px] text-base-650'>Связаться c помощью:</div>
         <div className='flex items-center gap-[61px]'>
           <div className='relative flex w-fit items-center gap-[10px] after:absolute after:right-[-30px] after:top-1/2 after:block after:h-[31px] after:w-[1px] after:-translate-y-1/2 after:bg-base-500'>

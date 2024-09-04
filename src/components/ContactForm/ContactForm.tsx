@@ -4,14 +4,14 @@ import Link from 'next/link'
 
 import Input from '@/ui/inputs/Input'
 import Section from '@/layout/Section'
+import CallForm from '@/ui/forms/CallForm'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
 import { getAddresses, getSocials } from '@/globals/api'
 
 import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
-import { callFormHandler } from '@/features/forms'
-import Form from '@/ui/Form'
+import { INPUT_NAMES } from '@/globals/inputs/call-form'
 
 interface socialItem {
   name: string
@@ -49,20 +49,29 @@ async function ContactForm() {
         <div className='text-base-200-lg-100 mb-[26px] text-base-150 md:mb-[56px] md:max-w-[576px]'>
           Наш менеджер свяжется с вами в течение 15 минут или закажите звонок, перезвоним в удобное время
         </div>
-        <Form className='flex flex-col gap-[8px] md:block' action={callFormHandler}>
+        <CallForm className='flex flex-col gap-[8px] md:block'>
           <Input
             className='w-full md:mr-[16px] md:inline-flex md:w-[330px]'
-            type='text'
-            name='name'
+            type={INPUT_NAMES.NAME.type}
+            name={INPUT_NAMES.NAME.name}
             placeholder='имя*'
+            required
             onDark
           />
-          <Input className='w-full md:inline-flex md:w-[330px]' type='tel' placeholder='Телефон*' name='tel' onDark />
+          <Input
+            className='w-full md:inline-flex md:w-[330px]'
+            type={INPUT_NAMES.PHONE.type}
+            name={INPUT_NAMES.PHONE.name}
+            placeholder='Телефон*'
+            required
+            onDark
+          />
           <Input
             className='w-full md:mb-[32px] md:mt-[16px]'
-            type='tel'
+            type={INPUT_NAMES.CALL_TIME.type}
+            name={INPUT_NAMES.CALL_TIME.name}
             placeholder='время звонка*'
-            name='time'
+            required
             onDark
           />
           <div className='md:mb-[67px] md:flex md:items-center md:gap-[24px]'>
@@ -76,7 +85,7 @@ async function ContactForm() {
               </Link>
             </div>
           </div>
-        </Form>
+        </CallForm>
         <div className='text-base-200-lg-100 mb-[20px] text-center text-base-150 md:text-left'>
           Связаться c помощью:
         </div>

@@ -7,7 +7,7 @@ interface Props extends PropsWithChildren {
   action?: (formData: FormData) => Promise<boolean>
 }
 
-function Form({ className, action, children }: Props) {
+function ClientForm({ className, action, children }: Props) {
   const formRef = useRef<HTMLFormElement>(null)
 
   async function _action(formData: FormData) {
@@ -26,4 +26,4 @@ function Form({ className, action, children }: Props) {
   )
 }
 
-export default Form
+export default ClientForm
