@@ -227,6 +227,12 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
       ...props,
       /* as any Для фикса ошибки TypeScript. Очередная эквилибристика типами.*/
       type: props.type as any,
+      get value() {
+        return props.value
+      },
+      get required() {
+        return props.required
+      },
       name,
     }
   }
