@@ -1,22 +1,39 @@
+'use client'
 import { FilterType, FilterView } from '@/types/FiltersType'
 import Selector from '@/ui/inputs/Selector'
 import SelectorInline from '@/ui/inputs/SelectorInline'
 import Range from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
 import React from 'react'
+import { Filter, useCategoryFilter } from '@/features/useCategoryFilter'
 
 /** @param filters Полученный от бэкенда массив фильтров
  * @param isQuick  Если `true`, то показывает заголовок поля фильтра, иначе скрывает.*/
 
-export function showFilterItems(filters: FilterType<FilterView>[], isQuick: boolean = false) {
+interface FilterItemsProps {
+  filters: FilterType<FilterView>[]
+  isQuick?: boolean
+}
+
+export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   const classNameDesktop = !isQuick ? `md:!border md:border-base-400` : ''
   const classNameMobile = `border border-base-400`
+  const filterManager = useCategoryFilter()
+
+  function onChange(id: number, value: Filter['value']) {
+    filterManager.addFilter(id, value)
+  }
+
+  function getCurrentFilter<T extends Filter['value']>(id: number) {
+    return filterManager.findFilter<{ id: number; value: T }>(id)
+  }
 
   return filters.map((filter) => {
     if (!filter.value) return null
 
     switch (filter.fieldType) {
-      case 'multilist':
+      case 'multilist': {
+        const activeValues = new Set(getCurrentFilter<string[]>(filter.id)?.value)
         return (
           <Selector
             values={filter.value}
@@ -25,9 +42,15 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
             id={filter.id}
             showTitle={!isQuick}
             className={classNameDesktop}
+            onChange={onChange}
+            initValue={activeValues}
           />
         )
-      case 'inline-multilist':
+      }
+      case 'inline-multilist': {
+        const activeValues = getCurrentFilter<Array<string>>(filter.id)?.value
+        const activeValueIndexes = activeValues?.map((activeVal) => filter.value.indexOf(activeVal))
+
         return (
           <SelectorInline
             list={filter.value}
@@ -36,9 +59,14 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
             name={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
+            onChange={onChange}
+            initValue={activeValueIndexes}
           />
         )
-      case 'range':
+      }
+      case 'range': {
+        const rawValue = getCurrentFilter<[number, number]>(filter.id)?.value
+        const value = rawValue ? { min: rawValue[0], max: rawValue[1] } : undefined
         return (
           <Range
             min={filter.value.min}
@@ -47,10 +75,20 @@ export function showFilterItems(filters: FilterType<FilterView>[], isQuick: bool
             name={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
+            onChange={onChange}
+            initValue={value}
           />
         )
+      }
       case 'toggle':
-        return <Checkbox name={filter.name} id={filter.id} />
+        return (
+          <Checkbox
+            name={filter.name}
+            id={filter.id}
+            onChange={onChange}
+            initValue={getCurrentFilter<boolean>(filter.id)?.value}
+          />
+        )
     }
   })
 }

@@ -24,7 +24,12 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
     async function updateState() {
       setIsLoading(true)
 
-      const data = await getObjects(filter.str, sort)
+      let data: TType[]
+      try {
+        data = await getObjects(filter.str, sort)
+      } catch {
+        data = []
+      }
 
       setList(data)
 

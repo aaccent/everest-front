@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { useCategoryFilter } from '@/features/useCategoryFilter'
 
 interface Props {
   id: number
@@ -11,31 +10,20 @@ interface Props {
   /** Индексы активных элементов при первой отрисовки компонента */
   initValue?: number[]
   className?: string
+  onChange?: (id: number, value: Array<string | number>) => void
 }
 
-function SelectorInline({ name, list, initValue, className, id, showTitle }: Props) {
+function SelectorInline({ name, list, initValue, className, id, showTitle, onChange }: Props) {
   const [activeIndexes, setActiveIndexes] = useState<number[]>(initValue || [])
-  const { findFilter, addFilter, filter } = useCategoryFilter()
-
-  function getIndex(item: string | number): number {
-    return list.indexOf(item)
-  }
 
   function getItem(index: number): number | string {
     return list[index]
   }
 
   useEffect(() => {
-    const currentFilter = findFilter<{ id: number; value: string[] | number[] }>(id)
-    if (currentFilter) {
-      setActiveIndexes(currentFilter.value.map((item) => getIndex(item)))
-    }
-  }, [])
-
-  useEffect(() => {
     if (!activeIndexes.length) return
-    const filterItems = activeIndexes.map((index) => getItem(index))
-    addFilter(id, filterItems)
+    const values = activeIndexes.map((index) => getItem(index))
+    onChange?.(id, values)
   }, [activeIndexes])
 
   const value = activeIndexes.map((index) => getItem(index)).join(',')

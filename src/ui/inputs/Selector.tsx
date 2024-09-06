@@ -1,8 +1,7 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Checkbox from '@/ui/inputs/Checkbox'
 import Radio from '@/ui/inputs/Radio'
-import { useCategoryFilter } from '@/features/useCategoryFilter'
 
 interface FilterSelectProps {
   id: number
@@ -11,21 +10,22 @@ interface FilterSelectProps {
   showTitle: boolean
   name: string
   className?: string
+  onChange?: (id: number, value: Array<string | number>) => void
+  initValue?: Set<string>
 }
 
-function Selector({ values, isRadio, showTitle, name, id, className }: FilterSelectProps) {
+function Selector({
+  values,
+  isRadio,
+  showTitle,
+  name,
+  id,
+  className,
+  onChange,
+  initValue = new Set<string>(),
+}: FilterSelectProps) {
   const [opened, setOpened] = useState(false)
-  const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set())
-  const { addFilter, findFilter } = useCategoryFilter()
-
-  useEffect(() => {
-    const currentFilter = findFilter<{ id: number; value: string[] }>(id)
-    if (currentFilter) {
-      setSelectedValues(new Set([...currentFilter.value]))
-    }
-  }, [])
-
-  const openedClasses = opened ? 'opened' : ''
+  const [selectedValues, setSelectedValues] = useState<Set<string>>(initValue)
 
   const onOptionClick = (checked: boolean, clickedValue: string) => {
     const newValues = new Set([...selectedValues])
@@ -36,7 +36,7 @@ function Selector({ values, isRadio, showTitle, name, id, className }: FilterSel
     }
 
     setSelectedValues(newValues)
-    addFilter(id, [...newValues])
+    onChange?.(id, [...newValues])
   }
 
   function showSelected() {
@@ -57,7 +57,7 @@ function Selector({ values, isRadio, showTitle, name, id, className }: FilterSel
           isInSelect
           name={value}
           id={id}
-          isSelected={selectedValues.has(value)}
+          initValue={selectedValues.has(value)}
           onClick={onOptionClick}
         />
       ),
@@ -68,7 +68,7 @@ function Selector({ values, isRadio, showTitle, name, id, className }: FilterSel
     <div className='flex flex-col gap-[8px]'>
       {showTitle && <div className='text-base-500-reg-100-upper'>{name}</div>}
       <div
-        className={`group relative select-none border-b border-b-base-600/10 bg-base-100 pb-[18px] first:border-t first:border-t-base-600/10 first:pt-[18px] md:w-[260px] md:rounded-[16px] md:border-b-0 md:px-[16px] md:py-[12px] md:first:border-t-0 ${openedClasses} ${className}`}
+        className={`group relative select-none border-b border-b-base-600/10 bg-base-100 pb-[18px] first:border-t first:border-t-base-600/10 first:pt-[18px] md:w-[260px] md:rounded-[16px] md:border-b-0 md:px-[16px] md:py-[12px] md:first:border-t-0 ${opened ? 'opened' : ''} ${className}`}
         onClick={() => setOpened((prev) => !prev)}
       >
         <button
