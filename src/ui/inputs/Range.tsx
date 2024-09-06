@@ -1,30 +1,23 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { IMaskInput } from 'react-imask'
-import { useCategoryFilter } from '@/features/useCategoryFilter'
 
 interface RangeProps {
   id: number
   min: number
   max: number
+  initValue?: { min: number; max: number }
   units?: string
   className?: string
   name: string
   showTitle?: boolean
+  onChange?: (id: number, value: [number, number]) => void
 }
 
-function Range({ id, min, max, units = '', className, name, showTitle }: RangeProps) {
-  const [value, setValue] = useState({ min, max })
-  const { addFilter, findFilter } = useCategoryFilter()
+function Range({ id, min, max, units = '', className, name, showTitle, onChange, initValue }: RangeProps) {
+  const [value, setValue] = useState(initValue || { min, max })
 
   const step = 0.1
-
-  useEffect(() => {
-    const currentFilters = findFilter<{ id: number; value: number[] }>(id)
-    if (currentFilters) {
-      setValue({ min: currentFilters.value[0], max: currentFilters.value[1] })
-    }
-  }, [])
 
   const onMinValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value > value.max || +e.target.value < min) return
@@ -48,7 +41,7 @@ function Range({ id, min, max, units = '', className, name, showTitle }: RangePr
     if (+numberValue[0] > value.max) return setValue({ min, max: value.max })
     setValue({ min: +numberValue, max: value.max })
     setTimeout(() => {
-      if (+numberValue !== value.min) addFilter(id, [+numberValue, value.max])
+      if (+numberValue !== value.min) onChange?.(id, [+numberValue, value.max])
     }, 1500)
   }
   const onMaxInputChange = (newValue: string) => {
@@ -57,7 +50,7 @@ function Range({ id, min, max, units = '', className, name, showTitle }: RangePr
     if (!numberValue || +numberValue > max || +numberValue[0] < value.min) return
     setValue({ min: value.min, max: +numberValue })
     setTimeout(() => {
-      if (+numberValue !== value.max) addFilter(id, [value.min, +numberValue])
+      if (+numberValue !== value.max) onChange?.(id, [value.min, +numberValue])
     }, 1500)
   }
 
@@ -130,7 +123,7 @@ function Range({ id, min, max, units = '', className, name, showTitle }: RangePr
               value={value.min}
               min={min}
               max={max}
-              onMouseUp={() => addFilter(id, [value.min, value.max])}
+              onMouseUp={() => onChange?.(id, [value.min, value.max])}
             />
             <input
               type='range'
@@ -140,7 +133,7 @@ function Range({ id, min, max, units = '', className, name, showTitle }: RangePr
               onChange={onMaxValChange}
               className='track-transparent'
               value={value.max}
-              onMouseUp={() => addFilter(id, [value.min, value.max])}
+              onMouseUp={() => onChange?.(id, [value.min, value.max])}
             />
           </div>
 

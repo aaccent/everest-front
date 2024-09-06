@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
-import { showFilterItems } from '@/features/showFilters'
+import { FilterItems } from '@/features/FilterItems'
 
 export interface FilterItemProps {
   filters: FilterType<FilterView>[]
@@ -30,7 +30,9 @@ function MobileFilterItem({ filters, name }: FilterItemProps) {
           <div className='text-header-300'>{name}</div>
         </div>
 
-        <div className='mt-[33px] flex flex-col gap-[18px]'>{showFilterItems(filters)}</div>
+        <div className='mt-[33px] flex flex-col gap-[18px]'>
+          <FilterItems filters={filters} />
+        </div>
       </div>
     </div>
   )

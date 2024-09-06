@@ -5,7 +5,7 @@ import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import CatalogViewButton from '@/components/QuickFilter/CatalogViewButton'
 import { flatPlural } from '@/features/pluralRules'
 import { QuickFilters } from '@/types/FiltersType'
-import { showFilterItems } from '@/features/showFilters'
+import { FilterItems } from '@/features/FilterItems'
 import SortButton from '@/components/QuickFilter/SortButton'
 
 interface Props {
@@ -27,7 +27,9 @@ function QuickFilter({ amount, filters, categoryName }: Props) {
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>
           <DetailFilterButton className='mr-[16px]' category={categoryName} />
-          <div className='flex gap-[16px]'>{showFilterItems(filters.filters, true)}</div>
+          <div className='flex gap-[16px]'>
+            <FilterItems filters={filters.filters} isQuick />
+          </div>
           <MapObjectsButton className='ml-auto' />
         </div>
         <div className='hidden w-full items-center pt-[17px] md:flex'>

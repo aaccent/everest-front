@@ -7,7 +7,7 @@ import { getFilters } from '@/globals/api/methods/getFilters'
 import { FilterBlock } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import MobileFilterItem from '@/components/Popup/FilterPopup/MobileFilterItem'
-import { showFilterItems } from '@/features/showFilters'
+import { FilterItems } from '@/features/FilterItems'
 
 interface Props {
   category: string
@@ -28,7 +28,9 @@ function FilterPopup({ category }: Props) {
         </IsMobile>
         <IsDesktop>
           <div className='text-header-500 mb-[36px] text-base-600'>{block.name}</div>
-          <div className='flex flex-wrap gap-[24px]'>{showFilterItems(block.filters)}</div>
+          <div className='flex flex-wrap gap-[24px]'>
+            <FilterItems filters={block.filters} />
+          </div>
         </IsDesktop>
       </>
     ))

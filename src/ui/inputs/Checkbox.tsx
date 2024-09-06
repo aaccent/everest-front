@@ -1,25 +1,17 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { useCategoryFilter } from '@/features/useCategoryFilter'
+import React, { useState } from 'react'
 
 interface CheckboxProps {
   id: number
   isInSelect?: boolean
   name: string
   onClick?: (checked: boolean, value: string) => void
-  isSelected?: boolean
+  initValue?: boolean
+  onChange?: (id: number, value: boolean) => void
 }
 
-function Checkbox({ isInSelect, name, onClick, id, isSelected }: CheckboxProps) {
-  const [selected, setSelected] = useState(isSelected)
-  const { addFilter, findFilter } = useCategoryFilter()
-
-  useEffect(() => {
-    if (isInSelect) return
-
-    const currentFilter = findFilter<{ id: number; value: boolean }>(id)
-    if (currentFilter) setSelected(currentFilter.value)
-  }, [])
+function Checkbox({ isInSelect, name, onClick, id, initValue = false, onChange }: CheckboxProps) {
+  const [selected, setSelected] = useState<boolean>(initValue)
 
   const checkedClasses = selected ? 'bg-primary after:block after:size-[12px]' : ''
 
@@ -28,7 +20,7 @@ function Checkbox({ isInSelect, name, onClick, id, isSelected }: CheckboxProps) 
       onClick ? onClick(e.target.checked, name) : null
       setSelected(e.target.checked)
     } else {
-      addFilter(id, e.target.checked)
+      onChange?.(id, e.target.checked)
     }
   }
 
