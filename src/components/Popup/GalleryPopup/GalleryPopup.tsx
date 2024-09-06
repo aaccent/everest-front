@@ -35,7 +35,7 @@ function GalleryPopup({ list, activeSlideIndex }: GalleryPopupProps) {
 
   return (
     <Carousel
-      className='text-header-300 md:text-header-200 absolute top-[64px] h-[calc(100svh-64px)] w-full overflow-hidden rounded-t-[24px] text-base-100 md:uppercase'
+      className='text-header-300 md:text-header-200 absolute top-[64px] h-[calc(100svh-64px)] w-full overflow-hidden rounded-t-[24px] bg-base-100 text-base-100 md:bg-transparent md:uppercase'
       fade
       startIndex={activeSlideIndex}
     >

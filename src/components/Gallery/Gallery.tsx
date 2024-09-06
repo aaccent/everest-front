@@ -46,8 +46,7 @@ function MiniImages({ activeSlideIndex, children }: MiniImagesProps) {
   const { emblaApi } = useContext(CarouselContext)
 
   useEffect(() => {
-    if (activeSlideIndex > 3) return emblaApi?.scrollNext()
-    if (activeSlideIndex <= 3) return emblaApi?.scrollPrev()
+    emblaApi?.scrollTo(activeSlideIndex)
   }, [activeSlideIndex])
 
   return <>{children}</>
@@ -61,20 +60,24 @@ function Gallery({ list }: GalleryProps) {
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0)
   const { openPopup } = useContext(PopupContext)
 
+  const onSlideClickHandle = () => {
+    if (window.matchMedia('(min-width:768px)').matches) {
+      openPopup({
+        name: 'galleryPopup',
+        args: {
+          list,
+          activeSlideIndex,
+        },
+      })
+    }
+  }
+
   function showImages() {
     return list.map((image, i) => (
       <CarouselSlide
         key={i}
         className='relative before:absolute before:inset-0 before:z-10 before:bg-[linear-gradient(0deg,#000_0%,rgba(0,0,0,0)100%);] before:opacity-50'
-        onClick={() =>
-          openPopup({
-            name: 'galleryPopup',
-            args: {
-              list,
-              activeSlideIndex,
-            },
-          })
-        }
+        onClick={onSlideClickHandle}
       >
         <Img className='block h-full w-full' src={image} fill />
       </CarouselSlide>
@@ -83,7 +86,11 @@ function Gallery({ list }: GalleryProps) {
 
   function showThumbs() {
     return list.map((image, index) => (
-      <CarouselSlide className='relative flex !basis-1/4 justify-center' key={index}>
+      <CarouselSlide
+        className='relative flex !basis-1/4 cursor-pointer justify-center'
+        key={index}
+        onClick={() => setActiveSlideIndex(index)}
+      >
         <Img
           src={image}
           key={index}
@@ -101,6 +108,19 @@ function Gallery({ list }: GalleryProps) {
   return (
     <Carousel className='relative h-full' fade>
       <CarouselInner>{showImages()}</CarouselInner>
+      <button
+        type='button'
+        className='absolute right-[20px] top-[35px] size-[42px] rounded-full bg-base-650 bg-icon-zoom-arrows bg-default-auto md:hidden'
+        onClick={() =>
+          openPopup({
+            name: 'galleryPopup',
+            args: {
+              list,
+              activeSlideIndex,
+            },
+          })
+        }
+      />
       <Thumbs onSlideChange={setActiveSlideIndex}>
         <Carousel>
           <CarouselInner>
