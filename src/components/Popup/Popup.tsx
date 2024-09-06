@@ -4,12 +4,14 @@ import React, { createContext, PropsWithChildren, useRef, useState } from 'react
 import CallPopup from '@/components/Popup/CallPopup/CallPopup'
 import MapPopup from '@/components/Popup/MapPopup'
 import { hideScroll, showScroll } from '@/features/scroll'
+import GalleryPopup from '@/components/Popup/GalleryPopup/GalleryPopup'
 import FilterPopup from '@/components/Popup/FilterPopup/FilterPopup'
 
 const popups = {
   callPopup: CallPopup,
   mapPopup: MapPopup,
   filterPopup: FilterPopup,
+  galleryPopup: GalleryPopup,
 } as const
 
 type PopupName = keyof typeof popups
