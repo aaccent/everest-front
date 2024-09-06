@@ -82,5 +82,12 @@ export function useCategoryFilter() {
     window.history.replaceState(null, '', `?${params.toString()}`)
   }
 
-  return { filter, addFilter, findFilter, setFilters }
+  function clearFilters() {
+    setFilters({ str: '', parsed: [] })
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete('filter')
+    window.history.replaceState(null, '', `?${params.toString()}`)
+  }
+
+  return { filter, addFilter, findFilter, setFilters, clearFilters }
 }
