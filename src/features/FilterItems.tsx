@@ -48,8 +48,8 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
         )
       }
       case 'inline-multilist': {
-        const activeValues = getCurrentFilter<Array<string>>(filter.id)?.value
-        const activeValueIndexes = activeValues?.map((activeVal) => filter.value.indexOf(activeVal))
+        const activeValues = getCurrentFilter<Array<string>>(filter.id)?.value || []
+        const activeValueIndexes = activeValues.map((activeVal) => filter.value.indexOf(activeVal))
 
         return (
           <SelectorInline
@@ -59,14 +59,19 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             name={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
-            onChange={onChange}
             initValue={activeValueIndexes}
+            customValue={{
+              value: activeValueIndexes,
+              setValue: onChange,
+            }}
           />
         )
       }
       case 'range': {
         const rawValue = getCurrentFilter<[number, number]>(filter.id)?.value
-        const value = rawValue ? { min: rawValue[0], max: rawValue[1] } : undefined
+        const value = rawValue
+          ? { min: rawValue[0], max: rawValue[1] }
+          : { min: filter.value.min, max: filter.value.max }
         return (
           <Range
             min={filter.value.min}
@@ -75,8 +80,11 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             name={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
-            onChange={onChange}
             initValue={value}
+            customValue={{
+              value,
+              setValue: onChange,
+            }}
           />
         )
       }

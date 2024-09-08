@@ -10,26 +10,38 @@ interface Props {
   /** Индексы активных элементов при первой отрисовки компонента */
   initValue?: number[]
   className?: string
-  onChange?: (id: number, value: Array<string | number>) => void
+  customValue?: {
+    value: number[]
+    setValue: (id: number, value: Array<string | number>) => void
+  }
 }
 
-function SelectorInline({ name, list, initValue, className, id, showTitle, onChange }: Props) {
+function SelectorInline({ name, list, initValue, className, id, showTitle, customValue }: Props) {
   const [activeIndexes, setActiveIndexes] = useState<number[]>(initValue || [])
 
   function getItem(index: number): number | string {
     return list[index]
   }
 
-  useEffect(() => {
-    if (!activeIndexes.length) return
-    const values = activeIndexes.map((index) => getItem(index))
-    onChange?.(id, values)
-  }, [activeIndexes])
+  const _activeIndexes = customValue ? customValue.value : activeIndexes
+  const _setActiveIndexes = (value: number[]) => {
+    if (customValue) {
+      customValue.setValue(id, value)
+    } else {
+      setActiveIndexes(value)
+    }
+  }
 
-  const value = activeIndexes.map((index) => getItem(index)).join(',')
+  useEffect(() => {
+    if (!_activeIndexes.length) return
+    const values = _activeIndexes.map((index) => getItem(index))
+    _setActiveIndexes(values)
+  }, [_activeIndexes])
+
+  const value = _activeIndexes.map((index) => getItem(index)).join(',')
 
   function toggleActiveIndex(newValue: number) {
-    setActiveIndexes((currentValue) => {
+    _setActiveIndexes((currentValue) => {
       const copyValue = [...currentValue]
 
       if (copyValue.includes(newValue)) {
@@ -44,7 +56,7 @@ function SelectorInline({ name, list, initValue, className, id, showTitle, onCha
 
   function showItems(list: Props['list']) {
     return list.map((value, i) => {
-      const isActive = activeIndexes.includes(i)
+      const isActive = _activeIndexes.includes(i)
 
       return (
         <button

@@ -12,6 +12,7 @@ interface FilterSelectProps {
   className?: string
   onChange?: (id: number, value: Array<string | number>) => void
   initValue?: Set<string>
+  customValue?: Set<string>
 }
 
 function Selector({
@@ -22,13 +23,16 @@ function Selector({
   id,
   className,
   onChange,
-  initValue = new Set<string>(),
+  initValue = new Set(),
+  customValue,
 }: FilterSelectProps) {
   const [opened, setOpened] = useState(false)
-  const [selectedValues, setSelectedValues] = useState<Set<string>>(initValue)
+  const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set(initValue))
+
+  const _value = customValue || selectedValues
 
   const onOptionClick = (checked: boolean, clickedValue: string) => {
-    const newValues = new Set([...selectedValues])
+    const newValues = new Set([..._value])
     if (checked) {
       newValues.add(clickedValue)
     } else {
