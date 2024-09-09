@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Simulate } from 'react-dom/test-utils'
 import copy = Simulate.copy
 
@@ -14,36 +14,28 @@ interface Props {
   className?: string
   customValue?: {
     value: number[]
-    setValue: (id: number, value: number[]) => void
+    setValue: (id: number, value: (string | number)[]) => void
   }
 }
 
 function SelectorInline({ name, list, initValue, className, id, showTitle, customValue }: Props) {
   const [activeIndexes, setActiveIndexes] = useState<number[]>(initValue || [])
 
-  function getItem(index: number): number | string {
-    return list[index]
-  }
-
   const _activeIndexes = customValue ? customValue.value : activeIndexes
   const _setActiveIndexes = (value: number[] | (() => number[])) => {
     if (customValue) {
-      const newVal = typeof value === 'function' ? value() : value
-      customValue.setValue(id, newVal)
+      const newValueIndexes = typeof value === 'function' ? value() : value
+      const newValues = newValueIndexes.map((index) => list[index])
+      customValue.setValue(id, newValues)
     } else {
       setActiveIndexes(value)
     }
   }
 
-  useEffect(() => {
-    if (!customValue) return
-    setActiveIndexes(_activeIndexes)
-  }, [_activeIndexes])
-
-  const value = _activeIndexes.map((index) => getItem(index)).join(',')
+  const value = _activeIndexes.map((index) => activeIndexes[index]).join(',')
 
   function toggleActiveIndex(newValueIndex: number) {
-    const copyValue = [...activeIndexes]
+    const copyValue = [..._activeIndexes]
     _setActiveIndexes(() => {
       if (copyValue.includes(newValueIndex)) {
         const targetIndex = copyValue.indexOf(newValueIndex)
@@ -57,7 +49,7 @@ function SelectorInline({ name, list, initValue, className, id, showTitle, custo
 
   function showItems(list: Props['list']) {
     return list.map((value, i) => {
-      const isActive = activeIndexes.includes(i)
+      const isActive = _activeIndexes.includes(i)
 
       return (
         <button
