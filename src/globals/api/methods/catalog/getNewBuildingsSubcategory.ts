@@ -10,7 +10,7 @@ type Response = APIResponse<Category<RawCategory, ObjectCard>>
 
 export async function getNewBuildingsSubcategory(subcategory: string): Promise<SubCategory<ObjectCard>> {
   const res = await apiCall<Request, Response>(`/catalog/new-buildings`, {
-    method: 'GET',
+    method: 'POST',
     request: { chainUrl: subcategory },
   })
 

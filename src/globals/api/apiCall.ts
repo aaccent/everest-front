@@ -1,14 +1,17 @@
 import { LogError } from '@/globals/api/LogError'
 
+function filterBody(object: object) {
+  return Object.entries(object).filter(([_, value]) => {
+    return value !== undefined && value !== null
+  })
+}
+
 /**
  * Убирает из `object` ключи со значениями `undefined` и преобразовывает в {@link URLSearchParams}
  * @param object - Любой объект
  */
 function convertObjectToURLSearchParams(object: object) {
-  const filtered = Object.entries(object).filter(([_, value]) => {
-    return value !== undefined && value !== null
-  })
-  return new URLSearchParams(filtered)
+  return new URLSearchParams(filterBody(object))
 }
 
 export type SlashPath = `/${string}`
@@ -82,7 +85,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   }
 
   if (request && method === 'POST') {
-    fetchInit.body = JSON.stringify(request)
+    fetchInit.body = JSON.stringify(filterBody(request))
     fetchInit.headers = {
       'Content-Type': 'application/json',
     }
@@ -127,6 +130,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
       status: res.status,
       request,
       json,
+      fetchInit,
     })
   }
 

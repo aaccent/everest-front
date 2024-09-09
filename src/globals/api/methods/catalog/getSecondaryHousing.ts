@@ -13,7 +13,7 @@ export async function getSecondaryHousing(
   sort: string | undefined | null = undefined,
 ) {
   const res = await apiCall<Request, Response>('/catalog/secondary-housing', {
-    method: 'GET',
+    method: 'POST',
     request: {
       filter,
       sort,
