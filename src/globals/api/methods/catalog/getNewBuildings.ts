@@ -13,7 +13,7 @@ export async function getNewBuildings(
   sort: string | undefined | null = undefined,
 ) {
   const res = await apiCall<Request | false, Response>(`/catalog/new-buildings`, {
-    method: 'GET',
+    method: 'POST',
     request: {
       filter,
       sort,

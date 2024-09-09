@@ -23,10 +23,10 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   useEffect(() => {
     async function updateState() {
       setIsLoading(true)
-
       let data: TType[]
       try {
-        data = await getObjects(filter.str, sort)
+        const uri = decodeURI(filter.str || '')
+        data = await getObjects(uri || null, sort)
       } catch {
         data = []
       }
