@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { Simulate } from 'react-dom/test-utils'
+import copy = Simulate.copy
 
 interface Props {
   id: number
@@ -12,7 +14,7 @@ interface Props {
   className?: string
   customValue?: {
     value: number[]
-    setValue: (id: number, value: Array<string | number>) => void
+    setValue: (id: number, value: number[]) => void
   }
 }
 
@@ -24,31 +26,30 @@ function SelectorInline({ name, list, initValue, className, id, showTitle, custo
   }
 
   const _activeIndexes = customValue ? customValue.value : activeIndexes
-  const _setActiveIndexes = (value: number[]) => {
+  const _setActiveIndexes = (value: number[] | (() => number[])) => {
     if (customValue) {
-      customValue.setValue(id, value)
+      const newVal = typeof value === 'function' ? value() : value
+      customValue.setValue(id, newVal)
     } else {
       setActiveIndexes(value)
     }
   }
 
   useEffect(() => {
-    if (!_activeIndexes.length) return
-    const values = _activeIndexes.map((index) => getItem(index))
-    _setActiveIndexes(values)
+    if (!customValue) return
+    setActiveIndexes(_activeIndexes)
   }, [_activeIndexes])
 
   const value = _activeIndexes.map((index) => getItem(index)).join(',')
 
-  function toggleActiveIndex(newValue: number) {
-    _setActiveIndexes((currentValue) => {
-      const copyValue = [...currentValue]
-
-      if (copyValue.includes(newValue)) {
-        const targetIndex = copyValue.indexOf(newValue)
+  function toggleActiveIndex(newValueIndex: number) {
+    const copyValue = [...activeIndexes]
+    _setActiveIndexes(() => {
+      if (copyValue.includes(newValueIndex)) {
+        const targetIndex = copyValue.indexOf(newValueIndex)
         return copyValue.toSpliced(targetIndex, 1)
       } else {
-        copyValue.push(newValue)
+        copyValue.push(newValueIndex)
         return copyValue
       }
     })
@@ -56,7 +57,7 @@ function SelectorInline({ name, list, initValue, className, id, showTitle, custo
 
   function showItems(list: Props['list']) {
     return list.map((value, i) => {
-      const isActive = _activeIndexes.includes(i)
+      const isActive = activeIndexes.includes(i)
 
       return (
         <button
