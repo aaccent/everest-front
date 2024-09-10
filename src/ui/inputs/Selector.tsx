@@ -62,7 +62,6 @@ function Selector({ values, isRadio, showTitle, name, id, className, initValue, 
           onClick={onOptionClick}
           customValue={{
             value: _values.includes(val),
-            setValue: (id: number, value: boolean) => _values.includes(val),
           }}
         />
       ),

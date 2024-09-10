@@ -9,7 +9,7 @@ interface CheckboxProps {
   initValue?: boolean
   customValue?: {
     value: boolean
-    setValue: (id: number, value: boolean) => boolean
+    setValue?: (id: number, value: boolean) => void
   }
 }
 
@@ -19,7 +19,7 @@ function Checkbox({ isInSelect, name, onClick, id, initValue = false, customValu
   const _value = customValue ? customValue.value : selected
   const checkedClasses = _value ? 'bg-primary after:block after:size-[12px]' : ''
   const _setValue = (value: boolean) => {
-    if (customValue) {
+    if (customValue?.setValue) {
       value && customValue.setValue(id, value)
     } else {
       setSelected(value)
