@@ -33,7 +33,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
     switch (filter.fieldType) {
       case 'multilist': {
-        const activeValues = new Set(getCurrentFilter<string[]>(filter.id)?.value)
+        const activeValues = getCurrentFilter<string[]>(filter.id)?.value
         return (
           <Selector
             values={filter.value}
@@ -42,8 +42,11 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             id={filter.id}
             showTitle={!isQuick}
             className={classNameDesktop}
-            onChange={onChange}
             initValue={activeValues}
+            customValue={{
+              value: activeValues || [],
+              setValue: onChange,
+            }}
           />
         )
       }
@@ -88,15 +91,20 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
           />
         )
       }
-      case 'toggle':
+      case 'toggle': {
+        const value = getCurrentFilter<boolean>(filter.id)?.value
         return (
           <Checkbox
             name={filter.name}
             id={filter.id}
-            onChange={onChange}
-            initValue={getCurrentFilter<boolean>(filter.id)?.value}
+            initValue={value}
+            customValue={{
+              value: value || false,
+              setValue: onChange,
+            }}
           />
         )
+      }
     }
   })
 }
