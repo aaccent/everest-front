@@ -1,89 +1,72 @@
 'use client'
 import React, { InputHTMLAttributes, useState } from 'react'
 import { InputError, useInputRegister } from '@/features/form/useInputRegister'
+import { IMaskInput } from 'react-imask'
 
-type NotRequiredHTMLInputProps = Partial<
-  Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'value' | 'required'>
->
+type NotRequiredHTMLInputProps = Partial<Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'required'>>
 type RequiredHTMLInputProps = Required<Pick<InputHTMLAttributes<HTMLInputElement>, 'name'>>
 
-type Props = NotRequiredHTMLInputProps &
-  RequiredHTMLInputProps & {
+// prettier-ignore
+export type Props = 
+  & NotRequiredHTMLInputProps
+  & RequiredHTMLInputProps
+  & {
     checked?: boolean
     onDark?: boolean
     className?: string
     type: 'tel' | 'text' | 'email' | 'password'
+    mask?: string | RegExp
   }
 
-function Input({ className: labelClassName, type = 'text', onDark, checked, ...inputProps }: Props) {
-  const { inputRef, error } = useInputRegister(inputProps.name, { type })
+function Input({ className: labelClassName, type = 'text', onDark, checked, mask = '', ...inputProps }: Props) {
+  const { inputRef, error, value, setValue } = useInputRegister(inputProps.name, { type })
+  const [isPassShow, setIsPassShow] = useState<boolean>(false)
 
-  const [resetBtnCLass, setResetBtnClass] = useState<string>('hidden')
-  const passwordState = {
-    icon: 'bg-icon-eye-closed',
-    type: type,
+  const onChange = (value: string) => {
+    setValue(value)
   }
-  const [showPassword, setShowPassword] = useState(passwordState)
 
   function className() {
     return onDark
-      ? 'bg-base-115  placeholder:text-base-150'
-      : 'bg-base-100 border border-base-400 placeholder:text-base-650'
+      ? 'bg-base-115 text-base-100 placeholder:text-base-150'
+      : 'bg-base-100 text-base-650 border border-base-400 placeholder:text-base-650'
   }
 
-  function checkedClassName() {
-    return checked ? 'text-system-green border-system-green after:filter-system-green' : null
+  function resetButtonHandler() {
+    setValue('')
   }
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.currentTarget.value.length ? setResetBtnClass('block') : setResetBtnClass('hidden')
+  function passwordEyeHandler() {
+    setIsPassShow((prev) => !prev)
   }
 
-  const onResetBtnClick = () => {
-    inputRef.current ? (inputRef.current.value = '') : null
-    setResetBtnClass('hidden')
+  if (inputProps.placeholder && inputProps.required) {
+    inputProps.placeholder += '*'
   }
 
-  const onEyeClick = () => {
-    showPassword.type === 'password'
-      ? setShowPassword({
-          icon: 'bg-icon-eye',
-          type: 'text',
-        })
-      : setShowPassword(passwordState)
-  }
-
-  function Icon() {
-    return checked ? (
-      <div className='absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 border-none bg-icon-checkmark bg-auto bg-center bg-no-repeat'></div>
-    ) : type === 'password' ? (
-      <button
-        className={`absolute right-[18px] top-[50%] block size-[20px] -translate-y-2/4 ${showPassword.icon} border-none bg-auto bg-center bg-no-repeat opacity-50`}
-        onClick={onEyeClick}
-        type='button'
-        tabIndex={-1}
-      ></button>
-    ) : (
-      <button
-        className={`${resetBtnCLass} absolute right-[18px] top-[50%] size-[20px] -translate-y-2/4 border-none bg-icon-close bg-auto bg-center bg-no-repeat`}
-        onClick={onResetBtnClick}
-        type='button'
-        tabIndex={-1}
-      ></button>
-    )
+  let buttonIcon = 'bg-icon-close'
+  if (type === 'password') {
+    buttonIcon = isPassShow ? 'bg-icon-eye' : 'bg-icon-eye-closed'
   }
 
   return (
     <label className={`relative flex w-full flex-col ${labelClassName}`}>
       <div>
-        <input
+        <IMaskInput
+          mask={mask as any}
+          value={value}
           ref={inputRef}
-          type={showPassword.type}
-          className={`text-base-400-reg-100 w-full rounded-[16px] py-[18px] pl-[14px] pr-[40px] uppercase text-base-650 placeholder:text-base-150 focus-visible:border-base-600 focus-visible:outline-0 ${checkedClassName()} ${className()}`}
-          onChange={type !== 'password' ? onChange : undefined}
+          type={isPassShow ? 'text' : type}
+          className={`text-base-400-reg-100 w-full rounded-[16px] py-[18px] pl-[14px] pr-[40px] uppercase focus-visible:border-base-600 focus-visible:outline-0 ${className()}`}
+          onAccept={onChange}
           {...inputProps}
         />
-        {Icon()}
+        <button
+          className={`${value ? 'opacity-100' : 'opacity-0'} absolute right-[18px] top-[50%] size-[20px] -translate-y-2/4 border-none ${buttonIcon} bg-icon-close bg-auto bg-center bg-no-repeat ${onDark ? 'filter-base-100' : 'filter-base-600'}`}
+          onClick={type !== 'password' ? resetButtonHandler : passwordEyeHandler}
+          type='button'
+          tabIndex={-1}
+        ></button>
       </div>
       <InputError code={error} />
     </label>
