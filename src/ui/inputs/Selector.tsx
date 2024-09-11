@@ -2,75 +2,110 @@
 import React, { useState } from 'react'
 import Checkbox from '@/ui/inputs/Checkbox'
 import Radio from '@/ui/inputs/Radio'
+import { CheckboxChangeFn, InputValue } from '@/globals/utilityTypes'
 
-interface FilterSelectProps {
-  id: number
-  values: string[]
-  isRadio?: boolean
-  showTitle: boolean
+export type SelectorValue = Array<string | number>
+
+export type Props = {
   name: string
+  title: string
+  showTitle: boolean
+  /**
+   * Если `true`, то может быть активно только одно значение,
+   * иначе можно выбрать несколько.
+   * @default false
+   * */
+  isRadio?: boolean
+  list: SelectorValue
+  /** @default [] */
+  defaultValue?: SelectorValue
   className?: string
-  initValue?: Array<string | number>
-  customValue?: {
-    value: Array<string | number>
-    setValue: (id: number, value: Array<string | number>) => void
-  }
-}
+} & InputValue<SelectorValue>
 
-function Selector({ values, isRadio, showTitle, name, id, className, initValue, customValue }: FilterSelectProps) {
+function Selector({
+  list,
+  isRadio,
+  showTitle,
+  title,
+  name,
+  className,
+  defaultValue = [],
+  value: customValue,
+  onChange,
+}: Props) {
   const [opened, setOpened] = useState(false)
-  const [selectedValues, setSelectedValues] = useState<Array<string | number>>(initValue || [])
+  const [value, setValue] = useState<SelectorValue>(defaultValue)
 
-  const _values = customValue ? customValue?.value : selectedValues
-  const _setValues = (values: Array<string | number>) => {
+  const _value = customValue || value
+
+  function _setValue(changeFn: (prev: SelectorValue) => SelectorValue) {
     if (customValue) {
-      customValue.setValue(id, values)
+      onChange?.(name, changeFn(_value))
     } else {
-      setSelectedValues(values)
+      setValue((prev) => {
+        const newValue = changeFn(prev)
+        onChange?.(name, newValue)
+        return newValue
+      })
     }
   }
 
-  const onOptionClick = (checked: boolean, clickedValue: string) => {
-    const newValues = new Set([..._values])
-    if (checked) {
-      newValues.add(clickedValue)
-    } else {
-      newValues.delete(clickedValue)
-    }
-    _setValues(Array.from(newValues))
+  const onCheckboxChanged: CheckboxChangeFn = (value, checked) => {
+    _setValue((prev) => {
+      const valueSet = new Set(prev)
+
+      if (checked) {
+        valueSet.add(value)
+      } else {
+        valueSet.delete(value)
+      }
+
+      return Array.from(valueSet)
+    })
+  }
+
+  function onRadioClick(item: string) {
+    _setValue((prev) => {
+      if (prev.includes(item)) return prev
+
+      return [item]
+    })
+  }
+
+  function showList() {
+    return list?.map((itemValue, index) => {
+      const props = {
+        name,
+        title: itemValue.toString(),
+        value: itemValue.toString(),
+        checked: _value.includes(itemValue),
+      }
+
+      return isRadio ? (
+        <Radio key={index} onClick={onRadioClick} {...props} />
+      ) : (
+        <Checkbox
+          key={index}
+          isInSelect
+          defaultChecked={_value.includes(itemValue)}
+          onChange={onCheckboxChanged}
+          {...props}
+        />
+      )
+    })
   }
 
   function showSelected() {
-    const selectedNames = _values.length ? _values.join(', ') : 'Выбрать'
+    const selectedNames = _value.length ? _value.join(', ') : 'Выбрать'
 
     if (selectedNames.length > 20) return selectedNames.slice(0, 20) + `...`
 
     return selectedNames
   }
 
-  function showOptions() {
-    return values?.map((val, index) =>
-      isRadio ? (
-        <Radio key={index} text={val} name={name} id={id} />
-      ) : (
-        <Checkbox
-          key={index}
-          isInSelect
-          name={val}
-          id={id}
-          initValue={_values.includes(val)}
-          onClick={onOptionClick}
-          customValue={{
-            value: _values.includes(val),
-          }}
-        />
-      ),
-    )
-  }
-
   return (
     <div className='flex flex-col gap-[8px]'>
-      {showTitle && <div className='text-base-500-reg-100-upper'>{name}</div>}
+      {showTitle && <div className='text-base-500-reg-100-upper'>{title}</div>}
       <div
         className={`group relative select-none border-b border-b-base-600/10 bg-base-100 pb-[18px] first:border-t first:border-t-base-600/10 first:pt-[18px] md:w-[260px] md:rounded-[16px] md:border-b-0 md:px-[16px] md:py-[12px] md:first:border-t-0 ${opened ? 'opened' : ''} ${className}`}
         onClick={() => setOpened((prev) => !prev)}
@@ -82,7 +117,7 @@ function Selector({ values, isRadio, showTitle, name, id, className, initValue, 
           <div>{showSelected()}</div>
         </button>
         <div className='text-base-500-reg-100-upper md:text-base-400-lg-100 absolute inset-x-0 z-10 hidden select-none flex-col gap-[16px] border-b border-b-base-600/10 bg-base-100 py-[24px] group-[.opened]:flex md:rounded-b-[16px] md:px-[16px] md:group-[.opened]:border-b-0'>
-          {showOptions()}
+          {showList()}
         </div>
       </div>
     </div>

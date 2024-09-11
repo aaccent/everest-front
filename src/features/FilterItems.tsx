@@ -33,40 +33,36 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
     switch (filter.fieldType) {
       case 'multilist': {
-        const activeValues = getCurrentFilter<string[]>(filter.id)?.value
+        const activeValues = getCurrentFilter<string[]>(filter.id)?.value || []
+
         return (
           <Selector
-            values={filter.value}
-            name={filter.name}
             key={filter.id}
-            id={filter.id}
+            list={filter.value}
+            title={filter.name}
+            name={filter.id.toString()}
             showTitle={!isQuick}
             className={classNameDesktop}
-            initValue={activeValues}
-            customValue={{
-              value: activeValues || [],
-              setValue: onChange,
-            }}
+            defaultValue={activeValues}
+            value={activeValues}
+            onChange={onChange}
           />
         )
       }
       case 'inline-multilist': {
         const activeValues = getCurrentFilter<Array<string>>(filter.id)?.value || []
-        const activeValueIndexes = activeValues.map((activeVal) => filter.value.indexOf(activeVal))
 
         return (
           <SelectorInline
-            list={filter.value}
             key={filter.id}
-            id={filter.id}
-            name={filter.name}
+            list={filter.value}
+            name={filter.id.toString()}
+            title={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
-            initValue={activeValueIndexes}
-            customValue={{
-              value: activeValueIndexes,
-              setValue: onChange,
-            }}
+            defaultValue={activeValues}
+            value={activeValues}
+            onChange={onChange}
           />
         )
       }
