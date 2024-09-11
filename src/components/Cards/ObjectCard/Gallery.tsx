@@ -101,6 +101,7 @@ function Gallery() {
     <>
       <Carousel
         className={`relative h-[248px] w-full max-w-[350px] overflow-hidden rounded-[16px] md:h-[340px] md:max-w-[512px] ${activeIndex === testGallery.length ? 'z-20' : ''}`}
+        fade
       >
         <Grids onMouseEnter={setActiveIndex} />
         <CarouselInner>{showImages()}</CarouselInner>
