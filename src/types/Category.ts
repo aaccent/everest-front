@@ -10,9 +10,13 @@ export interface RawCategory {
   description: string | null
   seoTitle?: string | null
   seoDescription?: string | null
+  count: number
 }
 
-type TopLevelCategory = Pick<RawCategory, 'name' | 'seoDescription' | 'seoTitle' | 'seoUrl' | 'code' | 'description'>
+type TopLevelCategory = Pick<
+  RawCategory,
+  'name' | 'seoDescription' | 'seoTitle' | 'seoUrl' | 'code' | 'description' | 'count'
+>
 
 export type Category<
   TCategories extends object | false = object,
