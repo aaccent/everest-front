@@ -1,9 +1,11 @@
 import { LogError } from '@/globals/api/LogError'
 
 function filterBody(object: object) {
-  return Object.entries(object).filter(([_, value]) => {
+  const entries = Object.entries(object).filter(([_, value]) => {
     return value !== undefined && value !== null
   })
+
+  return Object.fromEntries(entries)
 }
 
 /**
@@ -96,11 +98,6 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     // Но не убирает свойства со значением undefined, поэтому используем функцию обертку для URLSearchParams
     const searchParams = convertObjectToURLSearchParams(request)
     url += `?${searchParams.toString()}`
-  }
-  if (method === 'POST') {
-    fetchInit.headers = {
-      'Content-Type': 'application/json',
-    }
   }
 
   const res = await fetch(url, fetchInit)
