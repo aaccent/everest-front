@@ -15,7 +15,7 @@ export async function getComplexes(
   sort: string | null = null,
 ): Promise<Category<false, ComplexCard>> {
   const res = await apiCall<Request | false, Response>(`/catalog/new-buildings`, {
-    method: 'GET',
+    method: 'POST',
     request: { chainUrl: 'complexes', sort, filter },
   })
 
