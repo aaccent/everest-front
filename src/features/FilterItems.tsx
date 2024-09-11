@@ -20,8 +20,8 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   const classNameMobile = `border border-base-400`
   const filterManager = useCategoryFilter()
 
-  function onChange(id: number, value: Filter['value']) {
-    filterManager.addFilter(id, value)
+  function onChange(id: string, value: Filter['value']) {
+    filterManager.addFilter(Number(id), value)
   }
 
   function getCurrentFilter<T extends Filter['value']>(id: number) {
@@ -29,7 +29,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   }
 
   return filters.map((filter) => {
-    if (!filter.value) return null
+    if (!filter.value && filter.fieldType !== 'toggle') return null
 
     switch (filter.fieldType) {
       case 'multilist': {
@@ -93,15 +93,15 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
       }
       case 'toggle': {
         const value = getCurrentFilter<boolean>(filter.id)?.value
+
         return (
           <Checkbox
-            name={filter.name}
-            id={filter.id}
-            initValue={value}
-            customValue={{
-              value: value || false,
-              setValue: onChange,
-            }}
+            title={filter.name}
+            name={filter.id.toString()}
+            defaultChecked={value}
+            checked={value}
+            value={filter.id.toString()}
+            onChange={onChange}
           />
         )
       }
