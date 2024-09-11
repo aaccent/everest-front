@@ -6,7 +6,7 @@ import { useCategorySort } from '@/features/useCategorySort'
 
 export interface Props<TType = unknown> {
   initList: TType[]
-  getObjects: (filter: string | null, sort: Sort['value'] | null) => Promise<TType[]>
+  getObjects: (filter: object[] | null, sort: Sort['value'] | null) => Promise<TType[]>
 }
 
 /**
@@ -23,10 +23,9 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   useEffect(() => {
     async function updateState() {
       setIsLoading(true)
-
       let data: TType[]
       try {
-        data = await getObjects(filter.str, sort)
+        data = await getObjects(filter.parsed || null, sort)
       } catch {
         data = []
       }

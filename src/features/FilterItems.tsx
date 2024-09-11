@@ -33,7 +33,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
     switch (filter.fieldType) {
       case 'multilist': {
-        const activeValues = new Set(getCurrentFilter<string[]>(filter.id)?.value)
+        const activeValues = getCurrentFilter<string[]>(filter.id)?.value
         return (
           <Selector
             values={filter.value}
@@ -42,14 +42,17 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             id={filter.id}
             showTitle={!isQuick}
             className={classNameDesktop}
-            onChange={onChange}
             initValue={activeValues}
+            customValue={{
+              value: activeValues || [],
+              setValue: onChange,
+            }}
           />
         )
       }
       case 'inline-multilist': {
-        const activeValues = getCurrentFilter<Array<string>>(filter.id)?.value
-        const activeValueIndexes = activeValues?.map((activeVal) => filter.value.indexOf(activeVal))
+        const activeValues = getCurrentFilter<Array<string>>(filter.id)?.value || []
+        const activeValueIndexes = activeValues.map((activeVal) => filter.value.indexOf(activeVal))
 
         return (
           <SelectorInline
@@ -59,14 +62,19 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             name={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
-            onChange={onChange}
             initValue={activeValueIndexes}
+            customValue={{
+              value: activeValueIndexes,
+              setValue: onChange,
+            }}
           />
         )
       }
       case 'range': {
         const rawValue = getCurrentFilter<[number, number]>(filter.id)?.value
-        const value = rawValue ? { min: rawValue[0], max: rawValue[1] } : undefined
+        const value = rawValue
+          ? { min: rawValue[0], max: rawValue[1] }
+          : { min: filter.value.min, max: filter.value.max }
         return (
           <Range
             min={filter.value.min}
@@ -75,20 +83,28 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             name={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
-            onChange={onChange}
             initValue={value}
+            customValue={{
+              value,
+              setValue: onChange,
+            }}
           />
         )
       }
-      case 'toggle':
+      case 'toggle': {
+        const value = getCurrentFilter<boolean>(filter.id)?.value
         return (
           <Checkbox
             name={filter.name}
             id={filter.id}
-            onChange={onChange}
-            initValue={getCurrentFilter<boolean>(filter.id)?.value}
+            initValue={value}
+            customValue={{
+              value: value || false,
+              setValue: onChange,
+            }}
           />
         )
+      }
     }
   })
 }

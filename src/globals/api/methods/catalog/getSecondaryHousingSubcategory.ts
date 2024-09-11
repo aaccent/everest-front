@@ -9,7 +9,7 @@ type Response = APIResponse<Category<RawCategory, ObjectCard>>
 
 export async function getSecondaryHousingSubcategory(subcategory: string): Promise<SubCategory<ObjectCard>> {
   const res = await apiCall<Request, Response>('/catalog/secondary-housing', {
-    method: 'GET',
+    method: 'POST',
     request: { chainUrl: subcategory },
   })
 

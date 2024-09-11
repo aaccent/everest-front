@@ -1,6 +1,8 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { Simulate } from 'react-dom/test-utils'
+import copy = Simulate.copy
 
 interface Props {
   id: number
@@ -10,33 +12,36 @@ interface Props {
   /** Индексы активных элементов при первой отрисовки компонента */
   initValue?: number[]
   className?: string
-  onChange?: (id: number, value: Array<string | number>) => void
+  customValue?: {
+    value: number[]
+    setValue: (id: number, value: (string | number)[]) => void
+  }
 }
 
-function SelectorInline({ name, list, initValue, className, id, showTitle, onChange }: Props) {
+function SelectorInline({ name, list, initValue, className, id, showTitle, customValue }: Props) {
   const [activeIndexes, setActiveIndexes] = useState<number[]>(initValue || [])
 
-  function getItem(index: number): number | string {
-    return list[index]
+  const _activeIndexes = customValue ? customValue.value : activeIndexes
+  const _setActiveIndexes = (value: number[] | (() => number[])) => {
+    if (customValue) {
+      const newValueIndexes = typeof value === 'function' ? value() : value
+      const newValues = newValueIndexes.map((index) => list[index])
+      customValue.setValue(id, newValues)
+    } else {
+      setActiveIndexes(value)
+    }
   }
 
-  useEffect(() => {
-    if (!activeIndexes.length) return
-    const values = activeIndexes.map((index) => getItem(index))
-    onChange?.(id, values)
-  }, [activeIndexes])
+  const value = _activeIndexes.map((index) => activeIndexes[index]).join(',')
 
-  const value = activeIndexes.map((index) => getItem(index)).join(',')
-
-  function toggleActiveIndex(newValue: number) {
-    setActiveIndexes((currentValue) => {
-      const copyValue = [...currentValue]
-
-      if (copyValue.includes(newValue)) {
-        const targetIndex = copyValue.indexOf(newValue)
+  function toggleActiveIndex(newValueIndex: number) {
+    const copyValue = [..._activeIndexes]
+    _setActiveIndexes(() => {
+      if (copyValue.includes(newValueIndex)) {
+        const targetIndex = copyValue.indexOf(newValueIndex)
         return copyValue.toSpliced(targetIndex, 1)
       } else {
-        copyValue.push(newValue)
+        copyValue.push(newValueIndex)
         return copyValue
       }
     })
@@ -44,7 +49,7 @@ function SelectorInline({ name, list, initValue, className, id, showTitle, onCha
 
   function showItems(list: Props['list']) {
     return list.map((value, i) => {
-      const isActive = activeIndexes.includes(i)
+      const isActive = _activeIndexes.includes(i)
 
       return (
         <button

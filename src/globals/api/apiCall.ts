@@ -1,14 +1,19 @@
 import { LogError } from '@/globals/api/LogError'
 
+function filterBody(object: object) {
+  const entries = Object.entries(object).filter(([_, value]) => {
+    return value !== undefined && value !== null
+  })
+
+  return Object.fromEntries(entries)
+}
+
 /**
  * Убирает из `object` ключи со значениями `undefined` и преобразовывает в {@link URLSearchParams}
  * @param object - Любой объект
  */
 function convertObjectToURLSearchParams(object: object) {
-  const filtered = Object.entries(object).filter(([_, value]) => {
-    return value !== undefined && value !== null
-  })
-  return new URLSearchParams(filtered)
+  return new URLSearchParams(filterBody(object))
 }
 
 export type SlashPath = `/${string}`
@@ -39,19 +44,20 @@ export type SupportedMethod = 'POST' | 'GET'
 /**
  * @typeParam TRequest - Тип, передаваемый в `body` запроса. Если `false`, то значит что его ненужно указывать
  * */
-type ApiCallOptions<TRequest extends APIRequest | false = false> = TRequest extends false
+type ApiCallOptions<TRequest extends APIRequest | false = false> = {
+  /** @default - `POST` */
+  method?: SupportedMethod
+  /** @default - `false` */
+  cache?: boolean
+} & (TRequest extends false
   ? {
       /** Запрос к апи описан в {@link APIRequest}. */
       request?: never
-      /** @default - POST */
-      method?: SupportedMethod
     }
   : {
       /** Запрос к апи описан в {@link APIRequest}. */
       request: TRequest
-      /** @default - POST */
-      method?: SupportedMethod
-    }
+    })
 
 /**
  * Отправляет запрос на указанный `uri` с методом `options.method` и телом `options.body`.
@@ -71,7 +77,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   uri: SlashPath,
   options: ApiCallOptions<TRequest>,
 ): Promise<TResponse> {
-  const { method = 'POST', request } = options
+  const { method = 'POST', request, cache } = options
 
   let url = new URL(`${process.env.NEXT_PUBLIC_API_URL}${uri}`).toString()
   const fetchInit: RequestInit = {
@@ -79,10 +85,11 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     headers: {
       Accept: 'application/json',
     },
+    cache: cache ? 'force-cache' : 'no-store',
   }
 
   if (request && method === 'POST') {
-    fetchInit.body = JSON.stringify(request)
+    fetchInit.body = JSON.stringify(filterBody(request))
     fetchInit.headers = {
       'Content-Type': 'application/json',
     }
@@ -93,11 +100,6 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     // Но не убирает свойства со значением undefined, поэтому используем функцию обертку для URLSearchParams
     const searchParams = convertObjectToURLSearchParams(request)
     url += `?${searchParams.toString()}`
-  }
-  if (method === 'POST') {
-    fetchInit.headers = {
-      'Content-Type': 'application/json',
-    }
   }
 
   const res = await fetch(url, fetchInit)
@@ -127,6 +129,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
       status: res.status,
       request,
       json,
+      fetchInit,
     })
   }
 

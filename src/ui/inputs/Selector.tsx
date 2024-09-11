@@ -10,37 +10,38 @@ interface FilterSelectProps {
   showTitle: boolean
   name: string
   className?: string
-  onChange?: (id: number, value: Array<string | number>) => void
-  initValue?: Set<string>
+  initValue?: Array<string | number>
+  customValue?: {
+    value: Array<string | number>
+    setValue: (id: number, value: Array<string | number>) => void
+  }
 }
 
-function Selector({
-  values,
-  isRadio,
-  showTitle,
-  name,
-  id,
-  className,
-  onChange,
-  initValue = new Set<string>(),
-}: FilterSelectProps) {
+function Selector({ values, isRadio, showTitle, name, id, className, initValue, customValue }: FilterSelectProps) {
   const [opened, setOpened] = useState(false)
-  const [selectedValues, setSelectedValues] = useState<Set<string>>(initValue)
+  const [selectedValues, setSelectedValues] = useState<Array<string | number>>(initValue || [])
+
+  const _values = customValue ? customValue?.value : selectedValues
+  const _setValues = (values: Array<string | number>) => {
+    if (customValue) {
+      customValue.setValue(id, values)
+    } else {
+      setSelectedValues(values)
+    }
+  }
 
   const onOptionClick = (checked: boolean, clickedValue: string) => {
-    const newValues = new Set([...selectedValues])
+    const newValues = new Set([..._values])
     if (checked) {
       newValues.add(clickedValue)
     } else {
       newValues.delete(clickedValue)
     }
-
-    setSelectedValues(newValues)
-    onChange?.(id, [...newValues])
+    _setValues(Array.from(newValues))
   }
 
   function showSelected() {
-    const selectedNames = selectedValues.size ? Array.from(selectedValues).join(', ') : 'Выбрать'
+    const selectedNames = _values.length ? _values.join(', ') : 'Выбрать'
 
     if (selectedNames.length > 20) return selectedNames.slice(0, 20) + `...`
 
@@ -48,17 +49,20 @@ function Selector({
   }
 
   function showOptions() {
-    return values?.map((value, index) =>
+    return values?.map((val, index) =>
       isRadio ? (
-        <Radio key={index} text={value} name={name} id={id} />
+        <Radio key={index} text={val} name={name} id={id} />
       ) : (
         <Checkbox
           key={index}
           isInSelect
-          name={value}
+          name={val}
           id={id}
-          initValue={selectedValues.has(value)}
+          initValue={_values.includes(val)}
           onClick={onOptionClick}
+          customValue={{
+            value: _values.includes(val),
+          }}
         />
       ),
     )

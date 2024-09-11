@@ -4,7 +4,7 @@ export type Filters = {
 }
 
 export type QuickFilters = {
-  filters: FilterType<Choice | Range | Toggle>[]
+  filters: FilterType<FilterView>[]
   sorts: Sort[]
 }
 
@@ -15,7 +15,7 @@ export type Sort = {
 
 export type FilterBlock = {
   name: string
-  filters: FilterType<Choice | Range | Toggle>[]
+  filters: FilterType<FilterView>[]
 }
 
 export type FilterType<T extends FilterView> = {
