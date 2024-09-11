@@ -1,35 +1,43 @@
 'use client'
 import React, { useState } from 'react'
 import { IMaskInput } from 'react-imask'
+import { InputValue } from '@/globals/utilityTypes'
 
-export interface RangeProps {
-  id: number
+export type RangeValue = { min: number; max: number }
+
+export type RangeProps = {
+  name: string
   min: number
   max: number
-  initValue?: { min: number; max: number }
+  /** @default { min, max } */
+  defaultValue?: RangeValue
   units?: string
   className?: string
-  name: string
+  title: string
   showTitle?: boolean
-  customValue?: {
-    value: { min: number; max: number }
-    setValue: (id: number, value: [number, number]) => void
-  }
-}
+} & InputValue<RangeValue>
 
-function Range({ id, min, max, units = '', className, name, showTitle, customValue, initValue }: RangeProps) {
-  const [value, setValue] = useState(initValue || { min, max })
+function Range({
+  name,
+  min,
+  max,
+  units = '',
+  className,
+  title,
+  showTitle,
+  onChange,
+  value: customValue,
+  defaultValue = { min, max },
+}: RangeProps) {
+  const [value, setValue] = useState<RangeValue>(defaultValue)
 
   const step = 0.1
 
-  const _value = customValue ? customValue.value : value
+  const _value = customValue || value
 
-  const _setValue = ({ min, max }: { min: number; max: number }) => {
-    if (customValue) {
-      customValue.setValue(id, [min, max])
-    } else {
-      setValue({ min, max })
-    }
+  const _setValue = (value: RangeValue) => {
+    onChange?.(name, value)
+    if (!customValue) setValue(value)
   }
 
   const onMinValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,11 +74,11 @@ function Range({ id, min, max, units = '', className, name, showTitle, customVal
 
   return (
     <div className='flex flex-col gap-[8px]'>
-      {showTitle && <div className='text-base-500-reg-100-upper'>{name}</div>}
+      {showTitle && <div className='text-base-500-reg-100-upper'>{title}</div>}
       <div
         className={`text-base-400-lg-100 relative w-full min-w-[260px] rounded-[20px] bg-base-100 px-[16px] py-[18px] md:max-w-[260px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
       >
-        <input type='hidden' name={name} value={`${[_value.min, _value.max]}`} />
+        <input type='hidden' name={title} value={`${[_value.min, _value.max]}`} />
         <div className='text-base-400-lg-100 flex items-center justify-between'>
           <label>
             <IMaskInput

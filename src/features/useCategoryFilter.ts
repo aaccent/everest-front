@@ -2,6 +2,7 @@
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { convertToBase64, convertBase64ToArray } from '@/features/convertBase64'
+import { RangeValue } from '@/ui/inputs/Range'
 
 export interface Filter {
   id: number
@@ -50,6 +51,12 @@ export function useCategoryFilter() {
     })
   }, [searchParams])
 
+  function sanitizeFilterValue(rawValue: Filter['value'] | RangeValue): Filter['value'] {
+    if (typeof rawValue !== 'object' || !('min' in rawValue)) return rawValue
+
+    return [rawValue.min, rawValue.max]
+  }
+
   /**
    * Кодирует значения в `base64` и добавляет результат в
    * GET параметры ссылки новое значение `value` фильтра по `id`.
@@ -64,10 +71,11 @@ export function useCategoryFilter() {
    * ```
    * в base64 представлении
    * @param id - идентификатора фильтра
-   * @param value - значение фильтра. Если передаётся boolean, то в
+   * @param rawValue - значение фильтра. Если передаётся boolean, то в
    * ссылку попадают `"true"` и `"false"` строки
    */
-  function addFilter(id: number, value: Filter['value']) {
+  function addFilter(id: number, rawValue: Filter['value'] | RangeValue) {
+    const value = sanitizeFilterValue(rawValue)
     const newFilter = [...filter.parsed]
 
     const sameId = filter.parsed.findIndex((item) => item.id === id)

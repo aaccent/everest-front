@@ -2,7 +2,7 @@
 import { FilterType, FilterView } from '@/types/FiltersType'
 import Selector from '@/ui/inputs/Selector'
 import SelectorInline from '@/ui/inputs/SelectorInline'
-import Range from '@/ui/inputs/Range'
+import Range, { RangeValue } from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
 import React from 'react'
 import { Filter, useCategoryFilter } from '@/features/useCategoryFilter'
@@ -20,7 +20,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   const classNameMobile = `border border-base-400`
   const filterManager = useCategoryFilter()
 
-  function onChange(id: string, value: Filter['value']) {
+  function onChange(id: string, value: Filter['value'] | RangeValue) {
     filterManager.addFilter(Number(id), value)
   }
 
@@ -71,19 +71,18 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
         const value = rawValue
           ? { min: rawValue[0], max: rawValue[1] }
           : { min: filter.value.min, max: filter.value.max }
+
         return (
           <Range
             min={filter.value.min}
             max={filter.value.max}
-            id={filter.id}
-            name={filter.name}
+            name={filter.id.toString()}
+            title={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
-            initValue={value}
-            customValue={{
-              value,
-              setValue: onChange,
-            }}
+            defaultValue={value}
+            value={value}
+            onChange={onChange}
           />
         )
       }
