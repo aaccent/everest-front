@@ -31,7 +31,7 @@ function Range({
 }: RangeProps) {
   const [value, setValue] = useState<RangeValue>(defaultValue)
 
-  const step = 0.1
+  const step = 1
 
   const _value = customValue || value
 
@@ -56,16 +56,16 @@ function Range({
   }
 
   const onMinInputChange = (newValue: string) => {
-    const numberValue = newValue.match(/\d+\.?\d?/)
+    const numberValue = parseInt(newValue)
 
-    if (!numberValue || +numberValue < min || +numberValue === _value.min) return
-    if (+numberValue[0] > _value.max) return _setValue({ min, max: _value.max })
+    if (numberValue < min || numberValue === _value.min) return
+    if (numberValue > _value.max) return _setValue({ min, max: _value.max })
     _setValue({ min: +numberValue, max: _value.max })
   }
   const onMaxInputChange = (newValue: string) => {
-    const numberValue = newValue.match(/\d+\.?\d?/)
+    const numberValue = parseInt(newValue)
 
-    if (!numberValue || +numberValue > max || +numberValue[0] < _value.min || +numberValue === _value.max) return
+    if (numberValue > max || numberValue < _value.min || numberValue === _value.max) return
     _setValue({ min: _value.min, max: +numberValue })
   }
 
@@ -82,49 +82,43 @@ function Range({
         <div className='text-base-400-lg-100 flex items-center justify-between'>
           <label>
             <IMaskInput
-              mask={[
-                {
-                  mask: `от num ${units}`,
-                  lazy: false,
-                  blocks: {
-                    num: {
-                      mask: Number,
-                      min,
-                      max: _value.max,
-                      scale: 1,
-                      normalizeZeros: false,
-                      radix: '.',
-                    },
-                  },
+              mask={`от num ${units}`}
+              blocks={{
+                num: {
+                  mask: Number,
+                  min,
+                  max: _value.max,
+                  scale: 1,
+                  normalizeZeros: false,
+                  radix: '.',
                 },
-              ]}
+              }}
+              lazy={false}
               className='w-full focus:outline-0'
               value={_value.min.toString()}
               onAccept={(value) => onMinInputChange(value)}
+              unmask
             />
           </label>
           <div className='absolute inset-1/2 h-[12px] w-[1px] -translate-x-1/2 -translate-y-1/2 bg-base-400' />
           <label>
             <IMaskInput
-              mask={[
-                {
-                  mask: `до num ${units}`,
-                  lazy: false,
-                  blocks: {
-                    num: {
-                      mask: Number,
-                      min: _value.min,
-                      max,
-                      scale: 1,
-                      normalizeZeros: false,
-                      radix: '.',
-                    },
-                  },
+              mask={`до num ${units}`}
+              lazy={false}
+              blocks={{
+                num: {
+                  mask: Number,
+                  min: _value.min,
+                  max,
+                  scale: 1,
+                  normalizeZeros: false,
+                  radix: '.',
                 },
-              ]}
+              }}
               className='w-full text-end focus:outline-0'
               value={_value.max.toString()}
               onAccept={(value) => onMaxInputChange(value)}
+              unmask
             />
           </label>
         </div>
