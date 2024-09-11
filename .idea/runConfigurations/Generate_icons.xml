@@ -1,5 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Generate icons" type="NodeJSConfigurationType" path-to-js-file="generate-icons-md.js" working-dir="$PROJECT_DIR$/src/globals/icons">
-    <method v="2" />
-  </configuration>
-</component>
