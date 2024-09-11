@@ -1,19 +1,32 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Props {
-  name?: string
+  id: number
+  name: string
+  showTitle: boolean
   list: Array<string | number>
   /** Индексы активных элементов при первой отрисовки компонента */
   initValue?: number[]
   className?: string
+  onChange?: (id: number, value: Array<string | number>) => void
 }
 
-function SelectorInline({ name, list, initValue, className }: Props) {
+function SelectorInline({ name, list, initValue, className, id, showTitle, onChange }: Props) {
   const [activeIndexes, setActiveIndexes] = useState<number[]>(initValue || [])
 
-  const value = activeIndexes.map((index) => list[index]).join(',')
+  function getItem(index: number): number | string {
+    return list[index]
+  }
+
+  useEffect(() => {
+    if (!activeIndexes.length) return
+    const values = activeIndexes.map((index) => getItem(index))
+    onChange?.(id, values)
+  }, [activeIndexes])
+
+  const value = activeIndexes.map((index) => getItem(index)).join(',')
 
   function toggleActiveIndex(newValue: number) {
     setActiveIndexes((currentValue) => {
@@ -47,11 +60,14 @@ function SelectorInline({ name, list, initValue, className }: Props) {
   }
 
   return (
-    <div
-      className={`flex w-full items-center justify-between rounded-[20px] bg-base-100 px-[8px] py-[7px] md:w-fit md:justify-normal md:gap-[2px] md:rounded-[16px] ${className}`}
-    >
-      <input type='hidden' name={name} value={value} onChange={() => {}} />
-      {showItems(list)}
+    <div className='flex flex-col gap-[8px]'>
+      {showTitle && <div className='text-base-500-reg-100-upper'>{name}</div>}
+      <div
+        className={`flex w-full items-center justify-between rounded-[20px] bg-base-100 px-[8px] py-[7px] md:w-fit md:justify-normal md:gap-[2px] md:rounded-[16px] ${className}`}
+      >
+        <input type='hidden' name={name} value={value} onChange={() => {}} />
+        {showItems(list)}
+      </div>
     </div>
   )
 }

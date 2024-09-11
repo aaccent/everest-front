@@ -24,6 +24,11 @@ test('Should load catalog/secondary-housing subcategory page', async ({ page }) 
 
   expect(res?.status()).toEqual(200)
 
-  await page.getByTestId(TEST_ID.SUBCATEGORY).first().click()
-  await expect(page.getByRole('heading', { level: 1 })).not.toHaveText('Вторичная недвижимость', { ignoreCase: true })
+  const category = page.getByTestId(TEST_ID.SUBCATEGORY).first()
+  const categoryName = await category.innerText()
+
+  await category.click()
+  await page.getByRole('heading', { level: 1 }).waitFor({ state: 'attached' })
+  await category.waitFor({ state: 'detached' })
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(categoryName, { ignoreCase: true })
 })

@@ -5,7 +5,9 @@ import { LogError } from '@/globals/api/LogError'
  * @param object - Любой объект
  */
 function convertObjectToURLSearchParams(object: object) {
-  const filtered = Object.entries(object).filter(([_, value]) => value !== undefined)
+  const filtered = Object.entries(object).filter(([_, value]) => {
+    return value !== undefined && value !== null
+  })
   return new URLSearchParams(filtered)
 }
 
@@ -72,7 +74,12 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   const { method = 'POST', request } = options
 
   let url = new URL(`${process.env.NEXT_PUBLIC_API_URL}${uri}`).toString()
-  const fetchInit: RequestInit = { method }
+  const fetchInit: RequestInit = {
+    method,
+    headers: {
+      Accept: 'application/json',
+    },
+  }
 
   if (request && method === 'POST') {
     fetchInit.body = JSON.stringify(request)

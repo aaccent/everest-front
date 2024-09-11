@@ -10,9 +10,8 @@ const PRICE_PLACEHOLDER = 'нет цены'
  * иначе результат конвертации.
  */
 function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) {
-  if (!rawPrice) return null
-
   if (typeof rawPrice === 'number') return rawPrice
+  if (!rawPrice) return null
 
   const price = parseInt(rawPrice)
   if (Number.isNaN(price)) return null
@@ -21,8 +20,9 @@ function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) 
 }
 
 /**
- * Форматирование `price` для вывода вида `от 5.5 млн ₽`
- * @param price Любой примитивный тип.
+ * Форматирование `price` для вывода вида `от 5.5 млн ₽` или `5.5` если `onlyNumbers` будет `true`
+ * @param price Любой примитивный тип
+ * @param onlyNumbers  вернуть только цифры без единицы измерения и валюты.
  * Переданный тип преобразуется в нужный для работы функции.
  * Безопасно работает с пустыми и неопределенными значениями
  * @return В зависимости от типа `price`:
@@ -32,9 +32,10 @@ function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) 
  * иначе форматированную строку.
  * * `number` - возвращает форматированную строку.
  */
-export function formatPriceShortBy(price: number | string | null | undefined) {
+export function formatPriceShortBy(price: number | string | null | undefined, onlyNumbers = false) {
   const _price = safeConvertToPriceNumber(price)
-  if (!_price) return PRICE_PLACEHOLDER
+
+  if (_price === undefined || _price === null) return PRICE_PLACEHOLDER
 
   let shortPrice = _price
   const digits = _price.toString().length
@@ -43,7 +44,7 @@ export function formatPriceShortBy(price: number | string | null | undefined) {
     shortPrice = _price / 1000000
   }
 
-  return `от ${shortPrice} млн ₽`
+  return onlyNumbers ? `${shortPrice}` : `от ${shortPrice} млн ₽`
 }
 
 /**

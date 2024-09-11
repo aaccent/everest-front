@@ -6,7 +6,7 @@ function ClosePopupButton({ className }: { className?: string }) {
   const { closePopup } = useContext(PopupContext)
   return (
     <button
-      className={`z-20 flex size-[32px] items-center justify-center rounded-full bg-base-400 after:block after:size-[20px] after:bg-icon-close after:bg-default-auto md:right-[56px] md:top-[55px] md:size-[64px] ${className}`}
+      className={`flex size-[32px] items-center justify-center rounded-full bg-base-400 after:block after:size-[20px] after:bg-icon-close after:bg-default-auto md:right-[56px] md:top-[55px] md:size-[64px] ${className}`}
       onClick={() => {
         closePopup()
       }}

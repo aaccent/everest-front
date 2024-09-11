@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react'
 
 interface Props extends PropsWithChildren {
   className?: string
+  onClick?: () => void
 }
 
 /**
@@ -16,5 +17,9 @@ interface Props extends PropsWithChildren {
  * ```
  *  */
 export function CarouselSlide(props: Props) {
-  return <div className={`slide shrink-0 grow-0 basis-full ${props.className}`}>{props.children}</div>
+  return (
+    <div className={`slide shrink-0 grow-0 basis-full ${props.className}`} onClick={props.onClick}>
+      {props.children}
+    </div>
+  )
 }
