@@ -9,7 +9,7 @@ interface Props {
 }
 
 function SecondaryCategory({ category }: Props) {
-  async function getObjects(filter: string | undefined | null, sort: string | undefined | null) {
+  async function getObjects(filter: object[] | null, sort: string | null) {
     'use server'
     const category = await getSecondaryHousing(filter, sort)
     return category.objects

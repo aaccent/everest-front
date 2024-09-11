@@ -5,16 +5,17 @@ import { useCategoryFilter } from '@/features/useCategoryFilter'
 
 interface Props {
   className?: string
+  text?: string
 }
 
-function ResetFiltersButton({ className }: Props) {
+function ResetFiltersButton({ className, text = 'Сбросить' }: Props) {
   const { filter, clearFilters } = useCategoryFilter()
 
   if (!filter.str) return null
 
   return (
-    <button className={`text-base-500-reg-100 text-base-600/50 ${className}`} type='button' onClick={clearFilters}>
-      сбросить все
+    <button className={`text-base-500-reg-100-upper ${className}`} type='button' onClick={clearFilters}>
+      {text}
     </button>
   )
 }

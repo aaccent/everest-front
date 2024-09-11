@@ -44,19 +44,20 @@ export type SupportedMethod = 'POST' | 'GET'
 /**
  * @typeParam TRequest - Тип, передаваемый в `body` запроса. Если `false`, то значит что его ненужно указывать
  * */
-type ApiCallOptions<TRequest extends APIRequest | false = false> = TRequest extends false
+type ApiCallOptions<TRequest extends APIRequest | false = false> = {
+  /** @default - `POST` */
+  method?: SupportedMethod
+  /** @default - `false` */
+  cache?: boolean
+} & (TRequest extends false
   ? {
       /** Запрос к апи описан в {@link APIRequest}. */
       request?: never
-      /** @default - POST */
-      method?: SupportedMethod
     }
   : {
       /** Запрос к апи описан в {@link APIRequest}. */
       request: TRequest
-      /** @default - POST */
-      method?: SupportedMethod
-    }
+    })
 
 /**
  * Отправляет запрос на указанный `uri` с методом `options.method` и телом `options.body`.
@@ -76,7 +77,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   uri: SlashPath,
   options: ApiCallOptions<TRequest>,
 ): Promise<TResponse> {
-  const { method = 'POST', request } = options
+  const { method = 'POST', request, cache } = options
 
   let url = new URL(`${process.env.NEXT_PUBLIC_API_URL}${uri}`).toString()
   const fetchInit: RequestInit = {
@@ -84,6 +85,7 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     headers: {
       Accept: 'application/json',
     },
+    cache: cache ? 'force-cache' : 'no-store',
   }
 
   if (request && method === 'POST') {

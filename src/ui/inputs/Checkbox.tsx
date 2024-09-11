@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface CheckboxProps {
   id: number
@@ -7,21 +7,34 @@ interface CheckboxProps {
   name: string
   onClick?: (checked: boolean, value: string) => void
   initValue?: boolean
-  onChange?: (id: number, value: boolean) => void
+  customValue?: {
+    value: boolean
+    setValue?: (id: number, value: boolean) => void
+  }
 }
 
-function Checkbox({ isInSelect, name, onClick, id, initValue = false, onChange }: CheckboxProps) {
+function Checkbox({ isInSelect, name, onClick, id, initValue = false, customValue }: CheckboxProps) {
   const [selected, setSelected] = useState<boolean>(initValue)
 
-  const checkedClasses = selected ? 'bg-primary after:block after:size-[12px]' : ''
+  const _value = customValue ? customValue.value : selected
+  const checkedClasses = _value ? 'bg-primary after:block after:size-[12px]' : ''
+  const _setValue = (value: boolean) => {
+    if (customValue?.setValue) {
+      value && customValue.setValue(id, value)
+    } else {
+      setSelected(value)
+    }
+  }
+
+  useEffect(() => {
+    if (customValue) _setValue(_value)
+  }, [])
 
   function changeHandle(e: React.ChangeEvent<HTMLInputElement>) {
     if (isInSelect) {
-      onClick ? onClick(e.target.checked, name) : null
-      setSelected(e.target.checked)
-    } else {
-      onChange?.(id, e.target.checked)
+      onClick?.(e.target.checked, name)
     }
+    _setValue(e.target.checked)
   }
 
   return isInSelect ? (

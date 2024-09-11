@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { IMaskInput } from 'react-imask'
 
-interface RangeProps {
+export interface RangeProps {
   id: number
   min: number
   max: number
@@ -11,25 +11,38 @@ interface RangeProps {
   className?: string
   name: string
   showTitle?: boolean
-  onChange?: (id: number, value: [number, number]) => void
+  customValue?: {
+    value: { min: number; max: number }
+    setValue: (id: number, value: [number, number]) => void
+  }
 }
 
-function Range({ id, min, max, units = '', className, name, showTitle, onChange, initValue }: RangeProps) {
+function Range({ id, min, max, units = '', className, name, showTitle, customValue, initValue }: RangeProps) {
   const [value, setValue] = useState(initValue || { min, max })
 
   const step = 0.1
 
+  const _value = customValue ? customValue.value : value
+
+  const _setValue = ({ min, max }: { min: number; max: number }) => {
+    if (customValue) {
+      customValue.setValue(id, [min, max])
+    } else {
+      setValue({ min, max })
+    }
+  }
+
   const onMinValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value > value.max || +e.target.value < min) return
-    setValue({
+    if (+e.target.value > _value.max || +e.target.value < min) return
+    _setValue({
       min: +e.target.value,
-      max: value.max,
+      max: _value.max,
     })
   }
   const onMaxValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value < value.min) return
-    setValue({
-      min: value.min,
+    if (+e.target.value < _value.min) return
+    _setValue({
+      min: _value.min,
       max: +e.target.value,
     })
   }
@@ -37,25 +50,19 @@ function Range({ id, min, max, units = '', className, name, showTitle, onChange,
   const onMinInputChange = (newValue: string) => {
     const numberValue = newValue.match(/\d+\.?\d?/)
 
-    if (!numberValue || +numberValue < min) return
-    if (+numberValue[0] > value.max) return setValue({ min, max: value.max })
-    setValue({ min: +numberValue, max: value.max })
-    setTimeout(() => {
-      if (+numberValue !== value.min) onChange?.(id, [+numberValue, value.max])
-    }, 1500)
+    if (!numberValue || +numberValue < min || +numberValue === _value.min) return
+    if (+numberValue[0] > _value.max) return _setValue({ min, max: _value.max })
+    _setValue({ min: +numberValue, max: _value.max })
   }
   const onMaxInputChange = (newValue: string) => {
     const numberValue = newValue.match(/\d+\.?\d?/)
 
-    if (!numberValue || +numberValue > max || +numberValue[0] < value.min) return
-    setValue({ min: value.min, max: +numberValue })
-    setTimeout(() => {
-      if (+numberValue !== value.max) onChange?.(id, [value.min, +numberValue])
-    }, 1500)
+    if (!numberValue || +numberValue > max || +numberValue[0] < _value.min || +numberValue === _value.max) return
+    _setValue({ min: _value.min, max: +numberValue })
   }
 
-  const minPos = ((value.min - min) / (max - min)) * 100
-  const maxPos = ((value.max - min) / (max - min)) * 100
+  const minPos = ((_value.min - min) / (max - min)) * 100
+  const maxPos = ((_value.max - min) / (max - min)) * 100
 
   return (
     <div className='flex flex-col gap-[8px]'>
@@ -63,7 +70,7 @@ function Range({ id, min, max, units = '', className, name, showTitle, onChange,
       <div
         className={`text-base-400-lg-100 relative w-full min-w-[260px] rounded-[20px] bg-base-100 px-[16px] py-[18px] md:max-w-[260px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
       >
-        <input type='hidden' name={name} value={`${[value.min, value.max]}`} />
+        <input type='hidden' name={name} value={`${[_value.min, _value.max]}`} />
         <div className='text-base-400-lg-100 flex items-center justify-between'>
           <label>
             <IMaskInput
@@ -75,7 +82,7 @@ function Range({ id, min, max, units = '', className, name, showTitle, onChange,
                     num: {
                       mask: Number,
                       min,
-                      max: value.max,
+                      max: _value.max,
                       scale: 1,
                       normalizeZeros: false,
                       radix: '.',
@@ -84,7 +91,7 @@ function Range({ id, min, max, units = '', className, name, showTitle, onChange,
                 },
               ]}
               className='w-full focus:outline-0'
-              value={value.min.toString()}
+              value={_value.min.toString()}
               onAccept={(value) => onMinInputChange(value)}
             />
           </label>
@@ -98,7 +105,7 @@ function Range({ id, min, max, units = '', className, name, showTitle, onChange,
                   blocks: {
                     num: {
                       mask: Number,
-                      min: value.min,
+                      min: _value.min,
                       max,
                       scale: 1,
                       normalizeZeros: false,
@@ -108,7 +115,7 @@ function Range({ id, min, max, units = '', className, name, showTitle, onChange,
                 },
               ]}
               className='w-full text-end focus:outline-0'
-              value={value.max.toString()}
+              value={_value.max.toString()}
               onAccept={(value) => onMaxInputChange(value)}
             />
           </label>
@@ -120,10 +127,10 @@ function Range({ id, min, max, units = '', className, name, showTitle, onChange,
               step={step}
               onChange={onMinValChange}
               className='track-transparent'
-              value={value.min}
+              value={_value.min}
               min={min}
               max={max}
-              onMouseUp={() => onChange?.(id, [value.min, value.max])}
+              onMouseUp={() => _setValue?.({ min: _value.min, max: _value.max })}
             />
             <input
               type='range'
@@ -132,8 +139,8 @@ function Range({ id, min, max, units = '', className, name, showTitle, onChange,
               max={max}
               onChange={onMaxValChange}
               className='track-transparent'
-              value={value.max}
-              onMouseUp={() => onChange?.(id, [value.min, value.max])}
+              value={_value.max}
+              onMouseUp={() => _setValue({ min: _value.min, max: _value.max })}
             />
           </div>
 

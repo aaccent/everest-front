@@ -8,16 +8,20 @@ import { FilterBlock } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import MobileFilterItem from '@/components/Popup/FilterPopup/MobileFilterItem'
 import { FilterItems } from '@/features/FilterItems'
+import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
+import { FiltersTags } from '@/components/QuickFilter/FilterTags'
 
 interface Props {
   category: string
 }
 
 function FilterPopup({ category }: Props) {
-  const [filters, setFilters] = useState<FilterBlock[]>()
+  const [filters, setFilters] = useState<FilterBlock[]>([])
 
   useEffect(() => {
-    getFilters(category).then((res) => setFilters(res.filters))
+    getFilters(category).then((res) => {
+      setFilters(res.filters)
+    })
   }, [])
 
   function showFiltersBlocks() {
@@ -47,11 +51,19 @@ function FilterPopup({ category }: Props) {
         <div className='*:mb-[18px] md:w-full md:max-w-[1140px] md:*:mb-[60px]'>{showFiltersBlocks()}</div>
       </div>
 
-      <div className='fixed bottom-0 left-0 z-10 flex w-full justify-between bg-base-100 px-[24px] py-[16px] md:justify-normal md:border-t md:border-t-base-400 md:px-[56px] md:py-[24px]'>
+      <div className='fixed bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:justify-normal md:border-t md:border-t-base-400 md:px-[56px] md:py-[24px]'>
         <button className='flex size-[50px] items-center justify-center rounded-[16px] bg-base-300 after:block after:size-[22px] after:bg-icon-search-favorite after:bg-default-contain md:hidden' />
-        <Button variation='second' size='small' text='Сбросить' className='md:order-2' />
-        <Button variation='primary' size='small' text='Показать 27 объектов' className='md:order-1 md:mr-[12px]' />
-        {/*{<Tags className={`hidden md:flex`}/>}*/}
+
+        <Button variation='primary' size='small' text='Показать 27 объектов' className='md:mr-[12px]' />
+        <ResetFiltersButton
+          text='Сбросить фильтры'
+          className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'
+        />
+        <FiltersTags
+          className='ml-[176px] mr-[20px] hidden overflow-auto scrollbar-transparent md:flex'
+          list={filters}
+        />
+
         <MapObjectsButton className='ml-auto hidden md:order-3 md:flex' />
       </div>
     </>

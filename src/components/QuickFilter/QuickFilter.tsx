@@ -8,6 +8,7 @@ import { QuickFilters } from '@/types/FiltersType'
 import { FilterItems } from '@/features/FilterItems'
 import SortButton from '@/components/QuickFilter/SortButton'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
+import { FiltersTags } from '@/components/QuickFilter/FilterTags'
 
 interface Props {
   amount: number
@@ -31,11 +32,15 @@ function QuickFilter({ amount, filters, categoryName }: Props) {
           <div className='flex gap-[16px]'>
             <FilterItems filters={filters.filters.slice(0, 5)} isQuick />
           </div>
-          <ResetFiltersButton className='ml-[24px]' />
+          <ResetFiltersButton
+            className='ml-[24px] flex items-center gap-[4px] opacity-50 after:block after:size-[20px] after:bg-icon-close after:bg-default-auto'
+            text='Сбросить все'
+          />
           <MapObjectsButton className='ml-auto' />
         </div>
         <div className='hidden w-full items-center pt-[17px] md:flex'>
           <SortButton sorts={filters.sorts} />
+          <FiltersTags category={categoryName} className='ml-[114px]' />
           <button
             className='text-base-500-reg-100-upper ml-auto mr-[30px] flex items-center gap-[8px] before:size-[22px] before:bg-icon-search-favorite before:bg-default'
             type='button'
