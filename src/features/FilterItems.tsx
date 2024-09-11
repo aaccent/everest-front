@@ -16,8 +16,6 @@ interface FilterItemsProps {
 }
 
 export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
-  const classNameDesktop = !isQuick ? `md:!border md:border-base-400` : ''
-  const classNameMobile = `border border-base-400`
   const filterManager = useCategoryFilter()
 
   function onChange(id: number, value: Filter['value']) {
@@ -41,7 +39,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             key={filter.id}
             id={filter.id}
             showTitle={!isQuick}
-            className={classNameDesktop}
+            className=''
             initValue={activeValues}
             customValue={{
               value: activeValues || [],
@@ -61,7 +59,6 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             id={filter.id}
             name={filter.name}
             showTitle={!isQuick}
-            className={classNameMobile}
             initValue={activeValueIndexes}
             customValue={{
               value: activeValueIndexes,
@@ -82,7 +79,6 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             id={filter.id}
             name={filter.name}
             showTitle={!isQuick}
-            className={classNameMobile}
             initValue={value}
             customValue={{
               value,

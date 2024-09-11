@@ -6,9 +6,10 @@ import { FilterItems } from '@/features/FilterItems'
 export interface FilterItemProps {
   filters: FilterType<FilterView>[]
   name: string
+  count?: number
 }
 
-function MobileFilterItem({ filters, name }: FilterItemProps) {
+function MobileFilterItem({ filters, name, count = 1 }: FilterItemProps) {
   const [opened, setOpened] = useState(false)
 
   return (
@@ -18,9 +19,10 @@ function MobileFilterItem({ filters, name }: FilterItemProps) {
         onClick={() => setOpened(true)}
       >
         {name}
+        {count}
       </div>
       <div
-        className={`absolute inset-x-0 top-0 z-10 block h-auto rounded-[24px] bg-base-100 px-[20px] py-[24px] ${!opened && 'hidden'}`}
+        className={`absolute inset-x-0 top-0 z-10 block h-full rounded-[24px] bg-base-100 px-[20px] py-[24px] ${!opened && 'hidden'} flex flex-col`}
       >
         <div className='flex items-center gap-[88px]'>
           <div
@@ -30,7 +32,7 @@ function MobileFilterItem({ filters, name }: FilterItemProps) {
           <div className='text-header-300'>{name}</div>
         </div>
 
-        <div className='mt-[33px] flex flex-col gap-[18px]'>
+        <div className='mt-[33px] flex h-1 grow flex-col gap-[18px] overflow-auto'>
           <FilterItems filters={filters} />
         </div>
       </div>

@@ -1,8 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Simulate } from 'react-dom/test-utils'
-import copy = Simulate.copy
 
 interface Props {
   id: number
@@ -66,9 +64,9 @@ function SelectorInline({ name, list, initValue, className, id, showTitle, custo
 
   return (
     <div className='flex flex-col gap-[8px]'>
-      {showTitle && <div className='text-base-500-reg-100-upper'>{name}</div>}
+      {showTitle && <div className='text-base-500-reg-100-upper hidden md:flex'>{name}</div>}
       <div
-        className={`flex w-full items-center justify-between rounded-[20px] bg-base-100 px-[8px] py-[7px] md:w-fit md:justify-normal md:gap-[2px] md:rounded-[16px] ${className}`}
+        className={`flex w-full items-center justify-between rounded-[20px] border border-base-400 bg-base-100 px-[8px] py-[7px] md:w-fit md:justify-normal md:gap-[2px] md:rounded-[16px] ${className}`}
       >
         <input type='hidden' name={name} value={value} onChange={() => {}} />
         {showItems(list)}
