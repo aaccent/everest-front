@@ -31,3 +31,11 @@ export type SubCategory<TObjects extends object | false = false> = RawCategory &
 }
 
 export type AnyCategory = Category<any, any> | SubCategory<any>
+
+export type FilterRequestParam = object[] | null
+export type SortRequestParam = string | null
+
+export interface CategoryRequestWithFilters {
+  filter?: FilterRequestParam
+  sort?: SortRequestParam
+}
