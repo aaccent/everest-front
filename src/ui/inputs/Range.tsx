@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { IMaskInput } from 'react-imask'
 
-interface RangeProps {
+export interface RangeProps {
   id: number
   min: number
   max: number
