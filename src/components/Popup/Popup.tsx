@@ -6,12 +6,14 @@ import MapPopup from '@/components/Popup/MapPopup'
 import { hideScroll, showScroll } from '@/features/scroll'
 import GalleryPopup from '@/components/Popup/GalleryPopup/GalleryPopup'
 import FilterPopup from '@/components/Popup/FilterPopup/FilterPopup'
+import ThxPopup from '@/components/Popup/ThxPopup'
 
 const popups = {
   callPopup: CallPopup,
   mapPopup: MapPopup,
   filterPopup: FilterPopup,
   galleryPopup: GalleryPopup,
+  thxPopup: ThxPopup,
 } as const
 
 type PopupName = keyof typeof popups
