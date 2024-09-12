@@ -46,7 +46,7 @@ function CatalogContent({ type, category, initList, getObjects, tileClassName, l
         case 'complex':
           return <ComplexCard item={item as ComplexCardType} view={view} />
         case 'secondary':
-          return <ObjectCard item={item as ObjectCardType} category={category} />
+          return <ObjectCard item={item as ObjectCardType} category={category} view={view} />
       }
     })
   }

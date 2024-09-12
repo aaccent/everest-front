@@ -1,10 +1,10 @@
 import React from 'react'
 import { ObjectCard } from '@/types/ObjectCard'
 import Link from 'next/link'
-import Img from '@/ui/Img'
 import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
 import { LayoutObject } from '@/types/Complex'
+import Gallery from '@/components/Cards/ObjectCard/Gallery'
 
 interface Props {
   item: ObjectCard | LayoutObject
@@ -17,7 +17,7 @@ function ObjectListCard({ item, category }: Props) {
   return (
     <div className='group/object-card flex w-full rounded-[32px] border border-base-400 p-[40px]'>
       <Link className='mr-[40px]' href={link}>
-        <Img className='!h-[310px] !w-[472px] rounded-[20px]' src='/no-photo.jpg' width={472} height={310} />
+        <Gallery />
       </Link>
       <Link className='max-w-[570px]' href={link}>
         <div className='text-header-300 mb-[12px]'>{item.name}</div>

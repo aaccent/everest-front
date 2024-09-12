@@ -1,22 +1,22 @@
 import React, { PropsWithChildren } from 'react'
-import { Tag } from '@/types/Tag'
-import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
-import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
 import Link from 'next/link'
-import Img from '@/ui/Img'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
+import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
 import { LayoutObject } from '@/types/Complex'
+import { Tag } from '@/types/Tag'
+import Gallery from '@/components/Cards/ObjectCard/Gallery'
+
+function InfoItem({ children }: PropsWithChildren) {
+  return <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[8px]'>{children}</li>
+}
 
 interface Props {
   category: CategoryForGeneratingLink
   item: ObjectCardType | LayoutObject
 }
 
-function InfoItem({ children }: PropsWithChildren) {
-  return <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[8px]'>{children}</li>
-}
-
-function ObjectTileCard({ item, category }: Props) {
+function ObjectCard({ item, category }: Props) {
   function showTags(list: Tag[]) {
     return list.map((tag) => (
       <li className='text-base-400-lg-100 rounded-[10px] bg-base-100 px-[8px] py-[5px] text-base-600' key={tag.id}>
@@ -31,17 +31,17 @@ function ObjectTileCard({ item, category }: Props) {
     <div className='group/object-card'>
       <div className='relative mb-[22px]'>
         {'tags' in item && (
-          <ul className='absolute left-[16px] top-[16px] flex gap-[4px] md:right-[14px] md:top-[14px]'>
+          <ul className='absolute left-[16px] top-[16px] z-10 flex gap-[4px] md:right-[14px] md:top-[14px]'>
             {showTags(item.tags)}
           </ul>
         )}
-        <div className='absolute right-[16px] top-[16px] flex gap-[4px] md:right-[14px] md:top-[14px] md:gap-[8px]'>
+        <div className='absolute right-[16px] top-[16px] z-10 flex gap-[4px] md:right-[14px] md:top-[14px] md:gap-[8px]'>
           <ActionButton className='before:bg-icon-scale md:opacity-0' />
           <ActionButton className='before:bg-icon-address md:opacity-0' />
           <ActionButton className='before:bg-icon-heart' />
         </div>
         <Link href={link}>
-          <Img className='h-[340px] w-[512px] rounded-[20px]' src={item.mainImageUrl} width={512} height={340} />
+          <Gallery />
         </Link>
       </div>
       <Link href={link}>
@@ -66,4 +66,4 @@ function ObjectTileCard({ item, category }: Props) {
   )
 }
 
-export default ObjectTileCard
+export default ObjectCard
