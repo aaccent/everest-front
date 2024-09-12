@@ -17,7 +17,7 @@ interface CircleButtonProps {
 function CircleButton({ className }: CircleButtonProps) {
   return (
     <button
-      className={`flex size-[42px] items-center justify-center rounded-full bg-base-100/15 before:block before:size-[20px] before:filter-base-100 before:bg-default peer-any-parent-[:is([data-is-inner],[data-menu])]/header-state:bg-base-300 peer-any-parent-[:is([data-is-inner],[data-menu])]/header-state:before:filter-base-600 ${className}`}
+      className={`flex size-[42px] items-center justify-center rounded-full bg-base-100/15 before:block before:size-[20px] before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/header-state:bg-base-300 peer-any-parent-[.is-black]/header-state:before:filter-base-600 ${className}`}
     />
   )
 }

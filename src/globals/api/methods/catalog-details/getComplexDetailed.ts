@@ -8,9 +8,8 @@ type Request = APIRequest<{
 type Response = APIResponse<RawDetailComplex>
 
 export async function getComplexDetailed(uri: string): Promise<DetailComplex> {
-  const res = await apiCall<Request | false, Response>(`/catalog/new-building-complex-detail`, {
-    method: 'GET',
-    request: { chainUrl: `${uri}` },
+  const res = await apiCall<Request | false, Response>(`/catalog/new-buildings/${uri}`, {
+    method: 'POST',
   })
 
   return {
