@@ -29,7 +29,12 @@ function SimilarObjects({ props }: SimilarObjectsProps) {
           className='mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
           key={object.id}
         >
-          <ObjectCard category={{ seoUrl: '' }} item={object} />
+          <ObjectCard
+            item={object}
+            category={{
+              seoUrl: object.typeObject,
+            }}
+          />
         </CarouselSlide>
       )
     })
@@ -61,7 +66,7 @@ function SimilarObjects({ props }: SimilarObjectsProps) {
           </div>
         </div>
         <CarouselInner>{showObjects(type.list)}</CarouselInner>
-        <CarouselProgressBar className='hidden' />
+        <CarouselProgressBar className='hidden md:mt-[70px]' />
       </Carousel>
     </Section>
   )
