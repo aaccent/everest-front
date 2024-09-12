@@ -1,8 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Simulate } from 'react-dom/test-utils'
-import copy = Simulate.copy
 
 interface Props {
   id: number
