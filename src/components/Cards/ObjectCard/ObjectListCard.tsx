@@ -5,6 +5,7 @@ import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
 import { LayoutObject } from '@/types/Complex'
 import Gallery from '@/components/Cards/ObjectCard/Gallery'
+import Tags from '@/components/Tags'
 
 interface Props {
   item: ObjectCard | LayoutObject
@@ -16,7 +17,8 @@ function ObjectListCard({ item, category }: Props) {
 
   return (
     <div className='group/object-card flex w-full rounded-[32px] border border-base-400 p-[40px]'>
-      <Link className='mr-[40px]' href={link}>
+      <Link className='relative mr-[40px]' href={link}>
+        {'tags' in item && <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />}
         <Gallery />
       </Link>
       <Link className='max-w-[570px]' href={link}>

@@ -1,11 +1,11 @@
 import React from 'react'
 import { ComplexCard, FlatTypes } from '@/types/Complex'
 import Link from 'next/link'
-import { showTags } from '@/components/Cards/Complex/ComplexCard'
 import { formatPriceShortBy } from '@/features/price'
 import { formatStatus } from '@/features/date'
 import Img from '@/ui/Img'
 import { createComplexLink } from '@/features/link'
+import Tags from '@/components/Tags'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {
   return objectTypes.map((object) => {
@@ -37,7 +37,7 @@ function ComplexListCard({ item }: Props) {
         width={427}
         height={342}
       />
-      <div className='absolute left-[54px] top-[54px] flex gap-[4px]'>{item.tags && showTags(item.tags)}</div>
+      <Tags className='left-[54px] top-[54px]' list={item.tags} />
       <div>
         <div className='mb-[12px] flex items-center gap-[16px]'>
           <span className='text-header-300'>{item.name}</span>
