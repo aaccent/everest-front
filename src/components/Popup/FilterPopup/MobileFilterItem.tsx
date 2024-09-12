@@ -9,17 +9,25 @@ export interface FilterItemProps {
   count?: number
 }
 
-function MobileFilterItem({ filters, name, count = 1 }: FilterItemProps) {
+function MobileFilterItem({ filters, name, count = 0 }: FilterItemProps) {
   const [opened, setOpened] = useState(false)
+  function showCount() {
+    if (count)
+      return (
+        <div className='ml-[8px] flex items-center justify-center bg-primary text-[10px] text-base-100 circle-[18px]'>
+          {count}
+        </div>
+      )
+  }
 
   return (
     <div>
       <div
-        className='text-base-100-reg-100 md:text-base-500-reg-100-upper flex items-center justify-between pb-[18px] text-base-600 after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain md:after:rotate-90'
+        className='text-base-100-reg-100 md:text-base-500-reg-100-upper flex items-center pb-[18px] text-base-600 after:ml-auto after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain md:after:rotate-90'
         onClick={() => setOpened(true)}
       >
         {name}
-        {count}
+        {showCount()}
       </div>
       <div
         className={`absolute inset-x-0 top-0 z-10 block h-full rounded-[24px] bg-base-100 px-[20px] py-[24px] ${!opened && 'hidden'} flex flex-col`}
