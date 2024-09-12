@@ -3,8 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import CardInfo from '@/components/Cards/Complex/CardInfo'
 import React from 'react'
-import { showTags } from '@/components/Cards/Complex/ComplexCard'
 import { ComplexCard as ComplexCardType } from '@/types/Complex'
+import Tags from '@/components/Tags'
 
 interface Props {
   item: ComplexCardType
@@ -23,9 +23,7 @@ export function ComplexTileCard({ item }: Props) {
           fill
         />
       </Link>
-      <div className='absolute left-[8px] top-[10px] flex gap-[4px] md:left-[14px] md:top-[14px]'>
-        {item.tags && showTags(item.tags)}
-      </div>
+      <Tags className='left-[8px] top-[10px] md:left-[14px] md:top-[14px]' list={item.tags} />
       <CardInfo complex={item} link={link} />
     </div>
   )
