@@ -118,7 +118,10 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
   if (res.status === 500) {
     throw new LogError(`Method ${method}:${uri} ended with 500 code`, {
       request,
-      text,
+      url,
+      json,
+      body: text,
+      fetchInit,
     })
   }
 
