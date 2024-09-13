@@ -56,7 +56,7 @@ interface GalleryProps {
   list: string[]
 }
 
-function Gallery({ list }: GalleryProps) {
+function ObjectGallery({ list }: GalleryProps) {
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0)
   const { openPopup } = useContext(PopupContext)
 
@@ -137,4 +137,4 @@ function Gallery({ list }: GalleryProps) {
   )
 }
 
-export default Gallery
+export default ObjectGallery

@@ -1,8 +1,8 @@
 import React from 'react'
 import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
 import Section from '@/layout/Section'
-import ObjectPropertiesWrapper from '@/components/ObjectProperties/ObjectPropertiesWrapper'
-import PropItem from '@/components/PropItem'
+import ObjectPropertiesWrapper from '@/app/catalog/_components/ObjectDetail/ObjectProperties/ObjectPropertiesWrapper'
+import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
 import { formatDate } from '@/features/date'
 import { Characteristic } from '@/types/Characteristic'
 

@@ -3,14 +3,14 @@ import { DecorativeBlock } from '@/layout/DecorativeSection'
 import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
 import Section from '@/layout/Section'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
-import PropItem from '@/components/PropItem'
+import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
 import Button from '@/ui/buttons/Button'
 import { formatDate } from '@/features/date'
 import { formatFullPrice, formatPriceForArea } from '@/features/price'
-import { OBJECT_PROPS_ID } from '@/components/ObjectProperties/ObjectProperties'
+import { OBJECT_PROPS_ID } from '@/app/catalog/_components/ObjectDetail/ObjectProperties/ObjectProperties'
 
 import styles from './ObjectHero.module.css'
-import Gallery from '@/components/Gallery/Gallery'
+import ObjectGallery from '@/app/catalog/_components/ObjectDetail/ObjectGallery'
 
 function ActionButton({ className }: { className?: string }) {
   return (
@@ -54,7 +54,7 @@ function ObjectHero({ item }: Props) {
         decorativeClassName='md:-scale-x-100'
         type='medium'
       >
-        <Gallery list={testGallery} />
+        <ObjectGallery list={testGallery} />
       </DecorativeBlock>
       <DecorativeBlock
         className='!rounded-[20px] bg-base-200 p-[20px] md:w-full md:max-w-[644px] md:rounded-[32px] md:px-[40px] md:py-[70px]'

@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import Button from '@/ui/buttons/Button'
-import { Tab, TAB_TYPE, TabButton } from '@/components/ObjectProperties/TabButton'
+import { Tab, TAB_TYPE, TabButton } from '@/app/catalog/_components/ObjectDetail/ObjectProperties/TabButton'
 import { AdaptiveContext } from '@/features/adaptive'
 
 interface Props {

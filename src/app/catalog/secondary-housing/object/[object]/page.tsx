@@ -1,7 +1,7 @@
 import React from 'react'
 import { ObjectPage } from '@/types/Page'
 import { getObject } from '@/globals/api'
-import ObjectDetail from '@/app/catalog/_components/ObjectDetail'
+import ObjectDetail from '@/app/catalog/_components/ObjectDetail/ObjectDetail'
 import { getSimilarObjects } from '@/globals/api/methods/catalog-details/getSimilarObjects'
 import SimilarObjects from '@/app/catalog/_components/SimilarObjects'
 

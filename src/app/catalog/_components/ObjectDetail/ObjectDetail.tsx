@@ -1,8 +1,8 @@
 import React from 'react'
 import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
-import ObjectHero from '@/components/ObjectHero/ObjectHero'
+import ObjectHero from '@/app/catalog/_components/ObjectDetail/ObjectHero'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import ObjectProperties from '@/components/ObjectProperties/ObjectProperties'
+import ObjectProperties from '@/app/catalog/_components/ObjectDetail/ObjectProperties/ObjectProperties'
 
 interface Props {
   item: DetailSecondaryObject
