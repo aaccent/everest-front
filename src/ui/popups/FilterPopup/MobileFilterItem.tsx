@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
-import { FilterItems } from '@/features/FilterItems'
+import { FilterItems } from '@/components/FilterItems'
 
 export interface FilterItemProps {
   filters: FilterType<FilterView>[]
