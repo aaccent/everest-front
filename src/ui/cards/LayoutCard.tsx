@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
+import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 import { DetailComplex } from '@/types/Complex'
 import { LayoutContext } from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/LayoutListContext'
 

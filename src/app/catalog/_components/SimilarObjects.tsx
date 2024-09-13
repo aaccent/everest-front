@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Section from '@/layout/Section'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import Carousel, { CarouselInner, CarouselProgressBar, CarouselSlide } from '@/components/Carousel/Carousel'
-import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
+import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 import {
   CarouselNavigationButtonNext,
   CarouselNavigationButtonPrev,

@@ -1,10 +1,10 @@
 import React from 'react'
 import { ObjectCard } from '@/types/ObjectCard'
 import Link from 'next/link'
-import { ActionButton } from '@/components/Cards/ObjectCard/ActionButton'
+import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
 import { LayoutObject } from '@/types/Complex'
-import Gallery from '@/components/Cards/ObjectCard/Gallery'
+import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 
 interface Props {

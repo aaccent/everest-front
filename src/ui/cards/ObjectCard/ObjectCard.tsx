@@ -2,8 +2,8 @@ import React, { PropsWithChildren } from 'react'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import { CategoryForGeneratingLink } from '@/features/link'
 import { LayoutObject } from '@/types/Complex'
-import ObjectListCard from '@/components/Cards/ObjectCard/ObjectListCard'
-import ObjectTileCard from '@/components/Cards/ObjectCard/ObjectTileCard'
+import ObjectListCard from '@/ui/cards/ObjectCard/ObjectListCard'
+import ObjectTileCard from '@/ui/cards/ObjectCard/ObjectTileCard'
 
 function InfoItem({ children }: PropsWithChildren) {
   return <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[8px]'>{children}</li>

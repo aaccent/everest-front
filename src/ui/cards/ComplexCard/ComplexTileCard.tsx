@@ -1,7 +1,7 @@
 import { createComplexLink } from '@/features/link'
 import Link from 'next/link'
 import Image from 'next/image'
-import CardInfo from '@/components/Cards/Complex/CardInfo'
+import CardInfo from '@/ui/cards/ComplexCard/CardInfo'
 import React from 'react'
 import { ComplexCard as ComplexCardType } from '@/types/Complex'
 import Tags from '@/components/Tags'

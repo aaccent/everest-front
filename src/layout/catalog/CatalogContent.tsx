@@ -6,8 +6,8 @@ import { Props as CategoryObjectsHookProps, useCategoryObjects } from '@/feature
 import { CategoryForGeneratingLink } from '@/features/link'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import { ComplexCard as ComplexCardType, LayoutObject } from '@/types/Complex'
-import ComplexCard from '@/components/Cards/Complex/ComplexCard'
-import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
+import ComplexCard from '@/ui/cards/ComplexCard/ComplexCard'
+import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 
 type CatalogContentProps = {
   category: CategoryForGeneratingLink

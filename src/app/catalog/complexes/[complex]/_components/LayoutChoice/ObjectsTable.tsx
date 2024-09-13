@@ -3,7 +3,7 @@ import { DetailComplex, DetailComplexHouse } from '@/types/Complex'
 import Row from '@/ui/Row'
 import Cell from '@/ui/Cell'
 import { Characteristic } from '@/types/Characteristic'
-import LayoutCard from '@/components/Cards/LayoutCard'
+import LayoutCard from '@/ui/cards/LayoutCard'
 
 function isHidden(value: string | number) {
   return value === 'Номер квартиры' || value === 'Тип отделки' ? 'hidden md:table-cell' : ''
