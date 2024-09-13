@@ -3,13 +3,15 @@ import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
 import { AnyCategory } from '@/types/Category'
 import { getNewBuildings } from '@/globals/api'
+import { GetObjectsFn } from '@/features/useCategoryObject'
+import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 
 interface Props {
   category: AnyCategory
 }
 
 function Category({ category }: Props) {
-  async function getObjects(filter: object[] | null, sort: string | null) {
+  const getObjects: GetObjectsFn<ObjectCardType> = async function (filter, sort) {
     'use server'
     const category = await getNewBuildings(filter, sort)
     return category.objects

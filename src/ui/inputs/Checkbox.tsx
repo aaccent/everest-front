@@ -1,57 +1,64 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import { InputCheckboxValue } from '@/globals/utilityTypes'
 
-interface CheckboxProps {
-  id: number
-  isInSelect?: boolean
+export type CheckboxProps = {
   name: string
-  onClick?: (checked: boolean, value: string) => void
-  initValue?: boolean
-  customValue?: {
-    value: boolean
-    setValue?: (id: number, value: boolean) => void
-  }
-}
+  isInSelect?: boolean
+  title: string
+  value: string
+  defaultChecked?: boolean
+} & InputCheckboxValue
 
-function Checkbox({ isInSelect, name, onClick, id, initValue = false, customValue }: CheckboxProps) {
-  const [selected, setSelected] = useState<boolean>(initValue)
+function Checkbox({
+  isInSelect,
+  title,
+  name,
+  defaultChecked = false,
+  checked: customChecked,
+  onChange,
+  value,
+}: CheckboxProps) {
+  const [checked, setChecked] = useState<boolean>(defaultChecked)
 
-  const _value = customValue ? customValue.value : selected
-  const checkedClasses = _value ? 'bg-primary after:block after:size-[12px]' : ''
-  const _setValue = (value: boolean) => {
-    if (customValue?.setValue) {
-      value && customValue.setValue(id, value)
+  const hasCustomValue = customChecked !== undefined
+  const _checked = hasCustomValue ? customChecked : checked
+  const _setValue = (changeFn: (prev: boolean) => boolean) => {
+    if (hasCustomValue) {
+      onChange(value, changeFn(_checked))
     } else {
-      setSelected(value)
+      setChecked((prev) => {
+        const newValue = changeFn(prev)
+        onChange?.(value, newValue)
+        return newValue
+      })
     }
   }
 
-  useEffect(() => {
-    if (customValue) _setValue(_value)
-  }, [])
-
-  function changeHandle(e: React.ChangeEvent<HTMLInputElement>) {
-    if (isInSelect) {
-      onClick?.(e.target.checked, name)
-    }
-    _setValue(e.target.checked)
+  function changeHandle() {
+    _setValue((prev) => !prev)
   }
 
   return isInSelect ? (
     <label className='text-base-500-reg-100-upper flex cursor-pointer items-center gap-[10px]'>
-      <div
-        className={`flex size-[20px] items-center justify-center rounded-[4px] bg-base-300 after:bg-icon-checkmark after:filter-base-100 after:bg-default-contain ${checkedClasses}`}
-      >
-        <input type='checkbox' className='absolute -z-10 opacity-0' name={name} onChange={changeHandle} />
+      <div className='flex size-[20px] items-center justify-center rounded-[4px] bg-base-300 after:bg-icon-checkmark after:filter-base-100 after:bg-default-contain has-[:checked]:bg-primary has-[:checked]:after:block has-[:checked]:after:size-[12px]'>
+        <input
+          type='checkbox'
+          className='absolute -z-10 opacity-0'
+          name={name}
+          value={value}
+          checked={_checked}
+          onChange={changeHandle}
+        />
       </div>
-      {name}
+      {title}
     </label>
   ) : (
     <label className='text-base-100-reg-100 md:text-base-500-reg-100-upper flex cursor-pointer items-center justify-between border-b border-t border-b-base-600/10 border-t-base-600/10 py-[16px] md:gap-[10px] md:border-none md:py-0'>
       <div className='relative order-2 flex h-[22px] w-[36px] items-center justify-center rounded-[50px] bg-base-300 after:absolute after:inset-y-1/2 after:left-[6px] after:right-auto after:block after:size-[10px] after:-translate-y-1/2 after:rounded-full after:bg-base-500 has-[:checked]:after:left-auto has-[:checked]:after:right-[6px] has-[:checked]:after:bg-primary md:static md:order-1 md:size-[20px] md:rounded-[4px] md:after:static md:after:rounded-none md:after:bg-transparent md:after:bg-default-contain md:has-[:checked]:bg-primary md:has-[:checked]:after:size-[12px] md:has-[:checked]:after:translate-y-0 md:has-[:checked]:after:bg-transparent md:has-[:checked]:after:bg-icon-checkmark md:has-[:checked]:after:filter-base-100'>
-        <input type='checkbox' className='absolute -z-10 opacity-0' onChange={changeHandle} />
+        <input type='checkbox' className='absolute -z-10 opacity-0' checked={_checked} onChange={changeHandle} />
       </div>
-      {name}
+      {title}
     </label>
   )
 }

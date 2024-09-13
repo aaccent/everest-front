@@ -2,7 +2,7 @@
 import { FilterType, FilterView } from '@/types/FiltersType'
 import Selector from '@/ui/inputs/Selector'
 import SelectorInline from '@/ui/inputs/SelectorInline'
-import Range from '@/ui/inputs/Range'
+import Range, { RangeValue } from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
 import React from 'react'
 import { Filter, useCategoryFilter } from '@/features/useCategoryFilter'
@@ -20,8 +20,8 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   const classNameMobile = `border border-base-400`
   const filterManager = useCategoryFilter()
 
-  function onChange(id: number, value: Filter['value']) {
-    filterManager.addFilter(id, value)
+  function onChange(id: string, value: Filter['value'] | RangeValue) {
+    filterManager.addFilter(Number(id), value)
   }
 
   function getCurrentFilter<T extends Filter['value']>(id: number) {
@@ -29,44 +29,40 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   }
 
   return filters.map((filter) => {
-    if (!filter.value) return null
+    if (!filter.value && filter.fieldType !== 'toggle') return null
 
     switch (filter.fieldType) {
       case 'multilist': {
-        const activeValues = getCurrentFilter<string[]>(filter.id)?.value
+        const activeValues = getCurrentFilter<string[]>(filter.id)?.value || []
+
         return (
           <Selector
-            values={filter.value}
-            name={filter.name}
             key={filter.id}
-            id={filter.id}
+            list={filter.value}
+            title={filter.name}
+            name={filter.id.toString()}
             showTitle={!isQuick}
             className={classNameDesktop}
-            initValue={activeValues}
-            customValue={{
-              value: activeValues || [],
-              setValue: onChange,
-            }}
+            defaultValue={activeValues}
+            value={activeValues}
+            onChange={onChange}
           />
         )
       }
       case 'inline-multilist': {
         const activeValues = getCurrentFilter<Array<string>>(filter.id)?.value || []
-        const activeValueIndexes = activeValues.map((activeVal) => filter.value.indexOf(activeVal))
 
         return (
           <SelectorInline
-            list={filter.value}
             key={filter.id}
-            id={filter.id}
-            name={filter.name}
+            list={filter.value}
+            name={filter.id.toString()}
+            title={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
-            initValue={activeValueIndexes}
-            customValue={{
-              value: activeValueIndexes,
-              setValue: onChange,
-            }}
+            defaultValue={activeValues}
+            value={activeValues}
+            onChange={onChange}
           />
         )
       }
@@ -75,33 +71,32 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
         const value = rawValue
           ? { min: rawValue[0], max: rawValue[1] }
           : { min: filter.value.min, max: filter.value.max }
+
         return (
           <Range
             min={filter.value.min}
             max={filter.value.max}
-            id={filter.id}
-            name={filter.name}
+            name={filter.id.toString()}
+            title={filter.name}
             showTitle={!isQuick}
             className={classNameMobile}
-            initValue={value}
-            customValue={{
-              value,
-              setValue: onChange,
-            }}
+            defaultValue={value}
+            value={value}
+            onChange={onChange}
           />
         )
       }
       case 'toggle': {
         const value = getCurrentFilter<boolean>(filter.id)?.value
+
         return (
           <Checkbox
-            name={filter.name}
-            id={filter.id}
-            initValue={value}
-            customValue={{
-              value: value || false,
-              setValue: onChange,
-            }}
+            title={filter.name}
+            name={filter.id.toString()}
+            defaultChecked={value}
+            checked={value}
+            value={filter.id.toString()}
+            onChange={onChange}
           />
         )
       }
