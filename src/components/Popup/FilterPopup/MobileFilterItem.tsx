@@ -11,13 +11,15 @@ export interface FilterItemProps {
 
 function MobileFilterItem({ filters, name, count = 0 }: FilterItemProps) {
   const [opened, setOpened] = useState(false)
+
   function showCount() {
-    if (count)
-      return (
-        <div className='ml-[8px] flex items-center justify-center bg-primary text-[10px] text-base-100 circle-[18px]'>
-          {count}
-        </div>
-      )
+    if (!count) return null
+
+    return (
+      <div className='ml-[8px] flex items-center justify-center bg-primary text-[10px] text-base-100 circle-[18px]'>
+        {count}
+      </div>
+    )
   }
 
   return (
