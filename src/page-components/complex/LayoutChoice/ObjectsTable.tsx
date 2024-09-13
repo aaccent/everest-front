@@ -1,6 +1,5 @@
 import React from 'react'
 import { DetailComplex, DetailComplexHouse } from '@/types/Complex'
-import Button from '@/ui/buttons/Button'
 import Row from '@/ui/Row'
 import Cell from '@/ui/Cell'
 import { Characteristic } from '@/types/Characteristic'
@@ -57,7 +56,6 @@ function ObjectsTable({ complex }: ObjectsTableProps) {
               <thead>{showHeadRow(house.objects[0].characteristics, house.objects[0].houseNumber)}</thead>
               <tbody>{showBody(house)}</tbody>
             </table>
-            <Button variation='outline' text='показать ещё 32 объекта' size='medium' className='w-full' />
           </div>
           <div className='hidden max-w-[380px] md:block'></div>
         </div>
