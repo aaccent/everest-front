@@ -5,7 +5,7 @@ import SelectorInline from '@/ui/inputs/SelectorInline'
 import Range, { RangeValue } from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
 import React from 'react'
-import { Filter, useCategoryFilter } from '@/features/useCategoryFilter'
+import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 
 /** @param filters Полученный от бэкенда массив фильтров
  * @param isQuick  Если `true`, то показывает заголовок поля фильтра, иначе скрывает.*/

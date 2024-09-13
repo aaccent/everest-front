@@ -1,10 +1,10 @@
 import React from 'react'
-import { IsDesktop } from '@/features/adaptive'
+import { IsDesktop } from '@/features/utility/adaptive'
 import Link from 'next/link'
 import Image from 'next/image'
-import { suggestionPlural } from '@/features/pluralRules'
+import { suggestionPlural } from '@/features/utility/pluralRules'
 import { getCatalogMenu, MenuType } from '@/globals/api'
-import { generateCategoryLink } from '@/features/link'
+import { generateCategoryLink } from '@/features/catalog/link'
 
 interface Props {
   className?: string

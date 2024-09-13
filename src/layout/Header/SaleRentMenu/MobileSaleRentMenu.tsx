@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { suggestionPlural } from '@/features/pluralRules'
+import { suggestionPlural } from '@/features/utility/pluralRules'
 import { getCatalogMenu, MenuType } from '@/globals/api'
 
 interface Props {

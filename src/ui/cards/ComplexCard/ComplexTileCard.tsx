@@ -1,4 +1,4 @@
-import { createComplexLink } from '@/features/link'
+import { createComplexLink } from '@/features/catalog/link'
 import Link from 'next/link'
 import Image from 'next/image'
 import CardInfo from '@/ui/cards/ComplexCard/CardInfo'

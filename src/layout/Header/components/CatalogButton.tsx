@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext } from 'react'
-import { IsDesktop, IsMobile } from '@/features/adaptive'
+import { IsDesktop, IsMobile } from '@/features/utility/adaptive'
 import Button, { ButtonVariation } from '@/ui/buttons/Button'
 import { hideScroll, showScroll } from '@/features/scroll'
 import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'

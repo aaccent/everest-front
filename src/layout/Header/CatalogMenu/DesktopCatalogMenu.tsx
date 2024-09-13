@@ -5,7 +5,7 @@ import Img from '@/ui/Img'
 import SeeAllCard from '@/layout/Header/components/SeeAllCard'
 import MenuItemCard from '@/layout/Header/components/MenuItemCard'
 import { MenuCategory } from '@/types/Menu'
-import { generateCategoryLink } from '@/features/link'
+import { generateCategoryLink } from '@/features/catalog/link'
 
 function showTopLevel(list: MenuCategory[]) {
   return list.map((category) => (

@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { DetailComplex } from '@/types/Complex'
 import Link from 'next/link'
-import { formatStatus } from '@/features/date'
+import { formatStatus } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
 
 function showDetails(array: Characteristic[]) {

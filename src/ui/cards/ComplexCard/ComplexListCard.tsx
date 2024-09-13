@@ -1,10 +1,10 @@
 import React from 'react'
 import { ComplexCard, FlatTypes } from '@/types/Complex'
 import Link from 'next/link'
-import { formatPriceShortBy } from '@/features/price'
-import { formatStatus } from '@/features/date'
+import { formatPriceShortBy } from '@/features/utility/price'
+import { formatStatus } from '@/features/utility/date'
 import Img from '@/ui/Img'
-import { createComplexLink } from '@/features/link'
+import { createComplexLink } from '@/features/catalog/link'
 import Tags from '@/components/Tags'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {

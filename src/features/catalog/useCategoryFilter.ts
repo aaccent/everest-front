@@ -1,7 +1,7 @@
 'use client'
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
-import { convertToBase64, convertBase64ToArray } from '@/features/convertBase64'
+import { convertToBase64, convertBase64ToArray } from '@/features/utility/convertBase64'
 import { RangeValue } from '@/ui/inputs/Range'
 
 export interface Filter {

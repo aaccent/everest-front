@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { Sort } from '@/types/FiltersType'
-import { useCategorySort } from '@/features/useCategorySort'
+import { useCategorySort } from '@/features/catalog/useCategorySort'
 
 interface SortButtonProps {
   sorts: Sort[]

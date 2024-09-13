@@ -1,8 +1,8 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { formatPriceShortBy } from '@/features/price'
-import { formatStatus } from '@/features/date'
+import { formatPriceShortBy } from '@/features/utility/price'
+import { formatStatus } from '@/features/utility/date'
 import { ComplexCard, FlatTypes } from '@/types/Complex'
 
 function showObjectTypes(objectTypes: FlatTypes[]) {

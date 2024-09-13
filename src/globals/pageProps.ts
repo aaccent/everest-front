@@ -1,7 +1,7 @@
 import 'server-only'
 import { headers } from 'next/headers'
 import { userAgent } from 'next/server'
-import { Viewport } from '@/features/adaptive'
+import { Viewport } from '@/features/utility/adaptive'
 
 export interface LayoutProps {
   viewport?: Viewport

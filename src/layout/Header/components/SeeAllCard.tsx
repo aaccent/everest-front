@@ -1,5 +1,5 @@
 import React from 'react'
-import { suggestionPlural } from '@/features/pluralRules'
+import { suggestionPlural } from '@/features/utility/pluralRules'
 import Link from 'next/link'
 
 interface Props {

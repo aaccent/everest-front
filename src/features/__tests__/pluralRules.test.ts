@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { suggestionPlural } from '@/features/pluralRules'
+import { suggestionPlural } from '@/features/utility/pluralRules'
 
 describe('"Предложения"', () => {
   test('1 предложение', () => {

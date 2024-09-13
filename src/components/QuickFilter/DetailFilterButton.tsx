@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from 'react'
 import { PopupContext } from '@/features/Popup'
-import { useCategoryFilter } from '@/features/useCategoryFilter'
+import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 
 interface Props {
   className?: string

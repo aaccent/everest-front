@@ -3,7 +3,7 @@ import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
 import Section from '@/layout/Section'
 import ObjectPropertiesWrapper from '@/app/catalog/_components/ObjectDetail/ObjectProperties/ObjectPropertiesWrapper'
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
-import { formatDate } from '@/features/date'
+import { formatDate } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
 
 interface Props {

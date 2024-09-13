@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import Footer from '@/layout/Footer/Footer'
 import Header from '@/layout/Header/Header'
-import { AdaptiveProvider } from '@/features/adaptive'
+import { AdaptiveProvider } from '@/features/utility/adaptive'
 import { basePageProps } from '@/globals/pageProps'
 import { PopupProvider } from '@/features/Popup'
 

@@ -1,8 +1,8 @@
 'use client'
-import { useCategoryFilter } from '@/features/useCategoryFilter'
+import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { Sort } from '@/types/FiltersType'
 import { useEffect, useState } from 'react'
-import { useCategorySort } from '@/features/useCategorySort'
+import { useCategorySort } from '@/features/catalog/useCategorySort'
 
 export type GetObjectsFn<TType = unknown> = (filter: object[] | null, sort: Sort['value'] | null) => Promise<TType[]>
 

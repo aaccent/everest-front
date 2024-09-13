@@ -3,7 +3,7 @@ import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
 import { AnyCategory } from '@/types/Category'
 import { getSecondaryHousing } from '@/globals/api'
-import { GetObjectsFn } from '@/features/useCategoryObject'
+import { GetObjectsFn } from '@/features/catalog/useCategoryObject'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 
 interface Props {
