@@ -8,7 +8,7 @@ import Carousel, {
   CarouselNavigations,
 } from '@/components/Carousel/Carousel'
 import { ComplexCard as ComplexCardType } from '@/types/Complex'
-import SeeAllCard from '@/components/SeeAllCard'
+import SeeAllCard from '@/ui/cards/SeeAllCard'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 
