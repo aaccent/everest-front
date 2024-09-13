@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { PopupContext } from '@/components/Popup/Popup'
+import { PopupContext } from '@/features/Popup'
 
 function ClosePopupButton({ className }: { className?: string }) {
   const { closePopup } = useContext(PopupContext)

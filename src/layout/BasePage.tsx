@@ -3,7 +3,7 @@ import Footer from '@/layout/Footer/Footer'
 import Header from '@/layout/Header/Header'
 import { AdaptiveProvider } from '@/features/adaptive'
 import { basePageProps } from '@/globals/pageProps'
-import { PopupProvider } from '@/components/Popup/Popup'
+import { PopupProvider } from '@/features/Popup'
 
 import packageJSON from '@/../package.json'
 import ContactForm from '@/components/ContactForm/ContactForm'

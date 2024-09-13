@@ -2,7 +2,7 @@
 
 import React, { useContext } from 'react'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
-import { PopupContext } from '@/components/Popup/Popup'
+import { PopupContext } from '@/features/Popup'
 
 function CallPopupButton() {
   const { openPopup } = useContext(PopupContext)

@@ -2,7 +2,7 @@
 import React from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
 import { useCategoryFilter } from '@/features/useCategoryFilter'
-import MobileFilterItem from '@/components/Popup/FilterPopup/MobileFilterItem'
+import MobileFilterItem from '@/ui/popups/FilterPopup/MobileFilterItem'
 
 interface FilterBlockWrapperProps {
   filterBlock: FilterType<FilterView>[]

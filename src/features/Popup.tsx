@@ -1,12 +1,12 @@
 'use client'
 
 import React, { createContext, PropsWithChildren, useRef, useState } from 'react'
-import CallPopup from '@/components/Popup/CallPopup/CallPopup'
-import MapPopup from '@/components/Popup/MapPopup'
+import CallPopup from '@/ui/popups/CallPopup/CallPopup'
+import MapPopup from '@/ui/popups/MapPopup'
 import { hideScroll, showScroll } from '@/features/scroll'
-import GalleryPopup from '@/components/Popup/GalleryPopup/GalleryPopup'
-import FilterPopup from '@/components/Popup/FilterPopup/FilterPopup'
-import ThxPopup from '@/components/Popup/ThxPopup'
+import GalleryPopup from '@/ui/popups/GalleryPopup/GalleryPopup'
+import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
+import ThxPopup from '@/ui/popups/ThxPopup'
 
 const popups = {
   callPopup: CallPopup,

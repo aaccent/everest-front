@@ -9,7 +9,7 @@ import { IsDesktop, IsMobile } from '@/features/adaptive'
 import { FilterItems } from '@/features/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import { FiltersTags } from '@/components/QuickFilter/FilterTags'
-import FilterBlockWrapper from '@/components/Popup/FilterPopup/FilterBlockWrapper'
+import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
 
 interface Props {
   category: string

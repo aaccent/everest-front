@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useContext } from 'react'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
-import { PopupContext } from '@/components/Popup/Popup'
+import { PopupContext } from '@/features/Popup'
 
 interface Props extends PropsWithChildren {
   className?: string
