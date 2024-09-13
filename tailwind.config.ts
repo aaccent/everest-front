@@ -310,6 +310,9 @@ const config: Config = {
       pattern: /bg-icon-\w+/,
       variants: ['after', 'before'],
     },
+    {
+      pattern: /grid-cols-\w+/,
+    },
   ],
 }
 export default config

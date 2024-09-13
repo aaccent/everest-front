@@ -16,7 +16,7 @@ type Response = APIResponse<RawDetailSecondaryObject>
 export async function getObject(props: Props): Promise<DetailSecondaryObject> {
   const path: SlashPath = `/catalog/${props.category}/${props.object}`
   const res = await apiCall<Request, Response>(path, {
-    method: 'GET',
+    method: 'POST',
     request: {
       chainUrl: props.subcategory,
     },

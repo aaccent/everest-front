@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Input from '@/ui/inputs/Input'
 import Section from '@/layout/Section'
 import CallForm from '@/ui/forms/CallForm'
+import NameInput from '@/ui/inputs/NameInput'
+import PhoneInput from '@/ui/inputs/PhoneInput'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
 import { getAddresses, getSocials } from '@/globals/api'
@@ -50,27 +52,18 @@ async function ContactForm() {
           Наш менеджер свяжется с вами в течение 15 минут или закажите звонок, перезвоним в удобное время
         </div>
         <CallForm className='flex flex-col gap-[8px] md:block'>
-          <Input
+          <NameInput
             className='w-full md:mr-[16px] md:inline-flex md:w-[330px]'
-            type={INPUT_NAMES.NAME.type}
             name={INPUT_NAMES.NAME.name}
-            placeholder='имя*'
             required
             onDark
           />
-          <Input
-            className='w-full md:inline-flex md:w-[330px]'
-            type={INPUT_NAMES.PHONE.type}
-            name={INPUT_NAMES.PHONE.name}
-            placeholder='Телефон*'
-            required
-            onDark
-          />
+          <PhoneInput className='w-full md:inline-flex md:w-[330px]' name={INPUT_NAMES.PHONE.name} required onDark />
           <Input
             className='w-full md:mb-[32px] md:mt-[16px]'
             type={INPUT_NAMES.CALL_TIME.type}
             name={INPUT_NAMES.CALL_TIME.name}
-            placeholder='время звонка*'
+            placeholder='время звонка'
             required
             onDark
           />
