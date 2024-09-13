@@ -54,12 +54,6 @@ function CatalogContent({ type, category, initList, getObjects, tileClassName, l
   return (
     <Container>
       <div className={`flex flex-col ${viewStyle}`}>{showObjects()}</div>
-      <button
-        className='text-base-500-reg-100-upper mt-[16px] w-full rounded-[20px] border border-primary py-[18px] text-primary md:mt-[40px] md:py-[31px]'
-        onClick={onMoreBtnClick}
-      >
-        показать ещё 4
-      </button>
     </Container>
   )
 }
