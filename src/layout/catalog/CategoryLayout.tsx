@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import { AnyCategory } from '@/types/Category'
-import PageTitle from '@/components/PageTitle/PageTitle'
+import PageTitle from '@/ui/text/PageTitle'
 import Container from '@/layout/Container'
 import { suggestionPlural } from '@/features/utility/pluralRules'
 import QuickFilter from '@/components/QuickFilter/QuickFilter'
