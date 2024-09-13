@@ -3,7 +3,7 @@
 import React, { createContext, PropsWithChildren, useRef, useState } from 'react'
 import CallPopup from '@/ui/popups/CallPopup/CallPopup'
 import MapPopup from '@/ui/popups/MapPopup'
-import { hideScroll, showScroll } from '@/features/scroll'
+import { hideScroll, showScroll } from '@/features/visible/scroll'
 import GalleryPopup from '@/ui/popups/GalleryPopup/GalleryPopup'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import ThxPopup from '@/ui/popups/ThxPopup'

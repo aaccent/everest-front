@@ -7,7 +7,7 @@ import MobileDetailMenu from '@/layout/Header/mobile/MobileDetailMenu'
 
 import { HeaderProvider } from '@/layout/Header/Header.context'
 import { getPathname } from '@/features/pathname'
-import { IsDesktop, IsMobile } from '@/features/utility/adaptive'
+import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
 import DesktopHeader from '@/layout/Header/desktop/DesktopHeader'
 import DesktopSaleRentMenu from '@/layout/Header/SaleRentMenu/DesktopSaleRentMenu'
 

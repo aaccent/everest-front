@@ -1,6 +1,6 @@
 'use client'
 import { createContext, PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react'
-import { showScroll, useScroll } from '@/features/scroll'
+import { showScroll, useScroll } from '@/features/visible/scroll'
 import { usePathname } from 'next/navigation'
 
 export const HEADER_MENUS = {

@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction, useCallback, useContext, useEffect, us
 import { CarouselSlide } from '@/components/Carousel/CarouselSlide'
 import Img from '@/ui/Img'
 import Carousel, { CarouselContext, CarouselInner, CarouselProgressBar } from '@/components/Carousel/Carousel'
-import { PopupContext } from '@/features/Popup'
+import { PopupContext } from '@/features/visible/Popup'
 import { EmblaCarouselType } from 'embla-carousel'
 import {
   CarouselNavigationButtonNext,

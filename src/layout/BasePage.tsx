@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from 'react'
 import Footer from '@/layout/Footer/Footer'
 import Header from '@/layout/Header/Header'
-import { AdaptiveProvider } from '@/features/utility/adaptive'
+import { AdaptiveProvider } from '@/features/visible/adaptive'
 import { basePageProps } from '@/globals/pageProps'
-import { PopupProvider } from '@/features/Popup'
+import { PopupProvider } from '@/features/visible/Popup'
 
 import packageJSON from '@/../package.json'
 import ContactForm from '@/components/ContactForm/ContactForm'
