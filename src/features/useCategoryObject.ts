@@ -4,9 +4,11 @@ import { Sort } from '@/types/FiltersType'
 import { useEffect, useState } from 'react'
 import { useCategorySort } from '@/features/useCategorySort'
 
+export type GetObjectsFn<TType = unknown> = (filter: object[] | null, sort: Sort['value'] | null) => Promise<TType[]>
+
 export interface Props<TType = unknown> {
   initList: TType[]
-  getObjects: (filter: object[] | null, sort: Sort['value'] | null) => Promise<TType[]>
+  getObjects: GetObjectsFn<TType>
 }
 
 /**

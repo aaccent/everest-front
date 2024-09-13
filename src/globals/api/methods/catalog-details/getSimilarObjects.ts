@@ -8,7 +8,7 @@ type Request = APIRequest<{
 }>
 
 export async function getSimilarObjects(objectUrl: string, type: 'min_area' | 'price'): Promise<ObjectCard[]> {
-  const res = await apiCall<Request, Response>('/filter', {
+  const res = await apiCall<Request, Response>('/info/similar', {
     method: 'GET',
     request: {
       type,

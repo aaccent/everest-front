@@ -2,6 +2,8 @@ import React from 'react'
 import { getComplexes } from '@/globals/api'
 import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
+import { GetObjectsFn } from '@/features/useCategoryObject'
+import { ComplexCard as ComplexCardType } from '@/types/Complex'
 
 async function Page() {
   const data = await getComplexes()
@@ -11,7 +13,7 @@ async function Page() {
     name: 'Жилые Комплексы',
   }
 
-  async function getObjects(filter: object[] | null, sort: string | null) {
+  const getObjects: GetObjectsFn<ComplexCardType> = async function (filter, sort) {
     'use server'
     const category = await getComplexes(filter, sort)
     return category.objects
