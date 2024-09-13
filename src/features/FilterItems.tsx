@@ -16,8 +16,6 @@ interface FilterItemsProps {
 }
 
 export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
-  const classNameDesktop = !isQuick ? `md:!border md:border-base-400` : ''
-  const classNameMobile = `border border-base-400`
   const filterManager = useCategoryFilter()
 
   function onChange(id: string, value: Filter['value'] | RangeValue) {
@@ -42,7 +40,6 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             title={filter.name}
             name={filter.id.toString()}
             showTitle={!isQuick}
-            className={classNameDesktop}
             defaultValue={activeValues}
             value={activeValues}
             onChange={onChange}
@@ -59,7 +56,6 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             name={filter.id.toString()}
             title={filter.name}
             showTitle={!isQuick}
-            className={classNameMobile}
             defaultValue={activeValues}
             value={activeValues}
             onChange={onChange}
@@ -79,7 +75,6 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             name={filter.id.toString()}
             title={filter.name}
             showTitle={!isQuick}
-            className={classNameMobile}
             defaultValue={value}
             value={value}
             onChange={onChange}

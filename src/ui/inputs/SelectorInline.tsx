@@ -64,9 +64,9 @@ function SelectorInline({
 
   return (
     <div className='flex flex-col gap-[8px]'>
-      {showTitle && <div className='text-base-500-reg-100-upper'>{title}</div>}
+      {showTitle && <div className='text-base-500-reg-100-upper hidden md:flex'>{title}</div>}
       <div
-        className={`flex w-full items-center justify-between rounded-[20px] bg-base-100 px-[8px] py-[7px] md:w-fit md:justify-normal md:gap-[2px] md:rounded-[16px] ${className}`}
+        className={`flex w-full items-center justify-between rounded-[20px] border border-base-400 bg-base-100 px-[8px] py-[7px] md:w-fit md:justify-normal md:gap-[2px] md:rounded-[16px] ${className}`}
       >
         <input type='hidden' name={title} value={value.join(',')} onChange={() => {}} />
         {showItems(list)}

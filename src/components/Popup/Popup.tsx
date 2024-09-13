@@ -52,7 +52,7 @@ function Popup({ stateRef }: PopupProps) {
   const _Popup = popups[popupObj.name]
 
   return (
-    <div className='fixed inset-0 z-50 overflow-auto bg-base-600/60'>
+    <div className='fixed inset-0 z-50 bg-base-600/60'>
       {/*@ts-ignore*/}
       <_Popup {...(popupObj.args || {})} />
     </div>
