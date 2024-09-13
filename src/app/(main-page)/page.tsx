@@ -1,9 +1,12 @@
+import React from 'react'
+
+import MainHero from './_components/MainHero'
+import Services from './_components/Services/Services'
 import SliderSection from '@/components/Slider/SliderSection'
-import UsefulLinks from '@/page-components/main/UsefulLinks/UsefulLinks'
-import MainHero from '@/page-components/main/MainHero'
+import UsefulLinks from './_components/UsefulLinks/UsefulLinks'
+
 import { getNewObjects } from '@/globals/api/methods/main-page'
 import { getNewBuildingsOnMain } from '@/globals/api'
-import Services from '@/components/Services/Services'
 import { ROUTES } from '@/globals/paths'
 
 export default async function Home() {

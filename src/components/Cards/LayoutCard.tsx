@@ -2,7 +2,7 @@
 import React, { useContext } from 'react'
 import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
 import { DetailComplex } from '@/types/Complex'
-import { LayoutContext } from '@/page-components/complex/LayoutChoice/LayoutListContext'
+import { LayoutContext } from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/LayoutListContext'
 
 interface Props {
   complex: DetailComplex

@@ -3,7 +3,7 @@ import DecorativeSection from '@/layout/DecorativeSection'
 import { getServices } from '@/globals/api'
 import Image from 'next/image'
 import Link from 'next/link'
-import ServicesWrapperWithButton from '@/components/Services/ServicesWrapperWithButton'
+import ServicesWrapperWithButton from '@/app/(main-page)/_components/Services/ServicesWrapperWithButton'
 
 interface Service {
   id: string

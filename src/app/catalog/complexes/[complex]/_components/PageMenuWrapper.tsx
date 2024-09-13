@@ -1,6 +1,6 @@
 'use client'
 import React, { PropsWithChildren, useEffect, useRef, useState } from 'react'
-import PageMenu from '@/page-components/complex/PageMenu'
+import PageMenu from '@/app/catalog/complexes/[complex]/_components/PageMenu'
 import Section from '@/layout/Section'
 
 function PageMenuWrapper({ children }: PropsWithChildren) {
