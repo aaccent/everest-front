@@ -1,7 +1,7 @@
 import React from 'react'
 import { AnyCategory, SubCategory } from '@/types/Category'
 import Link from 'next/link'
-import { generateCategoryLink } from '@/features/link'
+import { generateCategoryLink } from '@/features/catalog/link'
 import Img from '@/ui/Img'
 import { TEST_ID } from '@/globals/testIds'
 

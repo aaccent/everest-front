@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { toggleScroll } from '@/features/scroll'
+import { toggleScroll } from '@/features/visible/scroll'
 import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
 
 function MobileMenuButton() {

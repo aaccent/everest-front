@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 import { TEST_ID } from '@/globals/testIds'
+import { ROUTES } from '@/globals/paths'
 
 test('Should load main page', async ({ page }) => {
   const res = await page.goto('/')
@@ -8,19 +9,19 @@ test('Should load main page', async ({ page }) => {
 })
 
 test('Should load catalog/new-buildings page', async ({ page }) => {
-  const res = await page.goto('/catalog/new-buildings')
+  const res = await page.goto(ROUTES.NEW_BUILDINGS)
 
   expect(res?.status()).toEqual(200)
 })
 
 test('Should load catalog/secondary-housing page', async ({ page }) => {
-  const res = await page.goto('/catalog/secondary-housing')
+  const res = await page.goto(ROUTES.SECONDARY_HOUSING)
 
   expect(res?.status()).toEqual(200)
 })
 
 test('Should load catalog/secondary-housing subcategory page', async ({ page }) => {
-  const res = await page.goto('/catalog/secondary-housing')
+  const res = await page.goto(ROUTES.SECONDARY_HOUSING)
 
   expect(res?.status()).toEqual(200)
 

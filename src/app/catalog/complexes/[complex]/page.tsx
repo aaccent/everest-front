@@ -2,11 +2,11 @@ import React from 'react'
 import { ComplexPage } from '@/types/Page'
 import { getComplexDetailed } from '@/globals/api'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import ComplexHero from '@/page-components/complex/ComplexHero'
-import PageSlider from '@/page-components/complex/PageSlider'
-import DetailedInfo from '@/page-components/complex/DetailedInfo'
-import PageMenuWrapper from '@/page-components/complex/PageMenuWrapper'
-import LayoutChoice from '@/page-components/complex/LayoutChoice/LayoutChoice'
+import ComplexHero from './_components/ComplexHero'
+import PageSlider from './_components/PageSlider'
+import DetailedInfo from './_components/DetailedInfo'
+import PageMenuWrapper from './_components/PageMenuWrapper'
+import LayoutChoice from './_components/LayoutChoice/LayoutChoice'
 
 async function Page({ params }: ComplexPage) {
   const complex = await getComplexDetailed(params.complex)

@@ -1,5 +1,5 @@
 import React from 'react'
-import Category from '@/page-components/catalog/Category'
+import Category from '@/app/catalog/_components/Category'
 import { getNewBuildingsSubcategory } from '@/globals/api'
 import { SubcategoryPage } from '@/types/Page'
 

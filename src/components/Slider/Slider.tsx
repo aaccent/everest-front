@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import ComplexCard from '@/components/Cards/Complex/ComplexCard'
+import ComplexCard from '@/ui/cards/ComplexCard/ComplexCard'
 import Carousel, {
   CarouselInner,
   CarouselProgressBar,
@@ -8,9 +8,9 @@ import Carousel, {
   CarouselNavigations,
 } from '@/components/Carousel/Carousel'
 import { ComplexCard as ComplexCardType } from '@/types/Complex'
-import SeeAllCard from '@/components/SeeAllCard'
+import SeeAllCard from '@/ui/cards/SeeAllCard'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
-import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
+import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 
 export type SliderProps = {
   link: string

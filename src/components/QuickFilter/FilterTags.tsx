@@ -1,6 +1,6 @@
 'use client'
 import { FilterBlock, FilterType, FilterView } from '@/types/FiltersType'
-import { useCategoryFilter } from '@/features/useCategoryFilter'
+import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import React, { useEffect, useState } from 'react'
 import { getFilters } from '@/globals/api/methods/getFilters'
 

@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useContext, useEffect, useState } from 'react'
-import { PopupContext } from '@/components/Popup/Popup'
-import { useCategoryFilter } from '@/features/useCategoryFilter'
+import { PopupContext } from '@/features/visible/Popup'
+import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 
 interface Props {
   className?: string

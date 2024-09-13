@@ -2,12 +2,12 @@
 import React, { useContext } from 'react'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import Container from '@/layout/Container'
-import { Props as CategoryObjectsHookProps, useCategoryObjects } from '@/features/useCategoryObject'
-import { CategoryForGeneratingLink } from '@/features/link'
+import { Props as CategoryObjectsHookProps, useCategoryObjects } from '@/features/catalog/useCategoryObject'
+import { CategoryForGeneratingLink } from '@/features/catalog/link'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import { ComplexCard as ComplexCardType, LayoutObject } from '@/types/Complex'
-import ComplexCard from '@/components/Cards/Complex/ComplexCard'
-import ObjectCard from '@/components/Cards/ObjectCard/ObjectCard'
+import ComplexCard from '@/ui/cards/ComplexCard/ComplexCard'
+import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 
 type CatalogContentProps = {
   category: CategoryForGeneratingLink

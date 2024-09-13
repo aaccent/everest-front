@@ -1,5 +1,5 @@
 import React from 'react'
-import ObjectDetail from '@/page-components/catalog/ObjectDetail'
+import ObjectDetail from '@/app/catalog/_components/ObjectDetail/ObjectDetail'
 import { getObject } from '@/globals/api'
 import { ObjectPage } from '@/types/Page'
 

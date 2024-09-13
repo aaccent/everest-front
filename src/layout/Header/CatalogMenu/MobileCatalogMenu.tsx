@@ -7,7 +7,7 @@ import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories }
 
 import { getCatalogMenu } from '@/globals/api'
 import { MenuCategory } from '@/types/Menu'
-import { generateCategoryLink } from '@/features/link'
+import { generateCategoryLink } from '@/features/catalog/link'
 
 function outputTopLevel(list: MenuCategory[]) {
   return list.map((item) => (

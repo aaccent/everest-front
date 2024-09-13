@@ -1,8 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import Img from '@/ui/Img'
-import { suggestionPlural } from '@/features/pluralRules'
-import { generateCategoryLink } from '@/features/link'
+import { suggestionPlural } from '@/features/utility/pluralRules'
+import { generateCategoryLink } from '@/features/catalog/link'
 import { MenuCategory, MenuSubcategory } from '@/types/Menu'
 
 interface Props {
