@@ -236,7 +236,7 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
       formRef.current?.reset()
     },
     submit() {
-      formRef.current?.requestSubmit(null)
+      formRef.current?.requestSubmit()
     },
   }))
 
