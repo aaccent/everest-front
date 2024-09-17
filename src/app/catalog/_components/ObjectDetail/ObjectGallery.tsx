@@ -9,6 +9,7 @@ import {
   CarouselNavigationButtonNext,
   CarouselNavigationButtonPrev,
 } from '@/components/Carousel/components/CarouselNavigationButtons'
+import { useSearchParams } from 'next/navigation'
 
 interface ThumbsProps {
   onSlideChange: Dispatch<SetStateAction<number>>
@@ -59,6 +60,19 @@ interface GalleryProps {
 function ObjectGallery({ list }: GalleryProps) {
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0)
   const { openPopup } = useContext(PopupContext)
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.has('gallery')) {
+      openPopup({
+        name: 'galleryPopup',
+        args: {
+          list,
+          activeSlideIndex: list.length - 1,
+        },
+      })
+    }
+  }, [])
 
   const onSlideClickHandle = () => {
     if (window.matchMedia('(min-width:768px)').matches) {
