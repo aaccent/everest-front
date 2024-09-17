@@ -119,7 +119,7 @@ function Selector({
             {showSelected()}
           </div>
         </button>
-        <div className='text-base-500-reg-100-upper md:text-base-400-lg-100 inset-x-0 z-10 hidden select-none flex-col gap-[16px] bg-base-100 py-[24px] text-base-600 group-[.opened]:flex md:absolute md:rounded-b-[16px] md:px-[16px]'>
+        <div className='text-base-500-reg-100-upper md:text-base-400-lg-100 inset-x-0 z-10 hidden select-none flex-col gap-[16px] bg-base-100 py-[24px] text-base-600 group-[.opened]:flex md:rounded-b-[16px] md:px-[16px]'>
           {showList()}
         </div>
       </div>
