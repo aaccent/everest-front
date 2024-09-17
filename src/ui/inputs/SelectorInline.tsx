@@ -55,6 +55,7 @@ function SelectorInline({
           onClick={() => toggleValue(value)}
           type='button'
           key={i}
+          data-filter='selector-inline-option'
         >
           {value}
         </button>

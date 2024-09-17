@@ -10,6 +10,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
+  timeout: 50000,
   use: {
     baseURL: `http://localhost:${process.env.PORT}`,
     trace: 'on-first-retry',
@@ -19,11 +20,13 @@ export default defineConfig({
     {
       name: 'Desktop chrome',
       use: { ...devices['Desktop Chrome'] },
+      grepInvert: /@only-mobile/,
     },
 
     {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
+      grepInvert: /@only-desktop/,
     },
   ],
 

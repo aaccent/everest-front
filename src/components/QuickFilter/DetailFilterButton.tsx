@@ -17,7 +17,7 @@ function DetailFilterButton({ className, category }: Props) {
     setCount(filter.parsed.length)
   }, [filter])
   return (
-    <div className='relative'>
+    <div className='relative' data-filter='detailedButton'>
       <div
         className={`text-base-500-reg-200 absolute right-[5px] top-[-5px] hidden items-center justify-center bg-primary text-base-100 circle-[24px] md:flex ${filter.parsed.length ? '' : 'md:hidden'}`}
       >

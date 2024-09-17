@@ -42,7 +42,10 @@ function FilterPopup({ category }: Props) {
 
   return (
     <>
-      <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 scrollbar-custom md:top-[48px] md:block md:h-full md:overflow-auto md:p-[56px]'>
+      <div
+        className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 scrollbar-custom md:top-[48px] md:block md:h-full md:overflow-auto md:p-[56px]'
+        data-filter='popup'
+      >
         <div className='relative h-1 grow p-[24px] md:static md:h-fit md:grow-0 md:pb-[100px]'>
           <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
             <MapObjectsButton className='md:hidden' />
@@ -59,10 +62,7 @@ function FilterPopup({ category }: Props) {
             text={window.matchMedia('(min-width:768px)').matches ? 'Сбросить фильтры' : 'Сбросить'}
             className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'
           />
-          <FiltersTags
-            className='ml-[176px] mr-[20px] hidden overflow-auto scrollbar-transparent md:flex'
-            list={filters}
-          />
+          <FiltersTags className='ml-[176px] mr-[20px] hidden overflow-auto scrollbar-transparent' list={filters} />
 
           <MapObjectsButton className='ml-auto hidden md:order-3 md:flex' />
         </div>

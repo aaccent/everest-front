@@ -72,6 +72,7 @@ export function FiltersTags({ className, category, list }: FiltersTagsProps) {
           className='text-base-400-lg-100 flex items-center gap-[4px] text-nowrap rounded-[50px] bg-primary py-[6.5px] pl-[12px] pr-[7px] text-base-100 after:block after:size-[16px] after:bg-icon-close after:filter-base-100 after:bg-default-auto'
           key={f.id}
           onClick={() => removeFilter(f.id)}
+          data-filter='tag'
         >
           {formatTagText(f)}
         </button>
@@ -79,5 +80,5 @@ export function FiltersTags({ className, category, list }: FiltersTagsProps) {
     })
   }
 
-  return <div className={`flex items-center gap-[10px] ${className}`}>{showTags()}</div>
+  return <div className={`hidden items-center gap-[10px] md:flex ${className}`}>{showTags()}</div>
 }
