@@ -37,7 +37,7 @@ function Grids({ onMouseEnter, onMouseLeave, images, link }: GridsProps) {
       {images.map((_, index) => (
         <Link href={link} className='block' key={index} onMouseEnter={() => onMouseEnterHandle(index)} />
       ))}
-      <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length - 1)} />
+      <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length)} />
     </div>
   )
 }
