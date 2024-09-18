@@ -61,7 +61,7 @@ function FilterPopup({ category }: Props) {
           <button className='flex size-[50px] items-center justify-center rounded-[16px] bg-base-300 after:block after:size-[22px] after:bg-icon-search-favorite after:bg-default-contain md:hidden' />
           <ShowAllButton amount={amount} />
           <ResetFiltersButton
-            text={window.matchMedia('(min-width:768px)').matches ? 'Сбросить фильтры' : 'Сбросить'}
+            text='Сбросить'
             className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'
           />
           <FiltersTags
