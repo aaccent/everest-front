@@ -7,8 +7,6 @@ import Carousel, { CarouselContext, CarouselInner } from '@/components/Carousel/
 import { EmblaCarouselType } from 'embla-carousel'
 import Link from 'next/link'
 
-const testGallery = ['/slider-1.png', '/slider-2.png', '/slider-3.png']
-
 interface GridsProps {
   onMouseEnter: (index: number) => void
   onMouseLeave: () => void
@@ -39,7 +37,7 @@ function Grids({ onMouseEnter, onMouseLeave, images, link }: GridsProps) {
       {images.map((_, index) => (
         <Link href={link} className='block' key={index} onMouseEnter={() => onMouseEnterHandle(index)} />
       ))}
-      <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length)} />
+      <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length - 1)} />
     </div>
   )
 }
