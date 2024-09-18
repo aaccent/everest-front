@@ -16,6 +16,8 @@ interface Props {
   item: ObjectCardType | LayoutObject
 }
 
+const test = ['/slider-3.png', '/slider-1.png', '/slider-2.png']
+
 function ObjectCard({ item, category }: Props) {
   const link = generateObjectLink(item, category)
 

@@ -12,10 +12,10 @@ interface GridsProps {
   onMouseLeave: () => void
   images: string[]
   link: string
+  cols: number
 }
 
-function Grids({ onMouseEnter, onMouseLeave, images, link }: GridsProps) {
-  const cols = images.length + 1
+function Grids({ onMouseEnter, onMouseLeave, images, link, cols }: GridsProps) {
   const galleryLink = link + '?gallery'
   const { emblaApi } = useContext(CarouselContext)
 
@@ -37,7 +37,7 @@ function Grids({ onMouseEnter, onMouseLeave, images, link }: GridsProps) {
       {images.map((_, index) => (
         <Link href={link} className='block' key={index} onMouseEnter={() => onMouseEnterHandle(index)} />
       ))}
-      <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length)} />
+      {cols !== images.length && <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length)} />}
     </div>
   )
 }
@@ -73,7 +73,7 @@ function Thumbs({ onActiveImage }: ThumbsProps) {
   return thumbs?.map((_, index) => (
     <div
       key={index}
-      className={`h-[2px] w-[40px] rounded-[2px] bg-base-100 ${activeThumbIndex === index ? 'opacity-100' : 'opacity-50'} `}
+      className={`h-[2px] w-[40px] rounded-[2px] bg-base-100 ${activeThumbIndex === index ? 'opacity-100' : 'opacity-50'} z-0`}
     />
   ))
 }
@@ -95,13 +95,13 @@ function Gallery({ images, count, link }: GalleryProps) {
     return (
       <>
         {images.map((image, index) => (
-          <CarouselSlide key={index} className='!pointer-events-auto'>
+          <CarouselSlide key={index}>
             <Img src={image} key={index} width={512} height={340} className='size-full object-cover object-center' />
           </CarouselSlide>
         ))}
         {count !== 0 && (
           <CarouselSlide>
-            <div className='relative z-50 size-full'>
+            <div className='relative z-10 size-full'>
               <Img
                 src={images[images.length - 1]}
                 width={512}
@@ -125,7 +125,13 @@ function Gallery({ images, count, link }: GalleryProps) {
         className={`relative h-[248px] w-full max-w-[350px] overflow-hidden rounded-[16px] md:h-[340px] md:max-w-[512px] ${activeIndex === images.length ? 'z-20' : ''}`}
         fade
       >
-        <Grids onMouseEnter={setActiveIndex} images={images} onMouseLeave={() => onMouseLeaveHandle()} link={link} />
+        <Grids
+          onMouseEnter={setActiveIndex}
+          images={images}
+          cols={count ? images.length + 1 : images.length}
+          onMouseLeave={() => onMouseLeaveHandle()}
+          link={link}
+        />
         <CarouselInner>{showImages()}</CarouselInner>
         <div className='absolute bottom-[20px] z-20 flex w-full items-center justify-center gap-[10px]'>
           <Thumbs onActiveImage={setActiveIndex} />
