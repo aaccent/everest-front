@@ -5,6 +5,7 @@ import { AnyCategory } from '@/types/Category'
 import { getSecondaryHousing } from '@/globals/api'
 import { GetObjectsFn } from '@/features/catalog/useCategoryObject'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 
 interface Props {
   category: AnyCategory
@@ -18,15 +19,11 @@ function SecondaryCategory({ category }: Props) {
   }
 
   return (
-    <CategoryLayout category={category}>
-      <CatalogContent
-        tileClassName='gap-y-[32px] md:gap-y-[56px]'
-        type='secondary'
-        category={category}
-        initList={category.objects}
-        getObjects={getObjects}
-      />
-    </CategoryLayout>
+    <CategoryProvider type='secondary' initList={category.objects} getObjects={getObjects}>
+      <CategoryLayout category={category}>
+        <CatalogContent tileClassName='gap-y-[32px] md:gap-y-[56px]' type='secondary' category={category} />
+      </CategoryLayout>
+    </CategoryProvider>
   )
 }
 

@@ -5,6 +5,7 @@ import { AnyCategory } from '@/types/Category'
 import { getNewBuildings } from '@/globals/api'
 import { GetObjectsFn } from '@/features/catalog/useCategoryObject'
 import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 
 interface Props {
   category: AnyCategory
@@ -18,9 +19,11 @@ function Category({ category }: Props) {
   }
 
   return (
-    <CategoryLayout category={category}>
-      <CatalogContent type='secondary' category={category} getObjects={getObjects} initList={category.objects} />
-    </CategoryLayout>
+    <CategoryProvider type='secondary' getObjects={getObjects} initList={category.objects}>
+      <CategoryLayout category={category}>
+        <CatalogContent type='secondary' category={category} />
+      </CategoryLayout>
+    </CategoryProvider>
   )
 }
 
