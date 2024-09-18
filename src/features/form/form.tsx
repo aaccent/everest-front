@@ -178,6 +178,7 @@ interface FormContextObject {
    * Необходимо вызывать при демонтированнии компонента полей.
    * */
   unregisterInput: (name: string) => void
+  get inputsMap(): InputsMap
 }
 
 export const FormContext = createContext<FormContextObject>({} as FormContextObject)
@@ -236,7 +237,7 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
       formRef.current?.reset()
     },
     submit() {
-      formRef.current?.requestSubmit(null)
+      formRef.current?.requestSubmit()
     },
   }))
 
@@ -348,6 +349,9 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
       value={{
         registerInput,
         unregisterInput,
+        get inputsMap() {
+          return inputsRef.current
+        },
       }}
     >
       <form className={className} onSubmit={_onSubmit} onChange={_onChange} ref={formRef} noValidate>

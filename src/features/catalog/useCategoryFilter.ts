@@ -105,5 +105,5 @@ export function useCategoryFilter() {
     window.history.replaceState(null, '', `?${params.toString()}`)
   }
 
-  return { filter, addFilter, findFilter, setFilters, clearFilters, removeFilter }
+  return { filter, addFilter, findFilter, clearFilters, removeFilter }
 }

@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@aaccent/adaptive-sizes-next": "^1.0.2",
+    "@testing-library/user-event": "^14.5.2",
     "cross-env": "^7.0.3",
     "embla-carousel": "^8.1.6",
     "embla-carousel-react": "^8.1.6",
