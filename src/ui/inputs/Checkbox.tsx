@@ -41,7 +41,7 @@ function Checkbox({
 
   return isInSelect ? (
     <label className='text-base-500-reg-100-upper flex cursor-pointer items-center gap-[10px]'>
-      <div className='flex size-[20px] items-center justify-center rounded-[4px] bg-base-300 after:bg-icon-checkmark after:filter-base-100 after:bg-default-contain has-[:checked]:bg-primary has-[:checked]:after:block has-[:checked]:after:size-[12px]'>
+      <div className='flex h-[20px] w-full max-w-[20px] items-center justify-center rounded-[4px] bg-base-300 after:bg-icon-checkmark after:filter-base-100 after:bg-default-contain has-[:checked]:bg-primary has-[:checked]:after:block has-[:checked]:after:size-[12px]'>
         <input
           type='checkbox'
           className='absolute -z-10 opacity-0'

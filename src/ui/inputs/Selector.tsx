@@ -99,7 +99,7 @@ function Selector({
     const defaultValue = window.matchMedia('(min-width:768px').matches ? 'Выбрать' : name
     const selectedNames = _value.length ? _value.join(', ') : defaultValue
 
-    if (selectedNames.length > 20) return selectedNames.slice(0, 20) + `...`
+    if (selectedNames.length > 15) return selectedNames.slice(0, 15) + `...`
 
     return selectedNames
   }
@@ -108,7 +108,7 @@ function Selector({
     <div className='flex flex-col gap-[8px] border-b border-b-base-600/10 first:border-t first:border-t-base-600/10 md:border-b-0 md:first:border-t-0'>
       {showTitle && <div className='text-base-500-reg-100-upper hidden md:block'>{title}</div>}
       <div
-        className={`md:text-base-400-lg-100 group relative mt-[18px] select-none bg-base-100 px-[16px] pb-[18px] md:mt-0 md:min-w-[260px] md:rounded-[16px] md:border md:border-base-400 md:py-[12px] md:text-base-650 ${opened ? 'opened pb-0' : ''} ${className}`}
+        className={`md:text-base-400-lg-100 group relative mt-[18px] select-none bg-base-100 px-[16px] pb-[18px] md:mt-0 md:min-w-[260px] md:rounded-[16px] md:border md:border-base-400 md:py-[12px] md:text-base-650 ${opened ? 'opened pb-0 md:rounded-b-none md:border-b-transparent' : ''} ${className}`}
         onClick={() => setOpened((prev) => !prev)}
       >
         <button
@@ -119,7 +119,7 @@ function Selector({
             {showSelected()}
           </div>
         </button>
-        <div className='text-base-500-reg-100-upper md:text-base-400-lg-100 inset-x-0 z-10 hidden select-none flex-col gap-[16px] bg-base-100 py-[24px] text-base-600 group-[.opened]:flex md:rounded-b-[16px] md:px-[16px]'>
+        <div className='text-base-500-reg-100-upper md:text-base-400-lg-100 inset-x-0 z-10 hidden select-none flex-col gap-[16px] bg-base-100 py-[24px] text-base-600 group-[.opened]:flex scroll-btn-yb:h-[10px] md:absolute md:top-[100%] md:max-h-[200px] md:overflow-auto md:rounded-b-[16px] md:border md:border-base-600/10 md:px-[16px] md:scrollbar-custom'>
           {showList()}
         </div>
       </div>
