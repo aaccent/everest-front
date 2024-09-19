@@ -73,7 +73,7 @@ function Thumbs({ onActiveImage }: ThumbsProps) {
   return thumbs?.map((_, index) => (
     <div
       key={index}
-      className={`h-[2px] w-[40px] rounded-[2px] bg-base-100 ${activeThumbIndex === index ? 'opacity-100' : 'opacity-50'} z-0`}
+      className={`h-[2px] w-[40px] rounded-[2px] bg-base-100 group-[.slider]:hidden group-[.slider]:md:block ${activeThumbIndex === index ? 'opacity-100' : 'opacity-50'} z-0`}
     />
   ))
 }
@@ -122,7 +122,7 @@ function Gallery({ images, count, link }: GalleryProps) {
   return (
     <>
       <Carousel
-        className={`relative h-[248px] w-full max-w-[350px] overflow-hidden rounded-[16px] md:h-[340px] md:max-w-[512px] ${activeIndex === images.length ? 'z-20' : ''}`}
+        className={`relative h-[248px] w-full max-w-[350px] overflow-hidden rounded-[16px] group-[.slider]:hidden md:h-[340px] md:max-w-[512px] group-[.slider]:md:block ${activeIndex === images.length ? 'z-20' : ''}`}
         fade
       >
         <Grids
@@ -137,6 +137,9 @@ function Gallery({ images, count, link }: GalleryProps) {
           <Thumbs onActiveImage={setActiveIndex} />
         </div>
       </Carousel>
+      <div className='relative hidden h-[248px] w-full max-w-[350px] overflow-hidden rounded-[16px] group-[.slider]:block group-[.slider]:md:hidden'>
+        <Img src={images[0]} width={512} height={340} className='size-full object-cover object-center' />
+      </div>
     </>
   )
 }
