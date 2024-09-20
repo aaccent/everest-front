@@ -30,7 +30,7 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
     return filterList.map((f) => (
       <Checkbox
         name={f.id.toString()}
-        title={f.name}
+        title={formatTagText(f)}
         value={f.id.toString()}
         checked
         onChange={_removeFilter}
