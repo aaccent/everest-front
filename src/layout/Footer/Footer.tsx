@@ -55,7 +55,7 @@ async function Footer() {
 
   return (
     <Section
-      containerClassName='pb-[100px] md:pb-[32px] py-[32px] footer '
+      containerClassName='pb-[120px] md:pb-[32px] py-[32px] footer '
       className='rounded-t-[20px] bg-base-600 md:rounded-t-[32px]'
     >
       <div className='flex flex-col md:flex-row md:border-b md:border-b-base-100/10 md:pb-[65px] md:pt-[61px]'>

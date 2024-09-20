@@ -29,6 +29,12 @@ function Grids({ onMouseEnter, onMouseLeave, images, link, cols }: GridsProps) {
     emblaApi?.scrollTo(0)
   }
 
+  /**
+   * true значит, что с бека приходит информация, что количество фотографий больше, чем показано в галерее карточки. В этом случае последним будет слайд, который ведет на страницу объекта с открытой галереей
+   * false значит, что количество слайдов будет равно количеству фотографий в массиве
+   */
+  const seeAllGridLink = cols !== images.length
+
   return (
     <div
       className={`absolute inset-0 hidden md:grid grid-cols-${cols} z-20 size-full`}
@@ -37,7 +43,7 @@ function Grids({ onMouseEnter, onMouseLeave, images, link, cols }: GridsProps) {
       {images.map((_, index) => (
         <Link href={link} className='block' key={index} onMouseEnter={() => onMouseEnterHandle(index)} />
       ))}
-      {cols !== images.length && <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length)} />}
+      {seeAllGridLink && <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length)} />}
     </div>
   )
 }
