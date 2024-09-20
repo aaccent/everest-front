@@ -8,8 +8,8 @@ import { FilterBlock } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
 import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
-import { FiltersTags } from '@/components/QuickFilter/FilterTags'
 import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
+import FilterTags from '@/components/FilterTags'
 
 interface Props {
   category: string
@@ -49,6 +49,10 @@ function FilterPopup({ category }: Props) {
             <div className='text-header-300 md:text-header-200 md:uppercase'>Фильтры</div>
             <ClosePopupButton />
           </div>
+          <FilterTags
+            className='hidden md:mb-[64px] md:flex md:w-full md:max-w-[1112px] md:flex-wrap md:items-center md:gap-[10px] md:overflow-auto md:scrollbar-transparent'
+            list={filters}
+          />
           <div className='*:mb-[18px] md:w-full md:max-w-[1140px] md:*:mb-[60px]'>{showFiltersBlocks()}</div>
         </div>
         <div className='bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:fixed md:justify-normal md:px-[56px] md:py-[24px]'>
@@ -59,11 +63,6 @@ function FilterPopup({ category }: Props) {
             text={window.matchMedia('(min-width:768px)').matches ? 'Сбросить фильтры' : 'Сбросить'}
             className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'
           />
-          <FiltersTags
-            className='ml-[176px] mr-[20px] hidden overflow-auto scrollbar-transparent md:flex'
-            list={filters}
-          />
-
           <MapObjectsButton className='ml-auto hidden md:order-3 md:flex' />
         </div>
       </div>
