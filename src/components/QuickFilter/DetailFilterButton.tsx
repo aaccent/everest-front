@@ -3,6 +3,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { PopupContext } from '@/features/visible/Popup'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 
 interface Props {
   className?: string
@@ -10,7 +11,7 @@ interface Props {
 }
 
 function DetailFilterButton({ className, category }: Props) {
-  const { openPopup } = useContext(PopupContext)
+  const { openDynamicPopup } = useContext(PopupContext)
   const { filter } = useCategoryFilter()
   const [count, setCount] = useState<number>(filter.parsed.length)
   useEffect(() => {
@@ -26,8 +27,9 @@ function DetailFilterButton({ className, category }: Props) {
       <button
         className={`${className} flex size-[42px] items-center justify-center rounded-[12px] bg-base-100 p-[10px] after:size-[21px] after:bg-icon-filter after:bg-default`}
         type='button'
-        onClick={() => openPopup({ name: 'filterPopup', args: { category } })}
+        onClick={() => openDynamicPopup('filterPopup')}
       />
+      <FilterPopup category={category} />
     </div>
   )
 }
