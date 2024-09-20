@@ -13,6 +13,7 @@ interface FilterTagsSelectorProps {
 
 function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   const [filterList, setFilterList] = useState<FilterType<FilterView>[]>([])
+  const [selectorOpened, setSelectorOpened] = useState<boolean>(false)
   const { removeFilter, clearFilters } = useCategoryFilter()
 
   useEffect(() => {
@@ -39,19 +40,25 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   }
 
   return (
-    <div className='group'>
-      <button className='text-base-400-lg-100 flex items-center justify-between gap-[4px] text-nowrap rounded-[50px] border border-primary py-[7px] pl-[12px] pr-[7px] text-primary after:block after:size-[14px] after:rotate-90 after:bg-icon-triangle-arrow after:transition-transform after:filter-primary after:bg-default-auto group-hover:after:-rotate-90'>{`Еще ${filterList.length} `}</button>
-      <div className='invisible absolute left-[78%] top-[40px] z-10 w-full max-w-[295px] rounded-[32px] bg-base-100 py-[20px] pl-[20px] pr-[8px] opacity-0 shadow transition group-hover:visible group-hover:opacity-100'>
+    <>
+      <button
+        className={`text-base-400-lg-100 flex items-center justify-between gap-[4px] text-nowrap rounded-[50px] border border-primary py-[7px] pl-[12px] pr-[7px] text-primary after:block after:size-[14px] after:bg-icon-triangle-arrow after:transition-transform after:filter-primary after:bg-default-auto ${selectorOpened ? 'after:-rotate-90' : 'after:rotate-90'}`}
+        onMouseEnter={() => setSelectorOpened(true)}
+      >{`Еще ${filterList.length} `}</button>
+      <div
+        className={`absolute left-[78%] top-[40px] z-10 w-full max-w-[295px] rounded-[32px] bg-base-100 py-[20px] pl-[20px] pr-[8px] shadow transition ${selectorOpened ? 'visible opacity-100' : 'invisible opacity-0'}`}
+      >
         <div className='mb-[24px] flex items-center justify-between'>
           <div className='text-header-400 text-base-600'>Активные теги</div>
-          <button className='mr-[10px] flex items-center justify-center bg-[#F2F2F2] circle-[36px] after:block after:size-[20px] after:bg-icon-close after:filter-base-600 after:bg-default-auto' />
+          <button
+            className='mr-[10px] flex items-center justify-center bg-[#F2F2F2] circle-[36px] after:block after:size-[20px] after:bg-icon-close after:filter-base-600 after:bg-default-auto'
+            onClick={() => setSelectorOpened(false)}
+          />
         </div>
         <div className='flex h-fit max-h-[272px] w-full flex-col gap-[16px] overflow-y-auto pr-[10px] scrollbar-custom scroll-btn-yb:h-[60px]'>
           {showHiddenTags()}
         </div>
-        <div
-          className={`ml-[-20px] w-[295px] rounded-b-[32px] border-t border-t-base-400 bg-base-100 px-[20px] pt-[20px]`}
-        >
+        <div className='ml-[-20px] w-[295px] rounded-b-[32px] border-t border-t-base-400 bg-base-100 px-[20px] pt-[20px]'>
           <Button
             type='button'
             size='medium'
@@ -62,7 +69,7 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
           />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
