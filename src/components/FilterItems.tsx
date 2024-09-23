@@ -66,7 +66,10 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
         const rawValue = getCurrentFilter<[number, number]>(filter.id)?.value
         const value = rawValue
           ? { min: rawValue[0], max: rawValue[1] }
-          : { min: filter.value.min, max: filter.value.max }
+          : {
+              min: filter.value.min,
+              max: filter.value.max,
+            }
 
         return (
           <Range
@@ -78,6 +81,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             defaultValue={value}
             value={value}
             onChange={onChange}
+            prefix={filter.prefix ? filter.prefix : ''}
           />
         )
       }
