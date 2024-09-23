@@ -16,7 +16,7 @@ function formatTagText(f: Type) {
     case 'range':
       return `${f.name}: ${f.value[0]} - ${f.value[1]}`
     case 'toggle':
-      return `Есть ${f.name}`
+      return `${f.name}`
     default:
       return `${f.name}: ${f.value}`
   }
@@ -42,9 +42,11 @@ export function FiltersTags({ className, category, list }: FiltersTagsProps) {
   function getActiveFilters(filtersGeneral: FilterBlock[]) {
     if (!filtersGeneral.length) return []
     const allFiltersList = filtersGeneral.map((block) => block.filters).reduce((acc, f) => acc.concat(f), [])
-    const activeId = filter.parsed.map((filter) => filter.id)
-    const activeFilters = allFiltersList.filter((filter) => activeId.includes(filter.id))
-    return activeFilters.map((f) => {
+    const activeId = filter.parsed.map((filter) => {
+      return filter.id
+    })
+    const activeF = allFiltersList.filter((filter) => activeId.includes(filter.id))
+    return activeF.map((f) => {
       return {
         id: f.id,
         name: f.name,

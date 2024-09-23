@@ -8,7 +8,7 @@ import { ComplexCard, FlatTypes } from '@/types/Complex'
 function showObjectTypes(objectTypes: FlatTypes[]) {
   return objectTypes.map((flat) => (
     <Link href='#' className='text-base-500-reg-200 group flex justify-between text-base-600' key={flat.id}>
-      <div className='w-[80px] group-hover:text-primary md:w-[120px]'>{flat.name}</div>
+      <div className='w-[80px] group-hover:text-primary md:w-[120px]'>{flat.name.slice(0, 25)}</div>
       <div className='text-base-650'>
         от {flat.minArea} м<sup>2</sup>
       </div>
@@ -27,11 +27,11 @@ function CardInfo({ complex, link }: CardInfoProps) {
 
   if (opened) {
     return (
-      <div className='absolute bottom-[8px] left-[8px] right-[8px] top-[8px] flex flex-col rounded-[20px] bg-base-100 p-[16px] md:inset-[14px]'>
+      <div className='absolute bottom-[8px] left-[8px] right-[8px] top-[8px] z-10 flex flex-col rounded-[20px] bg-base-100 p-[16px] md:inset-[14px]'>
         <div className='flex items-start justify-between'>
           <div className='flex flex-col gap-[8px]'>
             <div className='text-header-400'>{complex.name}</div>
-            <div className='text-base-300-lg-100 flex gap-[8px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-auto before:bg-center before:bg-no-repeat before:filter-base-600'>
+            <div className='text-base-300-lg-100 flex items-center gap-[8px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-auto before:bg-center before:bg-no-repeat before:filter-base-600'>
               {complex.address}
             </div>
           </div>

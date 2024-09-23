@@ -4,6 +4,7 @@ import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
 import { GetObjectsFn } from '@/features/catalog/useCategoryObject'
 import { ComplexCard as ComplexCardType } from '@/types/Complex'
+import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 
 async function Page() {
   const data = await getComplexes()
@@ -20,9 +21,11 @@ async function Page() {
   }
 
   return (
-    <CategoryLayout category={_category}>
-      <CatalogContent type='complex' category={_category} initList={data.objects} getObjects={getObjects} />
-    </CategoryLayout>
+    <CategoryProvider type='complex' initList={data.objects} getObjects={getObjects}>
+      <CategoryLayout category={_category}>
+        <CatalogContent type='complex' category={_category} />
+      </CategoryLayout>
+    </CategoryProvider>
   )
 }
 

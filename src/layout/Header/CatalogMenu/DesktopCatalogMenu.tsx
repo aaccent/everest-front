@@ -50,7 +50,7 @@ async function DesktopCatalogMenu() {
   const total = catalog.reduce((init, item) => init + item.total, 0)
 
   return (
-    <aside className='px-container invisible fixed inset-x-0 top-0 z-20 flex w-full gap-[16px] bg-base-100 pb-[56px] pt-[145px] opacity-0 transition-opacity peer-[[data-menu="catalog"]]/header-state:visible peer-[[data-menu="catalog"]]/header-state:opacity-100'>
+    <aside className='px-container invisible fixed inset-x-0 top-0 z-30 flex w-full gap-[16px] bg-base-100 pb-[56px] pt-[145px] opacity-0 transition-opacity peer-[[data-menu="catalog"]]/header-state:visible peer-[[data-menu="catalog"]]/header-state:opacity-100'>
       <div className='flex h-[540px] w-full flex-col rounded-[32px] bg-base-300'>
         <div className='text-header-300 mx-[40px] border-b border-b-base-600/10 py-[40px]'>
           Каталог — <span className='text-base-600/50'>{`${total} предложений`}</span>
