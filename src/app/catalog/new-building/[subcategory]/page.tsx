@@ -6,7 +6,7 @@ import { SubcategoryPage } from '@/types/Page'
 async function Page({ params }: SubcategoryPage) {
   const category = await getNewBuildingsSubcategory(params.subcategory)
 
-  return <Category category={category} />
+  return <Category category={category} isSub />
 }
 
 export default Page
