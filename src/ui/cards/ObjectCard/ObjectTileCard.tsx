@@ -16,6 +16,8 @@ interface Props {
   item: ObjectCardType | LayoutObject
 }
 
+const test = ['/slider-3.png', '/slider-1.png', '/slider-2.png']
+
 function ObjectCard({ item, category }: Props) {
   const link = generateObjectLink(item, category)
 
@@ -28,9 +30,7 @@ function ObjectCard({ item, category }: Props) {
           <ActionButton className='before:bg-icon-address md:opacity-0' />
           <ActionButton className='before:bg-icon-heart' />
         </div>
-        <Link href={link}>
-          <Gallery />
-        </Link>
+        <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
       </div>
       <Link href={link}>
         <div className='text-header-400 mb-[12px] md:mb-[14px]'>{item.price} ₽</div>

@@ -3,18 +3,16 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import { AnyCategory } from '@/types/Category'
 import PageTitle from '@/ui/text/PageTitle'
 import Container from '@/layout/Container'
-import { suggestionPlural } from '@/features/utility/pluralRules'
 import QuickFilter from '@/components/QuickFilter/QuickFilter'
-import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 import SubCategoryLink from '@/components/SubCategoryLink'
 import { getQuickFilters } from '@/globals/api/methods/getFilters'
+import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
 
 interface Props extends PropsWithChildren {
   category: AnyCategory
 }
 
 async function CategoryLayout({ category, children }: Props) {
-  const amount = category.count
   const filters = await getQuickFilters(category.breadcrumbs[0].seo)
 
   function showSubCategories() {
@@ -28,13 +26,11 @@ async function CategoryLayout({ category, children }: Props) {
   }
 
   return (
-    <CategoryProvider>
+    <>
       <Breadcrumbs category={category} />
       <Container className='mb-[24px] flex items-start justify-between md:mb-[50px]'>
         <PageTitle title={category.seoTitle || category.name} />
-        <span className='text-base-300-lg-100 hidden translate-x-0 text-base-650 md:block'>
-          Найдено {amount} {suggestionPlural.get(amount)}
-        </span>
+        <ObjectsAmount className='text-base-300-lg-100 hidden translate-x-0 text-base-650 md:block' />
       </Container>
       {!!category.categories?.length && (
         <Container>
@@ -43,9 +39,9 @@ async function CategoryLayout({ category, children }: Props) {
           </ul>
         </Container>
       )}
-      <QuickFilter amount={amount} filters={filters} categoryName={category.breadcrumbs[0].seo} />
+      <QuickFilter filters={filters} categoryName={category.breadcrumbs[0].seo} />
       {children}
-    </CategoryProvider>
+    </>
   )
 }
 
