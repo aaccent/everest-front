@@ -4,23 +4,38 @@ import { getCatalogMenu } from '@/globals/api'
 import CategoryButton, { CategoryButtonProps } from '@/app/(main-page)/_components/Filter/CategoryButton'
 import { MenuCategory } from '@/types/Menu'
 import CategoryFilter from '@/app/(main-page)/_components/Filter/CategoryFilter'
+import { FilterType, FilterView } from '@/types/FiltersType'
+import { getQuickFilters } from '@/globals/api/methods/getFilters'
 
-function FilterView() {
+function Filters() {
   const [categories, setCategories] = useState<MenuCategory[]>([])
   const [activeCategory, setActiveCategory] = useState<{
     seoUrl: CategoryButtonProps['seoUrl']
     isRent: boolean
   }>({ seoUrl: 'new-building', isRent: false })
 
+  const [filterInputs, setFilterInputs] = useState<FilterType<FilterView>[]>([])
+
+  useEffect(() => {
+    getQuickFilters(activeCategory.seoUrl).then((res) => setFilterInputs(res.filters))
+  }, [activeCategory])
+
   useEffect(() => {
     getCatalogMenu().then((res) => {
       setCategories(res)
-      setActiveCategory({ seoUrl: res[0].seoUrl, isRent: false })
+      getQuickFilters(res[0].seoUrl).then((f) => {
+        const seoUrl = res[0].seoUrl
+        const filterInputs = f.filters
+        setActiveCategory({ seoUrl, isRent: false })
+      })
     })
   }, [])
 
   const onCategoryBtnClickHandle = (category: string) => {
-    setActiveCategory({ seoUrl: category, isRent: activeCategory.isRent })
+    setActiveCategory({
+      seoUrl: category,
+      isRent: activeCategory.isRent,
+    })
   }
 
   function showCategoryButtons() {
@@ -66,9 +81,9 @@ function FilterView() {
           <div>Расширенный фильтр</div>
         </div>
       </div>
-      <CategoryFilter categoryName={activeCategory.seoUrl} />
+      <CategoryFilter filterInputs={filterInputs} categoryName={activeCategory.seoUrl} />
     </div>
   )
 }
 
-export default FilterView
+export default Filters

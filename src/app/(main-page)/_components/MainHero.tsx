@@ -5,7 +5,7 @@ import Section from '@/layout/Section'
 import HeroImage from '@/assets/static/main-page/hero.jpg'
 import HeroMobileImage from '@/assets/static/main-page/hero-mobile.jpg'
 import Container from '@/layout/Container'
-import FilterView from '@/app/(main-page)/_components/Filter/FilterView'
+import Filters from '@/app/(main-page)/_components/Filter/Filters'
 
 function MainHero() {
   return (
@@ -23,7 +23,7 @@ function MainHero() {
       <Container className='pt-[90px] md:pt-[140px]'>
         <h1 className='text-header-100 max-w-[850px] uppercase text-base-100'>Первый шаг к вашему новому дому</h1>
       </Container>
-      <FilterView />
+      <Filters />
     </Section>
   )
 }
