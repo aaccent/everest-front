@@ -25,4 +25,5 @@ export async function getObjects(
       sort,
     },
   })
+  return res.data
 }

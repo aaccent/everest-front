@@ -1,11 +1,10 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
-import { useCategoryObjects } from '@/features/catalog/useCategoryObject'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { GetObjectsFn, useCategoryObjects } from '@/features/catalog/useCategoryObject'
+import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
 import { getObjects } from '@/globals/api/methods/catalog/getObjects'
-import { useCategorySort } from '@/features/catalog/useCategorySort'
 
 interface CategoryFilterProps {
   filterInputs: FilterType<FilterView>[]
@@ -13,12 +12,19 @@ interface CategoryFilterProps {
 }
 
 function CategoryFilter({ filterInputs, categoryName }: CategoryFilterProps) {
-  const { filter } = useCategoryFilter()
-  const { sort } = useCategorySort()
+  const func: GetObjectsFn<ObjectCardType> = async function (filter, sort) {
+    const category = await getObjects(filter, sort, categoryName)
+    return category.objects
+  }
+  const [_getObjects, set_getObjects] = useState<GetObjectsFn<unknown>>(func)
+
+  useEffect(() => {
+    set_getObjects(func)
+  }, [categoryName])
 
   const { list } = useCategoryObjects({
     initList: [],
-    getObjects: async () => await getObjects(filter, sort, categoryName),
+    getObjects: _getObjects,
   })
 
   return (
