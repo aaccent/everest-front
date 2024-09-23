@@ -9,6 +9,7 @@ import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
 import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
+import { DynamicPopup } from '@/features/visible/Popup'
 import FilterTags from '@/components/FilterTags'
 
 interface Props {
@@ -41,7 +42,7 @@ function FilterPopup({ category }: Props) {
   }
 
   return (
-    <>
+    <DynamicPopup popupName='filterPopup'>
       <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 scrollbar-custom md:top-[48px] md:block md:h-full md:overflow-auto md:p-[56px]'>
         <div className='relative h-1 grow p-[24px] md:static md:h-fit md:grow-0 md:pb-[100px]'>
           <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
@@ -66,7 +67,7 @@ function FilterPopup({ category }: Props) {
           <MapObjectsButton className='ml-auto hidden md:order-3 md:flex' />
         </div>
       </div>
-    </>
+    </DynamicPopup>
   )
 }
 
