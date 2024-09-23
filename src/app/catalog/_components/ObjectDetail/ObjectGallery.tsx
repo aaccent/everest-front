@@ -10,7 +10,6 @@ import {
   CarouselNavigationButtonPrev,
 } from '@/components/Carousel/components/CarouselNavigationButtons'
 import { useSearchParams } from 'next/navigation'
-import GalleryPopup from '@/ui/popups/GalleryPopup/GalleryPopup'
 
 interface ThumbsProps {
   onSlideChange: Dispatch<SetStateAction<number>>
@@ -65,13 +64,13 @@ function ObjectGallery({ list }: GalleryProps) {
 
   useEffect(() => {
     if (searchParams.has('gallery')) {
-      openPopup('galleryPopup')
+      openPopup({ name: 'galleryPopup' })
     }
   }, [])
 
   const onSlideClickHandle = () => {
     if (window.matchMedia('(min-width:768px)').matches) {
-      openPopup('galleryPopup')
+      openPopup({ name: 'galleryPopup' })
     }
   }
 
@@ -114,7 +113,7 @@ function ObjectGallery({ list }: GalleryProps) {
       <button
         type='button'
         className='absolute right-[20px] top-[35px] size-[42px] rounded-full bg-base-650 bg-icon-zoom-arrows bg-default-auto md:hidden'
-        onClick={() => openPopup('galleryPopup')}
+        onClick={() => openPopup({ name: 'galleryPopup' })}
       />
       <Thumbs onSlideChange={setActiveSlideIndex}>
         <Carousel>
@@ -128,7 +127,6 @@ function ObjectGallery({ list }: GalleryProps) {
       </Thumbs>
       <CarouselProgressBar className='absolute bottom-[24px] left-1/2 max-w-[166px] -translate-x-1/2 bg-base-115 *:bg-base-100 md:hidden' />
       <button className='flex size-[42px] items-center justify-center rounded-full bg-base-650 after:block after:size-full after:bg-icon-zoom-arrows after:bg-default-contain md:hidden' />
-      <GalleryPopup list={list} activeSlideIndex={activeSlideIndex} />
     </Carousel>
   )
 }
