@@ -8,6 +8,7 @@ import { FilterItems } from '@/components/FilterItems'
 import SortButton from '@/components/QuickFilter/SortButton'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterTags from '@/components/FilterTags'
+import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
 
 interface Props {
   filters: QuickFilters
@@ -20,7 +21,7 @@ function QuickFilter({ filters, categoryName }: Props) {
       <div className='mb-[32px] mt-[40px] flex items-center justify-between rounded-[24px] bg-base-200 p-[20px] md:w-full md:flex-col md:items-start md:justify-start md:p-[32px] md:pb-[18px]'>
         <div className='flex w-full items-center justify-between md:hidden'>
           <DetailFilterButton category={categoryName} />
-
+          <ObjectsAmount className='text-base-300-lg-100 translate-x-0 text-base-650 md:hidden' />
           <MapObjectsButton />
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>
