@@ -3,6 +3,7 @@ export const PATHS = {
   NEW_BUILDINGS: 'new-building',
   COMPLEXES: 'complexes',
   SECONDARY_HOUSING: 'secondary-housing',
+  MAP: 'map',
 }
 
 export const ROUTES = {
@@ -10,4 +11,5 @@ export const ROUTES = {
   COMPLEXES: `/${PATHS.CATALOG}/${PATHS.COMPLEXES}`,
   NEW_BUILDINGS: `/${PATHS.CATALOG}/${PATHS.NEW_BUILDINGS}`,
   SECONDARY_HOUSING: `/${PATHS.CATALOG}/${PATHS.SECONDARY_HOUSING}`,
+  MAP: `/${PATHS.MAP}`,
 }

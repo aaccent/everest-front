@@ -11,9 +11,12 @@ import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
 import { getAddresses, getSocials } from '@/globals/api'
 
+import { INPUT_NAMES } from '@/globals/inputs/call-form'
+import { getPathname } from '@/features/pathname'
+import { ROUTES } from '@/globals/paths'
+
 import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
-import { INPUT_NAMES } from '@/globals/inputs/call-form'
 
 interface socialItem {
   name: string
@@ -29,6 +32,8 @@ async function ContactForm() {
   if (!currentCityAddresses) return
 
   const socials: socialItem[] = await getSocials()
+
+  if (getPathname() === ROUTES.MAP) return null
 
   function showSocials() {
     return socials.map((social, index) => (
