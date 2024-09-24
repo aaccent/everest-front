@@ -1,45 +1,103 @@
 'use client'
 
-import React, { createContext, PropsWithChildren, useContext, useState } from 'react'
+import React, { createContext, PropsWithChildren, useContext, useRef, useState } from 'react'
+import CallPopup from '@/ui/popups/CallPopup/CallPopup'
+import MapPopup from '@/ui/popups/MapPopup'
 import { hideScroll, showScroll } from '@/features/visible/scroll'
+import GalleryPopup from '@/ui/popups/GalleryPopup/GalleryPopup'
+import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
+import ThxPopup from '@/ui/popups/ThxPopup'
 import { createPortal } from 'react-dom'
 
-type PopupName = 'callPopup' | 'mapPopup' | 'filterPopup' | 'galleryPopup' | 'thxPopup'
+const popups = {
+  callPopup: CallPopup,
+  mapPopup: MapPopup,
+  filterPopup: FilterPopup,
+  galleryPopup: GalleryPopup,
+  thxPopup: ThxPopup,
+} as const
+
+type PopupName = keyof typeof popups
+type PopupArgs<TPopup extends PopupName> = Parameters<(typeof popups)[TPopup]>[0]
+
+type PopupObj<TPopup extends PopupName> = {
+  name: TPopup | null
+  args?: PopupArgs<TPopup>
+} & PopupArgs<TPopup> extends undefined
+  ? {
+      name: TPopup | null
+      args?: never
+    }
+  : {
+      name: TPopup | null
+      args?: PopupArgs<TPopup>
+    }
+
 type PopupContextObject = {
-  openPopup: (popupName: PopupName) => void
+  openPopup: <TPopup extends PopupName>(obj: PopupObj<TPopup>) => void
   closePopup: () => void
-  activePopup: PopupName | null
+  openDynamicPopup: (popupName: PopupName) => void
+  activeDynamicPopup: PopupName | null
 }
 
 export const PopupContext = createContext({} as PopupContextObject)
 
-interface PopupProps extends PropsWithChildren {
+interface PopupProps {
+  stateRef: React.MutableRefObject<React.Dispatch<React.SetStateAction<PopupObj<PopupName>>> | undefined>
+}
+
+function Popup({ stateRef }: PopupProps) {
+  const [popupObj, setPopupObj] = useState<PopupObj<PopupName>>({ name: null, args: undefined })
+
+  stateRef.current = setPopupObj
+  if (!popupObj.name) return null
+
+  const _Popup = popups[popupObj.name]
+
+  return (
+    <div className='fixed inset-0 z-50 bg-base-600/60'>
+      {/*@ts-ignore*/}
+      <_Popup {...(popupObj.args || {})} />
+    </div>
+  )
+}
+
+interface DynamicPopupProps extends PropsWithChildren {
   popupName: PopupName
   isDynamic?: boolean
 }
 
-export function Popup({ popupName, children, isDynamic }: PopupProps) {
-  const { activePopup } = useContext(PopupContext)
+export function DynamicPopup({ popupName, children }: DynamicPopupProps) {
+  const { activeDynamicPopup } = useContext(PopupContext)
 
-  if (popupName !== activePopup) return null
+  if (popupName !== activeDynamicPopup) return null
 
-  return isDynamic ? (
-    <div className='fixed inset-0 z-50 bg-base-600/60'>{children}</div>
-  ) : (
-    createPortal(<div className='fixed inset-0 z-50 bg-base-600/60'>{children}</div>, document.body)
-  )
+  return createPortal(<div className='fixed inset-0 z-50 bg-base-600/60'>{children}</div>, document.body)
 }
 
-export function PopupProvider({ children }: PropsWithChildren) {
-  const [activePopup, setActivePopup] = useState<PopupName | null>(null)
+interface PopupProviderProps extends PropsWithChildren {
+  isDynamic?: boolean
+}
 
-  const openPopup: PopupContextObject['openPopup'] = (name) => {
+export function PopupProvider({ children }: PopupProviderProps) {
+  const stateRef = useRef<React.Dispatch<React.SetStateAction<PopupObj<PopupName>>>>()
+  const [activeDynamicPopup, setActivePopup] = useState<PopupName | null>(null)
+
+  const openPopup: PopupContextObject['openPopup'] = (obj) => {
+    if (!stateRef.current) return
+    stateRef.current({ name: obj.name, args: obj.args })
+    hideScroll()
+  }
+
+  const openDynamicPopup: PopupContextObject['openDynamicPopup'] = (name) => {
     setActivePopup(name)
     hideScroll()
   }
 
   const closePopup: PopupContextObject['closePopup'] = () => {
-    setActivePopup(null)
+    if (activeDynamicPopup) setActivePopup(null)
+    if (!stateRef.current) return
+    stateRef.current({ name: null, args: undefined })
     showScroll()
   }
 
@@ -48,9 +106,11 @@ export function PopupProvider({ children }: PropsWithChildren) {
       value={{
         openPopup,
         closePopup,
-        activePopup,
+        openDynamicPopup,
+        activeDynamicPopup,
       }}
     >
+      <Popup stateRef={stateRef} />
       {children}
     </PopupContext.Provider>
   )
