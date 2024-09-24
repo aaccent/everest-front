@@ -4,32 +4,45 @@ import { FilterType, FilterView } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import { getObjects } from '@/globals/api/methods/catalog/getObjects'
 import { FilterRequestParam, SortRequestParam } from '@/types/Category'
-import { useCategoryObjects } from '@/features/catalog/useCategoryObject'
+import { GetObjectsFn, useCategoryObjects } from '@/features/catalog/useCategoryObject'
 import { getQuickFilters } from '@/globals/api/methods/getFilters'
+import Button from '@/ui/buttons/Button'
+import { objectPlural } from '@/features/utility/pluralRules'
 
 interface CategoryFilterProps {
   categoryName: string
+  rent: boolean
 }
 
-function CategoryFilter({ categoryName }: CategoryFilterProps) {
+function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
   const _getObjects = async (filter: FilterRequestParam, sort: SortRequestParam) => {
-    const category = await getObjects(filter, sort, categoryName)
+    const category = await getObjects(filter, sort, rent, categoryName)
     return category.objects
   }
-  const [initList, setInitList] = useState<unknown[]>([])
-  const [objectList, setObjectList] = useState<unknown[]>(initList)
+  const [params, setParams] = useState<{ initList: unknown[]; getObjects: GetObjectsFn }>({
+    initList: [],
+    getObjects: _getObjects,
+  })
+
   const [filterInputs, setFilterInputs] = useState<FilterType<FilterView>[]>([])
-  const { list } = useCategoryObjects({ initList, getObjects: _getObjects })
+
+  const { list } = useCategoryObjects(params)
 
   useEffect(() => {
     getQuickFilters(categoryName).then((res) => setFilterInputs(res.filters))
-    _getObjects(null, null).then((res) => setInitList(res))
-    setObjectList(list)
-  }, [categoryName])
+    setParams({ initList: list, getObjects: _getObjects })
+  }, [categoryName, rent])
 
   return (
-    <div>
+    <div className='flex items-center gap-[12px]'>
       <FilterItems filters={filterInputs} isQuick />
+      <Button
+        type='button'
+        size='small'
+        variation='primary'
+        text={`Показать ${list.length} ${objectPlural.get(list.length)}`}
+      />
+      <Button type='button' size='small' variation='second' text='показать на карте' icon={{ img: 'SHOW_MAP' }} />
     </div>
   )
 }

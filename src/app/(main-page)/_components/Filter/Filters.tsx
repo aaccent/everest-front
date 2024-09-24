@@ -40,10 +40,10 @@ function Filters() {
 
   return (
     <div className='absolute inset-x-[20px] bottom-[20px] md:inset-x-[56px] md:bottom-[56px]'>
-      <div className='flex w-fit overflow-hidden rounded-[24px] bg-base-650'>{showCategoryButtons()}</div>
-      <div>
-        <div>
-          <div>
+      <div className='flex w-fit overflow-hidden rounded-t-[24px] bg-base-650'>{showCategoryButtons()}</div>
+      <div className='rounded-b-[24px] rounded-tr-[24px] bg-base-100 p-[20px]'>
+        <div className='mb-[22px] flex items-center justify-between'>
+          <div className='flex items-center gap-[8px]'>
             <button
               onClick={() =>
                 setActiveCategory({
@@ -51,6 +51,7 @@ function Filters() {
                   isRent: false,
                 })
               }
+              className={`text-base-500-reg-100-upper rounded-[50px] px-[14px] py-[9px] ${!activeCategory.isRent ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}`}
             >
               Купить
             </button>
@@ -61,14 +62,20 @@ function Filters() {
                   isRent: true,
                 })
               }
+              className={`text-base-500-reg-100-upper rounded-[50px] px-[14px] py-[9px] ${activeCategory.isRent ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}`}
             >
               Снять
             </button>
           </div>
-          <div>Расширенный фильтр</div>
+          <button
+            type='button'
+            className='text-base-400-lg-100 flex items-center gap-[6px] text-primary after:block after:size-[20px] after:bg-icon-detail-filter after:filter-primary after:bg-default-contain'
+          >
+            Расширенный фильтр
+          </button>
         </div>
+        <CategoryFilter categoryName={activeCategory.seoUrl} rent={activeCategory.isRent} />
       </div>
-      <CategoryFilter categoryName={activeCategory.seoUrl} />
     </div>
   )
 }

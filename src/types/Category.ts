@@ -38,8 +38,12 @@ export type AnyCategory = Category<any, any> | SubCategory<any>
 
 export type FilterRequestParam = object[] | null
 export type SortRequestParam = string | null
+export type RentParam = boolean | null
 
 export interface CategoryRequestWithFilters {
   filter?: FilterRequestParam
   sort?: SortRequestParam
+}
+export interface CategoryRequestWithRent extends CategoryRequestWithFilters {
+  rent?: RentParam
 }
