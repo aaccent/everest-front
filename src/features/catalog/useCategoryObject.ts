@@ -27,7 +27,6 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
     let data: TType[]
     try {
       data = await getObjects(filter.parsed || null, sort)
-      //console.log(data)
     } catch {
       data = []
     }

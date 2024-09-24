@@ -3,29 +3,29 @@ import React, { useEffect, useState } from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import { getObjects } from '@/globals/api/methods/catalog/getObjects'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { FilterRequestParam, SortRequestParam } from '@/types/Category'
+import { useCategoryObjects } from '@/features/catalog/useCategoryObject'
+import { getQuickFilters } from '@/globals/api/methods/getFilters'
 
 interface CategoryFilterProps {
-  filterInputs: FilterType<FilterView>[]
   categoryName: string
 }
 
-function CategoryFilter({ filterInputs, categoryName }: CategoryFilterProps) {
+function CategoryFilter({ categoryName }: CategoryFilterProps) {
   const _getObjects = async (filter: FilterRequestParam, sort: SortRequestParam) => {
     const category = await getObjects(filter, sort, categoryName)
     return category.objects
   }
   const [initList, setInitList] = useState<unknown[]>([])
   const [objectList, setObjectList] = useState<unknown[]>(initList)
+  const [filterInputs, setFilterInputs] = useState<FilterType<FilterView>[]>([])
+  const { list } = useCategoryObjects({ initList, getObjects: _getObjects })
 
   useEffect(() => {
+    getQuickFilters(categoryName).then((res) => setFilterInputs(res.filters))
     _getObjects(null, null).then((res) => setInitList(res))
+    setObjectList(list)
   }, [categoryName])
-
-  const { filter } = useCategoryFilter()
-
-  // console.log(objectList)
 
   return (
     <div>
