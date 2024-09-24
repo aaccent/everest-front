@@ -133,8 +133,8 @@ export const customVariants = plugin(function ({ addVariant, matchVariant }) {
   matchVariant('previous-has', function (value, { modifier }) {
     return modifier ? `:merge(.peer\\/${modifier})${value} + &` : `:merge(.peer)${value} + &`
   })
-  addVariant('scroll-btn-yt', ['&::-webkit-scrollbar-button:vertical:decrement'])
-  addVariant('scroll-btn-yb', ['&::-webkit-scrollbar-button:vertical:increment'])
+  addVariant('scroll-btn-yt', ['&::-webkit-scrollbar-button:single-button:vertical:decrement'])
+  addVariant('scroll-btn-yb', ['&::-webkit-scrollbar-button:single-button:vertical:increment'])
 })
 
 export const miscUtilities = plugin(function ({ matchUtilities, theme }) {

@@ -34,16 +34,8 @@ function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) 
  */
 export function formatPriceShortBy(price: number | string | null | undefined, onlyNumbers = false) {
   const _price = safeConvertToPriceNumber(price)
-
   if (_price === undefined || _price === null) return PRICE_PLACEHOLDER
-
-  let shortPrice = _price
-  const digits = _price.toString().length
-
-  if (digits > 6) {
-    shortPrice = _price / 1000000
-  }
-
+  let shortPrice = (_price / 1000000).toFixed(2)
   return onlyNumbers ? `${shortPrice}` : `от ${shortPrice} млн ₽`
 }
 

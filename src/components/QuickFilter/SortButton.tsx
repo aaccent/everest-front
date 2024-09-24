@@ -36,7 +36,7 @@ function SortButton({ sorts }: SortButtonProps) {
   }
 
   return (
-    <div className='text-base-500-reg-100-upper relative'>
+    <div className='text-base-500-reg-100-upper relative w-full max-w-[220px]'>
       <span className='mr-[6px] text-base-600/50'>Сортировка:</span>
       <button
         className='text-base-500-reg-100-upper'

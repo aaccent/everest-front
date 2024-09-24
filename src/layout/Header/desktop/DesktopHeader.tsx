@@ -51,7 +51,7 @@ function DesktopHeader() {
   return (
     <>
       <HeaderTop className='px-container flex pt-[14px] peer-[[data-main-page]]/header-state:hidden peer-[[data-menu]]/header-state:hidden peer-[.is-black]/header-state:border-b-base-600/10' />
-      <header className='px-container sticky top-0 z-30 w-full text-base-100 peer-[[data-main-page]]/header-state:fixed peer-[.is-fixed]/header-state:border-b peer-[.is-fixed]/header-state:border-b-base-400 peer-[.is-fixed]/header-state:bg-base-100 peer-[.is-fixed]/header-state:pt-0 peer-[:is([data-menu],[data-main-page])]/header-state:pt-[14px] peer-[.is-black]/header-state:text-base-600'>
+      <header className='px-container sticky top-0 z-40 w-full text-base-100 peer-[[data-main-page]]/header-state:fixed peer-[.is-fixed]/header-state:border-b peer-[.is-fixed]/header-state:border-b-base-400 peer-[.is-fixed]/header-state:bg-base-100 peer-[.is-fixed]/header-state:pt-0 peer-[:is([data-menu],[data-main-page])]/header-state:pt-[14px] peer-[.is-black]/header-state:text-base-600'>
         <HeaderTop className='hidden peer-any-parent-[[data-main-page]]/header-state:flex peer-any-parent-[[data-menu]]/header-state:flex peer-any-parent-[.is-black]/header-state:border-b-base-600/10' />
         <div className='flex justify-between border-b border-b-base-100/15 peer-any-parent-[.is-fixed]/header-state:border-b-0 peer-any-parent-[.is-black]/header-state:border-b-base-600/10'>
           <div className='flex w-full items-center justify-between border-r border-r-base-100/15 py-[15px] pr-[43px] peer-any-parent-[.is-black]/header-state:border-r-base-600/10'>
