@@ -61,7 +61,7 @@ function FilterPopup({ category }: Props) {
 
           <Button variation='primary' size='small' text='Показать 27 объектов' className='md:mr-[12px]' />
           <ResetFiltersButton
-            text={window.matchMedia('(min-width:768px)').matches ? 'Сбросить фильтры' : 'Сбросить'}
+            text='Сбросить'
             className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'
           />
           <MapObjectsButton className='ml-auto hidden md:order-3 md:flex' />
