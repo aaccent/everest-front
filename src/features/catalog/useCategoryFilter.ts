@@ -80,7 +80,7 @@ export function useCategoryFilter() {
 
     if (!newFilter.has(id)) {
       newFilter.set(id, { id, value })
-    } else if (value instanceof Array && !value.length) {
+    } else if ((value instanceof Array && !value.length) || !value) {
       newFilter.delete(id)
     } else {
       newFilter.get(id)!.value = value
