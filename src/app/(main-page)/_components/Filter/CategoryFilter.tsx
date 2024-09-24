@@ -12,6 +12,7 @@ import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import Link from 'next/link'
 import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
+import { getNewBuildings } from '@/globals/api'
 
 interface CategoryFilterProps {
   categoryName: string
@@ -21,7 +22,10 @@ interface CategoryFilterProps {
 function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
   function getList(_category: string) {
     return async function (filter: FilterRequestParam, sort: SortRequestParam) {
-      const category = await getObjects(_category, filter, sort, rent)
+      const category =
+        categoryName === 'new-building'
+          ? await getNewBuildings(filter, sort, rent)
+          : await getObjects(_category, filter, sort, rent)
       return category.objects
     }
   }
