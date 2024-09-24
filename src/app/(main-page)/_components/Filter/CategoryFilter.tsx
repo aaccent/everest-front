@@ -4,7 +4,7 @@ import { FilterType, FilterView } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import { getObjects } from '@/globals/api/methods/catalog/getObjects'
 import { FilterRequestParam, SortRequestParam } from '@/types/Category'
-import { GetObjectsFn, useCategoryObjects } from '@/features/catalog/useCategoryObject'
+import { useCategoryObjects } from '@/features/catalog/useCategoryObject'
 import { getQuickFilters } from '@/globals/api/methods/getFilters'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
@@ -15,22 +15,21 @@ interface CategoryFilterProps {
 }
 
 function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
-  const _getObjects = async (filter: FilterRequestParam, sort: SortRequestParam) => {
-    const category = await getObjects(filter, sort, rent, categoryName)
-    return category.objects
+  function getList(_category: string) {
+    return async function (filter: FilterRequestParam, sort: SortRequestParam) {
+      const category = await getObjects(filter, sort, _category)
+      return category.objects
+    }
   }
-  const [params, setParams] = useState<{ initList: unknown[]; getObjects: GetObjectsFn }>({
-    initList: [],
-    getObjects: _getObjects,
-  })
 
   const [filterInputs, setFilterInputs] = useState<FilterType<FilterView>[]>([])
-
-  const { list } = useCategoryObjects(params)
+  const [initList, setInitList] = useState<unknown[]>([])
+  const { list } = useCategoryObjects({ initList, getObjects: getList(categoryName) })
 
   useEffect(() => {
     getQuickFilters(categoryName).then((res) => setFilterInputs(res.filters))
-    setParams({ initList: list, getObjects: _getObjects })
+    const updateList = getList(categoryName)
+    updateList(null, null).then((res) => setInitList(res))
   }, [categoryName, rent])
 
   return (

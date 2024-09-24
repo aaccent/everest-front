@@ -1,21 +1,19 @@
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 import {
   Category,
-  CategoryRequestWithRent,
+  CategoryRequestWithFilters,
   FilterRequestParam,
   RawCategory,
-  RentParam,
   SortRequestParam,
 } from '@/types/Category'
 import { ObjectCard } from '@/types/ObjectCard'
 
-type Request = APIRequest<CategoryRequestWithRent>
+type Request = APIRequest<CategoryRequestWithFilters>
 type Response = APIResponse<Category<RawCategory, ObjectCard>>
 
 export async function getObjects(
   filter: FilterRequestParam = null,
   sort: SortRequestParam = null,
-  rent: RentParam = null,
   category: string,
   subcategory: string | null = null,
 ) {
@@ -28,7 +26,6 @@ export async function getObjects(
     request: {
       filter,
       sort,
-      rent,
     },
   })
   return res.data

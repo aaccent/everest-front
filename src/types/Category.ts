@@ -44,6 +44,3 @@ export interface CategoryRequestWithFilters {
   filter?: FilterRequestParam
   sort?: SortRequestParam
 }
-export interface CategoryRequestWithRent extends CategoryRequestWithFilters {
-  rent?: RentParam
-}
