@@ -81,7 +81,7 @@ interface PopupProviderProps extends PropsWithChildren {
 
 export function PopupProvider({ children }: PopupProviderProps) {
   const stateRef = useRef<React.Dispatch<React.SetStateAction<PopupObj<PopupName>>>>()
-  const [activeDynamicPopup, setActivePopup] = useState<PopupName | null>(null)
+  const [activeDynamicPopup, setActiveDynamicPopup] = useState<PopupName | null>(null)
 
   const openPopup: PopupContextObject['openPopup'] = (obj) => {
     if (!stateRef.current) return
@@ -90,12 +90,12 @@ export function PopupProvider({ children }: PopupProviderProps) {
   }
 
   const openDynamicPopup: PopupContextObject['openDynamicPopup'] = (name) => {
-    setActivePopup(name)
+    setActiveDynamicPopup(name)
     hideScroll()
   }
 
   const closePopup: PopupContextObject['closePopup'] = () => {
-    if (activeDynamicPopup) setActivePopup(null)
+    if (activeDynamicPopup) setActiveDynamicPopup(null)
     if (!stateRef.current) return
     stateRef.current({ name: null, args: undefined })
     showScroll()

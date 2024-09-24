@@ -1,9 +1,11 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { getCatalogMenu } from '@/globals/api'
 import CategoryButton, { CategoryButtonProps } from '@/app/(main-page)/_components/Filter/CategoryButton'
 import { MenuCategory } from '@/types/Menu'
 import CategoryFilter from '@/app/(main-page)/_components/Filter/CategoryFilter'
+import { PopupContext } from '@/features/visible/Popup'
+import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 
 function Filters() {
   const [categories, setCategories] = useState<MenuCategory[]>([])
@@ -11,6 +13,7 @@ function Filters() {
     seoUrl: CategoryButtonProps['seoUrl']
     isRent: boolean
   }>({ seoUrl: 'new-building', isRent: false })
+  const { openDynamicPopup } = useContext(PopupContext)
 
   useEffect(() => {
     getCatalogMenu().then((res) => {
@@ -70,7 +73,9 @@ function Filters() {
           <button
             type='button'
             className='text-base-400-lg-100 flex items-center gap-[6px] text-primary after:block after:size-[20px] after:bg-icon-detail-filter after:filter-primary after:bg-default-contain'
+            onClick={() => openDynamicPopup('filterPopup')}
           >
+            <FilterPopup category={activeCategory.seoUrl} />
             Расширенный фильтр
           </button>
         </div>
