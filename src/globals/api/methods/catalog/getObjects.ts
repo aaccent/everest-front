@@ -18,6 +18,9 @@ export async function getObjects(
   subgategory: string | null = null,
 ) {
   const uri = subgategory ? `catalog/${category}/${subgategory}` : `catalog/${category}`
+  //console.log(uri)
+  //console.log(filter)
+  //console.log(sort)
   const res = await apiCall<Request | false, Response>(`/${uri}`, {
     method: 'POST',
     request: {

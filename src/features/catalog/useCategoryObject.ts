@@ -22,23 +22,23 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   const { filter } = useCategoryFilter()
   const { sort } = useCategorySort()
 
-  useEffect(() => {
-    async function updateState() {
-      setIsLoading(true)
-      let data: TType[]
-      try {
-        data = await getObjects(filter.parsed || null, sort)
-      } catch {
-        data = []
-      }
-
-      setList(data)
-
-      setIsLoading(false)
+  const updateState = async () => {
+    setIsLoading(true)
+    let data: TType[]
+    try {
+      data = await getObjects(filter.parsed || null, sort)
+      //console.log(data)
+    } catch {
+      data = []
     }
+    setList(data)
 
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
     updateState()
   }, [sort, filter])
 
-  return { list, isLoading }
+  return { list, isLoading, updateState }
 }
