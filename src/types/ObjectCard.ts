@@ -5,8 +5,8 @@ export interface ObjectCard {
   name: string
   typeObject: string
   description: string
-  price: string
-  priceDiscount: string | null
+  price: number
+  priceDiscount: number | null
   userId: number | null
   mainImagePath?: string | null
   mainImageUrl: string | null
@@ -14,4 +14,6 @@ export interface ObjectCard {
   address: string | null
   seoUrl: string
   tags: Tag[]
+  latitude: number
+  longitude: number
 }

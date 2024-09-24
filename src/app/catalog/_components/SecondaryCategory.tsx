@@ -13,7 +13,7 @@ interface Props {
 function SecondaryCategory({ category }: Props) {
   const getObjects: GetObjectsFn<ObjectCardType> = async function (filter, sort) {
     'use server'
-    const category = await getSecondaryHousing(filter, sort)
+    const category = await getSecondaryHousing({ filter, sort })
     return category.objects
   }
 

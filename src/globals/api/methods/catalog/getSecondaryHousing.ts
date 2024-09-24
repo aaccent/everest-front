@@ -7,17 +7,25 @@ import {
   SortRequestParam,
 } from '@/types/Category'
 import { ObjectCard } from '@/types/ObjectCard'
+import { CategoryLocation } from '@/types/Map'
+
+type Props = {
+  filter?: FilterRequestParam | null
+  sort?: SortRequestParam | null
+  location?: CategoryLocation
+}
 
 type Response = APIResponse<Category<RawCategory, ObjectCard>>
-type Request = APIRequest<CategoryRequestWithFilters>
+type Request = APIRequest<
+  CategoryRequestWithFilters & {
+    location?: CategoryLocation
+  }
+>
 
-export async function getSecondaryHousing(filter: FilterRequestParam = null, sort: SortRequestParam = null) {
+export async function getSecondaryHousing(props: Props = {}) {
   const res = await apiCall<Request, Response>('/catalog/secondary-housing', {
     method: 'POST',
-    request: {
-      filter,
-      sort,
-    },
+    request: props,
   })
   return res.data
 }
