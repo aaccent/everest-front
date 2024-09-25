@@ -8,17 +8,20 @@ import Tags from '@/components/Tags'
 
 interface Props {
   item: ComplexCardType
+  className?: string
 }
 
-export function ComplexTileCard({ item }: Props) {
+export function ComplexTileCard({ item, className }: Props) {
   const link = createComplexLink(item)
 
   return (
-    <div className='relative block h-[250px] w-full overflow-hidden rounded-[20px] md:h-[388px] md:rounded-[24px]'>
+    <div
+      className={`relative block h-[250px] w-full overflow-hidden rounded-[20px] md:h-[388px] md:rounded-[24px] ${className}`}
+    >
       <Link href={link}>
         <Image
           className='object-cover object-center transition-transform duration-500 hover:scale-110 hover:transition-transform hover:duration-500'
-          src='/no-photo.jpg'
+          src={item.mainImg}
           alt=''
           fill
         />
