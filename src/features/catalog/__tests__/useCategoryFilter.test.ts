@@ -260,7 +260,7 @@ describe('useCategoryFilter', () => {
       const copyFilters = new Map(filters)
       copyFilters.get(6)!.value = [11, 432423]
       copyFilters.get(7)!.value = [11, 'dasdsad']
-      copyFilters.get(8)!.value = false
+      copyFilters.get(8)!.value = ['1']
       testFilters.changeFilter(copyFilters.get(6)!, copyFilters.get(6)!.value)
       testFilters.changeFilter(copyFilters.get(7)!, copyFilters.get(7)!.value)
       testFilters.changeFilter(copyFilters.get(8)!, copyFilters.get(8)!.value)
