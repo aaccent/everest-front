@@ -4,7 +4,6 @@ import { FilterType, FilterView } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import { getObjects } from '@/globals/api/methods/catalog/getObjects'
 import { FilterRequestParam, SortRequestParam } from '@/types/Category'
-import { useCategoryObjects } from '@/features/catalog/useCategoryObject'
 import { getQuickFilters } from '@/globals/api/methods/getFilters'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
@@ -32,16 +31,18 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
 
   const [filterInputs, setFilterInputs] = useState<FilterType<FilterView>[]>([])
   const [initList, setInitList] = useState<unknown[]>([])
-  const { list } = useCategoryObjects({ initList, getObjects: getList(categoryName) })
   const { clearFilters, filter } = useCategoryFilter()
   const searchParams = useSearchParams()
 
   useEffect(() => {
     if (filter.str) clearFilters()
+  }, [CategoryFilter])
+
+  useEffect(() => {
     getQuickFilters(categoryName).then((res) => setFilterInputs(res.filters))
     const updateList = getList(categoryName)
-    updateList(null, null).then((res) => setInitList(res))
-  }, [categoryName, rent])
+    updateList(filter.parsed, null).then((res) => setInitList(res))
+  }, [categoryName, rent, filter])
 
   const link = `${ROUTES.CATALOG}/${categoryName}/?${searchParams.toString()}`
 
@@ -53,7 +54,7 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
           type='button'
           size='small'
           variation='primary'
-          text={`Показать ${list.length} ${objectPlural.get(list.length)}`}
+          text={`Показать ${initList.length} ${objectPlural.get(initList.length)}`}
         />
       </Link>
       <Button type='button' size='small' variation='second' text='показать на карте' icon={{ img: 'SHOW_MAP' }} />
