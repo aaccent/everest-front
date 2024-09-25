@@ -39,10 +39,12 @@ function Filters() {
   }
 
   return (
-    <div className='absolute inset-x-[20px] bottom-[20px] md:inset-x-[56px] md:bottom-[56px]'>
-      <div className='flex w-fit overflow-hidden rounded-t-[24px] bg-base-650'>{showCategoryButtons()}</div>
-      <div className='rounded-b-[24px] rounded-tr-[24px] bg-base-100 p-[20px]'>
-        <div className='flex items-center gap-[8px]'>
+    <div className='absolute inset-x-0 bottom-[20px] overflow-auto scrollbar-transparent md:inset-x-[56px] md:bottom-[56px]'>
+      <div className='flex w-fit gap-[8px] overflow-hidden rounded-t-[24px] md:gap-0 md:bg-base-650'>
+        {showCategoryButtons()}
+      </div>
+      <div className='hidden rounded-b-[24px] rounded-tr-[24px] bg-base-100 p-[20px] md:block'>
+        <div className='items-center gap-[8px]'>
           <button
             onClick={() =>
               setActiveCategory({
