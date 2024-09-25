@@ -1,11 +1,9 @@
 'use client'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { getCatalogMenu } from '@/globals/api'
 import CategoryButton, { CategoryButtonProps } from '@/app/(main-page)/_components/Filter/CategoryButton'
 import { MenuCategory } from '@/types/Menu'
 import CategoryFilter from '@/app/(main-page)/_components/Filter/CategoryFilter'
-import { PopupContext } from '@/features/visible/Popup'
-import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 
 function Filters() {
   const [categories, setCategories] = useState<MenuCategory[]>([])
@@ -13,7 +11,6 @@ function Filters() {
     seoUrl: CategoryButtonProps['seoUrl']
     isRent: boolean
   }>({ seoUrl: 'new-building', isRent: false })
-  const { openDynamicPopup } = useContext(PopupContext)
 
   useEffect(() => {
     getCatalogMenu().then((res) => {
@@ -45,38 +42,28 @@ function Filters() {
     <div className='absolute inset-x-[20px] bottom-[20px] md:inset-x-[56px] md:bottom-[56px]'>
       <div className='flex w-fit overflow-hidden rounded-t-[24px] bg-base-650'>{showCategoryButtons()}</div>
       <div className='rounded-b-[24px] rounded-tr-[24px] bg-base-100 p-[20px]'>
-        <div className='mb-[22px] flex items-center justify-between'>
-          <div className='flex items-center gap-[8px]'>
-            <button
-              onClick={() =>
-                setActiveCategory({
-                  seoUrl: activeCategory.seoUrl,
-                  isRent: false,
-                })
-              }
-              className={`text-base-500-reg-100-upper rounded-[50px] px-[14px] py-[9px] ${!activeCategory.isRent ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}`}
-            >
-              Купить
-            </button>
-            <button
-              onClick={() =>
-                setActiveCategory({
-                  seoUrl: activeCategory.seoUrl,
-                  isRent: true,
-                })
-              }
-              className={`text-base-500-reg-100-upper rounded-[50px] px-[14px] py-[9px] ${activeCategory.isRent ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}`}
-            >
-              Снять
-            </button>
-          </div>
+        <div className='flex items-center gap-[8px]'>
           <button
-            type='button'
-            className='text-base-400-lg-100 flex items-center gap-[6px] text-primary after:block after:size-[20px] after:bg-icon-detail-filter after:filter-primary after:bg-default-contain'
-            onClick={() => openDynamicPopup('filterPopup')}
+            onClick={() =>
+              setActiveCategory({
+                seoUrl: activeCategory.seoUrl,
+                isRent: false,
+              })
+            }
+            className={`text-base-500-reg-100-upper rounded-[50px] px-[14px] py-[9px] ${!activeCategory.isRent ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}`}
           >
-            <FilterPopup category={activeCategory.seoUrl} />
-            Расширенный фильтр
+            Купить
+          </button>
+          <button
+            onClick={() =>
+              setActiveCategory({
+                seoUrl: activeCategory.seoUrl,
+                isRent: true,
+              })
+            }
+            className={`text-base-500-reg-100-upper rounded-[50px] px-[14px] py-[9px] ${activeCategory.isRent ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}`}
+          >
+            Снять
           </button>
         </div>
         <CategoryFilter categoryName={activeCategory.seoUrl} rent={activeCategory.isRent} />

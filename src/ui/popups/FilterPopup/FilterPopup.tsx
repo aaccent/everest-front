@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
@@ -9,15 +9,26 @@ import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
 import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
-import { DynamicPopup } from '@/features/visible/Popup'
+import { DynamicPopup, PopupContext } from '@/features/visible/Popup'
 import FilterTags from '@/components/FilterTags'
+import { CategoryContext } from '@/layout/catalog/CategoryContext'
+import { objectPlural } from '@/features/utility/pluralRules'
+import Link from 'next/link'
+import { useParams, useSearchParams } from 'next/navigation'
+import { ROUTES } from '@/globals/paths'
 
 interface Props {
   category: string
+  objectsAmount?: number
 }
 
-function FilterPopup({ category }: Props) {
+function FilterPopup({ category, objectsAmount }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>([])
+  const { amount } = useContext(CategoryContext)
+  const { closePopup } = useContext(PopupContext)
+  const params = useParams()
+  const searchParams = useSearchParams()
+  const link = params.toString().includes('catalog') ? '' : `${ROUTES.CATALOG}/${category}/?${searchParams.toString()}`
 
   useEffect(() => {
     getFilters(category).then((res) => {
@@ -59,7 +70,14 @@ function FilterPopup({ category }: Props) {
         <div className='bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:fixed md:justify-normal md:px-[56px] md:py-[24px]'>
           <button className='flex size-[50px] items-center justify-center rounded-[16px] bg-base-300 after:block after:size-[22px] after:bg-icon-search-favorite after:bg-default-contain md:hidden' />
 
-          <Button variation='primary' size='small' text='Показать 27 объектов' className='md:mr-[12px]' />
+          <Link href={link} onClick={closePopup}>
+            <Button
+              variation='primary'
+              size='small'
+              text={`Показать ${objectsAmount || amount} ${objectPlural.get(objectsAmount || amount)}`}
+              className='md:mr-[12px]'
+            />
+          </Link>
           <ResetFiltersButton
             text='Сбросить'
             className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'

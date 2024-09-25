@@ -31,4 +31,4 @@ export const suggestionPlural = createPlural('предложение', 'пред
 export const flatPlural = createPlural('квартира', 'квартиры', 'квартир')
 
 /** Слово 'Объект' с суффиксами в зависимости от числа */
-export const objectPlural = createPlural('объект', 'объекты', 'объектов')
+export const objectPlural = createPlural('объект', 'объекта', 'объектов')

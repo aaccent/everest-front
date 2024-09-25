@@ -95,7 +95,7 @@ export function PopupProvider({ children }: PopupProviderProps) {
   }
 
   const closePopup: PopupContextObject['closePopup'] = () => {
-    if (activeDynamicPopup) setActiveDynamicPopup(null)
+    setActiveDynamicPopup(null)
     if (!stateRef.current) return
     stateRef.current({ name: null, args: undefined })
     showScroll()
