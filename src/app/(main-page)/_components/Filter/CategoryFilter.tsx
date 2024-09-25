@@ -36,7 +36,7 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
 
   useEffect(() => {
     if (filter.str) clearFilters()
-  }, [CategoryFilter])
+  }, [categoryName])
 
   useEffect(() => {
     getQuickFilters(categoryName).then((res) => setFilterInputs(res.filters))
