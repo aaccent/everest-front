@@ -1,12 +1,13 @@
 'use client'
 
 import React, { PropsWithChildren, useRef, useState } from 'react'
-import Map, { MapProps, MapRef, ViewState } from 'react-map-gl'
+import Map, { GeoJSONSource, MapMouseEvent, MapProps, MapRef, Point, ViewState } from 'react-map-gl'
 import { MapCenter } from '@/types/Map'
+import { Feature } from 'geojson'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-type CustomMapProps = Pick<MapProps, 'initialViewState' | 'cooperativeGestures'>
+type CustomMapProps = Pick<MapProps, 'initialViewState' | 'cooperativeGestures' | 'interactiveLayerIds'>
 
 export type MapViewState = Pick<ViewState, 'latitude' | 'longitude' | 'zoom'>
 
@@ -16,6 +17,9 @@ type Props = PropsWithChildren &
     initialCenter?: MapCenter
     initialZoom?: number
     mapRef?: React.LegacyRef<MapRef>
+    onFeatureClick?: (event: MapMouseEvent, feature: Feature) => void
+    onClusterClick?: (event: MapMouseEvent, feature: Feature) => void
+    sourceId?: string
   } & (
     | {
         viewState: MapViewState
@@ -35,6 +39,8 @@ export default function CustomMap({
   viewState: customViewState,
   setViewState: customSetViewState,
   mapRef: customMapRef,
+  onFeatureClick,
+  sourceId,
   ...customProps
 }: Props) {
   const mapRef = useRef<MapRef | null>(null)
@@ -47,6 +53,52 @@ export default function CustomMap({
   const _setViewState = customSetViewState || setViewState
 
   const _mapRef = customMapRef !== undefined ? customMapRef : mapRef
+
+  function clusterClickHandler(event: MapMouseEvent, feature: Feature) {
+    if (!sourceId) return
+
+    const source = event.target.getSource(sourceId) as GeoJSONSource | undefined
+
+    source?.getClusterExpansionZoom(feature.properties?.cluster_id, (err, zoom) => {
+      if (err) return
+
+      event.target.easeTo({
+        center: (feature.geometry as Point).coordinates as [number, number],
+        zoom: 14,
+      })
+    })
+  }
+
+  function pointClickHandler(event: MapMouseEvent, feature: Feature) {
+    const coordinates = (feature.geometry as Point).coordinates.slice() as [number, number]
+
+    onFeatureClick?.(event, feature)
+
+    event.target.flyTo({
+      center: coordinates,
+      essential: true,
+      zoom: 15,
+    })
+  }
+
+  function clickHandler(event: MapMouseEvent) {
+    const feature: Feature = event.features?.[0]
+    if (!feature) return
+
+    if (feature.properties?.cluster) {
+      clusterClickHandler(event, feature)
+    } else {
+      pointClickHandler(event, feature)
+    }
+  }
+
+  function onMouseEnter(e: MapMouseEvent) {
+    e.target.getCanvas().style.cursor = 'pointer'
+  }
+
+  function onMouseLeave(e: MapMouseEvent) {
+    e.target.getCanvas().style.cursor = 'grab'
+  }
 
   return (
     <div className={`map-box overflow-hidden ${className}`}>
@@ -66,6 +118,9 @@ export default function CustomMap({
           'NavigationControl.ZoomIn': 'Увеличить',
           'NavigationControl.ZoomOut': 'Уменьшить',
         }}
+        onClick={clickHandler}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         {...customProps}
       >
         {children}

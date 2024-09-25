@@ -10,8 +10,40 @@ import { MapCenter } from '@/types/Map'
 import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { Layer, MapRef, Source } from 'react-map-gl'
 import { FeatureCollection } from 'geojson'
+import { StyleImageMetadata } from 'mapbox-gl/src/style/style_image'
 
-const MARKER_BG_IMAGE = 'marker-bg'
+const IMAGE_IDS = {
+  MARKER_BG: 'marker-bg',
+  MARKER_PRICE_BG: 'marker-price-bg',
+  MARKER_PRICE_TEMP_BG: 'marker-price-test-bg',
+}
+
+const SOURCE_ID = 'objects'
+
+const LAYER_IDS = {
+  UNCLUSTERED: 'unclustered-point',
+  UNCLUSTERED_PRICE: 'unclustered-price',
+  CLUSTER_COUNT: 'cluster-count',
+  CLUSTER_CIRCLE: 'cluster-circle',
+  CLUSTER_PRICE: 'cluster-price',
+}
+
+interface LoadImageProps {
+  map: MapRef
+  imgId: string
+  path: string
+  imgOptions?: Partial<StyleImageMetadata>
+}
+
+function loadImage({ map, imgId, path, imgOptions }: LoadImageProps) {
+  if (map.hasImage(imgId)) return
+
+  map.loadImage(path, function (error, image) {
+    if (error || !image) throw error
+
+    map.addImage(imgId, image, imgOptions)
+  })
+}
 
 type MapObject = {
   latitude: number
@@ -61,19 +93,38 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
     mapRef.current = ref
     const map = ref
 
-    void (function () {
-      if (map.hasImage(MARKER_BG_IMAGE)) return
+    loadImage({
+      map,
+      imgId: IMAGE_IDS.MARKER_BG,
+      path: '/map/marker-bg.png',
+      imgOptions: {
+        content: [40, 6, 62, 30],
+        stretchX: [[40, 48]],
+        stretchY: [[17, 19]],
+      },
+    })
 
-      map.loadImage('/map/marker-bg.png', function (error, image) {
-        if (error || !image) throw error
+    loadImage({
+      map,
+      imgId: IMAGE_IDS.MARKER_PRICE_BG,
+      path: '/map/marker-price-bg.png',
+      imgOptions: {
+        content: [8, 4, 27, 22],
+        stretchX: [[16, 19]],
+        stretchY: [[12, 14]],
+      },
+    })
 
-        map.addImage(MARKER_BG_IMAGE, image, {
-          content: [40, 6, 62, 30],
-          stretchX: [[40, 48]],
-          stretchY: [[17, 19]],
-        })
-      })
-    })()
+    loadImage({
+      map,
+      imgId: IMAGE_IDS.MARKER_PRICE_TEMP_BG,
+      path: '/map/marker-price-temp-bg.png',
+      imgOptions: {
+        content: [8, 4, 27, 22],
+        stretchX: [[16, 19]],
+        stretchY: [[12, 14]],
+      },
+    })
   }, [])
 
   // Нужен чтобы карта полностью вмещалась по высоте в экран пользователя
@@ -133,9 +184,11 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
         className='size-full rounded-[20px]'
         cooperativeGestures={false}
         mapRef={mapRefCallback}
+        interactiveLayerIds={[LAYER_IDS.UNCLUSTERED, LAYER_IDS.CLUSTER_PRICE, LAYER_IDS.UNCLUSTERED_PRICE]}
+        sourceId={SOURCE_ID}
       >
         <Source
-          id='objects'
+          id={SOURCE_ID}
           type='geojson'
           data={convertMapObjectsToGeojson(objects)}
           cluster
@@ -146,9 +199,26 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
           }}
         >
           <Layer
-            id='unclustered-point'
+            id={LAYER_IDS.UNCLUSTERED_PRICE}
+            type='symbol'
+            filter={['!', ['has', 'point_count']]}
+            minzoom={13}
+            layout={{
+              'icon-image': IMAGE_IDS.MARKER_PRICE_TEMP_BG,
+              'icon-text-fit': 'both',
+              'text-field': ['concat', ['to-string', ['/', ['get', 'price'], 1_000_000]], ' млн'],
+              'text-size': 14,
+              'icon-anchor': 'bottom',
+            }}
+            paint={{
+              'text-color': '#fff',
+            }}
+          />
+          <Layer
+            id={LAYER_IDS.UNCLUSTERED}
             type='circle'
             filter={['!', ['has', 'point_count']]}
+            maxzoom={13}
             paint={{
               'circle-radius': 4,
               'circle-color': '#ffffff',
@@ -157,11 +227,11 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
             }}
           />
           <Layer
-            id='cluster-price'
+            id={LAYER_IDS.CLUSTER_PRICE}
             type='symbol'
             filter={['has', 'point_count']}
             layout={{
-              'icon-image': MARKER_BG_IMAGE,
+              'icon-image': IMAGE_IDS.MARKER_BG,
               'icon-text-fit': 'both',
               'text-field': ['concat', 'от ', ['to-string', ['/', ['get', 'min'], 1_000_000]], ' млн'],
               'text-size': 14,
@@ -174,7 +244,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
             }}
           />
           <Layer
-            id='cluster-circle'
+            id={LAYER_IDS.CLUSTER_CIRCLE}
             type='circle'
             filter={['has', 'point_count']}
             paint={{
@@ -184,7 +254,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
             }}
           />
           <Layer
-            id='cluster-count'
+            id={LAYER_IDS.CLUSTER_COUNT}
             type='symbol'
             filter={['has', 'point_count']}
             layout={{
