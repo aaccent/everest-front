@@ -4,28 +4,31 @@ import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { MapCenter } from '@/types/Map'
 import { FeatureCollection } from 'geojson'
 
-function convertMapObjectsToGeojson(objects: MapObject[]): FeatureCollection {
-  return {
-    type: 'FeatureCollection',
-    features: objects.map((object) => ({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [object.longitude, object.latitude],
-      },
-      properties: {
-        price: object.price,
-        longitude: object.longitude,
-        latitude: object.latitude,
-      },
-    })),
-  }
+export interface MapObject {
+  id: number
+  price: number
+  longitude: number
+  latitude: number
+  address: string | null
+  properties: string[]
+  img: string | null
 }
 
-type MapObject = {
-  latitude: number
-  longitude: number
-  price: number
+function convertMapObjectsToGeojson(list: MapObject[]): FeatureCollection {
+  return {
+    type: 'FeatureCollection',
+    features: list.map((object) => {
+      return {
+        id: object.id,
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [object.longitude, object.latitude],
+        },
+        properties: object,
+      }
+    }),
+  }
 }
 
 export type GetItemsForMapFn = (filter: Filter[], center: MapCenter, zoom: number) => Promise<MapObject[]>

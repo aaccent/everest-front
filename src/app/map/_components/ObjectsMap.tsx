@@ -11,10 +11,11 @@ import CustomMap, { MapViewState, Props as CustomMapProps } from '@/components/C
 import { useObjectsMapImages } from './useObjectsMapImages'
 import ObjectsMapContainer from './ObjectsMapContainer'
 import ObjectsMapSource, { LAYER_IDS } from './ObjectsMapSource'
-import { GetItemsForMapFn, useObjectsMapData } from './useObjectsMapData'
-import ObjectsMapActivePoint, { Props as ActivePointProps } from './ObjectsMapActivePoint'
+import { GetItemsForMapFn, MapObject, useObjectsMapData } from './useObjectsMapData'
+import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 
 import { QuickFilters } from '@/types/FiltersType'
+import MapObjectDetail from '@/app/map/_components/MapObjectDetail'
 
 const SOURCE_ID = 'objects'
 
@@ -32,24 +33,30 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
     zoom: 12,
   })
   const { objects } = useObjectsMapData({ viewState, getItems })
-  const { mapRefCallback } = useObjectsMapImages({
-    setMapRef: (ref) => {
-      mapRef.current = ref
-    },
-  })
-  const [activePoint, setActivePoint] = useState<ActivePointProps | null>(null)
+  const { mapRefCallback } = useObjectsMapImages({ setMapRef: (ref) => (mapRef.current = ref) })
+  const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
 
   const onPointClickHandler: CustomMapProps['onPointClick'] = function (_, feature) {
-    setActivePoint({
-      latitude: feature.properties.latitude,
-      longitude: feature.properties.longitude,
-    })
+    setActivePoints([
+      {
+        ...(feature.properties as MapObject),
+        properties: JSON.parse(feature.properties.properties),
+      },
+    ])
   }
 
   return (
     <ObjectsMapContainer>
-      <div className='pointer-events-none absolute inset-[16px] z-10 md:inset-[20px]'>
-        <div className='pointer-events-auto absolute bottom-0 flex w-full gap-[8px] md:hidden'>
+      <div className='pointer-events-none absolute inset-[16px] z-10 flex flex-col gap-[40px] md:inset-[20px]'>
+        {activePoints && (
+          <MapObjectDetail
+            house={activePoints[0].address}
+            onCloseButtonClick={() => setActivePoints(null)}
+            flatsCount={1}
+            list={activePoints}
+          />
+        )}
+        <div className='pointer-events-auto flex w-full gap-[8px] md:hidden'>
           <Button
             className='h-[50px] justify-center px-[10px] text-center after:size-[18px] after:!bg-default'
             icon={{ img: 'LIST_VIEW' }}
@@ -61,7 +68,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
             фильтр
           </Button>
         </div>
-        <div className='pointer-events-auto absolute bottom-0 flex w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px]'>
+        <div className='[pointer-events-auto mt-auto flex w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px]'>
           <DetailFilterButton category={categoryName} />
           <FilterItems filters={filters.filters} isQuick />
           <button
@@ -82,13 +89,13 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
         sourceId={SOURCE_ID}
         onPointClick={onPointClickHandler}
       >
-        {activePoint && <ObjectsMapActivePoint {...activePoint} />}
+        {activePoints && <ObjectsMapActivePoint {...activePoints[0]} />}
         <ObjectsMapSource
           data={objects}
           sourceId={SOURCE_ID}
           unclusteredFilter={[
-            ['!=', ['get', 'longitude'], activePoint?.longitude || 0],
-            ['!=', ['get', 'latitude'], activePoint?.latitude || 0],
+            ['!=', ['get', 'longitude'], activePoints?.[0].longitude || 0],
+            ['!=', ['get', 'latitude'], activePoints?.[0].latitude || 0],
           ]}
         />
       </CustomMap>

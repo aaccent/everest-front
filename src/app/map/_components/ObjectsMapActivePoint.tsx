@@ -5,7 +5,7 @@ import Img from '@/ui/Img'
 import { Marker } from 'react-map-gl'
 import ActiveMarkerSVG from '@/assets/static/map/active-marker.svg'
 
-export interface Props {
+interface Props {
   longitude: number
   latitude: number
 }

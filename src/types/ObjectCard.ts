@@ -10,6 +10,7 @@ export interface ObjectCard {
   userId: number | null
   mainImagePath?: string | null
   mainImageUrl: string | null
+  gallery: string[] | null
   publicationTime: string
   address: string | null
   seoUrl: string

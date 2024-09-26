@@ -1,5 +1,7 @@
 const PRICE_PLACEHOLDER = 'нет цены'
 
+type RawPrice = number | string | null | undefined
+
 /**
  * Конвертирует `rawPrice` в число через {@link parseInt}
  * @return В зависимости от типа `rawPrice`:
@@ -9,7 +11,7 @@ const PRICE_PLACEHOLDER = 'нет цены'
  * если результат конвертации `NaN` - возвращает `null`,
  * иначе результат конвертации.
  */
-function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) {
+function safeConvertToPriceNumber(rawPrice: RawPrice) {
   if (typeof rawPrice === 'number') return rawPrice
   if (!rawPrice) return null
 
@@ -32,7 +34,7 @@ function safeConvertToPriceNumber(rawPrice: number | string | undefined | null) 
  * иначе форматированную строку.
  * * `number` - возвращает форматированную строку.
  */
-export function formatPriceShortBy(price: number | string | null | undefined, onlyNumbers = false) {
+export function formatPriceShortBy(price: RawPrice, onlyNumbers = false) {
   const _price = safeConvertToPriceNumber(price)
 
   if (_price === undefined || _price === null) return PRICE_PLACEHOLDER
@@ -52,7 +54,7 @@ export function formatPriceShortBy(price: number | string | null | undefined, on
  * @param price - Описано в {@link formatPriceShortBy}
  * @return - Описано в {@link formatPriceShortBy}
  */
-export function formatFullPrice(price: number | string | null | undefined) {
+export function formatFullPrice(price: RawPrice) {
   const _price = safeConvertToPriceNumber(price)
   if (!_price) return PRICE_PLACEHOLDER
 
@@ -67,7 +69,25 @@ export function formatFullPrice(price: number | string | null | undefined) {
  * @param price - Описано в {@link formatPriceShortBy}
  * @return Описано в {@link formatPriceShortBy}
  */
-export function formatPriceForArea(price: number | string | null | undefined) {
+export function formatPriceForArea(price: RawPrice) {
   const fullPrice = formatFullPrice(price)
   return `${fullPrice} / м\u00B2`
+}
+
+export function formatPriceShort(rawPrice: RawPrice) {
+  const price = safeConvertToPriceNumber(rawPrice)
+  if (price === undefined || price === null) return PRICE_PLACEHOLDER
+
+  const digits = price.toString().length
+
+  if (digits <= 6) {
+    return `${Math.trunc(price / 1000)} тыс ₽`
+  }
+
+  let shortPrice = parseFloat((price / 1_000_000).toFixed(1))
+  if (shortPrice % 1 == 0) {
+    shortPrice = Math.trunc(shortPrice)
+  }
+
+  return `${shortPrice} млн ₽`
 }

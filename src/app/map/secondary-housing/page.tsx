@@ -14,7 +14,15 @@ const getItems: GetItemsForMapFn = async function (filters, center, zoom) {
     },
   })
 
-  return category.objects
+  return category.objects.map((item) => ({
+    id: item.id,
+    img: item.gallery?.[0] || null,
+    price: item.price,
+    longitude: item.longitude,
+    latitude: item.latitude,
+    address: item.address,
+    properties: [],
+  }))
 }
 
 async function Page() {
