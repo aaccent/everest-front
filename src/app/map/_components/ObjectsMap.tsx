@@ -1,16 +1,27 @@
 'use client'
 
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
-import CustomMap, { MapViewState } from '@/components/CustomMap'
+import { Layer, MapRef, Marker, Source } from 'react-map-gl'
+import { FeatureCollection, Point } from 'geojson'
+import { Map } from 'mapbox-gl'
+
+import Img from '@/ui/Img'
 import Button from '@/ui/buttons/Button'
-import { QuickFilters } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
+import CustomMap, { MapViewState, Props as CustomMapProps } from '@/components/CustomMap'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
-import { MapCenter } from '@/types/Map'
+
 import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
-import { Layer, MapRef, Source } from 'react-map-gl'
-import { FeatureCollection } from 'geojson'
-import { StyleImageMetadata } from 'mapbox-gl/src/style/style_image'
+
+import { QuickFilters } from '@/types/FiltersType'
+import { MapCenter } from '@/types/Map'
+
+import ActiveMarkerSVG from '@/assets/static/map/active-marker.svg'
+
+interface ActivePoint {
+  longitude: number
+  latitude: number
+}
 
 const IMAGE_IDS = {
   MARKER_BG: 'marker-bg',
@@ -28,11 +39,13 @@ const LAYER_IDS = {
   CLUSTER_PRICE: 'cluster-price',
 }
 
+type AddImageProperties = Parameters<Map['addImage']>[2]
+
 interface LoadImageProps {
   map: MapRef
   imgId: string
   path: string
-  imgOptions?: Partial<StyleImageMetadata>
+  imgOptions?: AddImageProperties
 }
 
 function loadImage({ map, imgId, path, imgOptions }: LoadImageProps) {
@@ -62,6 +75,8 @@ function convertMapObjectsToGeojson(objects: MapObject[]): FeatureCollection {
       },
       properties: {
         price: object.price,
+        longitude: object.longitude,
+        latitude: object.latitude,
       },
     })),
   }
@@ -76,8 +91,8 @@ interface Props {
 }
 
 function ObjectsMap({ filters, categoryName, getItems }: Props) {
-  const mapRef = useRef<MapRef | null>(null)
   const { filter } = useCategoryFilter()
+  const mapRef = useRef<MapRef | null>(null)
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [height, setHeight] = useState<string>('100svh')
   const [objects, setObjects] = useState<MapObject[]>([])
@@ -87,6 +102,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
     zoom: 12,
   })
   const timeoutId = useRef<NodeJS.Timeout | null>(null)
+  const [activePoint, setActivePoint] = useState<ActivePoint | null>(null)
 
   const mapRefCallback = useCallback((ref: MapRef | null) => {
     if (!ref) return
@@ -148,6 +164,24 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
     timeoutId.current = setTimeout(() => getItems(filter.parsed, center, viewState.zoom).then(setObjects), 700)
   }, [filter.parsed, viewState])
 
+  const onPointClickHandler: CustomMapProps['onPointClick'] = function (event, feature) {
+    const point = feature.geometry as Point
+
+    setActivePoint({
+      latitude: feature.properties.latitude,
+      longitude: feature.properties.longitude,
+    })
+  }
+
+  function getActivePointFilter(): any[] {
+    if (!activePoint) return []
+
+    return [
+      ['!=', ['get', 'longitude'], activePoint.longitude],
+      ['!=', ['get', 'latitude'], activePoint.latitude],
+    ]
+  }
+
   return (
     <div
       className='mx-container relative my-[16px] md:my-[32px] md:rounded-[32px]'
@@ -183,10 +217,18 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
         setViewState={setViewState}
         className='size-full rounded-[20px]'
         cooperativeGestures={false}
-        mapRef={mapRefCallback}
+        ref={mapRefCallback}
         interactiveLayerIds={[LAYER_IDS.UNCLUSTERED, LAYER_IDS.CLUSTER_PRICE, LAYER_IDS.UNCLUSTERED_PRICE]}
         sourceId={SOURCE_ID}
+        onPointClick={onPointClickHandler}
       >
+        {activePoint && (
+          <Marker {...activePoint} anchor='bottom'>
+            <div className='relative h-[53px] w-[48px]'>
+              <Img src={ActiveMarkerSVG} isSVG />
+            </div>
+          </Marker>
+        )}
         <Source
           id={SOURCE_ID}
           type='geojson'
@@ -201,7 +243,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
           <Layer
             id={LAYER_IDS.UNCLUSTERED_PRICE}
             type='symbol'
-            filter={['!', ['has', 'point_count']]}
+            filter={['all', ['!', ['has', 'point_count']], ...getActivePointFilter()]}
             minzoom={13}
             layout={{
               'icon-image': IMAGE_IDS.MARKER_PRICE_TEMP_BG,
@@ -217,7 +259,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
           <Layer
             id={LAYER_IDS.UNCLUSTERED}
             type='circle'
-            filter={['!', ['has', 'point_count']]}
+            filter={['all', ['!', ['has', 'point_count']], ...getActivePointFilter()]}
             maxzoom={13}
             paint={{
               'circle-radius': 4,
