@@ -2,6 +2,7 @@ import React from 'react'
 import Img from '@/ui/Img'
 import { MapObject } from '@/app/map/_components/useObjectsMapData'
 import { formatPriceShort } from '@/features/utility/price'
+import { flatPlural } from '@/features/utility/pluralRules'
 
 function ObjectsMapDetailDataItem({ img, price, properties }: MapObject) {
   function showProperties() {
@@ -50,7 +51,9 @@ function MapObjectDetail({ house, flatsCount, onCloseButtonClick, list = [] }: P
           <div className='flex size-[48px] items-center justify-center rounded-full bg-primary after:size-[20px] after:bg-icon-house after:filter-base-100 after:bg-default' />
           <div className='flex flex-col gap-[4px]'>
             {house && <div className='text-base-300-lg-100'>{house}</div>}
-            <div className='text-base-400-lg-100 text-base-600/50'>{flatsCount} квартир</div>
+            <div className='text-base-400-lg-100 text-base-600/50'>
+              {flatsCount} {flatPlural.get(flatsCount)}
+            </div>
           </div>
         </div>
         <button

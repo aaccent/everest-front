@@ -16,6 +16,7 @@ import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 
 import { QuickFilters } from '@/types/FiltersType'
 import MapObjectDetail from '@/app/map/_components/MapObjectDetail'
+import { ABAKAN_VIEW_STATE } from '@/globals/map'
 
 const SOURCE_ID = 'objects'
 
@@ -27,11 +28,7 @@ interface Props {
 
 function ObjectsMap({ filters, categoryName, getItems }: Props) {
   const mapRef = useRef<MapRef | null>(null)
-  const [viewState, setViewState] = useState<MapViewState>({
-    latitude: 53.720593,
-    longitude: 91.442593,
-    zoom: 12,
-  })
+  const [viewState, setViewState] = useState<MapViewState>(ABAKAN_VIEW_STATE)
   const { objects } = useObjectsMapData({ viewState, getItems })
   const { mapRefCallback } = useObjectsMapImages({ setMapRef: (ref) => (mapRef.current = ref) })
   const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
@@ -45,6 +42,15 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
     ])
   }
 
+  const onClusterClickHandler: CustomMapProps['onClusterClick'] = function (_, features) {
+    setActivePoints(
+      features.map((item) => ({
+        ...(item.properties as MapObject),
+        properties: item.properties!.properties,
+      })),
+    )
+  }
+
   return (
     <ObjectsMapContainer>
       <div className='pointer-events-none absolute inset-[16px] z-10 flex flex-col gap-[40px] md:inset-[20px]'>
@@ -52,7 +58,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
           <MapObjectDetail
             house={activePoints[0].address}
             onCloseButtonClick={() => setActivePoints(null)}
-            flatsCount={1}
+            flatsCount={activePoints.length}
             list={activePoints}
           />
         )}
@@ -88,6 +94,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
         interactiveLayerIds={[LAYER_IDS.UNCLUSTERED, LAYER_IDS.CLUSTER_PRICE, LAYER_IDS.UNCLUSTERED_PRICE]}
         sourceId={SOURCE_ID}
         onPointClick={onPointClickHandler}
+        onClusterClick={onClusterClickHandler}
       >
         {activePoints && <ObjectsMapActivePoint {...activePoints[0]} />}
         <ObjectsMapSource

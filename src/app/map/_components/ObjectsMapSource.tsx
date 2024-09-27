@@ -28,6 +28,8 @@ function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
       clusterRadius={0.2}
       clusterProperties={{
         min: ['min', ['get', 'price']],
+        latitude: ['min', ['get', 'latitude']],
+        longitude: ['min', ['get', 'longitude']],
       }}
     >
       <Layer
@@ -61,7 +63,7 @@ function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
       <Layer
         id={LAYER_IDS.CLUSTER_PRICE}
         type='symbol'
-        filter={['has', 'point_count']}
+        filter={['all', ['has', 'point_count'], ...unclusteredFilter]}
         layout={{
           'icon-image': IMAGE_IDS.MARKER_BG,
           'icon-text-fit': 'both',
@@ -78,7 +80,7 @@ function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
       <Layer
         id={LAYER_IDS.CLUSTER_CIRCLE}
         type='circle'
-        filter={['has', 'point_count']}
+        filter={['all', ['has', 'point_count'], ...unclusteredFilter]}
         paint={{
           'circle-radius': 12,
           'circle-color': '#ffffff',
@@ -88,7 +90,7 @@ function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
       <Layer
         id={LAYER_IDS.CLUSTER_COUNT}
         type='symbol'
-        filter={['has', 'point_count']}
+        filter={['all', ['has', 'point_count'], ...unclusteredFilter]}
         layout={{
           'text-field': ['get', 'point_count'],
           'text-size': ['case', ['>=', ['get', 'point_count'], 100], 11, 14],
