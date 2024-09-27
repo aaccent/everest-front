@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { MapRef } from 'react-map-gl'
 
 import Button from '@/ui/buttons/Button'
@@ -20,6 +20,7 @@ import { ABAKAN_VIEW_STATE } from '@/globals/map'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
+import { PopupContext } from '@/features/visible/Popup'
 
 function useCategoryLink() {
   const pathname = usePathname()
@@ -46,9 +47,27 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
   const { mapRefCallback } = useObjectsMapImages({ setMapRef: (ref) => (mapRef.current = ref) })
   const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
   const categoryLink = useCategoryLink()
+  const { openPopup, closePopup } = useContext(PopupContext)
+
+  function setItems(items: MapObject[]) {
+    openPopup({
+      name: 'mapObject',
+      args: {
+        house: items[0].address,
+        onCloseButtonClick: () => {
+          setActivePoints(null)
+          closePopup()
+        },
+        flatsCount: items.length,
+        list: items,
+      },
+    })
+
+    setActivePoints(items)
+  }
 
   const onPointClickHandler: CustomMapProps['onPointClick'] = function (_, feature) {
-    setActivePoints([
+    setItems([
       {
         ...(feature.properties as MapObject),
         properties: JSON.parse(feature.properties.properties),
@@ -57,7 +76,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
   }
 
   const onClusterClickHandler: CustomMapProps['onClusterClick'] = function (_, features) {
-    setActivePoints(
+    setItems(
       features.map((item) => ({
         ...(item.properties as MapObject),
         properties: item.properties!.properties,

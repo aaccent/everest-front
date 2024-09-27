@@ -23,7 +23,7 @@ function ObjectsMapContainer({ children }: PropsWithChildren) {
 
   return (
     <div
-      className='mx-container relative my-[16px] md:my-[32px] md:rounded-[32px]'
+      className='mx-container relative my-[16px] overflow-hidden rounded-[20px] bg-[#ECE7E4] md:my-[32px] md:rounded-[32px]'
       style={{ height }}
       ref={containerRef}
     >
