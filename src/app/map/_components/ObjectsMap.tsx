@@ -17,6 +17,19 @@ import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 import { QuickFilters } from '@/types/FiltersType'
 import MapObjectDetail from '@/app/map/_components/MapObjectDetail'
 import { ABAKAN_VIEW_STATE } from '@/globals/map'
+import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { usePathname } from 'next/navigation'
+import { ROUTES } from '@/globals/paths'
+
+function useCategoryLink() {
+  const pathname = usePathname()
+  const { filter } = useCategoryFilter()
+
+  const category = pathname.match(/\/map\/(.*)[/?]?/)
+  if (!category) return ''
+
+  return ROUTES.CATALOG + `/${category[1]}` + `?filter=${filter.str}`
+}
 
 const SOURCE_ID = 'objects'
 
@@ -32,6 +45,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
   const { objects } = useObjectsMapData({ viewState, getItems })
   const { mapRefCallback } = useObjectsMapImages({ setMapRef: (ref) => (mapRef.current = ref) })
   const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
+  const categoryLink = useCategoryLink()
 
   const onPointClickHandler: CustomMapProps['onPointClick'] = function (_, feature) {
     setActivePoints([
@@ -54,16 +68,27 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
   return (
     <ObjectsMapContainer>
       <div className='pointer-events-none absolute inset-[16px] z-10 flex flex-col gap-[40px] md:inset-[20px]'>
-        {activePoints && (
-          <MapObjectDetail
-            house={activePoints[0].address}
-            onCloseButtonClick={() => setActivePoints(null)}
-            flatsCount={activePoints.length}
-            list={activePoints}
-          />
-        )}
+        <div className='flex'>
+          {activePoints && (
+            <MapObjectDetail
+              house={activePoints[0].address}
+              onCloseButtonClick={() => setActivePoints(null)}
+              flatsCount={activePoints.length}
+              list={activePoints}
+            />
+          )}
+          <Button
+            href={categoryLink}
+            className='pointer-events-auto ml-auto h-[50px] w-fit justify-center px-[10px] text-center after:size-[18px] after:!bg-default'
+            icon={{ img: 'LIST_VIEW' }}
+            variation='third'
+          >
+            Списком 24 объекта
+          </Button>
+        </div>
         <div className='pointer-events-auto flex w-full gap-[8px] md:hidden'>
           <Button
+            href={categoryLink}
             className='h-[50px] justify-center px-[10px] text-center after:size-[18px] after:!bg-default'
             icon={{ img: 'LIST_VIEW' }}
             variation='third'
