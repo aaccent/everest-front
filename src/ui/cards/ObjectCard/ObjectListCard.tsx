@@ -6,6 +6,7 @@ import { CategoryForGeneratingLink, generateObjectLink } from '@/features/catalo
 import { LayoutObject } from '@/types/Complex'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
+import { TEST_ID } from '@/globals/testIds'
 
 interface Props {
   item: ObjectCard | LayoutObject
@@ -17,7 +18,7 @@ function ObjectListCard({ item, category }: Props) {
 
   return (
     <div className='group/object-card flex w-full rounded-[32px] border border-base-400 p-[40px]'>
-      <Link className='relative mr-[40px]' href={link}>
+      <Link className='relative mr-[40px]' href={link} data-testid={TEST_ID.OBJECT}>
         {'tags' in item && <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />}
         <Gallery />
       </Link>

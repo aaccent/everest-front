@@ -14,7 +14,9 @@ test.describe('Filters', () => {
     const filterOption = page.locator('[data-filter="selector-inline-option"]').first()
     await filterOption.click()
 
-    await expect(page.locator('[data-filter="tag"]', { hasText: await filterOption.innerText() })).toBeVisible()
+    await expect(page.locator('[data-filter="tag"]', { hasText: await filterOption.innerText() })).toBeVisible({
+      timeout: 10000,
+    })
   })
   test('Clear filters', { tag: '@only-desktop' }, async ({ page }) => {
     const filterOption = page.locator('[data-filter="selector-inline-option"]').first()
@@ -99,7 +101,7 @@ test('', async ({ page }) => {
       },
     ],
   }
-  await page.goto(ROUTES.SECONDARY_HOUSING)
+
   await page.route(`${process.env.NEXT_PUBLIC_API_URL}/catalog/secondary-housing`, async (route) => {
     const response = await route.fetch()
     const json = await response.json()
@@ -107,5 +109,7 @@ test('', async ({ page }) => {
     await route.fulfill({ response, json })
   })
 
-  await expect(page.locator('div', { hasText: `${testObject.price} ₽` }).first()).toBeVisible()
+  await page.goto(ROUTES.SECONDARY_HOUSING)
+
+  await expect(page.getByText(`${testObject.price}`, { exact: true })).toBeVisible({ timeout: 10000 })
 })

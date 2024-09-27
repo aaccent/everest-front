@@ -33,3 +33,15 @@ test('Should load catalog/secondary-housing subcategory page', async ({ page }) 
   await category.waitFor({ state: 'detached' })
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(categoryName, { ignoreCase: true })
 })
+
+test('Should load object page', async ({ page }) => {
+  const res = await page.goto(ROUTES.SECONDARY_HOUSING)
+
+  expect(res?.status()).toEqual(200)
+
+  const object = page.getByTestId(TEST_ID.OBJECT).first()
+  await object.click()
+
+  await page.getByRole('heading', { level: 1 }).waitFor({ state: 'attached' })
+  await expect(page).toHaveURL(/.+\/object\/.+/)
+})
