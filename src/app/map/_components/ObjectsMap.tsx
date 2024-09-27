@@ -68,7 +68,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
   return (
     <ObjectsMapContainer>
       <div className='pointer-events-none absolute inset-[16px] z-10 flex flex-col gap-[40px] md:inset-[20px]'>
-        <div className='flex'>
+        <div className='flex h-[1px] grow'>
           {activePoints && (
             <MapObjectDetail
               house={activePoints[0].address}
@@ -79,14 +79,14 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
           )}
           <Button
             href={categoryLink}
-            className='pointer-events-auto ml-auto h-[50px] w-fit justify-center px-[10px] text-center after:size-[18px] after:!bg-default'
+            className='pointer-events-auto ml-auto hidden h-[50px] w-fit justify-center px-[10px] text-center after:size-[18px] after:!bg-default md:flex'
             icon={{ img: 'LIST_VIEW' }}
             variation='third'
           >
             Списком 24 объекта
           </Button>
         </div>
-        <div className='pointer-events-auto flex w-full gap-[8px] md:hidden'>
+        <div className='pointer-events-auto mt-auto flex w-full gap-[8px] md:hidden'>
           <Button
             href={categoryLink}
             className='h-[50px] justify-center px-[10px] text-center after:size-[18px] after:!bg-default'
@@ -99,7 +99,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
             фильтр
           </Button>
         </div>
-        <div className='[pointer-events-auto mt-auto flex w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px]'>
+        <div className='pointer-events-auto mt-auto hidden w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px] md:flex'>
           <DetailFilterButton category={categoryName} />
           <FilterItems filters={filters.filters} isQuick />
           <button

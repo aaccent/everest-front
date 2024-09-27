@@ -45,7 +45,7 @@ function MapObjectDetail({ house, flatsCount, onCloseButtonClick, list = [] }: P
   }
 
   return (
-    <div className='pointer-events-auto hidden h-full w-full max-w-[380px] flex-col rounded-[32px] bg-base-100 p-[20px] pb-0 md:flex'>
+    <div className='pointer-events-auto hidden w-full max-w-[380px] flex-col rounded-[32px] bg-base-100 p-[20px] pb-0 md:flex'>
       <div className='mb-[20px] flex gap-[12px] border-b border-b-base-600/10 pb-[20px]'>
         <div className='flex items-center gap-[12px]'>
           <div className='flex size-[48px] items-center justify-center rounded-full bg-primary after:size-[20px] after:bg-icon-house after:filter-base-100 after:bg-default' />
