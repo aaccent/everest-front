@@ -53,7 +53,7 @@ function SortButton({ sorts }: SortButtonProps) {
           <span className='text-base-650'>сортировка: </span>
           <span>{sortValue}</span>
           <div
-            className={`absolute inset-x-0 top-[25px] z-30 flex-col gap-[16px] rounded-[16px] bg-base-100 p-[20px] ${opened ? 'flex' : 'hidden'}`}
+            className={`absolute inset-x-0 top-[35px] z-30 flex-col gap-[16px] rounded-[16px] bg-base-100 p-[20px] ${opened ? 'flex' : 'hidden'}`}
           >
             {showSorts()}
           </div>
