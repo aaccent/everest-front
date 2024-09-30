@@ -2,6 +2,7 @@ import React from 'react'
 import { Layer, Source } from 'react-map-gl'
 import { FeatureCollection } from 'geojson'
 import { IMAGE_IDS } from '@/app/map/_components/useObjectsMapImages'
+import { MapObject } from '@/app/map/_components/useObjectsMapData'
 
 export const LAYER_IDS = {
   UNCLUSTERED: 'unclustered-point',
@@ -12,12 +13,25 @@ export const LAYER_IDS = {
 }
 
 interface Props {
-  unclusteredFilter: any[]
+  activePoint: MapObject | null
   sourceId: string
   data: FeatureCollection
 }
 
-function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
+/**
+ * Компонент нужен только для {@link ObjectsMap} и существует для упрощения чтения.
+ * Отделяет компонент источника данных и слои карты
+ * @param activePoint - текущая активная точка.
+ * Если выбран кластер, то передавать нужно любой элемент из него.
+ * @param sourceId - идентификатор источника
+ * @param data - список точек в формате geojson
+ */
+function ObjectsMapSource({ activePoint, sourceId, data }: Props) {
+  const filter: any[] = [
+    ['!=', ['get', 'longitude'], activePoint?.longitude || 0],
+    ['!=', ['get', 'latitude'], activePoint?.latitude || 0],
+  ]
+
   return (
     <Source
       id={sourceId}
@@ -35,7 +49,7 @@ function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
       <Layer
         id={LAYER_IDS.UNCLUSTERED_PRICE}
         type='symbol'
-        filter={['all', ['!', ['has', 'point_count']], ...unclusteredFilter]}
+        filter={['all', ['!', ['has', 'point_count']], ...filter]}
         minzoom={13}
         layout={{
           'icon-image': IMAGE_IDS.MARKER_PRICE_TEMP_BG,
@@ -51,7 +65,7 @@ function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
       <Layer
         id={LAYER_IDS.UNCLUSTERED}
         type='circle'
-        filter={['all', ['!', ['has', 'point_count']], ...unclusteredFilter]}
+        filter={['all', ['!', ['has', 'point_count']], ...filter]}
         maxzoom={13}
         paint={{
           'circle-radius': 4,
@@ -63,7 +77,7 @@ function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
       <Layer
         id={LAYER_IDS.CLUSTER_PRICE}
         type='symbol'
-        filter={['all', ['has', 'point_count'], ...unclusteredFilter]}
+        filter={['all', ['has', 'point_count'], ...filter]}
         layout={{
           'icon-image': IMAGE_IDS.MARKER_BG,
           'icon-text-fit': 'both',
@@ -80,7 +94,7 @@ function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
       <Layer
         id={LAYER_IDS.CLUSTER_CIRCLE}
         type='circle'
-        filter={['all', ['has', 'point_count'], ...unclusteredFilter]}
+        filter={['all', ['has', 'point_count'], ...filter]}
         paint={{
           'circle-radius': 12,
           'circle-color': '#ffffff',
@@ -90,7 +104,7 @@ function ObjectsMapSource({ unclusteredFilter, sourceId, data }: Props) {
       <Layer
         id={LAYER_IDS.CLUSTER_COUNT}
         type='symbol'
-        filter={['all', ['has', 'point_count'], ...unclusteredFilter]}
+        filter={['all', ['has', 'point_count'], ...filter]}
         layout={{
           'text-field': ['get', 'point_count'],
           'text-size': ['case', ['>=', ['get', 'point_count'], 100], 11, 14],

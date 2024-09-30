@@ -2,6 +2,11 @@
 
 import React, { PropsWithChildren, useLayoutEffect, useRef, useState } from 'react'
 
+/**
+ * Компонент нужен только для {@link ObjectsMap} и существует для упрощения чтения.
+ * Отделяет контейнер, который оборачивает карту и выставляет высоту в
+ * зависимости от высоты окна просмотра пользователя.
+ */
 function ObjectsMapContainer({ children }: PropsWithChildren) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const [height, setHeight] = useState<string>('100svh')

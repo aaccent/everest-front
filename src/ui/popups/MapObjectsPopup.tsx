@@ -1,7 +1,7 @@
 import React from 'react'
 import { flatPlural } from '@/features/utility/pluralRules'
 import { MapObject } from '@/app/map/_components/useObjectsMapData'
-import { ObjectsMapDetailListItem } from '@/app/map/_components/ObjectsMapDetail'
+import { ObjectsMapDetailListItem } from '@/app/map/_components/ObjectsMapAsideDetail'
 
 interface Props {
   house: string | null

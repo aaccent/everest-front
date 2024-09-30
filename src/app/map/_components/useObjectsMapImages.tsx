@@ -25,6 +25,10 @@ function loadImage({ map, imgId, path, imgOptions }: LoadImageProps) {
   })
 }
 
+/**
+ * Хук нужен только для {@link ObjectsMap} и существует для упрощения чтения.
+ * Отделяет логику добавления картинок в mapbox.
+ */
 export function useObjectsMapImages() {
   const mapRefCallback = useCallback((ref: MapRef | null) => {
     if (!ref) return

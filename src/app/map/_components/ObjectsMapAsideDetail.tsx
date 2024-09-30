@@ -4,6 +4,13 @@ import { MapObject } from '@/app/map/_components/useObjectsMapData'
 import { formatPriceShort } from '@/features/utility/price'
 import { flatPlural } from '@/features/utility/pluralRules'
 
+/**
+ * Выводит детальную информацию элемента с карты
+ * @param img - адрес картинки
+ * @param price
+ * @param properties
+ * @constructor
+ */
 export function ObjectsMapDetailListItem({ img, price, properties = [] }: MapObject) {
   function showProperties() {
     return properties.map((item, i) => (
@@ -31,13 +38,22 @@ export function ObjectsMapDetailListItem({ img, price, properties = [] }: MapObj
 }
 
 interface Props {
-  house: string | null
+  houseAddress: string | null
   flatsCount: number
   onCloseButtonClick: () => void
   list: MapObject[]
 }
 
-export default function ObjectsMapDetail({ house, flatsCount, onCloseButtonClick, list = [] }: Props) {
+/**
+ * Компонент нужен только для {@link ObjectsMap} и существует для упрощения чтения.
+ * Отделяет компонент с детальной информацией о выбранном элементе на карте
+ * @param houseAddress - адрес дома
+ * @param flatsCount - количество квартир по выбранной точке
+ * @param onCloseButtonClick - обработчик при нажатии на кнопку закрытия
+ * @param list - список элементов для вывода.
+ * Элементы выводятся через {@link ObjectsMapDetailListItem}
+ */
+export default function ObjectsMapAsideDetail({ houseAddress, flatsCount, onCloseButtonClick, list = [] }: Props) {
   function showList() {
     return list.map((item) => {
       return <ObjectsMapDetailListItem key={item.id} {...item} />
@@ -50,7 +66,7 @@ export default function ObjectsMapDetail({ house, flatsCount, onCloseButtonClick
         <div className='flex items-center gap-[12px]'>
           <div className='flex size-[48px] items-center justify-center rounded-full bg-primary after:size-[20px] after:bg-icon-house after:filter-base-100 after:bg-default' />
           <div className='flex flex-col gap-[4px]'>
-            {house && <div className='text-base-300-lg-100'>{house}</div>}
+            {houseAddress && <div className='text-base-300-lg-100'>{houseAddress}</div>}
             <div className='text-base-400-lg-100 text-base-600/50'>
               {flatsCount} {flatPlural.get(flatsCount)}
             </div>

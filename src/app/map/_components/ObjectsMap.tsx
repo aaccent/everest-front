@@ -5,7 +5,7 @@ import React, { useContext, useState } from 'react'
 import Button from '@/ui/buttons/Button'
 import { FilterItems } from '@/components/FilterItems'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
-import CustomMap, { MapViewState, Props as CustomMapProps } from '@/components/CustomMap'
+import CustomMap, { Props as CustomMapProps } from '@/components/CustomMap'
 
 import { useObjectsMapImages } from './useObjectsMapImages'
 import ObjectsMapContainer from './ObjectsMapContainer'
@@ -14,8 +14,7 @@ import { GetItemsForMapFn, MapObject, useObjectsMapData } from './useObjectsMapD
 import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 
 import { QuickFilters } from '@/types/FiltersType'
-import { ABAKAN_VIEW_STATE } from '@/globals/map'
-import ObjectsMapDetail from '@/app/map/_components/ObjectsMapDetail'
+import ObjectsMapAsideDetail from '@/app/map/_components/ObjectsMapAsideDetail'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
@@ -46,8 +45,7 @@ function ObjectsMap({ filters, categoryCode, getItems }: Props) {
 
   const categoryLink = useCategoryLink()
   const { mapRefCallback } = useObjectsMapImages()
-  const [viewState, setViewState] = useState<MapViewState>(ABAKAN_VIEW_STATE)
-  const { objects } = useObjectsMapData({ viewState, getItems })
+  const { objects, viewStateControl } = useObjectsMapData({ getItems })
   const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
 
   function setItems(items: MapObject[]) {
@@ -82,8 +80,8 @@ function ObjectsMap({ filters, categoryCode, getItems }: Props) {
       <div className='pointer-events-none absolute inset-[16px] z-10 flex flex-col gap-[40px] md:inset-[20px]'>
         <div className='flex h-[1px] grow'>
           {activePoints && (
-            <ObjectsMapDetail
-              house={activePoints[0].address}
+            <ObjectsMapAsideDetail
+              houseAddress={activePoints[0].address}
               onCloseButtonClick={() => setActivePoints(null)}
               flatsCount={activePoints.length}
               list={activePoints}
@@ -123,8 +121,7 @@ function ObjectsMap({ filters, categoryCode, getItems }: Props) {
         </div>
       </div>
       <CustomMap
-        viewState={viewState}
-        setViewState={setViewState}
+        {...viewStateControl}
         className='size-full rounded-[20px]'
         cooperativeGestures={false}
         ref={mapRefCallback}
@@ -134,14 +131,7 @@ function ObjectsMap({ filters, categoryCode, getItems }: Props) {
         onClusterClick={onClusterClickHandler}
       >
         {activePoints && <ObjectsMapActivePoint {...activePoints[0]} />}
-        <ObjectsMapSource
-          data={objects}
-          sourceId={SOURCE_ID}
-          unclusteredFilter={[
-            ['!=', ['get', 'longitude'], activePoints?.[0].longitude || 0],
-            ['!=', ['get', 'latitude'], activePoints?.[0].latitude || 0],
-          ]}
-        />
+        <ObjectsMapSource data={objects} sourceId={SOURCE_ID} activePoint={activePoints?.[0] || null} />
       </CustomMap>
     </ObjectsMapContainer>
   )

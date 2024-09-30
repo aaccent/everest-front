@@ -3,6 +3,7 @@ import { MapViewState } from '@/components/CustomMap'
 import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { MapCenter } from '@/types/Map'
 import { FeatureCollection } from 'geojson'
+import { ABAKAN_VIEW_STATE } from '@/globals/map'
 
 export interface MapObject {
   id: number
@@ -14,6 +15,7 @@ export interface MapObject {
   img: string | null
 }
 
+/** Превращает `list` в формат geojson */
 function convertMapObjectsToGeojson(list: MapObject[]): FeatureCollection {
   return {
     type: 'FeatureCollection',
@@ -34,11 +36,17 @@ function convertMapObjectsToGeojson(list: MapObject[]): FeatureCollection {
 export type GetItemsForMapFn = (filter: Filter[], center: MapCenter, zoom: number) => Promise<MapObject[]>
 
 interface Props {
-  viewState: MapViewState
   getItems: GetItemsForMapFn
 }
 
-export function useObjectsMapData({ viewState, getItems }: Props) {
+/**
+ * Хук нужен только для {@link ObjectsMap} и существует для упрощения чтения.
+ * Отделяет логику получения списка элементов и его обновления после фильтрации
+ * @param getItems - функция для получения объектов которая принимает
+ * выставленные фильтры, координаты центра карты и уровень приближения.
+ */
+export function useObjectsMapData({ getItems }: Props) {
+  const [viewState, setViewState] = useState<MapViewState>(ABAKAN_VIEW_STATE)
   const { filter } = useCategoryFilter()
   const [objects, setObjects] = useState<MapObject[]>([])
   const timeoutId = useRef<NodeJS.Timeout | null>(null)
@@ -58,5 +66,5 @@ export function useObjectsMapData({ viewState, getItems }: Props) {
     }
   }, [filter.parsed, viewState])
 
-  return { objects: convertMapObjectsToGeojson(objects) }
+  return { objects: convertMapObjectsToGeojson(objects), viewStateControl: { viewState, setViewState } }
 }
