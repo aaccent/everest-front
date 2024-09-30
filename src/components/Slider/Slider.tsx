@@ -53,7 +53,7 @@ function Slider({ list, type, link }: SliderProps) {
                 <ObjectCard category={{ breadcrumbs: [{ name: '', seo: card.typeObject }] }} item={card} />
               </CarouselSlide>
             ))}
-            <SeeAllCard link='/catalog/secondary-housing' />
+            <SeeAllCard link={link} />
           </>
         )
     }
