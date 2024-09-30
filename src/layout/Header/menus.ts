@@ -1,4 +1,4 @@
-import { ROUTES } from '@/globals/paths'
+import { PATHS, ROUTES } from '@/globals/paths'
 
 export interface MenuItem {
   title: string
@@ -8,7 +8,7 @@ export interface MenuItem {
 export const newBuildingsMenu: MenuItem[] = [
   {
     title: 'Квартиры',
-    href: ROUTES.NEW_BUILDINGS,
+    href: `${ROUTES.NEW_BUILDINGS}/${PATHS.APARTMENTS}`,
   },
   {
     title: 'Жилые комплексы',

@@ -3,6 +3,7 @@ export const PATHS = {
   NEW_BUILDINGS: 'new-building',
   COMPLEXES: 'complexes',
   SECONDARY_HOUSING: 'secondary-housing',
+  APARTMENTS: 'apartments',
 }
 
 export const ROUTES = {

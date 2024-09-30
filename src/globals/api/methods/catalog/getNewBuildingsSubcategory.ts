@@ -22,7 +22,7 @@ export async function getNewBuildingsSubcategory(
   filter: FilterRequestParam = null,
   sort: SortRequestParam = null,
 ): Promise<SubCategory<ObjectCard>> {
-  const res = await apiCall<Request, Response>(`/catalog/new-buildings`, {
+  const res = await apiCall<Request, Response>(`/catalog/new-building`, {
     method: 'POST',
     request: { chainUrl: subcategory, filter, sort },
   })
