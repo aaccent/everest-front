@@ -29,6 +29,7 @@ export type Choice = {
 export type Range = {
   fieldType: 'range'
   value: { min: number; max: number }
+  prefix: string
 }
 
 export type Toggle = {

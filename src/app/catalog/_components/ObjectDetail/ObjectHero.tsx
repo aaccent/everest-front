@@ -25,19 +25,6 @@ interface Props {
   item: DetailSecondaryObject
 }
 
-const testGallery = [
-  '/slider-1.png',
-  '/slider-2.png',
-  '/slider-3.png',
-  '/slider-2.png',
-  '/slider-1.png',
-  '/slider-1.png',
-  '/slider-2.png',
-  '/slider-3.png',
-  '/slider-2.png',
-  '/slider-1.png',
-]
-
 function ObjectHero({ item }: Props) {
   function showProps() {
     return item.characteristics[0].characteristics.slice(0, 4).map((prop, index) => (
@@ -54,7 +41,7 @@ function ObjectHero({ item }: Props) {
         decorativeClassName='md:-scale-x-100'
         type='medium'
       >
-        <ObjectGallery list={testGallery} />
+        <ObjectGallery list={item.gallery} />
       </DecorativeBlock>
       <DecorativeBlock
         className='!rounded-[20px] bg-base-200 p-[20px] md:w-full md:max-w-[644px] md:rounded-[32px] md:px-[40px] md:py-[70px]'

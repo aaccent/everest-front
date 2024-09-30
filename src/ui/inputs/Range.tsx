@@ -11,7 +11,7 @@ export type RangeProps = {
   max: number
   /** @default { min, max } */
   defaultValue?: RangeValue
-  units?: string
+  prefix?: string
   className?: string
   title: string
   showTitle?: boolean
@@ -21,7 +21,7 @@ function Range({
   name,
   min,
   max,
-  units = '',
+  prefix = '',
   className,
   title,
   showTitle,
@@ -82,7 +82,7 @@ function Range({
         <div className='text-base-400-lg-100 flex items-center justify-between'>
           <label>
             <IMaskInput
-              mask={`от num ${units}`}
+              mask={`от num ${prefix}`}
               blocks={{
                 num: {
                   mask: Number,
@@ -103,7 +103,7 @@ function Range({
           <div className='absolute inset-1/2 h-[12px] w-[1px] -translate-x-1/2 -translate-y-1/2 bg-base-400' />
           <label>
             <IMaskInput
-              mask={`до num ${units}`}
+              mask={`до num ${prefix}`}
               lazy={false}
               blocks={{
                 num: {

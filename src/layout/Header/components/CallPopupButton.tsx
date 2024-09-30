@@ -5,7 +5,7 @@ import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
 import { PopupContext } from '@/features/visible/Popup'
 
 function CallPopupButton() {
-  const { openPopup } = useContext(PopupContext)
+  const { openPopup, activeDynamicPopup } = useContext(PopupContext)
   return (
     <>
       <IsDesktop>
