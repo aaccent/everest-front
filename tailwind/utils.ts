@@ -58,6 +58,19 @@ export const scrollbarUtilities = plugin(function ({ addUtilities, theme }) {
         backgroundColor: theme('colors.base.400'),
       },
     },
+    '.scrollbar-custom-wide': {
+      '&::-webkit-scrollbar': {
+        width: '6px',
+        height: '6px',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: theme('colors.base.500'),
+        borderRadius: '4px',
+      },
+      '&::-webkit-scrollbar-track': {
+        backgroundColor: theme('colors.base.400'),
+      },
+    },
   })
 })
 export const inputRangeTrackUtilities = plugin(function ({ addUtilities }) {

@@ -96,10 +96,10 @@ function Selector({
   }
 
   function showSelected() {
-    const defaultValue = window.matchMedia('(min-width:768px').matches ? 'Выбрать' : name
+    const defaultValue = window.matchMedia('(min-width:768px').matches ? 'Выбрать' : title
     const selectedNames = _value.length ? _value.join(', ') : defaultValue
 
-    if (selectedNames.length > 15) return selectedNames.slice(0, 15) + `...`
+    if (selectedNames.length > 18) return selectedNames.slice(0, 15) + `...`
 
     return selectedNames
   }

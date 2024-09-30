@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+import React, { useContext } from 'react'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
 import Container from '@/layout/Container'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
@@ -9,6 +10,8 @@ import SortButton from '@/components/QuickFilter/SortButton'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterTags from '@/components/FilterTags'
 import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
+import { PopupContext } from '@/features/visible/Popup'
+import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 
 interface Props {
   filters: QuickFilters
@@ -16,16 +19,17 @@ interface Props {
 }
 
 function QuickFilter({ filters, categoryName }: Props) {
+  const { openDynamicPopup } = useContext(PopupContext)
   return (
     <Container>
       <div className='mb-[32px] mt-[40px] flex items-center justify-between rounded-[24px] bg-base-200 p-[20px] md:w-full md:flex-col md:items-start md:justify-start md:p-[32px] md:pb-[18px]'>
         <div className='flex w-full items-center justify-between md:hidden'>
-          <DetailFilterButton category={categoryName} />
+          <DetailFilterButton onClick={() => openDynamicPopup('filterPopup')} />
           <ObjectsAmount className='text-base-300-lg-100 translate-x-0 text-base-650 md:hidden' />
           <MapObjectsButton />
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>
-          <DetailFilterButton className='mr-[16px]' category={categoryName} />
+          <DetailFilterButton onClick={() => openDynamicPopup('filterPopup')} />
           <div className='flex gap-[16px]'>
             <FilterItems filters={filters.filters.slice(0, 5)} isQuick />
           </div>
@@ -51,6 +55,7 @@ function QuickFilter({ filters, categoryName }: Props) {
           <CatalogViewButton />
         </div>
       </div>
+      <FilterPopup category={categoryName} quickFilters={filters} />
     </Container>
   )
 }
