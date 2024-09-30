@@ -37,7 +37,7 @@ function ComplexListCard({ item }: Props) {
         width={427}
         height={342}
       />
-      <Tags className='left-[54px] top-[54px]' list={item.tags} />
+      {item.tags && <Tags className='left-[54px] top-[54px]' list={item.tags} />}
       <div>
         <div className='mb-[12px] flex items-center gap-[16px]'>
           <span className='text-header-300'>{item.name}</span>
