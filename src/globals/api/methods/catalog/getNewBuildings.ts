@@ -10,7 +10,7 @@ export async function getNewBuildings(
   sort: SortRequestParam = null,
   rent: boolean = false,
 ) {
-  const res = await apiCall<Request | false, Response>(`/catalog/new-buildings`, {
+  const res = await apiCall<Request | false, Response>(`/catalog/new-building`, {
     method: 'POST',
     request: {
       filter,
