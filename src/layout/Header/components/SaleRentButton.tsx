@@ -21,7 +21,7 @@ function SaleRentButton({ type }: Props) {
     }
   }
 
-  const text = type === 'rent' ? 'Аренда' : 'Продажа'
+  const text = type === 'rent' ? 'Аренда' : 'Покупка'
 
   return (
     <>
