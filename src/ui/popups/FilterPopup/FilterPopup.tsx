@@ -83,7 +83,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
             list={filters}
           />
 
-          <div className='flex h-full flex-col overflow-auto pb-[50px] scrollbar-transparent md:block md:w-full md:max-w-[1140px] md:pb-[400px]'>
+          <div className='flex h-full flex-col overflow-auto pb-[50px] scrollbar-transparent md:block md:w-full md:max-w-[1140px] md:pb-[450px]'>
             {showFiltersBlocks()}
           </div>
         </div>
