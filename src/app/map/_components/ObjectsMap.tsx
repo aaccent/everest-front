@@ -36,11 +36,11 @@ const SOURCE_ID = 'objects'
 
 interface Props {
   filters: QuickFilters
-  categoryName: string
+  categoryCode: string
   getItems: GetItemsForMapFn
 }
 
-function ObjectsMap({ filters, categoryName, getItems }: Props) {
+function ObjectsMap({ filters, categoryCode, getItems }: Props) {
   const mapRef = useRef<MapRef | null>(null)
   const [viewState, setViewState] = useState<MapViewState>(ABAKAN_VIEW_STATE)
   const { objects } = useObjectsMapData({ viewState, getItems })
@@ -119,7 +119,7 @@ function ObjectsMap({ filters, categoryName, getItems }: Props) {
           </Button>
         </div>
         <div className='pointer-events-auto mt-auto hidden w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px] md:flex'>
-          <DetailFilterButton category={categoryName} />
+          <DetailFilterButton category={categoryCode} />
           <FilterItems filters={filters.filters} isQuick />
           <button
             className='text-base-500-reg-100-upper ml-auto flex items-center gap-[4px] text-base-600/50 after:size-[13px] after:bg-icon-close after:opacity-50 after:bg-default'
