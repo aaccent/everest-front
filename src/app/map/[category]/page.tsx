@@ -27,7 +27,7 @@ export async function getItems({ category: categoryCode, subcategory, zoom, cent
 
   return category.objects.map((item) => ({
     id: item.id,
-    img: item.gallery?.[0] || null,
+    img: item.gallery?.images?.[0] || null,
     price: item.price,
     longitude: item.longitude,
     latitude: item.latitude,
