@@ -26,7 +26,7 @@ export function ComplexTileCard({ item, className }: Props) {
           fill
         />
       </Link>
-      <Tags className='left-[8px] top-[10px] md:left-[14px] md:top-[14px]' list={item.tags} />
+      {item.tags && <Tags className='left-[8px] top-[10px] md:left-[14px] md:top-[14px]' list={item.tags} />}
       <CardInfo complex={item} link={link} />
     </div>
   )
