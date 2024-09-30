@@ -4,19 +4,21 @@ import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
 import { getFilters } from '@/globals/api/methods/getFilters'
-import { FilterBlock } from '@/types/FiltersType'
+import { FilterBlock, QuickFilters } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
 import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
 import { DynamicPopup } from '@/features/visible/Popup'
 import FilterTags from '@/components/FilterTags'
+import SortButton from '@/components/QuickFilter/SortButton'
 
 interface Props {
   category: string
+  quickFilters: QuickFilters
 }
 
-function FilterPopup({ category }: Props) {
+function FilterPopup({ category, quickFilters }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>([])
 
   useEffect(() => {
@@ -26,25 +28,35 @@ function FilterPopup({ category }: Props) {
   }, [])
 
   function showFiltersBlocks() {
-    return filters?.map((block) => (
+    return (
       <>
         <IsMobile>
-          <FilterBlockWrapper filterBlock={block.filters} name={block.name} />
+          <FilterItems filters={quickFilters.filters} />
+          <SortButton sorts={quickFilters.sorts} />
+          {filters.map((block, index) => {
+            return <FilterBlockWrapper filterBlock={block.filters} name={block.name} key={index} />
+          })}
         </IsMobile>
         <IsDesktop>
-          <div className='text-header-500 mb-[36px] text-base-600'>{block.name}</div>
-          <div className='flex flex-wrap gap-[24px]'>
-            <FilterItems filters={block.filters} />
-          </div>
+          {filters.map((block) => {
+            return (
+              <>
+                <div className='text-header-500 mb-[36px] text-base-600'>{block.name}</div>
+                <div className='flex flex-wrap gap-[24px]'>
+                  <FilterItems filters={block.filters} />
+                </div>
+              </>
+            )
+          })}
         </IsDesktop>
       </>
-    ))
+    )
   }
 
   return (
     <DynamicPopup popupName='filterPopup'>
       <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 scrollbar-custom md:top-[48px] md:block md:h-full md:overflow-auto md:p-[56px]'>
-        <div className='relative h-1 grow p-[24px] md:static md:h-fit md:grow-0 md:pb-[250px]'>
+        <div className='relative h-1 grow overflow-auto p-[24px] md:static md:h-fit md:grow-0 md:pb-[250px]'>
           <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
             <MapObjectsButton className='md:hidden' />
             <div className='text-header-300 md:text-header-200 md:uppercase'>Фильтры</div>
