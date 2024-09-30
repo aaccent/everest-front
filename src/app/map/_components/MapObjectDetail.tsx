@@ -4,7 +4,7 @@ import { MapObject } from '@/app/map/_components/useObjectsMapData'
 import { formatPriceShort } from '@/features/utility/price'
 import { flatPlural } from '@/features/utility/pluralRules'
 
-export function ObjectsMapDetailDataItem({ img, price, properties }: MapObject) {
+export function ObjectsMapDetailDataItem({ img, price, properties = [] }: MapObject) {
   function showProperties() {
     return properties.map((item, i) => (
       <span className='after:size-[5px] after:rounded-full after:bg-base-600/50' key={i}>

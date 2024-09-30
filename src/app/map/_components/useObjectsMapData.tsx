@@ -10,7 +10,7 @@ export interface MapObject {
   longitude: number
   latitude: number
   address: string | null
-  properties: string[]
+  properties?: string[]
   img: string | null
 }
 

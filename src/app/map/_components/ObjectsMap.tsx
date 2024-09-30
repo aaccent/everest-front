@@ -67,21 +67,11 @@ function ObjectsMap({ filters, categoryCode, getItems }: Props) {
   }
 
   const onPointClickHandler: CustomMapProps['onPointClick'] = function (_, feature) {
-    setItems([
-      {
-        ...(feature.properties as MapObject),
-        properties: JSON.parse(feature.properties.properties),
-      },
-    ])
+    setItems([feature.properties as MapObject])
   }
 
   const onClusterClickHandler: CustomMapProps['onClusterClick'] = function (_, features) {
-    setItems(
-      features.map((item) => ({
-        ...(item.properties as MapObject),
-        properties: item.properties!.properties,
-      })),
-    )
+    setItems(features.map((item) => item.properties as MapObject))
   }
 
   return (

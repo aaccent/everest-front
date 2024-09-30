@@ -32,7 +32,6 @@ export async function getItems({ category: categoryCode, subcategory, zoom, cent
     longitude: item.longitude,
     latitude: item.latitude,
     address: item.address,
-    properties: [],
   }))
 }
 
