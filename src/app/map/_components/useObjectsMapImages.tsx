@@ -25,14 +25,9 @@ function loadImage({ map, imgId, path, imgOptions }: LoadImageProps) {
   })
 }
 
-interface Props {
-  setMapRef: (ref: MapRef) => void
-}
-
-export function useObjectsMapImages({ setMapRef }: Props) {
+export function useObjectsMapImages() {
   const mapRefCallback = useCallback((ref: MapRef | null) => {
     if (!ref) return
-    setMapRef(ref)
     const map = ref
 
     loadImage({

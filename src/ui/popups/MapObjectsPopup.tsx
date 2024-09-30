@@ -1,7 +1,7 @@
 import React from 'react'
 import { flatPlural } from '@/features/utility/pluralRules'
 import { MapObject } from '@/app/map/_components/useObjectsMapData'
-import { ObjectsMapDetailDataItem } from '@/app/map/_components/MapObjectDetail'
+import { ObjectsMapDetailListItem } from '@/app/map/_components/ObjectsMapDetail'
 
 interface Props {
   house: string | null
@@ -12,7 +12,7 @@ interface Props {
 
 function MapObjectsPopup({ house, flatsCount, onCloseButtonClick, list }: Props) {
   function showList() {
-    return list.map((item) => <ObjectsMapDetailDataItem key={item.id} {...item} />)
+    return list.map((item) => <ObjectsMapDetailListItem key={item.id} {...item} />)
   }
 
   return (

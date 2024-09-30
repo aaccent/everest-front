@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useContext, useRef, useState } from 'react'
-import { MapRef } from 'react-map-gl'
+import React, { useContext, useState } from 'react'
 
 import Button from '@/ui/buttons/Button'
 import { FilterItems } from '@/components/FilterItems'
@@ -15,8 +14,8 @@ import { GetItemsForMapFn, MapObject, useObjectsMapData } from './useObjectsMapD
 import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 
 import { QuickFilters } from '@/types/FiltersType'
-import MapObjectDetail from '@/app/map/_components/MapObjectDetail'
 import { ABAKAN_VIEW_STATE } from '@/globals/map'
+import ObjectsMapDetail from '@/app/map/_components/ObjectsMapDetail'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
@@ -42,14 +41,14 @@ interface Props {
 }
 
 function ObjectsMap({ filters, categoryCode, getItems }: Props) {
-  const mapRef = useRef<MapRef | null>(null)
+  const { isDesktop } = useContext(AdaptiveContext)
+  const { openPopup, closePopup } = useContext(PopupContext)
+
+  const categoryLink = useCategoryLink()
+  const { mapRefCallback } = useObjectsMapImages()
   const [viewState, setViewState] = useState<MapViewState>(ABAKAN_VIEW_STATE)
   const { objects } = useObjectsMapData({ viewState, getItems })
-  const { mapRefCallback } = useObjectsMapImages({ setMapRef: (ref) => (mapRef.current = ref) })
   const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
-  const categoryLink = useCategoryLink()
-  const { openPopup, closePopup } = useContext(PopupContext)
-  const { isDesktop } = useContext(AdaptiveContext)
 
   function setItems(items: MapObject[]) {
     setActivePoints(items)
@@ -83,7 +82,7 @@ function ObjectsMap({ filters, categoryCode, getItems }: Props) {
       <div className='pointer-events-none absolute inset-[16px] z-10 flex flex-col gap-[40px] md:inset-[20px]'>
         <div className='flex h-[1px] grow'>
           {activePoints && (
-            <MapObjectDetail
+            <ObjectsMapDetail
               house={activePoints[0].address}
               onCloseButtonClick={() => setActivePoints(null)}
               flatsCount={activePoints.length}
