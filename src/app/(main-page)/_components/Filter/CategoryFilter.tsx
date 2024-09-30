@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
-import { FilterType, FilterView } from '@/types/FiltersType'
+import { QuickFilters } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import { getObjects } from '@/globals/api/methods/catalog/getObjects'
 import { FilterRequestParam, SortRequestParam } from '@/types/Category'
@@ -11,7 +11,6 @@ import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import Link from 'next/link'
 import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
-import { getNewBuildings } from '@/globals/api'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import { PopupContext } from '@/features/visible/Popup'
 
@@ -23,15 +22,12 @@ interface CategoryFilterProps {
 function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
   function getList(_category: string) {
     return async function (filter: FilterRequestParam, sort: SortRequestParam) {
-      const category =
-        categoryName === 'new-building'
-          ? await getNewBuildings(filter, sort, rent)
-          : await getObjects(_category, filter, sort, rent)
+      const category = await getObjects(_category, filter, sort, rent)
       return category.objects
     }
   }
 
-  const [filterInputs, setFilterInputs] = useState<FilterType<FilterView>[]>([])
+  const [filterInputs, setFilterInputs] = useState<QuickFilters>({ filters: [], sorts: [] })
   const [initList, setInitList] = useState<unknown[]>([])
   const { openDynamicPopup } = useContext(PopupContext)
   const { clearFilters, filter } = useCategoryFilter()
@@ -42,7 +38,7 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
   }, [categoryName])
 
   useEffect(() => {
-    getQuickFilters(categoryName).then((res) => setFilterInputs(res.filters))
+    getQuickFilters(categoryName).then((res) => setFilterInputs(res))
     const updateList = getList(categoryName)
     updateList(filter.parsed, null).then((res) => setInitList(res))
   }, [categoryName, rent, filter])
@@ -56,11 +52,11 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
         className='text-base-400-lg-100 absolute right-0 top-[-100%] flex items-center gap-[6px] text-primary after:block after:size-[20px] after:bg-icon-detail-filter after:filter-primary after:bg-default-contain'
         onClick={() => openDynamicPopup('filterPopup')}
       >
-        <FilterPopup category={categoryName} objectsAmount={initList.length} />
+        <FilterPopup category={categoryName} objectsAmount={initList.length} quickFilters={filterInputs} />
         Расширенный фильтр
       </button>
       <div className='flex justify-between'>
-        <FilterItems filters={filterInputs} isQuick />
+        <FilterItems filters={filterInputs.filters} isQuick />
         <Link href={link}>
           <Button
             type='button'
