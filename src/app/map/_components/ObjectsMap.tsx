@@ -21,6 +21,7 @@ import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
 import { PopupContext } from '@/features/visible/Popup'
+import { AdaptiveContext } from '@/features/visible/adaptive'
 
 function useCategoryLink() {
   const pathname = usePathname()
@@ -48,8 +49,13 @@ function ObjectsMap({ filters, categoryCode, getItems }: Props) {
   const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
   const categoryLink = useCategoryLink()
   const { openPopup, closePopup } = useContext(PopupContext)
+  const { isDesktop } = useContext(AdaptiveContext)
 
   function setItems(items: MapObject[]) {
+    setActivePoints(items)
+
+    if (isDesktop) return
+
     openPopup({
       name: 'mapObject',
       args: {
@@ -62,8 +68,6 @@ function ObjectsMap({ filters, categoryCode, getItems }: Props) {
         list: items,
       },
     })
-
-    setActivePoints(items)
   }
 
   const onPointClickHandler: CustomMapProps['onPointClick'] = function (_, feature) {
