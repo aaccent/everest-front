@@ -20,7 +20,7 @@ export interface ObjectCard {
   }
   completionDate: string
   publicationTime: string
-  tags: Tag[]
+  tags: Tag[] | null
   characteristics: Characteristic[]
   latitude: number
   longitude: number
