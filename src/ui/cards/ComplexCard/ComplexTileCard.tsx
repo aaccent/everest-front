@@ -9,9 +9,10 @@ import Tags from '@/components/Tags'
 interface Props {
   item: ComplexCardType
   className?: string
+  isBanner?: boolean
 }
 
-export function ComplexTileCard({ item, className }: Props) {
+export function ComplexTileCard({ item, className, isBanner = false }: Props) {
   const link = createComplexLink(item)
 
   return (
@@ -27,7 +28,7 @@ export function ComplexTileCard({ item, className }: Props) {
         />
       </Link>
       {item.tags && <Tags className='left-[8px] top-[10px] md:left-[14px] md:top-[14px]' list={item.tags} />}
-      <CardInfo complex={item} link={link} />
+      <CardInfo complex={item} link={link} isBanner={isBanner} />
     </div>
   )
 }

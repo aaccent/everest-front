@@ -16,7 +16,7 @@ function GalleryBanner({ list }: { list: ComplexCard[] }) {
           return (
             <CarouselSlide key={card.id}>
               <div className='size-full'>
-                <ComplexTileCard item={card} className='!h-full' />
+                <ComplexTileCard item={card} className='!h-full' isBanner />
               </div>
             </CarouselSlide>
           )

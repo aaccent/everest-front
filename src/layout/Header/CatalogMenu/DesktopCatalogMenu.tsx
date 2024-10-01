@@ -1,5 +1,5 @@
 import React from 'react'
-import { getCatalogMenu, getNewBuildingsOnMain } from '@/globals/api'
+import { getCatalogMenu } from '@/globals/api'
 import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories } from './components/CatalogMenuInner'
 import Img from '@/ui/Img'
 import SeeAllCard from '@/layout/Header/components/SeeAllCard'
@@ -7,6 +7,7 @@ import MenuItemCard from '@/layout/Header/components/MenuItemCard'
 import { MenuCategory } from '@/types/Menu'
 import { generateCategoryLink } from '@/features/catalog/link'
 import GalleryBanner from '@/layout/Header/CatalogMenu/components/GalleryBanner'
+import { getNewBuildingsBanner } from '@/globals/api/methods/main-page/getNewBuildingsBanner'
 
 function showTopLevel(list: MenuCategory[]) {
   return list.map((category) => (
@@ -48,7 +49,7 @@ function showSubCategories(list: MenuCategory[]) {
 
 async function DesktopCatalogMenu() {
   const catalog = await getCatalogMenu()
-  const newBuildings = await getNewBuildingsOnMain()
+  const newBuildingsBanner = await getNewBuildingsBanner()
   const total = catalog.reduce((init, item) => init + item.total, 0)
 
   return (
@@ -68,7 +69,7 @@ async function DesktopCatalogMenu() {
           </CatalogMenuProvider>
         </nav>
       </div>
-      <GalleryBanner list={newBuildings} />
+      <GalleryBanner list={newBuildingsBanner} />
     </aside>
   )
 }
