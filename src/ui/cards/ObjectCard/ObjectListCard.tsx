@@ -18,9 +18,7 @@ function ObjectListCard({ item, category }: Props) {
   return (
     <div className='group/object-card flex w-full rounded-[32px] border border-base-400 p-[40px]'>
       <div className='relative mr-[40px]'>
-        {'tags' in item && item.tags && (
-          <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />
-        )}
+        {'tags' in item && <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />}
         <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
       </div>
       <Link className='max-w-[570px]' href={link}>

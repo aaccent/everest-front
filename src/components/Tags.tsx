@@ -23,7 +23,7 @@ function Tags({ list, className, itemClassName }: Props) {
     ))
   }
 
-  if (!list.length) return null
+  if (!list || !list.length) return null
 
   return <ul className={`absolute z-10 flex gap-[4px] ${className}`}>{showItems()}</ul>
 }

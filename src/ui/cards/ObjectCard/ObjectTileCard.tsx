@@ -24,9 +24,7 @@ function ObjectCard({ item, category }: Props) {
   return (
     <div className='group/object-card'>
       <div className='relative mb-[22px]'>
-        {'tags' in item && item.tags && (
-          <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />
-        )}
+        {'tags' in item && <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />}
         <div className='absolute right-[16px] top-[16px] z-10 flex gap-[4px] md:right-[14px] md:top-[14px] md:gap-[8px]'>
           <ActionButton className='before:bg-icon-scale md:opacity-0' />
           <ActionButton className='before:bg-icon-address md:opacity-0' />
