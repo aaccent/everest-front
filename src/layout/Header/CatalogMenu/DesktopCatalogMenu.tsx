@@ -1,5 +1,5 @@
 import React from 'react'
-import { getCatalogMenu } from '@/globals/api'
+import { getCatalogMenu, getNewBuildingsBanner } from '@/globals/api'
 import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories } from './components/CatalogMenuInner'
 import Img from '@/ui/Img'
 import SeeAllCard from '@/layout/Header/components/SeeAllCard'
@@ -7,7 +7,6 @@ import MenuItemCard from '@/layout/Header/components/MenuItemCard'
 import { MenuCategory } from '@/types/Menu'
 import { generateCategoryLink } from '@/features/catalog/link'
 import GalleryBanner from '@/layout/Header/CatalogMenu/components/GalleryBanner'
-import { getNewBuildingsBanner } from '@/globals/api/methods/main-page/getNewBuildingsBanner'
 
 function showTopLevel(list: MenuCategory[]) {
   return list.map((category) => (
