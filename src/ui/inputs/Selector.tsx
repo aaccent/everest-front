@@ -37,6 +37,7 @@ function Selector({
   const [value, setValue] = useState<SelectorValue>(defaultValue)
 
   const _value = customValue || value
+  const maxStringSize = 15
 
   function _setValue(changeFn: (prev: SelectorValue) => SelectorValue) {
     if (customValue) {
@@ -99,7 +100,7 @@ function Selector({
     const defaultValue = window.matchMedia('(min-width:768px').matches ? 'Выбрать' : title
     const selectedNames = _value.length ? _value.join(', ') : defaultValue
 
-    if (selectedNames.length > 18) return selectedNames.slice(0, 15) + `...`
+    if (selectedNames.length > maxStringSize) return selectedNames.slice(0, maxStringSize) + `...`
 
     return selectedNames
   }
