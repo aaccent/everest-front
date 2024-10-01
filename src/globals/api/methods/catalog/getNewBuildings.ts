@@ -12,7 +12,7 @@ type Response = APIResponse<Category<RawCategory, ObjectCard>>
 type Request = APIRequest<CategoryRequestWithFilters>
 
 export async function getNewBuildings(filter: FilterRequestParam = null, sort: SortRequestParam = null) {
-  const res = await apiCall<Request | false, Response>(`/catalog/new-buildings`, {
+  const res = await apiCall<Request | false, Response>(`/catalog/new-building`, {
     method: 'POST',
     request: {
       filter,
