@@ -25,15 +25,14 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
 
   const updateState = async () => {
     setIsLoading(true)
-    let data: TType[]
     try {
-      data = await getObjects(filter.parsed || null, sort)
+      const data = await getObjects(filter.parsed || null, sort)
+      setList(data)
     } catch {
-      data = []
+      setList([])
+    } finally {
+      setIsLoading(false)
     }
-    setList(data)
-
-    setIsLoading(false)
   }
 
   useEffect(() => {
