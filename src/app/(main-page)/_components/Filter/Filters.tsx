@@ -1,23 +1,15 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import { getCatalogMenu } from '@/globals/api'
+import React, { useState } from 'react'
 import CategoryButton, { CategoryButtonProps } from '@/app/(main-page)/_components/Filter/CategoryButton'
 import { MenuCategory } from '@/types/Menu'
 import CategoryFilter from '@/app/(main-page)/_components/Filter/CategoryFilter'
 import TabButtons from '@/components/TabButtons'
 
-function Filters() {
-  const [categories, setCategories] = useState<MenuCategory[]>([])
+function Filters({ categories }: { categories: MenuCategory[] }) {
   const [activeCategory, setActiveCategory] = useState<{
     seoUrl: CategoryButtonProps['seoUrl']
     isRent: boolean
   }>({ seoUrl: 'new-building', isRent: false })
-
-  useEffect(() => {
-    getCatalogMenu().then((res) => {
-      setCategories(res)
-    })
-  }, [])
 
   const onCategoryBtnClickHandle = (category: string) => {
     setActiveCategory({
