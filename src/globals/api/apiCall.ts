@@ -101,7 +101,6 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
     const searchParams = convertObjectToURLSearchParams(request)
     url += `?${searchParams.toString()}`
   }
-  //if(url.includes('catalog')) console.log(url)
 
   const res = await fetch(url, fetchInit)
   const text = await res.text()
