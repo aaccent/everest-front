@@ -1,16 +1,22 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
+import { PopupContext } from '@/features/visible/Popup'
+import { QuickFilters } from '@/types/FiltersType'
 
 interface Props {
   className?: string
-  onClick: () => void
+  categoryName: string
+  quickFilters: QuickFilters
 }
 
-function DetailFilterButton({ className, onClick }: Props) {
+function DetailFilterButton({ className, categoryName, quickFilters }: Props) {
   const { filter } = useCategoryFilter()
   const [count, setCount] = useState<number>(filter.parsed.length)
+  const { openDynamicPopup } = useContext(PopupContext)
+
   useEffect(() => {
     setCount(filter.parsed.length)
   }, [filter])
@@ -24,8 +30,9 @@ function DetailFilterButton({ className, onClick }: Props) {
       <button
         className={`${className} flex size-[42px] items-center justify-center rounded-[12px] bg-base-100 p-[10px] after:size-[21px] after:bg-icon-filter after:bg-default`}
         type='button'
-        onClick={onClick}
+        onClick={() => openDynamicPopup('filterPopup')}
       />
+      <FilterPopup category={categoryName} quickFilters={quickFilters} />
     </div>
   )
 }
