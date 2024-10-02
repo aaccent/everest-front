@@ -13,6 +13,7 @@ on:
 env:
   URL: https://everest-dev.aaccent.su
   FOLDER: everest-front-dev
+  TARGET_PATH: /root/front-folders/${{ env.FOLDER }}
 
 jobs:
   deploy:
@@ -37,7 +38,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           source: "${{ env.FOLDER }}/*"
-          target: /root/${{ env.FOLDER }}
+          target: ${{ env.TARGET_PATH }}
           strip_components: 1
 
       - name: Connect via ssh and run deploy script
@@ -47,9 +48,9 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            cd /root/${{ env.FOLDER }}
+            cd ${{ env.TARGET_PATH }}
             docker compose up -d --build --force-recreate everest-dev
-            rm -r /root/front-repos/${{ env.FOLDER }}
+            rm -r ${{ env.TARGET_PATH }}
 
       - name: Set success deployment
         if: success()
