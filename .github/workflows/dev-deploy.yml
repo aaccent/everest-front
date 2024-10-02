@@ -25,6 +25,7 @@ jobs:
           ref: ${{ github.ref_name }}
 
       - uses: appleboy/scp-action@v0.1.7
+        name: Move files via SCP on remote server
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
@@ -48,7 +49,7 @@ jobs:
           environment-url: ${{ env.URL }}
           environment: development
 
-      - name: Connect via ssh and run deploy script
+      - name: Run docker compose via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
@@ -56,7 +57,16 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd ${{ env.TARGET_PATH }}
-            docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d --build --force-recreate everest-dev & rm -r ${{ env.TARGET_PATH }}
+            docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d --build --force-recreate everest-dev
+
+      - name: Delete deploy folder
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            rm -r ${{ env.TARGET_PATH }}
 
       - name: Set success deployment
         if: success()
