@@ -1,11 +1,6 @@
 name: Testing, linting and building
 
 on:
-  push:
-    paths:
-      - '**/*'
-      - '!**/*.md'
-      - '!.idea'
   pull_request:
     branches:
       - 'master'
