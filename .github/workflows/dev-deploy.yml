@@ -54,10 +54,9 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: &
+          script: |
             cd ${{ env.TARGET_PATH }}
-            docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d --build --force-recreate everest-dev
-            rm -r ${{ env.TARGET_PATH }}
+            docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d --build --force-recreate everest-dev & rm -r ${{ env.TARGET_PATH }}
 
       - name: Set success deployment
         if: success()
