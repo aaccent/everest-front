@@ -1,10 +1,7 @@
 version: '3.*'
 
 services:
-  everest-test:
-    build:
-      context: .
-      no_cache: true
+  everest:
     container_name: front-test
     env_file:
       - .env
@@ -13,6 +10,3 @@ services:
         required: false
       - path: .env.test.local
         required: false
-    restart: always
-    ports:
-      - ${PORT}:${PORT}
