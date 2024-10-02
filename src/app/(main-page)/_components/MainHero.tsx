@@ -13,12 +13,12 @@ async function MainHero() {
   return (
     <Section className='relative max-h-[810px] min-h-svh' hideContainer>
       <Image
-        className='absolute inset-0 -z-10 hidden h-full object-cover object-center md:block'
+        className='absolute inset-0 -z-10 hidden h-full w-full object-cover object-center md:block'
         src={HeroImage}
         alt=''
       />
       <Image
-        className='absolute inset-0 -z-10 block h-full object-cover object-center md:hidden'
+        className='absolute inset-0 -z-10 block h-full w-full object-cover object-center md:hidden'
         src={HeroMobileImage}
         alt=''
       />
