@@ -49,7 +49,7 @@ async function Page({ params }: CategoryPage) {
     })
   }
 
-  return <ObjectsMap categoryCode={params.category} filters={quickFilter} getItems={_getItems} />
+  return <ObjectsMap categoryCode={params.category} quickFilters={quickFilter} getItems={_getItems} />
 }
 
 export default Page
