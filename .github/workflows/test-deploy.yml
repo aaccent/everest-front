@@ -43,7 +43,7 @@ jobs:
           script: |
             cd /root/${{ env.FOLDER }}
             docker compose up -d --build --force-recreate everest-test
-            rm -r /root/${{ env.FOLDER }}
+            rm -r /root/front-repos/${{ env.FOLDER }}
 
       - name: Set success deployment
         if: success()
