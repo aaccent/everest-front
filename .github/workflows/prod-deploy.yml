@@ -7,7 +7,7 @@ on:
 env:
   URL: https://everest.aaccent.su
   FOLDER: everest-front
-  TARGET_PATH: /root/front-folders/${{ env.FOLDER }}
+  TARGET_PATH: /root/front-folders/everest-front
 
 jobs:
   deploy:
