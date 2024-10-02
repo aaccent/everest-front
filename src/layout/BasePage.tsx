@@ -7,6 +7,7 @@ import { PopupProvider } from '@/features/visible/Popup'
 
 import packageJSON from '@/../package.json'
 import ContactForm from '@/components/ContactForm/ContactForm'
+import CookieNotification from '@/components/CookieNotification'
 
 function BasePage({ children }: PropsWithChildren) {
   const baseProps = basePageProps()
@@ -25,6 +26,7 @@ function BasePage({ children }: PropsWithChildren) {
           </main>
           <Footer />
         </div>
+        <CookieNotification />
       </PopupProvider>
     </AdaptiveProvider>
   )
