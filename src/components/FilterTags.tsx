@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { FilterBlock, FilterType, FilterView } from '@/types/FiltersType'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
-import { getFilters } from '@/globals/api/methods/getFilters'
+import { getFilters } from '@/globals/api'
 import QuickFiltersTags from '@/components/QuickFilter/QuickFiltersTags'
 import { PopupFilterTags } from '@/ui/popups/FilterPopup/PopupFilterTags'
 

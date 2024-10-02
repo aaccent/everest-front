@@ -92,8 +92,8 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
           <Checkbox
             title={filter.name}
             name={filter.id.toString()}
-            defaultChecked={value}
-            checked={value}
+            defaultChecked={value || false}
+            checked={value || false}
             value={filter.id.toString()}
             onChange={onChange}
           />

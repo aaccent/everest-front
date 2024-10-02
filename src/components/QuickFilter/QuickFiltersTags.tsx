@@ -46,7 +46,7 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
         onMouseEnter={() => setSelectorOpened(true)}
       >{`Еще ${filterList.length} `}</button>
       <div
-        className={`absolute left-[78%] top-[40px] z-10 w-full max-w-[295px] rounded-[32px] bg-base-100 py-[20px] pl-[20px] pr-[8px] shadow transition ${selectorOpened ? 'visible opacity-100' : 'invisible opacity-0'}`}
+        className={`absolute left-[78%] top-[40px] z-30 w-full max-w-[295px] rounded-[32px] bg-base-100 py-[20px] pl-[20px] pr-[8px] shadow transition ${selectorOpened ? 'visible opacity-100' : 'invisible opacity-0'}`}
       >
         <div className='mb-[24px] flex items-center justify-between'>
           <div className='text-header-400 text-base-600'>Активные теги</div>
@@ -55,7 +55,7 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
             onClick={() => setSelectorOpened(false)}
           />
         </div>
-        <div className='flex h-fit max-h-[272px] w-full flex-col gap-[16px] overflow-y-auto pr-[10px] scrollbar-custom scroll-btn-yb:h-[60px]'>
+        <div className='flex h-fit max-h-[272px] w-full flex-col gap-[16px] overflow-y-auto pb-[20px] pr-[10px] scrollbar-custom scroll-btn-yb:h-[60px]'>
           {showHiddenTags()}
         </div>
         <div className='ml-[-20px] w-[295px] rounded-b-[32px] border-t border-t-base-400 bg-base-100 px-[20px] pt-[20px]'>

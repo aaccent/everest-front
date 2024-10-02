@@ -23,21 +23,20 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   const { sort } = useCategorySort()
   const timeoutId = useRef<NodeJS.Timeout | null>(null)
 
-  useEffect(() => {
-    async function updateState() {
-      setIsLoading(true)
-      let data: TType[]
-      try {
-        data = await getObjects(filter.parsed || null, sort)
-      } catch {
-        data = []
-      }
-
+  const updateState = async () => {
+    setIsLoading(true)
+    try {
+      const data = await getObjects(filter.parsed || null, sort)
       setList(data)
-
+    } catch {
+      setList([])
+    } finally {
       setIsLoading(false)
     }
+  }
 
+  useEffect(() => {
+    updateState()
     if (timeoutId.current) clearTimeout(timeoutId.current)
     timeoutId.current = setTimeout(updateState, 750)
   }, [sort, filter])

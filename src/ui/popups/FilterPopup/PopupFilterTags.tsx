@@ -15,7 +15,7 @@ export function formatTagText(f: Type) {
     case 'range':
       return `${f.name}: ${f.value[0]} - ${f.value[1]}`
     case 'toggle':
-      return `Есть ${f.name}`
+      return `${f.name}`
     default:
       return `${f.name}: ${f.value}`
   }
