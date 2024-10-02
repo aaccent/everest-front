@@ -7,7 +7,6 @@ import { getQuickFilters } from '@/globals/api/methods/getFilters'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
-import Link from 'next/link'
 import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
@@ -36,7 +35,8 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
     })
   }, [categoryName, rent, filter])
 
-  const link = `${ROUTES.CATALOG}/${categoryName}/?${searchParams.toString()}`
+  const categoryLink = `${ROUTES.CATALOG}/${categoryName}/?${searchParams.toString()}`
+  const mapLink = `${ROUTES.MAP}/${categoryName}/?${searchParams.toString()}`
 
   return (
     <div className='relative mt-[22px]'>
@@ -50,15 +50,21 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
       </button>
       <div className='flex justify-between'>
         <FilterItems filters={filterInputs.filters} isQuick />
-        <Link href={link}>
-          <Button
-            type='button'
-            size='small'
-            variation='primary'
-            text={`Показать ${list.length} ${objectPlural.get(list.length)}`}
-          />
-        </Link>
-        <Button type='button' size='small' variation='second' text='показать на карте' icon={{ img: 'SHOW_MAP' }} />
+        <Button
+          href={categoryLink}
+          type='button'
+          size='small'
+          variation='primary'
+          text={`Показать ${list.length} ${objectPlural.get(list.length)}`}
+        />
+        <Button
+          href={mapLink}
+          type='button'
+          size='small'
+          variation='second'
+          text='показать на карте'
+          icon={{ img: 'SHOW_MAP' }}
+        />
       </div>
     </div>
   )

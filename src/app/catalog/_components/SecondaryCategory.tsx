@@ -17,7 +17,7 @@ function SecondaryCategory({ category, isSub }: Props) {
     'use server'
     const data = isSub
       ? await getSecondaryHousingSubcategory(category.seoUrl, filter, sort)
-      : await getSecondaryHousing(filter, sort)
+      : await getSecondaryHousing({ filter, sort })
     return data.objects
   }
 

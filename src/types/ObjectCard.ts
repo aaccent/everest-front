@@ -10,9 +10,9 @@ export interface ObjectCard {
   minArea: number
   typeObject: string
   description: string
-  isReserved?: boolean
   price: number
-  priceDiscount: number
+  priceDiscount: number | null
+  isReserved?: boolean
   userId: number | null
   gallery: {
     images: string[]
@@ -20,6 +20,8 @@ export interface ObjectCard {
   }
   completionDate: string
   publicationTime: string
-  tags: Tag[]
+  tags: Tag[] | null
   characteristics: Characteristic[]
+  latitude: number
+  longitude: number
 }

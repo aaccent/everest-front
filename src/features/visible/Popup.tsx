@@ -7,6 +7,7 @@ import { hideScroll, showScroll } from '@/features/visible/scroll'
 import GalleryPopup from '@/ui/popups/GalleryPopup/GalleryPopup'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import ThxPopup from '@/ui/popups/ThxPopup'
+import MapObjectsPopup from '@/ui/popups/MapObjectsPopup'
 import { createPortal } from 'react-dom'
 
 const popups = {
@@ -15,6 +16,7 @@ const popups = {
   filterPopup: FilterPopup,
   galleryPopup: GalleryPopup,
   thxPopup: ThxPopup,
+  mapObject: MapObjectsPopup,
 } as const
 
 type PopupName = keyof typeof popups

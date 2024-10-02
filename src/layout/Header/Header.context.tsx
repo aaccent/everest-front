@@ -164,6 +164,7 @@ export function HeaderProvider({ children, pathname: serverPathname }: HeaderSta
   const dataset = {
     ...(menu ? { 'data-menu': menu } : {}),
     ...(pathname !== '/' ? { 'data-inner-page': '' } : { 'data-main-page': '' }),
+    ...(pathname.includes('/map') ? { 'data-map-page': '' } : {}),
   }
 
   return (
