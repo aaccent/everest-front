@@ -50,7 +50,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd ${{ env.TARGET_PATH }}
-            docker compose -f docker-compose.yaml -f docker-compose.test.yaml up -d --build --force-recreate everest-test
+            docker compose -f docker-compose.yaml -f docker-compose.test.yaml up -d --build --force-recreate everest
 
       - name: Delete deploy folder
         uses: appleboy/ssh-action@v1.0.3
