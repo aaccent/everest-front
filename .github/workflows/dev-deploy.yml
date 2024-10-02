@@ -16,17 +16,9 @@ env:
   TARGET_PATH: /root/front-folders/everest-front-dev
 
 jobs:
-  deploy:
+  copy-files:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: chrnorm/deployment-action@v2
-        name: Create GitHub deployment
-        id: development
-        with:
-          token: '${{ github.token }}'
-          environment-url: ${{ env.URL }}
-
       - uses: actions/checkout@v4
         with:
           path: ${{ env.FOLDER }}
@@ -41,6 +33,20 @@ jobs:
           target: ${{ env.TARGET_PATH }}
           strip_components: 1
 
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+
+    steps:
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          environment: development
+
       - name: Connect via ssh and run deploy script
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -49,7 +55,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd ${{ env.TARGET_PATH }}
-            docker compose up -d --build --force-recreate everest-dev
+            docker compose up -d -f docker-compose.dev.yaml --build --force-recreate everest-dev
             rm -r ${{ env.TARGET_PATH }}
 
       - name: Set success deployment
