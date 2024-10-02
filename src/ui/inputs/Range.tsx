@@ -33,10 +33,32 @@ function Range({
 
   const step = 1
 
-  const _value = customValue || value
+  function toShort(value: RangeValue): RangeValue {
+    // if (name === '2') {
+    //   console.log(value)
+    //   console.log({
+    //     min: +(value.min / 1_000_000).toFixed(2),
+    //     max: +(value.max / 1_000_000).toFixed(2),
+    //   })
+    // }
+
+    return {
+      min: +(value.min / 1_000_000).toFixed(2),
+      max: +(value.max / 1_000_000).toFixed(2),
+    }
+  }
+
+  function toLong(value: RangeValue): RangeValue {
+    return {
+      min: value.min * 1_000_000,
+      max: value.max * 1_000_000,
+    }
+  }
+
+  const _value = customValue ? toShort(customValue) : toShort(value)
 
   const _setValue = (value: RangeValue) => {
-    onChange?.(name, value)
+    onChange?.(name, toLong(value))
     if (!customValue) setValue(value)
   }
 
@@ -86,11 +108,11 @@ function Range({
               blocks={{
                 num: {
                   mask: Number,
-                  min,
-                  max: _value.max,
-                  scale: 1,
-                  normalizeZeros: false,
-                  radix: '.',
+                  // min,
+                  // max: _value.max,
+                  //scale: 1,
+                  //normalizeZeros: false,
+                  //radix: '.',
                 },
               }}
               lazy={false}
@@ -108,11 +130,11 @@ function Range({
               blocks={{
                 num: {
                   mask: Number,
-                  min: _value.min,
-                  max,
-                  scale: 1,
-                  normalizeZeros: false,
-                  radix: '.',
+                  // min: _value.min,
+                  // max,
+                  //scale: 1,
+                  //normalizeZeros: false,
+                  //radix: '.',
                 },
               }}
               className='w-full text-end focus:outline-0'

@@ -39,7 +39,7 @@ function QuickFilter({ filters, categoryName }: Props) {
           <SortButton sorts={filters.sorts} />
           <FilterTags
             isQuick
-            category={categoryName}
+            list={filters.filters}
             className='relative mx-[10px] flex w-full items-center justify-center gap-[10px]'
           />
           <button

@@ -4,7 +4,7 @@ import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
 import { getFilters } from '@/globals/api'
-import { FilterBlock, QuickFilters } from '@/types/FiltersType'
+import { FilterBlock, FilterType, FilterView, QuickFilters } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
 import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
@@ -31,6 +31,10 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
   const params = useParams()
   const searchParams = useSearchParams()
   const link = params.toString().includes('catalog') ? '' : `${ROUTES.CATALOG}/${category}/?${searchParams.toString()}`
+
+  function convertBlocksToFilterType(blocks: FilterBlock[]): FilterType<FilterView>[] {
+    return blocks.map((block) => block.filters).reduce((acc, f) => acc.concat(f), [])
+  }
 
   useEffect(() => {
     getFilters(category).then((res) => {
@@ -80,7 +84,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
 
           <FilterTags
             className='hidden md:mb-[64px] md:flex md:w-full md:max-w-[1112px] md:flex-wrap md:items-center md:gap-[10px] md:overflow-auto md:scrollbar-transparent'
-            list={filters}
+            list={convertBlocksToFilterType(filters)}
           />
 
           <div className='flex h-full flex-col overflow-auto pb-[50px] scrollbar-transparent md:block md:w-full md:max-w-[1140px] md:pb-[450px]'>

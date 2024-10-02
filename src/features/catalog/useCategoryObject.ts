@@ -1,7 +1,7 @@
 'use client'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { Sort } from '@/types/FiltersType'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCategorySort } from '@/features/catalog/useCategorySort'
 
 export type GetObjectsFn<TType = unknown> = (filter: object[] | null, sort: Sort['value'] | null) => Promise<TType[]>
@@ -21,7 +21,6 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   const [isLoading, setIsLoading] = useState(false)
   const { filter } = useCategoryFilter()
   const { sort } = useCategorySort()
-  const timeoutId = useRef<NodeJS.Timeout | null>(null)
 
   const updateState = async () => {
     setIsLoading(true)
@@ -37,8 +36,6 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
 
   useEffect(() => {
     updateState()
-    if (timeoutId.current) clearTimeout(timeoutId.current)
-    timeoutId.current = setTimeout(updateState, 750)
   }, [sort, filter])
 
   return { list, isLoading }

@@ -70,7 +70,6 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
               min: filter.value.min,
               max: filter.value.max,
             }
-
         return (
           <Range
             min={filter.value.min}
