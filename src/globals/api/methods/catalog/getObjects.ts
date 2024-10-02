@@ -2,15 +2,18 @@ import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 import { Category, CategoryRequestWithRent, FilterRequestParam, RawCategory, SortRequestParam } from '@/types/Category'
 import { ObjectCard } from '@/types/ObjectCard'
 
-type Response = APIResponse<Category<RawCategory, ObjectCard>>
 type Request = APIRequest<CategoryRequestWithRent>
+type Response = APIResponse<Category<RawCategory, ObjectCard>>
 
-export async function getNewBuildings(
+export async function getObjects(
+  category: string,
   filter: FilterRequestParam = null,
   sort: SortRequestParam = null,
   rent: boolean = false,
+  subcategory: string | null = null,
 ) {
-  const res = await apiCall<Request | false, Response>(`/catalog/new-building`, {
+  const uri = subcategory ? `catalog/${category}/${subcategory}` : `catalog/${category}`
+  const res = await apiCall<Request | false, Response>(`/${uri}`, {
     method: 'POST',
     request: {
       filter,
@@ -18,6 +21,5 @@ export async function getNewBuildings(
       rent,
     },
   })
-
   return res.data
 }

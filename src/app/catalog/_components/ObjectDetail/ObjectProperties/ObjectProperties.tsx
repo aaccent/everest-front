@@ -28,7 +28,7 @@ function Properties({ item }: Props) {
     ))
   }
 
-  return <div className='flex flex-col gap-[20px] md:flex-row md:gap-[52px]'>{showList()}</div>
+  return <div className='flex select-none flex-col gap-[20px] md:flex-row md:gap-[52px]'>{showList()}</div>
 }
 
 function Description({ item }: Props) {

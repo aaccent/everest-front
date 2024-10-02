@@ -63,7 +63,7 @@ function ObjectPropertiesWrapper({ propsTabContent, descTabContent }: Props) {
       </div>
       <div className={`group rounded-b-[20px] rounded-tr-[20px] bg-base-200 p-[20px] ${showMore ? 'show-more' : ''}`}>
         <div
-          className='relative overflow-hidden after:absolute after:inset-x-0 after:bottom-0 after:h-[86px] after:bg-[linear-gradient(0deg,#f6f6f6_0%,rgba(246,246,246,0)100%)] group-[.show-more]:max-h-fit group-[.show-more]:after:hidden md:max-h-fit md:after:hidden'
+          className='relative overflow-hidden scrollbar-custom-wide after:absolute after:inset-x-0 after:bottom-0 after:h-[86px] after:bg-[linear-gradient(0deg,#f6f6f6_0%,rgba(246,246,246,0)100%)] group-[.show-more]:max-h-fit group-[.show-more]:after:hidden md:max-h-fit md:overflow-x-auto md:pb-[20px] md:after:hidden'
           ref={blockRef}
         >
           {tab === TAB_TYPE.PROPERTIES ? propsTabContent : descTabContent}
