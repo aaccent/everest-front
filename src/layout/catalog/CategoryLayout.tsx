@@ -5,7 +5,7 @@ import PageTitle from '@/ui/text/PageTitle'
 import Container from '@/layout/Container'
 import QuickFilter from '@/components/QuickFilter/QuickFilter'
 import SubCategoryLink from '@/components/SubCategoryLink'
-import { getQuickFilters } from '@/globals/api/methods/getFilters'
+import { getQuickFilters } from '@/globals/api'
 import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
 
 interface Props extends PropsWithChildren {

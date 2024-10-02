@@ -1,9 +1,8 @@
 import React from 'react'
 import { ObjectPage, SubcategoryPage } from '@/types/Page'
-import { getObject } from '@/globals/api'
+import { getObject, getSimilarObjects } from '@/globals/api'
 import ObjectDetail from '@/app/catalog/_components/ObjectDetail/ObjectDetail'
 import SimilarObjects from '@/app/catalog/_components/SimilarObjects'
-import { getSimilarObjects } from '@/globals/api/methods/catalog-details/getSimilarObjects'
 
 async function Page({ params }: ObjectPage & SubcategoryPage) {
   const object = await getObject({
