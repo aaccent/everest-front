@@ -1,0 +1,70 @@
+name: Development deploy
+
+on:
+  push:
+    branches:
+      - 'dev'
+    paths:
+      - '**/*'
+      - '!**/*.md'
+      - '!.idea'
+  workflow_dispatch:
+
+env:
+  URL: https://everest-dev.aaccent.su
+  FOLDER: everest-front-dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: development
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+
+      - uses: actions/checkout@v4
+        with:
+          path: ${{ env.FOLDER }}
+          ref: ${{ github.ref_name }}
+
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "${{ env.FOLDER }}/*"
+          target: /root/${{ env.FOLDER }}
+          strip_components: 1
+
+      - name: Connect via ssh and run deploy script
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /root/${{ env.FOLDER }}
+            docker compose up -d --build --force-recreate everest-dev
+            rm -r /root/${{ env.FOLDER }}
+
+      - name: Set success deployment
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          state: 'success'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Set failure deployment
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          state: 'failure'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}

@@ -1,11 +1,12 @@
-name: Production deploy on ssh server
+name: Production deploy
 
 on:
   release:
-    types: [published]
+    types: [released]
 
 env:
   URL: https://everest.aaccent.su
+  FOLDER: everest-front
 
 jobs:
   deploy:
@@ -14,10 +15,24 @@ jobs:
     steps:
       - uses: chrnorm/deployment-action@v2
         name: Create GitHub deployment
-        id: deployment
+        id: production
         with:
           token: '${{ github.token }}'
           environment-url: ${{ env.URL }}
+
+      - uses: actions/checkout@v4
+        with:
+          path: ${{ env.FOLDER }}
+          ref: ${{ github.ref_name }}
+
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "${{ env.FOLDER }}/*"
+          target: /root/${{ env.FOLDER }}
+          strip_components: 1
 
       - name: Connect via ssh and run deploy script
         uses: appleboy/ssh-action@v1.0.3
@@ -26,10 +41,9 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            cd ~/everest-front
-            git fetch
-            git checkout ${{ github.ref_name }}
+            cd /root/${{ env.FOLDER }}
             docker compose up -d --build --force-recreate everest
+            rm -r /root/${{ env.FOLDER }}
 
       - name: Set success deployment
         if: success()

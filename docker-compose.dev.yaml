@@ -1,14 +1,17 @@
 version: '3.*'
 
 services:
-  everest:
+  everest-dev:
     build:
       context: .
       no_cache: true
-    container_name: front
+    container_name: front-dev
     env_file:
       - .env
+      - .env.development
       - path: .env.local
+        required: false
+      - path: .env.development.local
         required: false
     restart: always
     ports:
