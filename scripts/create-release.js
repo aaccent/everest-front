@@ -211,9 +211,6 @@ function changeVersion({ symVer, type, needAddBeta }) {
 
 /** @param {string} version */
 async function createReleaseBranch(version) {
-  await simpleGit().checkout(MASTER_BRANCH_NAME).fetch().pull()
-  console.info('Checkout, fetched and pulled %s', MASTER_BRANCH_NAME)
-
   const newBranchName = `release/${version}`
   await simpleGit().checkoutLocalBranch(newBranchName)
   console.info('Create branch %s', newBranchName)
@@ -232,6 +229,10 @@ void (async function () {
   if (status.modified.length) {
     return console.error('У вас есть незафиксированные изменения. Сначала сделайте git commit')
   }
+
+  const currentBranch = (await simpleGit().branchLocal()).current
+  await simpleGit().checkout(MASTER_BRANCH_NAME).fetch().pull()
+  console.info('Checkout, fetched and pulled %s', MASTER_BRANCH_NAME)
 
   // Получаем package.json файл и ссылку на репу гитхаба
   const myPackage = getPackageFile()
@@ -270,7 +271,6 @@ void (async function () {
     type: versionType,
     needAddBeta: isBeta && hasVersion,
   })
-  const currentBranch = (await simpleGit().branchLocal()).current
   const newBranchName = await createReleaseBranch(`v${symVer.version}`)
 
   /** @type {`v${string}`} */
@@ -296,19 +296,19 @@ void (async function () {
   await simpleGit().checkout(currentBranch)
   console.info('Checkout back to %s branch', currentBranch)
 
-  const { link, number: prNumber } = await createPullRequestToMaster(octokit, {
+  const { firstPRLink, number: prNumber } = await createPullRequestToMaster(octokit, {
     ...githubLink,
     title: versionTag,
     body: 'Автоматический ПР с измененной версией в `package.json`',
     from: newBranchName,
     to: MASTER_BRANCH_NAME,
   })
-  console.info('Created PR from branch %s to master. link:\n%s', newBranchName, link)
+  console.info('Created PR from branch %s to master. link:\n%s', newBranchName, firstPRLink)
 
   await mergePullRequest(octokit, { ...githubLink, pull_number: prNumber })
   console.info('Merged PR by number #%d', prNumber)
 
-  await createPullRequestToMaster(octokit, {
+  const { secondPRLink } = await createPullRequestToMaster(octokit, {
     ...githubLink,
     title: versionTag,
     body: 'Автоматический ПР после релиза`',
@@ -319,7 +319,7 @@ void (async function () {
     'Created PR from branch %s to %s. link:\n%s\nPlease check and merge',
     MASTER_BRANCH_NAME,
     DEV_BRANCH_NAME,
-    link,
+    secondPRLink,
   )
 
   // Создаём релиз
