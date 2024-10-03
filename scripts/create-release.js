@@ -211,9 +211,6 @@ function changeVersion({ symVer, type, needAddBeta }) {
 
 /** @param {string} version */
 async function createReleaseBranch(version) {
-  await simpleGit().checkout(MASTER_BRANCH_NAME).fetch().pull()
-  console.info('Checkout, fetched and pulled %s', MASTER_BRANCH_NAME)
-
   const newBranchName = `release/${version}`
   await simpleGit().checkoutLocalBranch(newBranchName)
   console.info('Create branch %s', newBranchName)
@@ -232,6 +229,10 @@ void (async function () {
   if (status.modified.length) {
     return console.error('У вас есть незафиксированные изменения. Сначала сделайте git commit')
   }
+
+  const currentBranch = (await simpleGit().branchLocal()).current
+  await simpleGit().checkout(MASTER_BRANCH_NAME).fetch().pull()
+  console.info('Checkout, fetched and pulled %s', MASTER_BRANCH_NAME)
 
   // Получаем package.json файл и ссылку на репу гитхаба
   const myPackage = getPackageFile()
@@ -270,7 +271,6 @@ void (async function () {
     type: versionType,
     needAddBeta: isBeta && hasVersion,
   })
-  const currentBranch = (await simpleGit().branchLocal()).current
   const newBranchName = await createReleaseBranch(`v${symVer.version}`)
 
   /** @type {`v${string}`} */
