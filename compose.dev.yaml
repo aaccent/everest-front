@@ -1,0 +1,9 @@
+version: '3.*'
+
+services:
+  everest:
+    container_name: front-dev
+    env_file:
+      - .env.development
+      - path: .env.development.local
+        required: false

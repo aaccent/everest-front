@@ -20,5 +20,8 @@ pnpm-lock.yaml
 
 # docker
 docker-compose.yaml
+docker-compose.*.yaml
+compose.yaml
+compose.*.yaml
 .dockerignore
 Dockerfile

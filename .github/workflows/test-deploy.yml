@@ -1,0 +1,80 @@
+name: Test deploy
+
+on:
+  release:
+    types: [prereleased]
+
+env:
+  URL: https://everest-test.aaccent.su
+  FOLDER: everest-front-test
+  TARGET_PATH: /root/front-folders/everest-front-test
+
+jobs:
+  copy-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: ${{ env.FOLDER }}
+          ref: ${{ github.ref_name }}
+
+      - uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          source: "${{ env.FOLDER }}/*"
+          target: ${{ env.TARGET_PATH }}
+          strip_components: 1
+
+  deploy:
+    needs: copy-files
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+
+    steps:
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          environment: test
+
+      - name: Run docker compose via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd ${{ env.TARGET_PATH }}
+            docker compose -f compose.yaml -f compose.test.yaml --env-file .env --env-file .env.test up -d --build --force-recreate everest
+
+      - name: Set success deployment
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          state: 'success'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Set failure deployment
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          state: 'failure'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Delete deploy folder
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            rm -r ${{ env.TARGET_PATH }}
