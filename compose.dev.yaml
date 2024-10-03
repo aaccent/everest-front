@@ -4,9 +4,6 @@ services:
   everest:
     container_name: front-dev
     env_file:
-      - .env
       - .env.development
-      - path: .env.local
-        required: false
       - path: .env.development.local
         required: false

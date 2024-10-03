@@ -50,16 +50,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd ${{ env.TARGET_PATH }}
-            docker compose -f docker-compose.yaml up -d --build --force-recreate everest
-
-      - name: Delete deploy folder
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-            rm -r ${{ env.TARGET_PATH }}
+            docker compose -f compose.yaml -f compose.prod.yaml up -d --build --force-recreate everest
 
       - name: Set success deployment
         if: success()
@@ -78,3 +69,12 @@ jobs:
           environment-url: ${{ env.URL }}
           state: 'failure'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Delete deploy folder
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            rm -r ${{ env.TARGET_PATH }}
