@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
-import { PopupContext } from '@/features/visible/Popup'
+import { PopupContext } from '@/features/Popup'
 import { QuickFilters } from '@/types/FiltersType'
 
 interface Props {
