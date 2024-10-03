@@ -23,32 +23,56 @@ function getGithubLinkFromPackage(myPackage) {
  * @return {SymVer}
  */
 function getSymVerFromPackage(myPackage) {
-  const currentVersion = myPackage.version.replace(/-.*/, '').split('.').map(Number)
+  const currentVersion = myPackage.version.match(/(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)(?:-beta\.(?<beta>\d+))?/)
 
-  const major = currentVersion[0]
-  const minor = currentVersion[1]
-  const patch = currentVersion[2]
+  const major = Number(currentVersion.groups.major)
+  const minor = Number(currentVersion.groups.minor)
+  const patch = Number(currentVersion.groups.patch)
+
+  const betaVersion = Number(currentVersion.groups.beta)
+  const isBeta = !Number.isNaN(betaVersion)
 
   return {
     major,
     minor,
     patch,
+    beta: isBeta ? betaVersion : null,
     get version() {
-      return `${this.major}.${this.minor}.${this.patch}`
+      let version = `${this.major}.${this.minor}.${this.patch}`
+      if (this.isBeta()) {
+        version += `-beta.${this.beta}`
+      }
+
+      return version
     },
     newMajor() {
       this.major += 1
       this.minor = 0
       this.patch = 0
+      this.beta = null
       return this.version
     },
     newMinor() {
       this.minor += 1
       this.patch = 0
+      this.beta = null
       return this.version
     },
     newPatch() {
       this.patch += 1
+      this.beta = null
+      return this.version
+    },
+    isBeta() {
+      return this.beta !== null
+    },
+    newBeta() {
+      if (this.isBeta()) {
+        this.beta += 1
+      } else {
+        this.beta = 0
+      }
+
       return this.version
     },
   }
@@ -98,9 +122,10 @@ async function isHaveAccessToRepo(octokit, { owner, repo }) {
  * @param {string} repo - Название репозитория
  * @param {`v${string}`} versionTag - Текст для тэга и названия релиза
  * @param {string} target - Название ветки для создания релиза
+ * @param {boolean} prerelease - Пре релиз или нет
  * @return {Promise<string>} - Ссылку для загрузки файлов в релиз
  */
-async function createRelease(octokit, { owner, repo, versionTag, target }) {
+async function createRelease(octokit, { owner, repo, versionTag, target, prerelease }) {
   const release = await octokit.request('POST /repos/{owner}/{repo}/releases', {
     owner: owner,
     repo: repo,
@@ -109,7 +134,7 @@ async function createRelease(octokit, { owner, repo, versionTag, target }) {
     name: versionTag,
     body: '',
     draft: false,
-    prerelease: false,
+    prerelease,
     generate_release_notes: false,
   })
 
@@ -157,8 +182,10 @@ async function mergePullRequest(octokit, { owner, repo, pull_number }) {
 /**
  * @param {SymVer} symVer
  * @param {SymVerType} type
+ * @param {boolean} needAddBeta - Если `true`, то к версии добавится beta строка, иначе не добавится.
+ * Если в `type` указано `beta`, то beta строка добавится в любом случае.
  */
-function changeVersion(symVer, type) {
+function changeVersion({ symVer, type, needAddBeta }) {
   switch (type) {
     case 'major':
       symVer.newMajor()
@@ -169,6 +196,13 @@ function changeVersion(symVer, type) {
     case 'patch':
       symVer.newPatch()
       break
+    case 'beta':
+      symVer.newBeta()
+      break
+  }
+
+  if (needAddBeta) {
+    symVer.newBeta()
   }
 }
 
@@ -213,16 +247,26 @@ void (async function () {
 
   // Выставляем новую версию
   const cliArgs = parseCLIArgs()
-  if (!cliArgs.major && !cliArgs.minor && !cliArgs.patch) {
+  const hasVersion = Boolean(cliArgs.major || cliArgs.minor || cliArgs.patch)
+
+  if (!hasVersion && !cliArgs.beta) {
     return console.error(
       'Необходимо выбрать тип версии:\n',
       'pnpm run release -- --major\n',
       'pnpm run release -- --minor\n',
       'pnpm run release -- --patch\n',
+      'pnpm run release -- --beta\n',
     )
   }
 
-  changeVersion(symVer, cliArgs.major || cliArgs.minor || cliArgs.patch)
+  const isBeta = Boolean(cliArgs.beta)
+  const versionType = cliArgs.major || cliArgs.minor || cliArgs.patch || cliArgs.beta
+
+  changeVersion({
+    symVer,
+    type: versionType,
+    needAddBeta: isBeta && hasVersion,
+  })
   const currentBranch = (await simpleGit().branchLocal()).current
   const newBranchName = await createReleaseBranch(`v${symVer.version}`)
 
@@ -264,6 +308,7 @@ void (async function () {
     ...githubLink,
     versionTag,
     target: newBranchName,
+    prerelease: isBeta,
   })
   console.info('Created release for version v%s', symVer.version)
 })()
