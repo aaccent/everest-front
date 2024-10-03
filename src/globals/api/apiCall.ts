@@ -138,5 +138,3 @@ export async function apiCall<TRequest extends APIRequest | false = false, TResp
 
   return json
 }
-
-export const isNeedMockData = process.env.NEXT_PUBLIC_MOCK_API_RESPONSE === 'true'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { IsDesktop } from '@/features/visible/adaptive'
+import { IsDesktop } from '@/features/adaptive'
 import Link from 'next/link'
 import Image from 'next/image'
 import { suggestionPlural } from '@/features/utility/pluralRules'

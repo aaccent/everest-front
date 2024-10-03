@@ -2,7 +2,7 @@
 
 import React, { useContext } from 'react'
 import Button from '@/ui/buttons/Button'
-import { PopupContext } from '@/features/visible/Popup'
+import { PopupContext } from '@/features/Popup'
 
 function ShowAllButton({ amount }: { amount: number }) {
   const { closePopup } = useContext(PopupContext)
