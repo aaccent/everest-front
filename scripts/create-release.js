@@ -4,6 +4,7 @@ import { writeFileSync, readFileSync } from 'fs'
 import { join } from 'path'
 
 const PACKAGE_FILE_PATH = join(process.cwd(), 'package.json')
+const DEV_BRANCH_NAME = 'dev'
 const MASTER_BRANCH_NAME = 'master'
 const REMOTE_NAME = 'origin'
 
@@ -147,17 +148,19 @@ async function createRelease(octokit, { owner, repo, versionTag, target, prerele
  * @param {string} owner - Владелец репозитория
  * @param {string} repo - Название репозитория
  * @param {string} title - Заголовок Пулл реквеста
- * @param {string} from - ветка в удаленном репозитории из которого создаётся ПР
+ * @param {string} body - Текст Пулл реквеста
+ * @param {string} from - ветка удаленного репозитория из которого сливаются изменения
+ * @param {string} to - ветка удаленного репозитория в который сливаются изменения
  * @return {Promise<{link: string; number: number}>}
  */
-async function createPullRequestToMaster(octokit, { owner, repo, title, from }) {
+async function createPullRequestToMaster(octokit, { owner, repo, body, title, from, to }) {
   const pr = await octokit.request('POST /repos/{owner}/{repo}/pulls', {
     owner,
     repo,
     title,
-    body: 'Автоматический ПР с измененной версией в `package.json`',
+    body,
     head: from,
-    base: MASTER_BRANCH_NAME,
+    base: to,
   })
 
   return { link: pr.data.html_url, number: pr.data.number }
@@ -296,12 +299,28 @@ void (async function () {
   const { link, number: prNumber } = await createPullRequestToMaster(octokit, {
     ...githubLink,
     title: versionTag,
+    body: 'Автоматический ПР с измененной версией в `package.json`',
     from: newBranchName,
+    to: MASTER_BRANCH_NAME,
   })
   console.info('Created PR from branch %s to master. link:\n%s', newBranchName, link)
 
   await mergePullRequest(octokit, { ...githubLink, pull_number: prNumber })
   console.info('Merged PR by number #%d', prNumber)
+
+  await createPullRequestToMaster(octokit, {
+    ...githubLink,
+    title: versionTag,
+    body: 'Автоматический ПР после релиза`',
+    from: MASTER_BRANCH_NAME,
+    to: DEV_BRANCH_NAME,
+  })
+  console.info(
+    'Created PR from branch %s to %s. link:\n%s\nPlease check and merge',
+    MASTER_BRANCH_NAME,
+    DEV_BRANCH_NAME,
+    link,
+  )
 
   // Создаём релиз
   await createRelease(octokit, {
