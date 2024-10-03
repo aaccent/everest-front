@@ -2,18 +2,21 @@
 import { FilterType, FilterView } from '@/types/FiltersType'
 import React, { useEffect, useState } from 'react'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { formatShortPriceArrForRange } from '@/features/utility/price'
 
 interface Type {
   id: number
   name: string
   value: any
   fieldType: FilterView['fieldType']
+  prefix?: string
 }
 
 export function formatTagText(f: Type) {
   switch (f.fieldType) {
     case 'range':
-      return `${f.name}: ${f.value[0]} - ${f.value[1]}`
+      const value = formatShortPriceArrForRange(f.value)
+      return `${f.name}: ${value[0]} млн ${f.prefix} - ${value[1]} млн ${f.prefix}`
     case 'toggle':
       return `${f.name}`
     default:
@@ -41,5 +44,6 @@ export function PopupFilterTags({ list }: { list: FilterType<FilterView>[] }) {
       ) : null
     })
   }
+
   return showAllTags()
 }

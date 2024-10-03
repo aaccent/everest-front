@@ -25,6 +25,7 @@ function FilterTags({ list, isQuick, className }: FiltersTagsProps) {
         name: f.name,
         value: filter.parsed.find((item) => item.id === f.id)!.value,
         fieldType: f.fieldType,
+        prefix: f.prefix,
       }
     })
   }

@@ -15,6 +15,7 @@ export type RangeProps = {
   className?: string
   title: string
   showTitle?: boolean
+  step?: number
 } & InputValue<RangeValue>
 
 function Range({
@@ -28,37 +29,14 @@ function Range({
   onChange,
   value: customValue,
   defaultValue = { min, max },
+  step = 1,
 }: RangeProps) {
   const [value, setValue] = useState<RangeValue>(defaultValue)
 
-  const step = 1
-
-  function toShort(value: RangeValue): RangeValue {
-    // if (name === '2') {
-    //   console.log(value)
-    //   console.log({
-    //     min: +(value.min / 1_000_000).toFixed(2),
-    //     max: +(value.max / 1_000_000).toFixed(2),
-    //   })
-    // }
-
-    return {
-      min: +(value.min / 1_000_000).toFixed(2),
-      max: +(value.max / 1_000_000).toFixed(2),
-    }
-  }
-
-  function toLong(value: RangeValue): RangeValue {
-    return {
-      min: value.min * 1_000_000,
-      max: value.max * 1_000_000,
-    }
-  }
-
-  const _value = customValue ? toShort(customValue) : toShort(value)
+  const _value = customValue || value
 
   const _setValue = (value: RangeValue) => {
-    onChange?.(name, toLong(value))
+    onChange?.(name, value)
     if (!customValue) setValue(value)
   }
 
@@ -78,14 +56,14 @@ function Range({
   }
 
   const onMinInputChange = (newValue: string) => {
-    const numberValue = parseInt(newValue)
+    const numberValue = Number(newValue)
 
     if (numberValue < min || numberValue === _value.min) return
     if (numberValue > _value.max) return _setValue({ min, max: _value.max })
     _setValue({ min: +numberValue, max: _value.max })
   }
   const onMaxInputChange = (newValue: string) => {
-    const numberValue = parseInt(newValue)
+    const numberValue = Number(newValue)
 
     if (numberValue > max || numberValue < _value.min || numberValue === _value.max) return
     _setValue({ min: _value.min, max: +numberValue })
@@ -105,17 +83,13 @@ function Range({
           <label>
             <IMaskInput
               mask={`от num ${prefix}`}
+              lazy={false}
               blocks={{
                 num: {
                   mask: Number,
-                  // min,
-                  // max: _value.max,
-                  //scale: 1,
-                  //normalizeZeros: false,
-                  //radix: '.',
+                  radix: '.',
                 },
               }}
-              lazy={false}
               className='w-full focus:outline-0'
               value={_value.min.toString()}
               onAccept={(value) => onMinInputChange(value)}
@@ -130,11 +104,7 @@ function Range({
               blocks={{
                 num: {
                   mask: Number,
-                  // min: _value.min,
-                  // max,
-                  //scale: 1,
-                  //normalizeZeros: false,
-                  //radix: '.',
+                  radix: '.',
                 },
               }}
               className='w-full text-end focus:outline-0'
@@ -145,7 +115,7 @@ function Range({
           </label>
         </div>
         <div className='absolute inset-x-0 bottom-0 h-[12px]'>
-          <div className='absolute inset-x-[12px] inset-y-0'>
+          <div className='absolute inset-x-[12px] bottom-[-10px] top-0'>
             <input
               type='range'
               step={step}
@@ -154,7 +124,6 @@ function Range({
               value={_value.min}
               min={min}
               max={max}
-              onMouseUp={() => _setValue?.({ min: _value.min, max: _value.max })}
             />
             <input
               type='range'
@@ -164,7 +133,6 @@ function Range({
               onChange={onMaxValChange}
               className='track-transparent'
               value={_value.max}
-              onMouseUp={() => _setValue({ min: _value.min, max: _value.max })}
             />
           </div>
 

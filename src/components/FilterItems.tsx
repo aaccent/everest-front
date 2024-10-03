@@ -6,6 +6,7 @@ import Range, { RangeValue } from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
 import React from 'react'
 import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { formatLongPriceForRange, formatShortPriceObjForRange } from '@/features/utility/price'
 
 /** @param filters Полученный от бэкенда массив фильтров
  * @param isQuick  Если `true`, то показывает заголовок поля фильтра, иначе скрывает.*/
@@ -70,17 +71,43 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
               min: filter.value.min,
               max: filter.value.max,
             }
+
+        const formalValue = (prefix: string) => {
+          switch (prefix) {
+            case '₽':
+              return {
+                value: formatShortPriceObjForRange(value),
+                onChange: (id: string, newValue: RangeValue) => {
+                  onChange(id, formatLongPriceForRange(newValue))
+                },
+                min: formatShortPriceObjForRange(filter.value).min,
+                max: formatShortPriceObjForRange(filter.value).max,
+                step: 0.1,
+                prefix: `млн ${prefix}`,
+              }
+            default: {
+              return {
+                value,
+                onChange,
+                min: filter.value.min,
+                max: filter.value.max,
+                prefix,
+              }
+            }
+          }
+        }
         return (
           <Range
-            min={filter.value.min}
-            max={filter.value.max}
+            min={formalValue(filter.prefix).min}
+            max={formalValue(filter.prefix).max}
             name={filter.id.toString()}
             title={filter.name}
             showTitle={!isQuick}
-            defaultValue={value}
-            value={value}
-            onChange={onChange}
-            prefix={filter.prefix ? filter.prefix : ''}
+            defaultValue={formalValue(filter.prefix).value}
+            value={formalValue(filter.prefix).value}
+            onChange={formalValue(filter.prefix).onChange}
+            prefix={formalValue(filter.prefix).prefix || ''}
+            step={formalValue(filter.prefix).step}
           />
         )
       }
