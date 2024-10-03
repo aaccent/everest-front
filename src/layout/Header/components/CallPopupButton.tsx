@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useContext } from 'react'
-import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
-import { PopupContext } from '@/features/visible/Popup'
+import { IsDesktop, IsMobile } from '@/features/adaptive'
+import { PopupContext } from '@/features/Popup'
 
 function CallPopupButton() {
   const { openPopup, activeDynamicPopup } = useContext(PopupContext)
