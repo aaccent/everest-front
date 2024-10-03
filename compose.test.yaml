@@ -3,7 +3,3 @@ version: '3.*'
 services:
   everest:
     container_name: front-test
-    env_file:
-      - .env.test
-      - path: .env.test.local
-        required: false

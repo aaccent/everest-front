@@ -10,5 +10,5 @@ services:
       - path: .env.local
         required: false
     restart: always
-    ports: !override
+    ports:
       - ${PORT}:${PORT}
