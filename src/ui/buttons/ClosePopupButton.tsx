@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { PopupContext } from '@/features/visible/Popup'
+import { PopupContext } from '@/features/Popup'
 import { useSearchParams } from 'next/navigation'
 
 function ClosePopupButton({ className }: { className?: string }) {

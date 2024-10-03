@@ -18,8 +18,8 @@ import ObjectsMapAsideDetail from '@/app/map/_components/ObjectsMapAsideDetail'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
-import { PopupContext } from '@/features/visible/Popup'
-import { AdaptiveContext } from '@/features/visible/adaptive'
+import { PopupContext } from '@/features/Popup'
+import { AdaptiveContext } from '@/features/adaptive'
 
 function useCategoryLink() {
   const pathname = usePathname()
