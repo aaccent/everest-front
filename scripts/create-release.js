@@ -296,19 +296,19 @@ void (async function () {
   await simpleGit().checkout(currentBranch)
   console.info('Checkout back to %s branch', currentBranch)
 
-  const { link, number: prNumber } = await createPullRequestToMaster(octokit, {
+  const { firstPRLink, number: prNumber } = await createPullRequestToMaster(octokit, {
     ...githubLink,
     title: versionTag,
     body: 'Автоматический ПР с измененной версией в `package.json`',
     from: newBranchName,
     to: MASTER_BRANCH_NAME,
   })
-  console.info('Created PR from branch %s to master. link:\n%s', newBranchName, link)
+  console.info('Created PR from branch %s to master. link:\n%s', newBranchName, firstPRLink)
 
   await mergePullRequest(octokit, { ...githubLink, pull_number: prNumber })
   console.info('Merged PR by number #%d', prNumber)
 
-  await createPullRequestToMaster(octokit, {
+  const { secondPRLink } = await createPullRequestToMaster(octokit, {
     ...githubLink,
     title: versionTag,
     body: 'Автоматический ПР после релиза`',
@@ -319,7 +319,7 @@ void (async function () {
     'Created PR from branch %s to %s. link:\n%s\nPlease check and merge',
     MASTER_BRANCH_NAME,
     DEV_BRANCH_NAME,
-    link,
+    secondPRLink,
   )
 
   // Создаём релиз
