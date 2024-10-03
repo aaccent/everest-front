@@ -10,7 +10,7 @@ import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
-import { PopupContext } from '@/features/visible/Popup'
+import { PopupContext } from '@/features/Popup'
 
 interface CategoryFilterProps {
   categoryName: string

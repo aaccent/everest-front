@@ -4,7 +4,7 @@ import { Sort } from '@/types/FiltersType'
 import { useCategorySort } from '@/features/catalog/useCategorySort'
 import Radio from '@/ui/inputs/Radio'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
-import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
+import { IsDesktop, IsMobile } from '@/features/adaptive'
 
 interface SortButtonProps {
   sorts: Sort[]
