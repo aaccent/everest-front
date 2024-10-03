@@ -15,7 +15,7 @@ export interface RawCategory {
 
 type TopLevelCategory = Pick<
   RawCategory,
-  'name' | 'seoDescription' | 'seoTitle' | 'seoUrl' | 'code' | 'description' | 'count'
+  'name' | 'seoDescription' | 'seoTitle' | 'seoUrl' | 'code' | 'description' | 'count' | 'id'
 >
 
 export type Category<
@@ -30,6 +30,7 @@ export type Category<
 export type SubCategory<TObjects extends object | false = false> = RawCategory & {
   breadcrumbs: BreadcrumbItem[]
   categories?: []
+  parent: Pick<Category, 'id' | 'name' | 'seoUrl' | 'count' | 'breadcrumbs'>
   complex?: DetailComplex
   objects: TObjects extends false ? [] : TObjects[]
 }
