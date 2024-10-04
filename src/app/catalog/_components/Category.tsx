@@ -1,18 +1,18 @@
 import React from 'react'
 import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
-import { AnyCategory } from '@/types/Category'
+import { AnyCategoryExceptComplexes } from '@/types/catalog/Category'
 import { getCategory } from '@/globals/api'
 import { GetObjectsFn } from '@/features/catalog/useCategoryObject'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 
 interface Props {
-  category: AnyCategory
+  category: AnyCategoryExceptComplexes
 }
 
 function Category({ category }: Props) {
-  const getObjects: GetObjectsFn<ObjectCardType> = async function (filter, sort) {
+  const getObjects: GetObjectsFn<DefaultObject> = async function (filter, sort) {
     'use server'
 
     const isSubcategory = 'parent' in category
@@ -28,7 +28,7 @@ function Category({ category }: Props) {
   }
 
   return (
-    <CategoryProvider type='secondary' initList={category.objects} getObjects={getObjects}>
+    <CategoryProvider type='default' initList={category.objects} getObjects={getObjects}>
       <CategoryLayout category={category}>
         <CatalogContent tileClassName='gap-y-[32px] md:gap-y-[56px]' type='secondary' category={category} />
       </CategoryLayout>

@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { ComplexCard as ComplexCardType } from '@/types/Complex'
+import { ComplexObject } from '@/types/catalog/Complex'
 import ComplexListCard from '@/ui/cards/ComplexCard/ComplexListCard'
 import { ComplexTileCard } from '@/ui/cards/ComplexCard/ComplexTileCard'
 
 interface Props {
-  item: ComplexCardType
+  item: ComplexObject
   view?: 'tile' | 'list'
 }
 

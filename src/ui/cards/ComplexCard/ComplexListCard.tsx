@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComplexCard, FlatTypes } from '@/types/Complex'
+import { ComplexObject, FlatType } from '@/types/catalog/Complex'
 import Link from 'next/link'
 import { formatPriceShortBy } from '@/features/utility/price'
 import { formatStatus } from '@/features/utility/date'
@@ -7,7 +7,7 @@ import Img from '@/ui/Img'
 import { createComplexLink } from '@/features/catalog/link'
 import Tags from '@/components/Tags'
 
-function showObjectTypes(objectTypes: FlatTypes[]) {
+function showObjectTypes(objectTypes: FlatType[]) {
   return objectTypes.map((object) => {
     return (
       <div
@@ -25,7 +25,7 @@ function showObjectTypes(objectTypes: FlatTypes[]) {
 }
 
 interface Props {
-  item: ComplexCard
+  item: ComplexObject
 }
 
 function ComplexListCard({ item }: Props) {

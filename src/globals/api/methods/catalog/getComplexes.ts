@@ -1,5 +1,5 @@
-import { ComplexCard } from '@/types/Complex'
-import { Category, CategoryRequestWithFilters, FilterRequestParam, SortRequestParam } from '@/types/Category'
+import { ComplexesCategory, ComplexesCategoryFromAPI } from '@/types/catalog/Complex'
+import { CategoryRequestWithFilters, FilterRequestParam, SortRequestParam } from '@/types/catalog/Category'
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 
 type Request = APIRequest<
@@ -8,12 +8,12 @@ type Request = APIRequest<
   } & CategoryRequestWithFilters
 >
 
-type Response = APIResponse<Category<ComplexCard>>
+type Response = APIResponse<ComplexesCategoryFromAPI>
 
 export async function getComplexes(
   filter: FilterRequestParam = null,
   sort: SortRequestParam = null,
-): Promise<Category<false, ComplexCard>> {
+): Promise<ComplexesCategory> {
   const res = await apiCall<Request | false, Response>(`/catalog/complexes`, {
     method: 'POST',
     request: { chainUrl: 'complexes', sort, filter },

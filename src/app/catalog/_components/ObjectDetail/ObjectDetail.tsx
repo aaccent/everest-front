@@ -1,11 +1,11 @@
 import React from 'react'
-import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
+import { DetailDefaultObject } from '@/types/catalog/DetailDefaultObject'
 import ObjectHero from '@/app/catalog/_components/ObjectDetail/ObjectHero'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import ObjectProperties from '@/app/catalog/_components/ObjectDetail/ObjectProperties/ObjectProperties'
 
 interface Props {
-  item: DetailSecondaryObject
+  item: DetailDefaultObject
   isComplexes?: boolean
 }
 

@@ -1,10 +1,10 @@
 import React, { PropsWithChildren } from 'react'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import { AnyCategory } from '@/types/Category'
+import { AnyCategory } from '@/types/catalog/Category'
 import PageTitle from '@/ui/text/PageTitle'
 import Container from '@/layout/Container'
 import QuickFilter from '@/components/QuickFilter/QuickFilter'
-import SubCategoryLink from '@/components/SubCategoryLink'
+import SubCategoryLink from '@/layout/catalog/SubCategoryLink'
 import { getQuickFilters } from '@/globals/api'
 import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
 
@@ -29,7 +29,7 @@ async function CategoryLayout({ category, children }: Props) {
     <>
       <Breadcrumbs category={category} />
       <Container className='mb-[24px] flex items-start justify-between md:mb-[50px]'>
-        <PageTitle title={category.seoTitle || category.name} />
+        <PageTitle title={category.name} />
         <ObjectsAmount className='text-base-300-lg-100 hidden translate-x-0 text-base-650 md:block' />
       </Container>
       {!!category.categories?.length && (

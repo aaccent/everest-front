@@ -1,5 +1,5 @@
 import React from 'react'
-import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
+import { DetailDefaultObject } from '@/types/catalog/DetailDefaultObject'
 import Section from '@/layout/Section'
 import ObjectPropertiesWrapper from '@/app/catalog/_components/ObjectDetail/ObjectProperties/ObjectPropertiesWrapper'
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
@@ -7,7 +7,7 @@ import { formatDate } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
 
 interface Props {
-  item: DetailSecondaryObject
+  item: DetailDefaultObject
 }
 
 function Properties({ item }: Props) {

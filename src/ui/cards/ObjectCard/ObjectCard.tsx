@@ -1,7 +1,6 @@
 import React, { PropsWithChildren } from 'react'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { DefaultObject as ObjectCardType } from '@/types/catalog/DefaultObject'
 import { CategoryForGeneratingLink } from '@/features/catalog/link'
-import { LayoutObject } from '@/types/Complex'
 import ObjectListCard from '@/ui/cards/ObjectCard/ObjectListCard'
 import ObjectTileCard from '@/ui/cards/ObjectCard/ObjectTileCard'
 
@@ -11,7 +10,7 @@ function InfoItem({ children }: PropsWithChildren) {
 
 interface Props {
   view?: 'tile' | 'list'
-  item: ObjectCardType | LayoutObject
+  item: ObjectCardType
   category: CategoryForGeneratingLink
 }
 

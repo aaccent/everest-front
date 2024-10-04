@@ -2,13 +2,11 @@ import {
   Category,
   CategoryRequestWithFilters,
   FilterRequestParam,
-  RawCategory,
   SortRequestParam,
-  SubCategory,
-} from '@/types/Category'
+  SubcategoryLikeCategory,
+} from '@/types/catalog/Category'
 import { CategoryLocation } from '@/types/Map'
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
-import { ObjectCard } from '@/types/ObjectCard'
 
 interface Props {
   subcategory?: string
@@ -18,7 +16,7 @@ interface Props {
   rent?: boolean
 }
 
-type Response = APIResponse<Category<RawCategory, ObjectCard>>
+type Response = APIResponse<Category>
 type Request = APIRequest<
   CategoryRequestWithFilters & {
     location?: CategoryLocation
@@ -30,7 +28,7 @@ type Request = APIRequest<
 export async function getCategory(
   category: string,
   { subcategory, ...options }: Props = {},
-): Promise<Category<RawCategory, ObjectCard> | SubCategory<ObjectCard>> {
+): Promise<Category | SubcategoryLikeCategory> {
   const res = await apiCall<Request, Response>(`/catalog/${category}`, {
     method: 'POST',
     request: {

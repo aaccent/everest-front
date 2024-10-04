@@ -2,8 +2,8 @@
 
 import React, { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Props as CategoryObjectsHookProps, useCategoryObjects } from '@/features/catalog/useCategoryObject'
-import { ComplexCard as ComplexCardType, LayoutObject } from '@/types/Complex'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { ComplexObject, LayoutObject } from '@/types/catalog/Complex'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 type ViewType = 'tile' | 'list'
 
 type CategoryContextObject = {
@@ -21,10 +21,10 @@ type CategoryProviderProps = {
 } & (
   | ({
       type: 'complex'
-    } & CategoryObjectsHookProps<ComplexCardType>)
+    } & CategoryObjectsHookProps<ComplexObject>)
   | ({
-      type: 'secondary'
-    } & CategoryObjectsHookProps<ObjectCardType>)
+      type: 'default'
+    } & CategoryObjectsHookProps<DefaultObject>)
   | ({
       type: 'layout'
     } & CategoryObjectsHookProps<LayoutObject>)
