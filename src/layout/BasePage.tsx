@@ -7,6 +7,7 @@ import { PopupProvider } from '@/features/Popup'
 
 import packageJSON from '@/../package.json'
 import ContactForm from '@/components/ContactForm/ContactForm'
+import { CityContextProvider } from '@/globals/CityContext'
 
 function BasePage({ children }: PropsWithChildren) {
   const baseProps = basePageProps()
@@ -16,16 +17,18 @@ function BasePage({ children }: PropsWithChildren) {
       <span id='app-version' className='absolute hidden'>
         {'v' + packageJSON.version}
       </span>
-      <PopupProvider>
-        <Header />
-        <div className='flex min-h-screen w-full flex-col justify-between'>
-          <main className='h-full flex-[1_1_0]'>
-            {children}
-            <ContactForm />
-          </main>
-          <Footer />
-        </div>
-      </PopupProvider>
+      <CityContextProvider>
+        <PopupProvider>
+          <Header />
+          <div className='flex min-h-screen w-full flex-col justify-between'>
+            <main className='h-full flex-[1_1_0]'>
+              {children}
+              <ContactForm />
+            </main>
+            <Footer />
+          </div>
+        </PopupProvider>
+      </CityContextProvider>
     </AdaptiveProvider>
   )
 }
