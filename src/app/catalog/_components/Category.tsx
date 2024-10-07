@@ -16,7 +16,9 @@ function Category({ category }: Props) {
     'use server'
 
     const isSubcategory = 'parent' in category
-    const categoryCode = isSubcategory ? category.parent.seoUrl : category.seoUrl
+    // '?' в category.parent.seoUrl нужен чтобы убрать ошибку.
+    // Возникает она скорее всего из-за того, что некст предзагружает страницы.
+    const categoryCode = isSubcategory ? category.parent?.seoUrl : category.seoUrl
 
     const data = await getCategory(categoryCode, {
       subcategory: isSubcategory ? category.seoUrl : undefined,

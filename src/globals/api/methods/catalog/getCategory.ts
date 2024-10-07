@@ -37,7 +37,7 @@ export async function getCategory(
     },
   })
 
-  if (!category) return res.data
+  if (!subcategory) return res.data
 
   return {
     ...res.data.categories[0],
