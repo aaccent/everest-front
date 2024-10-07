@@ -1,3 +1,5 @@
+import { RangeValue } from '@/ui/inputs/Range'
+
 const PRICE_PLACEHOLDER = 'нет цены'
 
 type RawPrice = number | string | null | undefined
@@ -82,4 +84,22 @@ export function formatPriceShort(rawPrice: RawPrice) {
   }
 
   return `${shortPrice} млн ₽`
+}
+
+export function formatLongPriceForRange(value: RangeValue): RangeValue {
+  return {
+    min: value.min * 1_000_000,
+    max: value.max * 1_000_000,
+  }
+}
+
+export function formatShortPriceObjForRange(value: RangeValue): RangeValue {
+  return {
+    min: +(value.min / 1_000_000).toFixed(1),
+    max: +(value.max / 1_000_000).toFixed(1),
+  }
+}
+
+export function formatShortPriceArrForRange(value: [number, number]): number[] {
+  return value.map((v) => +(v / 1_000_000).toFixed(1))
 }
