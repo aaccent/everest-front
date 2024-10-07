@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import QuickFiltersTags from '@/components/QuickFilter/QuickFiltersTags'
@@ -12,27 +12,36 @@ type FiltersTagsProps = {
 }
 
 function FilterTags({ list, isQuick, className }: FiltersTagsProps) {
-  const [activeFilters, setActiveFilters] = useState<FilterType<FilterView>[]>([])
   const { filter } = useCategoryFilter()
 
   function getActiveFilters(filtersGeneral: FilterType<FilterView>[]) {
     if (!filtersGeneral.length) return []
-    const activeId = filter.parsed.map((filter) => filter.id)
-    const activeFilters = filtersGeneral.filter((filter) => activeId.includes(filter.id))
-    return activeFilters.map((f) => {
-      return {
-        id: f.id,
-        name: f.name,
-        value: filter.parsed.find((item) => item.id === f.id)!.value,
-        fieldType: f.fieldType,
-        prefix: f.prefix,
+    const activeFilters = Object.fromEntries(filter.parsed.map((filter) => [filter.id, filter]))
+
+    function formatValue(value: FilterView['value']) {
+      if (typeof value === 'object' && 'min' in value) {
+        return [value.min, value.max]
       }
-    })
+      return value
+    }
+
+    return filtersGeneral.reduce(function (accumulator, currentFilter) {
+      if (!(currentFilter.id in activeFilters)) return accumulator
+
+      accumulator.push({
+        id: currentFilter.id,
+        name: currentFilter.name,
+        //@ts-ignore
+        value: formatValue(activeFilters[currentFilter.id].value),
+        fieldType: currentFilter.fieldType,
+        prefix: currentFilter.prefix,
+      })
+
+      return accumulator
+    }, [] as FilterType<FilterView>[])
   }
 
-  useEffect(() => {
-    setActiveFilters(getActiveFilters(list) as FilterType<FilterView>[])
-  }, [list, filter])
+  const activeFilters = getActiveFilters(list) as FilterType<FilterView>[]
   return (
     <div className={className}>
       {isQuick ? <QuickFiltersTags list={activeFilters} /> : <PopupFilterTags list={activeFilters} />}

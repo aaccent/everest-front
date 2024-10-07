@@ -86,9 +86,6 @@ export function useCategoryFilter() {
       newFilter.get(id)!.value = value
     }
 
-    // console.log(newFilter)
-    // console.log(filter.parsed)
-
     const params = new URLSearchParams(searchParams.toString())
     params.set('filter', convertToBase64([...newFilter.values()]))
     window.history.replaceState(null, '', `?${params.toString()}`)

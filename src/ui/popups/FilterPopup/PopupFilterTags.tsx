@@ -15,8 +15,15 @@ interface Type {
 export function formatTagText(f: Type) {
   switch (f.fieldType) {
     case 'range':
-      const value = formatShortPriceArrForRange(f.value)
-      return `${f.name}: ${value[0]} млн ${f.prefix} - ${value[1]} млн ${f.prefix}`
+      const min =
+        f.prefix === '₽'
+          ? `${formatShortPriceArrForRange(f.value)[0]} млн ${f.prefix}`
+          : `${f.value[0]} ${f.prefix || ''}`
+      const max =
+        f.prefix === '₽'
+          ? `${formatShortPriceArrForRange(f.value)[1]} млн ${f.prefix}`
+          : `${f.value[1]} ${f.prefix || ''}`
+      return `${f.name}: ${min} - ${max}`
     case 'toggle':
       return `${f.name}`
     default:
