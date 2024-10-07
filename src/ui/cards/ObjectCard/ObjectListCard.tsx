@@ -1,14 +1,13 @@
 import React from 'react'
-import { ObjectCard } from '@/types/ObjectCard'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 import Link from 'next/link'
 import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/catalog/link'
-import { LayoutObject } from '@/types/Complex'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 
 interface Props {
-  item: ObjectCard | LayoutObject
+  item: DefaultObject
   category: CategoryForGeneratingLink
 }
 

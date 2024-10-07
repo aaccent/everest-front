@@ -1,6 +1,6 @@
 import React from 'react'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
-import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
+import { DetailDefaultObject } from '@/types/catalog/DetailDefaultObject'
 import Section from '@/layout/Section'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
@@ -22,7 +22,7 @@ function ActionButton({ className }: { className?: string }) {
 }
 
 interface Props {
-  item: DetailSecondaryObject
+  item: DetailDefaultObject
 }
 
 function ObjectHero({ item }: Props) {

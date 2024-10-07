@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { QuickFilters } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
-import { getObjects } from '@/globals/api/methods/catalog/getObjects'
 import { getQuickFilters } from '@/globals/api/methods/getFilters'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
@@ -11,6 +10,7 @@ import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import { PopupContext } from '@/features/Popup'
+import { getCategory } from '@/globals/api'
 
 interface CategoryFilterProps {
   categoryName: string
@@ -30,7 +30,8 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
 
   useEffect(() => {
     getQuickFilters(categoryName).then((res) => setFilterInputs(res))
-    getObjects(categoryName, filter.parsed, null, rent).then((res) => {
+
+    getCategory(categoryName, { filter: filter.parsed, rent }).then((res) => {
       setList(res.objects)
     })
   }, [categoryName, rent, filter])

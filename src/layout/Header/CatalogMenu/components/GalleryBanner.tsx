@@ -1,14 +1,14 @@
 'use client'
 import React from 'react'
 import Carousel, { CarouselInner, CarouselSlide } from '@/components/Carousel/Carousel'
-import { ComplexCard } from '@/types/Complex'
+import { ComplexObject } from '@/types/catalog/Complex'
 import { ComplexTileCard } from '@/ui/cards/ComplexCard/ComplexTileCard'
 import {
   CarouselNavigationButtonNext,
   CarouselNavigationButtonPrev,
 } from '@/components/Carousel/components/CarouselNavigationButtons'
 
-function GalleryBanner({ list }: { list: ComplexCard[] }) {
+function GalleryBanner({ list }: { list: ComplexObject[] }) {
   return (
     <Carousel className='relative w-full max-w-[645px] overflow-hidden rounded-[32px]' fade>
       <CarouselInner>

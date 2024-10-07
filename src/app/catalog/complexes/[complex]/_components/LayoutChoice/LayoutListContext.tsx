@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from 'react'
-import { LayoutObject } from '@/types/Complex'
+import { LayoutObject } from '@/types/catalog/Complex'
 
 interface LayoutContextObject {
   activeObject: LayoutObject | null | undefined

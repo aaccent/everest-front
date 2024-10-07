@@ -1,7 +1,7 @@
 import { apiCall, APIResponse } from '@/globals/api/apiCall'
-import { ComplexCard } from '@/types/Complex'
+import { ComplexObject } from '@/types/catalog/Complex'
 
-type Response = APIResponse<ComplexCard[]>
+type Response = APIResponse<ComplexObject[]>
 
 export async function getNewBuildingsBanner() {
   const res = await apiCall<Request | false, Response>(`/info/new-buildings-banner`, { method: 'GET' })

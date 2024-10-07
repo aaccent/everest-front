@@ -1,9 +1,10 @@
 'use client'
 
 import React, { forwardRef, PropsWithChildren, useImperativeHandle, useRef, useState } from 'react'
-import Map, { GeoJSONSource, MapGeoJSONFeature, MapMouseEvent, MapProps, MapRef, Point, ViewState } from 'react-map-gl'
+import Map, { GeoJSONSource, MapMouseEvent, MapProps, MapRef, ViewState } from 'react-map-gl'
+import { GeoJSONFeature } from 'mapbox-gl'
 import { MapCenter } from '@/types/Map'
-import { Feature } from 'geojson'
+import { Feature, Point } from 'geojson'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -16,7 +17,7 @@ export type Props = PropsWithChildren &
     className?: string
     initialCenter?: MapCenter
     initialZoom?: number
-    onPointClick?: (event: MapMouseEvent, feature: MapGeoJSONFeature) => void
+    onPointClick?: (event: MapMouseEvent, feature: GeoJSONFeature) => void
     onClusterClick?: (event: MapMouseEvent, features: Feature[]) => void
     sourceId?: string
   } & (
@@ -59,8 +60,8 @@ const CustomMap = forwardRef<MapRef, Props>(function CustomMap(
 
   useImperativeHandle(mapRef, () => innerMapRef.current!)
 
-  function clusterClickHandler(event: MapMouseEvent, feature: MapGeoJSONFeature) {
-    if (!sourceId) return
+  function clusterClickHandler(event: MapMouseEvent, feature: GeoJSONFeature) {
+    if (!sourceId || !feature.layer) return
 
     const source = event.target.getSource(sourceId) as GeoJSONSource | undefined
 
@@ -91,7 +92,7 @@ const CustomMap = forwardRef<MapRef, Props>(function CustomMap(
     })
   }
 
-  function pointClickHandler(event: MapMouseEvent, feature: MapGeoJSONFeature) {
+  function pointClickHandler(event: MapMouseEvent, feature: GeoJSONFeature) {
     const coordinates = (feature.geometry as Point).coordinates.slice() as [number, number]
 
     onPointClick?.(event, feature)
@@ -104,7 +105,7 @@ const CustomMap = forwardRef<MapRef, Props>(function CustomMap(
   }
 
   function clickHandler(event: MapMouseEvent) {
-    const feature: MapGeoJSONFeature = event.features?.[0]
+    const feature = event.features?.[0]
     if (!feature) return
 
     if (feature.properties?.cluster) {

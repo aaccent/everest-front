@@ -1,6 +1,6 @@
 import React from 'react'
 import Section from '@/layout/Section'
-import { DetailComplex } from '@/types/Complex'
+import { DetailComplex } from '@/types/catalog/Complex'
 import Img from '@/ui/Img'
 import Image from 'next/image'
 import DeveloperLogo from '@/assets/static/donstroy.svg'

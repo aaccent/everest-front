@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Section from '@/layout/Section'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 import Carousel, { CarouselInner, CarouselProgressBar, CarouselSlide } from '@/components/Carousel/Carousel'
 import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 import {
@@ -11,18 +11,18 @@ import {
 
 interface SimilarObjectsProps {
   props: {
-    similarByPrice: ObjectCardType[]
-    similarByMinArea: ObjectCardType[]
+    similarByPrice: DefaultObject[]
+    similarByMinArea: DefaultObject[]
   }
 }
 
 function SimilarObjects({ props }: SimilarObjectsProps) {
-  const [type, setType] = useState<{ type: 'price' | 'minArea'; list: ObjectCardType[] }>({
+  const [type, setType] = useState<{ type: 'price' | 'minArea'; list: DefaultObject[] }>({
     type: 'price',
     list: props.similarByPrice,
   })
 
-  function showObjects(list: ObjectCardType[]) {
+  function showObjects(list: DefaultObject[]) {
     return list.map((object) => {
       return (
         <CarouselSlide
