@@ -3,16 +3,18 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { cookies, ONE_MONTH, setCookie } from '@/features/utility/cookies'
 
+const NOTIFICATION_COOKIE_NAME = 'notification'
+
 function CookieNotification() {
   const [active, setActive] = useState<boolean>(false)
 
   useEffect(() => {
-    if (cookies()?.get('notification')) return
+    if (cookies()?.get(NOTIFICATION_COOKIE_NAME)) return
     setActive(true)
   }, [])
 
   const onClickHandle = () => {
-    setCookie('notification', 'true', { maxAge: ONE_MONTH, path: '/' })
+    setCookie(NOTIFICATION_COOKIE_NAME, 'true', { maxAge: ONE_MONTH, path: '/' })
     setActive(false)
   }
 
