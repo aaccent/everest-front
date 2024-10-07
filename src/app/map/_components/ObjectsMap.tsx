@@ -75,6 +75,16 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
     setItems(features.map((item) => item.properties as MapObject))
   }
 
+  const onMoreZoomClick = () => {
+    const zoom = viewStateControl.viewState.zoom + 0.5
+    viewStateControl.setViewState({ ...viewStateControl.viewState, zoom })
+  }
+
+  const onLessZoomClick = () => {
+    const zoom = viewStateControl.viewState.zoom - 0.5
+    viewStateControl.setViewState({ ...viewStateControl.viewState, zoom })
+  }
+
   return (
     <ObjectsMapContainer>
       <div className='pointer-events-none absolute inset-[16px] z-10 flex flex-col gap-[40px] md:inset-[20px]'>
@@ -87,14 +97,26 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
               list={activePoints}
             />
           )}
-          <Button
-            href={categoryLink}
-            className='pointer-events-auto ml-auto hidden h-[50px] w-fit justify-center px-[10px] text-center after:size-[18px] after:!bg-default md:flex'
-            icon={{ img: 'LIST_VIEW' }}
-            variation='third'
-          >
-            Списком 24 объекта
-          </Button>
+          <div className='ml-auto flex flex-col items-end justify-between'>
+            <Button
+              href={categoryLink}
+              className='pointer-events-auto ml-auto hidden h-[50px] w-fit justify-center px-[10px] text-center after:size-[18px] after:!bg-default md:flex'
+              icon={{ img: 'LIST_VIEW' }}
+              variation='third'
+            >
+              Списком 24 объекта
+            </Button>
+            <div className='pointer-events-auto relative hidden h-[70px] w-[42px] flex-col rounded-[12px] bg-base-100 before:absolute before:inset-y-1/2 before:left-0 before:block before:h-[1px] before:w-[8px] before:-translate-y-1/2 before:bg-base-400 after:absolute after:inset-y-1/2 after:right-0 after:block after:h-[1px] after:w-[8px] after:-translate-y-1/2 after:bg-base-400 md:flex'>
+              <button
+                className='relative flex size-full items-center justify-center before:absolute before:inset-1/2 before:block before:h-[12px] before:w-[2px] before:-translate-x-1/2 before:-translate-y-1/2 before:bg-base-600 after:block after:h-[2px] after:w-[12px] after:bg-base-600'
+                onClick={onMoreZoomClick}
+              />
+              <button
+                className='relative flex size-full items-center justify-center after:block after:h-[2px] after:w-[12px] after:bg-base-600'
+                onClick={onLessZoomClick}
+              />
+            </div>
+          </div>
         </div>
         <div className='pointer-events-auto mt-auto flex w-full gap-[8px] md:hidden'>
           <Button

@@ -34,7 +34,10 @@ const CustomMap = forwardRef<MapRef, Props>(function CustomMap(
   {
     className,
     children,
-    initialCenter = { latitude: 55.755, longitude: 37.617 },
+    initialCenter = {
+      latitude: 55.755,
+      longitude: 37.617,
+    },
     initialZoom = 14,
     viewState: customViewState,
     setViewState: customSetViewState,

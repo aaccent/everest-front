@@ -16,7 +16,8 @@ export interface MapObject {
 }
 
 /** Превращает `list` в формат geojson */
-function convertMapObjectsToGeojson(list: MapObject[]): FeatureCollection {
+function convertMapObjectsToGeojson(list: MapObject[]): FeatureCollection | null {
+  if (!list) return null
   return {
     type: 'FeatureCollection',
     features: list.map((object) => {
