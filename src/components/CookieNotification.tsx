@@ -1,20 +1,18 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { cookies, ONE_MONTH, setCookie } from '@/features/utility/cookies'
-
-const NOTIFICATION_COOKIE_NAME = 'notification'
+import { COOKIES, cookies, ONE_YEAR, setCookie } from '@/features/utility/cookies'
 
 function CookieNotification() {
   const [active, setActive] = useState<boolean>(false)
 
   useEffect(() => {
-    if (cookies()?.get(NOTIFICATION_COOKIE_NAME)) return
+    if (cookies()?.get(COOKIES.NOTIFICATION)) return
     setActive(true)
   }, [])
 
   const onClickHandle = () => {
-    setCookie(NOTIFICATION_COOKIE_NAME, 'true', { maxAge: ONE_MONTH, path: '/' })
+    setCookie(COOKIES.NOTIFICATION, 'true', { maxAge: ONE_YEAR })
     setActive(false)
   }
 

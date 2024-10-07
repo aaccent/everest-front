@@ -5,6 +5,7 @@ export const COOKIES = {
 export type CookieName = (typeof COOKIES)[keyof typeof COOKIES]
 
 export const ONE_MONTH = 30 * 24 * 60 * 60
+export const ONE_YEAR = ONE_MONTH * 12
 
 export function parseCookies(cookiesStr: string) {
   const cookies = cookiesStr
