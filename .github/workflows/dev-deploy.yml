@@ -39,7 +39,7 @@ jobs:
             cd ${{ env.FOLDER }}
             git fetch
             git pull
-            docker compose -f compose.yaml -f compose.dev.yaml --env-file .env --env-file .env.local up -d --build everest
+            docker compose -f compose.yaml -f compose.dev.yaml --env-file .env --env-file .env.development --env-file .env.local up -d --build everest
 
       - name: Set success deployment
         if: success()

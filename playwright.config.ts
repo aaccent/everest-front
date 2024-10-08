@@ -2,6 +2,17 @@ import { defineConfig, devices } from '@playwright/test'
 import { config } from '@dotenvx/dotenvx'
 
 config()
+let command = 'pnpm run start:ci'
+
+if (process.env.APP_ENV === 'development') {
+  config({ path: '.env.development' })
+  command = 'pnpm run start:dev-ci'
+}
+
+if (process.env.APP_ENV === 'test') {
+  config({ path: '.env.testing' })
+  command = 'pnpm run start:test-ci'
+}
 
 export default defineConfig({
   testDir: './src/__tests__',
@@ -28,7 +39,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'pnpm run start:ci',
+    command,
     url: `http://localhost:${process.env.PORT}`,
     reuseExistingServer: !process.env.CI,
   },
