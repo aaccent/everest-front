@@ -29,22 +29,19 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: Set env when PR to dev branch
-        run: echo "NODE_ENV=development" >> $GITHUB_ENV
-        if: startsWith(github.base_ref, 'dev')
-
-      - name: Set env when PR to master branch
-        run: echo "NODE_ENV=production" >> $GITHUB_ENV
-        if: startsWith(github.base_ref, 'master')
-
       - name: Install pnpm via corepack
         run: corepack enable pnpm
 
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build Next.JS app
+      - name: Build Next.JS app if PR created in dev branch
+        run: pnpm run build:dev
+        if: startsWith(github.base_ref, 'dev')
+
+      - name: Build Next.JS app if PR created in master branch
         run: pnpm run build
+        if: startsWith(github.base_ref, 'master')
 
       - name: Upload build to artifact
         uses: actions/upload-artifact@v4
