@@ -35,11 +35,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build Next.JS app if PR created in dev branch
+      - name: Build dev Next.JS app
         run: pnpm run build:dev
         if: startsWith(github.base_ref, 'dev')
 
-      - name: Build Next.JS app if PR created in master branch
+      - name: Build test Next.JS app
         run: pnpm run build:test
         if: startsWith(github.base_ref, 'master')
 
@@ -104,6 +104,14 @@ jobs:
     if: ${{ !startsWith( github.head_ref, 'release/v') }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set dev ENV
+        run: echo "APP_ENV=development" >> $GITHUB_ENV
+        if: startsWith(github.base_ref, 'dev')
+
+      - name: Set test ENV
+        run: echo "APP_ENV=test" >> $GITHUB_ENV
+        if: startsWith(github.base_ref, 'master')
 
       - name: Download build from artifact
         uses: actions/download-artifact@v4
