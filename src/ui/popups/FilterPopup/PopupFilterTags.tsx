@@ -1,8 +1,9 @@
 'use client'
-import { FilterType, FilterView } from '@/types/FiltersType'
-import React, { useEffect, useState } from 'react'
+import { FilterView } from '@/types/FiltersType'
+import React, { useContext } from 'react'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import { formatShortPriceArrForRange } from '@/features/utility/price'
+import { FilterTagsContext } from '@/components/FilterTagsContext'
 
 interface Type {
   id: number
@@ -31,12 +32,9 @@ export function formatTagText(f: Type) {
   }
 }
 
-export function PopupFilterTags({ list }: { list: FilterType<FilterView>[] }) {
-  const [activeFilters, setActiveFilters] = useState<FilterType<FilterView>[]>([])
+export function PopupFilterTags() {
+  const { activeFilters } = useContext(FilterTagsContext)
   const { removeFilter } = useCategoryFilter()
-  useEffect(() => {
-    setActiveFilters(list)
-  }, [list])
 
   function showAllTags() {
     return activeFilters.map((f) => {
@@ -52,5 +50,9 @@ export function PopupFilterTags({ list }: { list: FilterType<FilterView>[] }) {
     })
   }
 
-  return showAllTags()
+  return (
+    <div className={`hidden flex-wrap items-center gap-[10px] md:flex ${activeFilters.length ? 'mb-[64px]' : ''}`}>
+      {showAllTags()}
+    </div>
+  )
 }

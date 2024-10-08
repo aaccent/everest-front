@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
 import { formatTagText } from '@/ui/popups/FilterPopup/PopupFilterTags'
 import Checkbox from '@/ui/inputs/Checkbox'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import Button from '@/ui/buttons/Button'
+import { FilterTagsContext } from '@/components/FilterTagsContext'
 
 interface FilterTagsSelectorProps {
   list: FilterType<FilterView>[]
@@ -18,7 +19,7 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
 
   useEffect(() => {
     setFilterList(() => {
-      return list.slice(3)
+      return list.slice(4)
     })
   }, [list])
 
@@ -73,16 +74,12 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   )
 }
 
-function QuickFiltersTags({ list }: { list: FilterType<FilterView>[] }) {
-  const [activeFilters, setActiveFilters] = useState<FilterType<FilterView>[]>([])
+function QuickFiltersTags() {
+  const { activeFilters } = useContext(FilterTagsContext)
   const { removeFilter } = useCategoryFilter()
 
-  useEffect(() => {
-    setActiveFilters(list)
-  }, [list])
-
   function showFirstTags() {
-    const firstTags = activeFilters.slice(0, 3)
+    const firstTags = activeFilters.slice(0, 4)
     return firstTags.map((f) => {
       return f.value ? (
         <button
@@ -97,10 +94,10 @@ function QuickFiltersTags({ list }: { list: FilterType<FilterView>[] }) {
   }
 
   return (
-    <>
+    <div className='flex items-center gap-[10px]'>
       {showFirstTags()}
-      {list.length > 3 && <FilterTagsSelector list={activeFilters} />}
-    </>
+      {activeFilters.length > 4 && <FilterTagsSelector list={activeFilters} />}
+    </div>
   )
 }
 
