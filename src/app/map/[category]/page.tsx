@@ -15,8 +15,7 @@ interface GetItemsProps {
 
 export async function getItems({ category: categoryCode, subcategory, zoom, center, filters }: GetItemsProps) {
   'use server'
-  const category = await getCategory({
-    category: categoryCode,
+  const category = await getCategory(categoryCode, {
     subcategory,
     filter: filters,
     location: {

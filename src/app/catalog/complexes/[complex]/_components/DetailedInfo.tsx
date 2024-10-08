@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { DetailComplex } from '@/types/Complex'
+import { DetailComplex } from '@/types/catalog/Complex'
 import Link from 'next/link'
 import { formatStatus } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
@@ -41,7 +41,7 @@ function DetailedInfo({ complex }: Props) {
       {opened ? (
         <>
           <div className='absolute inset-x-0 mt-[24px] h-[1px] bg-base-600/10'></div>
-          <ul className='mt-[49px] flex flex-col gap-[14px]'>{showDetails(complex.characteristics[0])}</ul>
+          <ul className='mt-[49px] flex flex-col gap-[14px]'>{showDetails(complex.characteristics)}</ul>
           <Link
             href={complex.presentationLink || ''}
             className='text-base-500-reg-100-upper mt-[24px] block w-full rounded-[16px] bg-base-300 py-[12px] text-center'

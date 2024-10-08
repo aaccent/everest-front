@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { LayoutObject } from '@/types/Complex'
+import { LayoutObject } from '@/types/catalog/Complex'
 import { LayoutContext } from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/LayoutListContext'
 
 interface RowProps {

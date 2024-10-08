@@ -1,5 +1,5 @@
 import React from 'react'
-import { DetailComplex, DetailComplexHouse } from '@/types/Complex'
+import { DetailComplex, DetailComplexHouse } from '@/types/catalog/Complex'
 import Row from '@/ui/Row'
 import Cell from '@/ui/Cell'
 import { Characteristic } from '@/types/Characteristic'

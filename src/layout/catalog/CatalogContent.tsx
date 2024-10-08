@@ -3,8 +3,8 @@ import React, { useContext } from 'react'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import Container from '@/layout/Container'
 import { CategoryForGeneratingLink } from '@/features/catalog/link'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
-import { ComplexCard as ComplexCardType } from '@/types/Complex'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
+import { ComplexObject } from '@/types/catalog/Complex'
 import ComplexCard from '@/ui/cards/ComplexCard/ComplexCard'
 import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 
@@ -30,9 +30,9 @@ function CatalogContent({ category, tileClassName, listClassName, type }: Catalo
     return list.map((item) => {
       switch (type) {
         case 'complex':
-          return <ComplexCard item={item as ComplexCardType} view={view} />
+          return <ComplexCard item={item as ComplexObject} view={view} />
         case 'secondary':
-          return <ObjectCard item={item as ObjectCardType} category={category} view={view} />
+          return <ObjectCard item={item as DefaultObject} category={category} view={view} />
       }
     })
   }

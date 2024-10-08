@@ -11,6 +11,7 @@ interface SymVer {
   newPatch(): string
   isBeta(): boolean
   newBeta(): string
+  removeBeta(): string
 }
 
 interface PackageJSON {

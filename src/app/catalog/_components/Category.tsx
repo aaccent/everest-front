@@ -1,30 +1,38 @@
 import React from 'react'
 import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
-import { AnyCategory } from '@/types/Category'
-import { getNewBuildings, getNewBuildingsSubcategory } from '@/globals/api'
+import { AnyCategoryExceptComplexes } from '@/types/catalog/Category'
+import { getCategory } from '@/globals/api'
 import { GetObjectsFn } from '@/features/catalog/useCategoryObject'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 
 interface Props {
-  category: AnyCategory
-  isSub?: boolean
+  category: AnyCategoryExceptComplexes
 }
 
-function Category({ category, isSub }: Props) {
-  const getObjects: GetObjectsFn<ObjectCardType> = async function (filter, sort) {
+function Category({ category }: Props) {
+  const getObjects: GetObjectsFn<DefaultObject> = async function (filter, sort) {
     'use server'
-    const data = isSub
-      ? await getNewBuildingsSubcategory(category.seoUrl, filter, sort)
-      : await getNewBuildings(filter, sort)
+
+    const isSubcategory = 'parent' in category
+    // '?' в category.parent.seoUrl нужен чтобы убрать ошибку.
+    // Возникает она скорее всего из-за того, что некст предзагружает страницы.
+    const categoryCode = isSubcategory ? category.parent?.seoUrl : category.seoUrl
+
+    const data = await getCategory(categoryCode, {
+      subcategory: isSubcategory ? category.seoUrl : undefined,
+      filter,
+      sort,
+    })
+
     return data.objects
   }
 
   return (
-    <CategoryProvider type='secondary' getObjects={getObjects} initList={category.objects}>
+    <CategoryProvider type='default' initList={category.objects} getObjects={getObjects}>
       <CategoryLayout category={category}>
-        <CatalogContent type='secondary' category={category} />
+        <CatalogContent tileClassName='gap-y-[32px] md:gap-y-[56px]' type='secondary' category={category} />
       </CategoryLayout>
     </CategoryProvider>
   )

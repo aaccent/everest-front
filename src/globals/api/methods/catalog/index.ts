@@ -1,7 +1,3 @@
 export * from './getCatalogMenu'
 export * from './getComplexes'
-export * from './getNewBuildings'
-export * from './getNewBuildingsSubcategory'
-export * from './getSecondaryHousing'
-export * from './getSecondaryHousingSubcategory'
 export * from './getCategory'

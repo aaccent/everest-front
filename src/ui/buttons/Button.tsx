@@ -74,15 +74,18 @@ function Button(props: Props) {
 
     let spinColor
     switch (props.variation) {
-      case 'primary' || 'transparent':
-      default:
-        spinColor = 'filter-base-100'
-        break
-      case 'second' || 'third':
+      case 'third':
+      case 'second':
         spinColor = 'filter-base-600'
         break
       case 'outline':
         spinColor = 'filter-primary'
+        break
+      case 'transparent':
+      case 'primary':
+      default:
+        spinColor = 'filter-base-100'
+        break
     }
 
     return (

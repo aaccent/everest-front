@@ -76,6 +76,10 @@ function getSymVerFromPackage(myPackage) {
 
       return this.version
     },
+    removeBeta() {
+      this.beta = null
+      return this.version
+    },
   }
 }
 
@@ -187,8 +191,10 @@ async function mergePullRequest(octokit, { owner, repo, pull_number }) {
  * @param {SymVerType} type
  * @param {boolean} needAddBeta - Если `true`, то к версии добавится beta строка, иначе не добавится.
  * Если в `type` указано `beta`, то beta строка добавится в любом случае.
+ * @param {boolean} needRemoveBeta - Если `true`, то убирает с текущей версии пометку о бете.
+ * Перезаписывает действие от опции `needAddBeta` и убирает бету если указано `'beta'` в `type`.
  */
-function changeVersion({ symVer, type, needAddBeta }) {
+function changeVersion({ symVer, type, needAddBeta, needRemoveBeta }) {
   switch (type) {
     case 'major':
       symVer.newMajor()
@@ -206,6 +212,10 @@ function changeVersion({ symVer, type, needAddBeta }) {
 
   if (needAddBeta) {
     symVer.newBeta()
+  }
+
+  if (needRemoveBeta) {
+    symVer.removeBeta()
   }
 }
 
@@ -253,7 +263,7 @@ void (async function () {
   const cliArgs = parseCLIArgs()
   const hasVersion = Boolean(cliArgs.major || cliArgs.minor || cliArgs.patch)
 
-  if (!hasVersion && !cliArgs.beta) {
+  if (!hasVersion && !cliArgs.beta && !cliArgs.stable) {
     return console.error(
       'Необходимо выбрать тип версии:\n',
       'pnpm run release -- --major\n',
@@ -270,7 +280,9 @@ void (async function () {
     symVer,
     type: versionType,
     needAddBeta: isBeta && hasVersion,
+    needRemoveBeta: 'stable' in cliArgs,
   })
+
   const newBranchName = await createReleaseBranch(`v${symVer.version}`)
 
   /** @type {`v${string}`} */

@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
-import { AnyCategory } from '@/types/Category'
+import { AnyCategory } from '@/types/catalog/Category'
 import { ROUTES } from '@/globals/paths'
 
 interface BreadcrumbProps {

@@ -20,7 +20,7 @@ export type FilterBlock = {
 
 export type FilterType<T extends FilterView> = {
   [key in keyof T]: T[key]
-} & { id: number; name: string }
+} & { id: number; name: string; prefix: T extends Range ? T['prefix'] : never }
 
 export type Choice = {
   fieldType: 'multilist' | 'inline-multilist'

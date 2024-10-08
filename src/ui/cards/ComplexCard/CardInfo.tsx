@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { formatPriceShortBy } from '@/features/utility/price'
 import { formatStatus } from '@/features/utility/date'
-import { ComplexCard } from '@/types/Complex'
+import { ComplexObject } from '@/types/catalog/Complex'
 import Button from '@/ui/buttons/Button'
 
 interface CardInfoProps {
-  complex: ComplexCard
+  complex: ComplexObject
   link: string
   isBanner?: boolean
 }

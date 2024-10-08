@@ -1,25 +1,26 @@
 import { Tag } from '@/types/Tag'
 import { Characteristic } from '@/types/Characteristic'
+import { DateString } from '@/types/Date'
 
-export interface ObjectCard {
+export interface DefaultObject {
   id: number
   name: string
-  complexName?: string
+  complexName: string | null
   address: string | null
   seoUrl: string
   minArea: number
   typeObject: string
-  description: string
+  description: string | null
+  isReserved: boolean
   price: number
   priceDiscount: number | null
-  isReserved?: boolean
   userId: number | null
   gallery: {
     images: string[]
     count: number
   }
-  completionDate: string
-  publicationTime: string
+  completionDate: DateString
+  publicationTime: DateString
   tags: Tag[] | null
   characteristics: Characteristic[]
   latitude: number

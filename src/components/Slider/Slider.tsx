@@ -7,9 +7,9 @@ import Carousel, {
   CarouselSlide,
   CarouselNavigations,
 } from '@/components/Carousel/Carousel'
-import { ComplexCard as ComplexCardType } from '@/types/Complex'
+import { ComplexObject } from '@/types/catalog/Complex'
 import SeeAllCard from '@/ui/cards/SeeAllCard'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 
 export type SliderProps = {
@@ -17,11 +17,11 @@ export type SliderProps = {
 } & (
   | {
       type: 'complex'
-      list: ComplexCardType[]
+      list: ComplexObject[]
     }
   | {
       type: 'objects'
-      list: ObjectCardType[]
+      list: DefaultObject[]
     }
 )
 
