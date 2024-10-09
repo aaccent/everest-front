@@ -16,7 +16,7 @@ import { objectPlural } from '@/features/utility/pluralRules'
 import Link from 'next/link'
 import { useParams, useSearchParams } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
-import { PopupFilterTags } from '@/ui/popups/FilterPopup/PopupFilterTags'
+import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
 
 interface Props {
   category: string
@@ -78,7 +78,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
             <ClosePopupButton />
           </div>
           <div className='md:h-full md:w-full md:max-w-[1140px] md:overflow-auto md:pb-[350px] md:scrollbar-transparent'>
-            <PopupFilterTags />
+            <FilterTags />
             <div className='flex h-full flex-col pb-[50px] md:block md:h-fit'>{showFiltersBlocks()}</div>
           </div>
         </div>

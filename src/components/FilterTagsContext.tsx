@@ -19,7 +19,8 @@ function getActiveFilters(filtersGeneral: FilterType<FilterView>[], activeFilter
 
     accumulator.push({
       id: currentFilter.id,
-      name: currentFilter.name, //@ts-ignore
+      name: currentFilter.name,
+      // @ts-expect-error
       value: formatValue(activeFilters[currentFilter.id].value),
       fieldType: currentFilter.fieldType,
       prefix: currentFilter.prefix,
@@ -43,13 +44,20 @@ interface FilterTagsProps extends PropsWithChildren {
   list: FilterBlock[]
 }
 
+/**
+ * Хранит в себе выбранные фильтры, для вывода тегов в быстром фильтре и в попапе детальных фильтров.
+ * Преобразует [массив FilterBlock]{@link FilterBlock} в [массив FilterType]{@link FilterType}.
+ * Синхронизирует изменения в детальном и быстром фильтрах
+ */
+
 function FilterTagsProvider({ list, children }: FilterTagsProps) {
   const { filter } = useCategoryFilter()
 
   const [activeFilters, setActiveFilters] = useState<FilterType<FilterView>[]>([])
 
   useEffect(() => {
-    setActiveFilters(getActiveFilters(convertBlocksToFilterType(list), filter.parsed))
+    const convertedList = convertBlocksToFilterType(list)
+    setActiveFilters(getActiveFilters(convertedList, filter.parsed))
   }, [list, filter])
 
   return (
