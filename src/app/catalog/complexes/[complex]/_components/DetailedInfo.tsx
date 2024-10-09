@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { DetailComplex } from '@/types/catalog/Complex'
 import Link from 'next/link'
-import { formatStatus } from '@/features/utility/date'
+import { formatStatusByQuarter } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
 
 function showDetails(array: Characteristic[]) {
@@ -11,7 +11,9 @@ function showDetails(array: Characteristic[]) {
       <li className='text-base-400-lg-100 flex items-center justify-between' key={index}>
         <div className='text-base-650'>{item.name}</div>
         <div className='text-base-600'>
-          {item.name === 'Срок сдачи' && typeof item.value === 'number' ? formatStatus(item.value) : item.value}
+          {item.name === 'Срок сдачи' && typeof item.value === 'number'
+            ? formatStatusByQuarter(item.value)
+            : item.value}
         </div>
       </li>
     )

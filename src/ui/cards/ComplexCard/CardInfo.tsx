@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { formatPriceShortBy } from '@/features/utility/price'
-import { formatStatus } from '@/features/utility/date'
+import { formatStatusByQuarter } from '@/features/utility/date'
 import { ComplexObject } from '@/types/catalog/Complex'
 import Button from '@/ui/buttons/Button'
 
@@ -82,7 +82,7 @@ function CardInfo({ complex, link, isBanner }: CardInfoProps) {
         </div>
         <div className='mt-[12px] flex items-center justify-between'>
           <div className='text-base-400-lg-100 w-fit rounded-[10px] border border-base-400 px-[12px] py-[8px]'>
-            {complex.status ? formatStatus(complex.status) : 'неизвестно'}
+            {complex.status ? formatStatusByQuarter(complex.status) : 'неизвестно'}
           </div>
           {showActionButton()}
         </div>
