@@ -3,3 +3,8 @@ version: '3.*'
 services:
   everest:
     container_name: front-dev
+    env_file: !override
+      - .env
+      - path: .env.local
+        required: false
+      - .env.development
