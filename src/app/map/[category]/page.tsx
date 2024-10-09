@@ -1,7 +1,6 @@
 import React from 'react'
 import ObjectsMap, { GetItemsForMapFn } from '@/app/map/_components/ObjectsMap'
-import { getQuickFilters } from '@/globals/api/methods/getFilters'
-import { getCategory } from '@/globals/api'
+import { getCategory, getQuickFilters } from '@/globals/api'
 import { convertZoomInRadius } from '@/features/utility/map-zoom'
 import { CategoryPage } from '@/types/Page'
 
