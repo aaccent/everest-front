@@ -5,15 +5,17 @@ import PageTitle from '@/ui/text/PageTitle'
 import Container from '@/layout/Container'
 import QuickFilter from '@/components/QuickFilter/QuickFilter'
 import SubCategoryLink from '@/layout/catalog/SubCategoryLink'
-import { getQuickFilters } from '@/globals/api'
+import { getFilters, getQuickFilters } from '@/globals/api'
 import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
+import FilterTagsProvider from '@/components/FilterTagsContext'
 
 interface Props extends PropsWithChildren {
   category: AnyCategory
 }
 
 async function CategoryLayout({ category, children }: Props) {
-  const filters = await getQuickFilters(category.breadcrumbs[0].seo)
+  const quickFilters = await getQuickFilters(category.breadcrumbs[0].seo)
+  const generalFilters = await getFilters(category.breadcrumbs[0].seo)
 
   function showSubCategories() {
     if (!category.categories) return null
@@ -39,7 +41,9 @@ async function CategoryLayout({ category, children }: Props) {
           </ul>
         </Container>
       )}
-      <QuickFilter filters={filters} categoryName={category.breadcrumbs[0].seo} />
+      <FilterTagsProvider list={generalFilters.filters}>
+        <QuickFilter filters={quickFilters} categoryName={category.breadcrumbs[0].seo} />
+      </FilterTagsProvider>
       {children}
     </>
   )
