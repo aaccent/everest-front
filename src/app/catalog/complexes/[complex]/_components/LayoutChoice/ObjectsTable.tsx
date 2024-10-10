@@ -1,9 +1,11 @@
 import React from 'react'
-import { DetailComplex, DetailComplexHouse } from '@/types/catalog/Complex'
+
 import Row from '@/ui/Row'
 import Cell from '@/ui/Cell'
+
+import { DetailComplex, DetailComplexHouse } from '@/types/catalog/Complex'
 import { Characteristic } from '@/types/Characteristic'
-import LayoutCard from '@/ui/cards/LayoutCard'
+import ActiveLayoutCard from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/ActiveLayoutCard'
 
 function isHidden(value: string | number) {
   return value === 'Номер квартиры' || value === 'Тип отделки' ? 'hidden md:table-cell' : ''
@@ -66,7 +68,7 @@ function ObjectsTable({ complex }: ObjectsTableProps) {
   return (
     <>
       <div className='w-full md:max-w-[910px]'>{showHousesTable()}</div>
-      <LayoutCard complex={complex} />
+      <ActiveLayoutCard complex={complex} />
     </>
   )
 }
