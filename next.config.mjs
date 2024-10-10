@@ -11,7 +11,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 's3.timeweb.cloud',
-        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.timeweb.com',
       },
     ],
   },

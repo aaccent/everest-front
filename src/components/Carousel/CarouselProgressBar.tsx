@@ -31,7 +31,7 @@ export function CarouselProgressBar({ className, perView = 1 }: Props) {
   }, [emblaApi])
 
   return (
-    <div className={`relative h-[4px] w-full overflow-hidden rounded-[10px] bg-base-600/15 md:block ${className}`}>
+    <div className={`relative h-[4px] w-full overflow-hidden rounded-[10px] bg-base-600/15 ${className}`}>
       <div className='absolute bottom-0 top-0 bg-primary' style={{ width: `${scrollProgress}%` }}></div>
     </div>
   )
