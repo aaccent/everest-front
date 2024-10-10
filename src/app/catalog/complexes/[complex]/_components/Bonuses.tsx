@@ -7,56 +7,19 @@ import Carousel, {
   CarouselSlide,
 } from '@/components/Carousel/Carousel'
 import Img from '@/ui/Img'
+import { getBonuses } from '@/globals/api/methods/catalog-details/getBonuses'
 
-interface Bonus {
+export interface Bonus {
   id: number
-  image: string
+  photoPath: string
   title: string
-  description: string
+  text: string
 }
 
-const testBonuses = [
-  {
-    id: 1,
-    image: '/bonuses/image 63.png',
-    title: 'Hoff',
-    description: 'Скидка 20% на мебель',
-  },
-  {
-    id: 2,
-    image: '/bonuses/image 631.png',
-    title: 'Многомебели',
-    description: 'Скидка 15% на мебель',
-  },
-  {
-    id: 3,
-    image: '/bonuses/image 632.png',
-    title: 'Leroy Merlin',
-    description: 'Скидка 20 000 рублей',
-  },
-  {
-    id: 1,
-    image: '/bonuses/image 63.png',
-    title: 'Hoff',
-    description: 'Скидка 20% на мебель',
-  },
-  {
-    id: 2,
-    image: '/bonuses/image 631.png',
-    title: 'Многомебели',
-    description: 'Скидка 15% на мебель',
-  },
-  {
-    id: 3,
-    image: '/bonuses/image 632.png',
-    title: 'Leroy Merlin',
-    description: 'Скидка 20 000 рублей',
-  },
-]
-
-function Bonuses() {
+async function Bonuses() {
+  const bonuses = await getBonuses()
   function showBonuses() {
-    return testBonuses.map((b) => {
+    return bonuses.map((b) => {
       return (
         <CarouselSlide
           key={b.id}
@@ -64,14 +27,14 @@ function Bonuses() {
         >
           <div className='flex size-full flex-col rounded-[20px] border border-base-400 px-[20px] pb-[20px] pt-[72px] md:max-w-[512px] md:px-[32px] md:pb-[32px] md:pt-[98px]'>
             <Img
-              src={b.image}
+              src={b.photoPath}
               width={244}
               height={137}
               className='ml-auto mr-auto h-[85px] w-[152px] object-cover object-center md:mb-[42px] md:h-[137px] md:w-[244px]'
             />
             <div className='mt-auto'>
               <div className='text-header-300 mb-[4px] md:mb-[8px]'>{b.title}</div>
-              <div className='text-base-200-lg-100 text-base-650'>{b.description}</div>
+              <div className='text-base-200-lg-100 text-base-650'>{b.text}</div>
             </div>
           </div>
         </CarouselSlide>
