@@ -1,7 +1,12 @@
 'use client'
-import React, { InputHTMLAttributes, useState } from 'react'
+import React, { InputHTMLAttributes, useRef, useState } from 'react'
 import { InputError, useInputRegister } from '@/features/form/useInputRegister'
 import { IMaskInput } from 'react-imask'
+import { InputMask } from 'imask'
+
+interface IMaskElement {
+  maskRef: InputMask | undefined
+}
 
 type NotRequiredHTMLInputProps = Partial<Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'required'>>
 type RequiredHTMLInputProps = Required<Pick<InputHTMLAttributes<HTMLInputElement>, 'name'>>
@@ -19,7 +24,16 @@ export type Props =
   }
 
 function Input({ className: labelClassName, type = 'text', onDark, checked, mask = '', ...inputProps }: Props) {
-  const { inputRef, error, value, setValue } = useInputRegister(inputProps.name, { type })
+  const maskRef = useRef<IMaskElement>(null)
+  const [value, setValue] = useState('')
+  const { inputRef, error } = useInputRegister(inputProps.name, {
+    type,
+    getValue() {
+      const unmaskValue = maskRef.current?.maskRef?.value
+      const directValue = inputRef.current?.value
+      return unmaskValue || directValue || ''
+    },
+  })
   const [isPassShow, setIsPassShow] = useState<boolean>(false)
 
   const onChange = (value: string) => {
@@ -55,7 +69,8 @@ function Input({ className: labelClassName, type = 'text', onDark, checked, mask
         <IMaskInput
           mask={mask as any}
           value={value}
-          ref={inputRef}
+          ref={maskRef}
+          inputRef={inputRef}
           type={isPassShow ? 'text' : type}
           className={`text-base-400-reg-100 w-full rounded-[16px] py-[18px] pl-[14px] pr-[40px] uppercase focus-visible:border-base-600 focus-visible:outline-0 ${className()}`}
           onAccept={onChange}

@@ -41,7 +41,6 @@ export function useInputRegister(name: string, props: InputRegisterProps) {
   const { registerInput, unregisterInput } = useContext(FormContext)
   const [error, setError] = useState<InputErrorCode | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const [value, setValue] = useState<string>('')
 
   useEffect(() => {
     if (!registerInput || !name) return
@@ -52,7 +51,7 @@ export function useInputRegister(name: string, props: InputRegisterProps) {
           return props.getValue()
         }
 
-        return value
+        return inputRef.current?.value || ''
       },
       get required() {
         return inputRef.current?.required || false
@@ -68,5 +67,5 @@ export function useInputRegister(name: string, props: InputRegisterProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return { inputRef, error, value, setValue }
+  return { inputRef, error }
 }

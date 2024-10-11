@@ -191,6 +191,7 @@ export interface FormImperativeRef {
    * Эмулирует нажатие пользователя на `submit` кнопку.
    * */
   submit: () => void
+  get inputs(): InputsMap
 }
 
 interface Props extends PropsWithChildren {
@@ -238,6 +239,9 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
     },
     submit() {
       formRef.current?.requestSubmit()
+    },
+    get inputs() {
+      return inputsRef.current
     },
   }))
 
