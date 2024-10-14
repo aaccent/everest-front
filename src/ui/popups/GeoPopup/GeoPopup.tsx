@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Checkbox from '@/ui/inputs/Checkbox'
 import { PopupContext } from '@/features/Popup'
-import { getLocation } from '@/globals/api/methods/getLocation'
+import { getLocation } from '@/globals/api'
 import { City, Location } from '@/types/Geo'
 import { CityContext } from '@/globals/CityContext'
 
@@ -18,8 +18,9 @@ function GeoPopup({ selectGeoAuto }: GeoPopupProps) {
   const { setCurrentCity } = useContext(CityContext)
 
   useEffect(() => {
-    getLocation().then((res) => setLocation(res))
+    getLocation().then(setLocation)
   }, [])
+
   const onCheckboxClick = () => {
     selectGeoAuto()
     closePopup()
@@ -32,10 +33,14 @@ function GeoPopup({ selectGeoAuto }: GeoPopupProps) {
 
   function showCitiesList() {
     const name = location?.name
-    return location?.cities.map((c) => {
+    return location?.cities.map((city) => {
       return (
-        <button className='border-b border-b-base-600/10 pb-[16px] text-left' onClick={() => onCityClick(c)} key={c.id}>
-          <div className='text-base-200-lg-100 mb-[4px]'>{c.name}</div>
+        <button
+          className='border-b border-b-base-600/10 pb-[16px] text-left'
+          onClick={() => onCityClick(city)}
+          key={city.id}
+        >
+          <div className='text-base-200-lg-100 mb-[4px]'>{city.name}</div>
           <div className='text-base-400-lg-100 text-base-650'>{name}</div>
         </button>
       )

@@ -1,9 +1,10 @@
 import React from 'react'
 import GeoPositionNotification from '@/components/GeoPositionNotification'
-import { getCityByIp } from '@/features/utility/getCityByIp'
-import { getLocation } from '@/globals/api/methods/getLocation'
+import { getCityByIp } from '@/globals/api/geo/getCityByIp'
+import { getLocation } from '@/globals/api'
 import { City } from '@/types/Geo'
 import { cookies } from 'next/headers'
+import { COOKIES } from '@/features/utility/cookies'
 
 const DEFAULT_CITY: City = {
   id: '1',
@@ -15,17 +16,10 @@ const DEFAULT_CITY: City = {
 async function GeoPosition() {
   const locations = await getLocation().then((res) => res.cities)
   const cityName = await getCityByIp()
-  const cityByIp = locations.find((c) => cityName.includes(c.name)) ?? DEFAULT_CITY
+  const cityByIp = locations.find((city) => cityName.includes(city.name)) ?? DEFAULT_CITY
 
-  function showNotification() {
-    if (!cookies().has('city')) {
-      return <GeoPositionNotification cityByIp={cityByIp} />
-    } else {
-      return null
-    }
-  }
-
-  return showNotification()
+  if (cookies().has(COOKIES.CITY)) return null
+  return <GeoPositionNotification cityByIp={cityByIp} />
 }
 
 export default GeoPosition
