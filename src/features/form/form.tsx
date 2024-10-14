@@ -29,6 +29,8 @@ export type InputType =
 export type InputValue<TType extends InputType> =
   TType extends 'text' | 'password'
   ? string
+  : TType extends 'tel' | 'email'
+  ? { unmasked: string, masked: string }
   : TType extends 'file'
   ? FileList
   : TType extends 'selector'
@@ -51,8 +53,12 @@ type FormInput = {
   get error(): InputErrorCode | null
 } & (
   | {
-      type: 'text' | 'password' | 'tel' | 'email'
+      type: 'text' | 'password'
       get value(): InputValue<'text' | 'password'>
+    }
+  | {
+      type: 'tel' | 'email'
+      get value(): InputValue<'tel' | 'email'>
     }
   | {
       type: 'file'
@@ -76,10 +82,10 @@ export type InputsMap = {
   [Key: string]: FormInput
 }
 
-interface CustomInputJSX<TInputType extends InputType = InputType> {
+interface CustomInputJSX {
   name: string
-  type: TInputType
-  value?: InputValue<TInputType>
+  type: InputType
+  value?: InputValue<InputType>
 }
 
 /**
@@ -106,6 +112,8 @@ export interface CustomInputJSXMap {
   [index: string]: CustomInputJSX
 }
 
+type CustomInputsMapHelper = { [key: string]: Pick<FormInput, 'type'> & Partial<Pick<FormInput, 'value'>> }
+
 /**
  * Используется в обработчиках форм, которые обернуты в {@link FormContext} с известными именами полей.
  * Тип существует потому что реализовать подобную типизацию внутрь {@link InputsMap} сложнее.
@@ -122,14 +130,16 @@ export interface CustomInputJSXMap {
  * Если был создан объект с помощью {@link CustomInputJSXMap}, то
  * возможно тебе нужен {@link ConvertToCustomInputsMap}.
  */
-export type CustomInputsMap<
-  TMap extends { [key: string]: Pick<FormInput, 'type'> & Partial<Pick<FormInput, 'value'>> },
-> = {
-  [K in keyof TMap]: Pick<FormInput, 'name' | 'setError' | 'required'> & {
-    type: TMap[K]['type']
-    get value(): InputValue<TMap[K]['type']>
-  }
-}
+export type CustomInputsMap<TMap extends CustomInputsMapHelper | unknown> = TMap extends CustomInputsMapHelper
+  ? {
+      [K in keyof TMap]: Pick<FormInput, 'name' | 'setError' | 'required'> & {
+        type: TMap[K]['type']
+        get value(): InputValue<TMap[K]['type']>
+      }
+    }
+  : never
+
+type UnionToIntersection<U> = (U extends any ? (x: U) => void : never) extends (x: infer I) => void ? I : never
 
 /**
  * Используется для конвертирования {@link CustomInputJSXMap} в {@link CustomInputsMap}.
@@ -148,16 +158,22 @@ export type CustomInputsMap<
  * }
  * ```
  */
-export type ConvertToCustomInputsMap<TInputNames extends CustomInputJSXMap> = CustomInputsMap<{
-  [Key in TInputNames[keyof TInputNames]['name']]: TInputNames[Key]['value'] extends undefined
-    ? {
-        type: TInputNames[Key]['type']
+export type ConvertToCustomInputsMap<TInputNames extends CustomInputJSXMap> = CustomInputsMap<
+  UnionToIntersection<
+    {
+      [Key in keyof TInputNames]: {
+        [Name in TInputNames[Key]['name']]: TInputNames[Key]['value'] extends undefined | unknown | never
+          ? {
+              type: TInputNames[Key]['type']
+            }
+          : {
+              type: TInputNames[Key]['type']
+              get value(): TInputNames[Key]['value']
+            }
       }
-    : {
-        type: TInputNames[Key]['type']
-        get value(): TInputNames[Key]['value']
-      }
-}>
+    }[keyof TInputNames]
+  >
+>
 
 export type RegisterInputProps = Pick<FormInput, 'type' | 'setError' | 'required' | 'value' | 'error'>
 

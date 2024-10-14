@@ -20,7 +20,7 @@ export default function CallForm({ className, children }: Props) {
     const _inputs = inputs as unknown as Inputs
 
     const ok = await sendCallRequest({
-      phone: _inputs.tel.value,
+      phone: _inputs.tel.value.unmasked,
       name: _inputs.name.value,
       time: _inputs.time.value,
     })

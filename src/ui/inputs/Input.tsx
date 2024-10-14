@@ -3,6 +3,7 @@ import React, { InputHTMLAttributes, useRef, useState } from 'react'
 import { InputError, useInputRegister } from '@/features/form/useInputRegister'
 import { IMaskInput } from 'react-imask'
 import { InputMask } from 'imask'
+import { InputValue } from '@/features/form/form'
 
 interface IMaskElement {
   maskRef: InputMask | undefined
@@ -11,24 +12,49 @@ interface IMaskElement {
 type NotRequiredHTMLInputProps = Partial<Pick<InputHTMLAttributes<HTMLInputElement>, 'placeholder' | 'required'>>
 type RequiredHTMLInputProps = Required<Pick<InputHTMLAttributes<HTMLInputElement>, 'name'>>
 
+export interface GetInputValueProps {
+  inputRef: HTMLInputElement | null
+  maskRef: InputMask | undefined
+}
+
+type AllowedInputType = 'tel' | 'text' | 'email' | 'password'
+
+type GetInputValueFn<TType extends AllowedInputType> = (props: GetInputValueProps) => InputValue<TType>
+
 // prettier-ignore
-export type Props = 
+export type Props<TType extends AllowedInputType> =
   & NotRequiredHTMLInputProps
   & RequiredHTMLInputProps
   & {
     checked?: boolean
     onDark?: boolean
     className?: string
-    type: 'tel' | 'text' | 'email' | 'password'
+    type: TType
     mask?: string | RegExp
+    getValue?: GetInputValueFn<TType>
   }
 
-function Input({ className: labelClassName, type = 'text', onDark, checked, mask = '', ...inputProps }: Props) {
+function Input<TType extends AllowedInputType>({
+  className: labelClassName,
+  type,
+  onDark,
+  checked,
+  mask = '',
+  getValue,
+  ...inputProps
+}: Props<TType>) {
   const maskRef = useRef<IMaskElement>(null)
   const [value, setValue] = useState('')
   const { inputRef, error } = useInputRegister(inputProps.name, {
     type,
     getValue() {
+      if (getValue) {
+        return getValue({
+          inputRef: inputRef.current,
+          maskRef: maskRef.current?.maskRef,
+        })
+      }
+
       const unmaskValue = maskRef.current?.maskRef?.value
       const directValue = inputRef.current?.value
       return unmaskValue || directValue || ''
