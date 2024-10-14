@@ -14,7 +14,7 @@ function DocumentationWrapperWithButton({ className, children }: Props) {
   return (
     <>
       <div className={`group/docs ${full ? 'active' : ''}`}>
-        <div className={className}>{children}</div>
+        <ul className={className}>{children}</ul>
       </div>
       <Button variation='outline' size='medium' onClick={onButtonClick} className='mt-[16px] w-full md:mt-[40px]'>
         {full ? 'Свернуть' : 'Показать еще'}
