@@ -1,10 +1,11 @@
 'use client'
 
-import { ConvertToCustomInputsMap, Form, FormImperativeRef, InputsMap } from '@/features/form/form'
+import { Form, FormImperativeRef } from '@/features/form/form'
 import React, { PropsWithChildren, useContext, useRef } from 'react'
 import { sendCallRequest } from '@/globals/api'
 import { INPUT_NAMES } from '@/globals/inputs/call-form'
 import { PopupContext } from '@/features/Popup'
+import { ConvertToCustomInputsMap, InputsMap } from '@/features/form/form.types'
 
 type Inputs = ConvertToCustomInputsMap<typeof INPUT_NAMES>
 

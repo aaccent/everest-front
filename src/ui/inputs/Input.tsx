@@ -3,7 +3,8 @@ import React, { InputHTMLAttributes, useRef, useState } from 'react'
 import { InputError, useInputRegister } from '@/features/form/useInputRegister'
 import { IMaskInput } from 'react-imask'
 import { InputMask } from 'imask'
-import { InputValue } from '@/features/form/form'
+
+import { InputValue } from '@/features/form/form.types'
 
 interface IMaskElement {
   maskRef: InputMask | undefined

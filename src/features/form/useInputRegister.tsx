@@ -1,7 +1,8 @@
 'use client'
 
 import { useContext, useEffect, useRef, useState } from 'react'
-import { FormContext, InputType, InputValue } from '@/features/form/form'
+import { FormContext } from '@/features/form/form'
+import { InputType, InputValue } from '@/features/form/form.types'
 
 export const INPUT_ERRORS_CODES = {
   EMPTY: 'not_filled',
