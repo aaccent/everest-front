@@ -1,7 +1,6 @@
 import React from 'react'
 import GeoPositionNotification from '@/components/GeoPositionNotification'
-import { getCityByIp } from '@/globals/api/geo/getCityByIp'
-import { getLocation } from '@/globals/api'
+import { getLocation, getCityByIp } from '@/globals/api'
 import { City } from '@/types/Geo'
 import { cookies } from 'next/headers'
 import { COOKIES } from '@/features/utility/cookies'

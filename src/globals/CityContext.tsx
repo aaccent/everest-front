@@ -1,7 +1,7 @@
 'use client'
 import { City } from '@/types/Geo'
 import { createContext, PropsWithChildren, useEffect, useState } from 'react'
-import { getLocation } from '@/globals/api/geo/getLocation'
+import { getLocation } from '@/globals/api'
 import { COOKIES, cookies, setCookie } from '@/features/utility/cookies'
 
 interface CityContextObject {

@@ -1,8 +1,7 @@
 export * from './methods/catalog'
 export * from './methods/main-page'
 export * from './methods/catalog-details'
-
-export * from './geo/getLocation'
+export * from './methods/geo'
 
 export * from './methods/getAddresses'
 export * from './methods/getLinks'
