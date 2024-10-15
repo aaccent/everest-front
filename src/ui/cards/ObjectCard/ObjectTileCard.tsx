@@ -5,6 +5,7 @@ import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/catalog/link'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
+import { TEST_ID } from '@/globals/testIds'
 
 function InfoItem({ children }: PropsWithChildren) {
   return <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[8px]'>{children}</li>
@@ -33,7 +34,7 @@ function ObjectCard({ item, category }: Props) {
         </div>
         <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
       </div>
-      <Link href={link}>
+      <Link href={link} data-testid={TEST_ID.OBJECT}>
         <div className='text-header-400 mb-[12px] md:mb-[14px]'>{item.price} ₽</div>
         <ul className='mb-[8px] flex gap-[6px] md:mb-[12px]'>
           <InfoItem>1 комн</InfoItem>

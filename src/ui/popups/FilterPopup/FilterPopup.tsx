@@ -70,7 +70,10 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
 
   return (
     <DynamicPopup popupName='filterPopup'>
-      <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 md:top-[48px] md:block md:h-[(100dvh-48px)] md:p-[56px]'>
+      <div
+        className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 md:top-[48px] md:block md:h-[(100dvh-48px)] md:p-[56px]'
+        data-filter='popup'
+      >
         <div className='relative h-1 grow p-[24px] md:static md:h-full md:grow-0 md:p-0'>
           <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
             <MapObjectsButton className='md:hidden' />

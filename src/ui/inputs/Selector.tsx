@@ -106,7 +106,7 @@ function Selector({
   }
 
   return (
-    <div className='flex flex-col gap-[8px]'>
+    <div className='flex flex-col gap-[8px]' data-filter='selector'>
       {showTitle && <div className='text-base-500-reg-100-upper hidden md:block'>{title}</div>}
       <div
         className={`md:text-base-400-lg-100 group relative mt-[18px] select-none bg-base-100 pb-[18px] md:mt-0 md:min-w-[260px] md:rounded-[16px] md:border md:border-base-400 md:px-[16px] md:py-[12px] md:text-base-650 ${opened ? 'opened pb-0 md:rounded-b-none md:border-b-transparent' : ''} ${className}`}

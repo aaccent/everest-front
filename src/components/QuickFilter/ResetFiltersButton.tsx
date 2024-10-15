@@ -14,7 +14,12 @@ function ResetFiltersButton({ className, text = 'Сбросить' }: Props) {
   if (!filter.parsed.length) return null
 
   return (
-    <button className={`text-base-500-reg-100-upper ${className}`} type='button' onClick={clearFilters}>
+    <button
+      className={`text-base-500-reg-100-upper ${className}`}
+      type='button'
+      onClick={clearFilters}
+      data-filter='clear-filters'
+    >
       {text}
     </button>
   )

@@ -82,14 +82,15 @@ function QuickFiltersTags() {
 
   function showFirstTags() {
     const firstTags = activeFilters.slice(0, TAGS_IN_VIEW)
-    return firstTags.map((f) => {
-      return f.value ? (
+    return firstTags.map((filter) => {
+      return filter.value ? (
         <button
           className='text-base-400-lg-100 flex items-center gap-[5px] text-nowrap rounded-[50px] bg-primary px-[12px] py-[6.5px] text-base-100 after:block after:size-[10px] after:bg-icon-close after:filter-base-100 after:bg-default-cover'
-          key={f.id}
-          onClick={() => removeFilter(f.id)}
+          key={filter.id}
+          onClick={() => removeFilter(filter.id)}
+          data-filter='tag'
         >
-          {formatTagText(f)}
+          {formatTagText(filter)}
         </button>
       ) : null
     })
