@@ -2,164 +2,16 @@
 
 import React, {
   createContext,
-  Dispatch,
   FormEvent,
   forwardRef,
   PropsWithChildren,
   RefObject,
-  SetStateAction,
   useImperativeHandle,
   useRef,
   useState,
 } from 'react'
 import { INPUT_ERRORS_CODES, InputErrorCode } from '@/features/form/useInputRegister'
-
-// prettier-ignore
-export type InputType =
-  | 'tel'
-  | 'email'
-  | 'text'
-  | 'password'
-  | 'toggle'
-  | 'range'
-  | 'selector'
-  | 'file'
-
-// prettier-ignore
-export type InputValue<TType extends InputType> =
-  TType extends 'text' | 'password'
-  ? string
-  : TType extends 'file'
-  ? FileList
-  : TType extends 'selector'
-  ? string[]
-  : TType extends 'toggle'
-  ? boolean
-  : TType extends 'range'
-  ? [number, number]
-  : string
-
-type FormInput = {
-  name: string
-  /**
-   * Устанавливает на поле ошибку.
-   * Эффект от установки зависит от функции переданной во время регистрации
-   * через [registerInput()]{@link registerInput}
-   * */
-  setError: Dispatch<SetStateAction<InputErrorCode | null>>
-  get required(): boolean
-  get error(): InputErrorCode | null
-} & (
-  | {
-      type: 'text' | 'password' | 'tel' | 'email'
-      get value(): InputValue<'text' | 'password'>
-    }
-  | {
-      type: 'file'
-      get value(): InputValue<'file'>
-    }
-  | {
-      type: 'selector'
-      get value(): InputValue<'selector'>
-    }
-  | {
-      type: 'toggle'
-      get value(): InputValue<'toggle'>
-    }
-  | {
-      type: 'range'
-      get value(): InputValue<'range'>
-    }
-)
-
-export type InputsMap = {
-  [Key: string]: FormInput
-}
-
-interface CustomInputJSX<TInputType extends InputType = InputType> {
-  name: string
-  type: TInputType
-  value?: InputValue<TInputType>
-}
-
-/**
- * Используется когда имена и типы полей используются в
- * разных местах одного и того же типа формы.
- *
- * Для одной формы имеет смысл использовать в связке с {@link ConvertToCustomInputsMap}.
- *
- * Тип нужно использовать только с `as const` и `satisfies`.
- * ```tsx
- * const FORM_INPUTS = {
- *   PHONE: { name: 'telephone', type: 'tel' },
- * } as const satisfies CustomInputJSX
- *
- * function SomeForm() {
- *    return <form>
- *      <input name={FORM_INPUTS.PHONE.name} type={FORM_INPUTS.PHONE.type} />
- *    </form>
- * }
- * ```
- * @see ConvertToCustomInputsMap
- */
-export interface CustomInputJSXMap {
-  [index: string]: CustomInputJSX
-}
-
-/**
- * Используется в обработчиках форм, которые обернуты в {@link FormContext} с известными именами полей.
- * Тип существует потому что реализовать подобную типизацию внутрь {@link InputsMap} сложнее.
- *
- * ```ts
- * type Inputs = CustomInputsMap<{ phone: { type: 'tel' } }>
- *
- * function formHandler(inputs: InputsMap) {
- *    const _inputs = inputs as unknown as Inputs
- *    console.log(_inputs.phone.value)
- * }
- * ```
- *
- * Если был создан объект с помощью {@link CustomInputJSXMap}, то
- * возможно тебе нужен {@link ConvertToCustomInputsMap}.
- */
-export type CustomInputsMap<
-  TMap extends { [key: string]: Pick<FormInput, 'type'> & Partial<Pick<FormInput, 'value'>> },
-> = {
-  [K in keyof TMap]: Pick<FormInput, 'name' | 'setError' | 'required'> & {
-    type: TMap[K]['type']
-    get value(): InputValue<TMap[K]['type']>
-  }
-}
-
-/**
- * Используется для конвертирования {@link CustomInputJSXMap} в {@link CustomInputsMap}.
- * Без `CustomInputJSXMap` не имеет смысла.
- *
- * ```ts
- * const FORM_INPUTS = {
- *   PHONE: { name: 'telephone', type: 'tel' },
- * } as const satisfies CustomInputJSX
- *
- * type Inputs = ConvertToCustomInputsMap<typeof FORM_INPUTS>
- *
- * function formHandler(inputs: InputsMap) {
- *    const _inputs = inputs as unknown as Inputs
- *    console.log(_inputs.phone.value)
- * }
- * ```
- */
-export type ConvertToCustomInputsMap<TInputNames extends CustomInputJSXMap> = CustomInputsMap<{
-  [Key in TInputNames[keyof TInputNames]['name']]: TInputNames[Key]['value'] extends undefined
-    ? {
-        type: TInputNames[Key]['type']
-      }
-    : {
-        type: TInputNames[Key]['type']
-        get value(): TInputNames[Key]['value']
-      }
-}>
-
-export type RegisterInputProps = Pick<FormInput, 'type' | 'setError' | 'required' | 'value' | 'error'>
+import { FormInput, InputsMap, RegisterInputProps } from '@/features/form/form.types'
 
 interface FormContextObject {
   /**
@@ -191,6 +43,7 @@ export interface FormImperativeRef {
    * Эмулирует нажатие пользователя на `submit` кнопку.
    * */
   submit: () => void
+  get inputs(): InputsMap
 }
 
 interface Props extends PropsWithChildren {
@@ -238,6 +91,9 @@ export const Form = forwardRef<FormImperativeRef, Props>(function Form(
     },
     submit() {
       formRef.current?.requestSubmit()
+    },
+    get inputs() {
+      return inputsRef.current
     },
   }))
 

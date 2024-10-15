@@ -1,10 +1,11 @@
 'use client'
 
-import { ConvertToCustomInputsMap, Form, FormImperativeRef, InputsMap } from '@/features/form/form'
+import { Form, FormImperativeRef } from '@/features/form/form'
 import React, { PropsWithChildren, useContext, useRef } from 'react'
 import { sendCallRequest } from '@/globals/api'
 import { INPUT_NAMES } from '@/globals/inputs/call-form'
 import { PopupContext } from '@/features/Popup'
+import { ConvertToCustomInputsMap, InputsMap } from '@/features/form/form.types'
 
 type Inputs = ConvertToCustomInputsMap<typeof INPUT_NAMES>
 
@@ -20,7 +21,7 @@ export default function CallForm({ className, children }: Props) {
     const _inputs = inputs as unknown as Inputs
 
     const ok = await sendCallRequest({
-      phone: _inputs.tel.value,
+      phone: _inputs.tel.value.unmasked,
       name: _inputs.name.value,
       time: _inputs.time.value,
     })

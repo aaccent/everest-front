@@ -1,4 +1,4 @@
-import { CustomInputJSXMap } from '@/features/form/form'
+import { CustomInputJSXMap } from '@/features/form/form.types'
 
 export const INPUT_NAMES = {
   NAME: {
