@@ -1,19 +1,21 @@
 import React, { PropsWithChildren } from 'react'
 import Breadcrumbs from '@/components/Breadcrumbs'
-import { AnyCategory } from '@/types/Category'
+import { AnyCategory } from '@/types/catalog/Category'
 import PageTitle from '@/ui/text/PageTitle'
 import Container from '@/layout/Container'
 import QuickFilter from '@/components/QuickFilter/QuickFilter'
-import SubCategoryLink from '@/components/SubCategoryLink'
-import { getQuickFilters } from '@/globals/api'
+import SubCategoryLink from '@/layout/catalog/SubCategoryLink'
+import { getFilters, getQuickFilters } from '@/globals/api'
 import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
+import FilterTagsProvider from '@/components/FilterTagsContext'
 
 interface Props extends PropsWithChildren {
   category: AnyCategory
 }
 
 async function CategoryLayout({ category, children }: Props) {
-  const filters = await getQuickFilters(category.breadcrumbs[0].seo)
+  const quickFilters = await getQuickFilters(category.breadcrumbs[0].seo)
+  const generalFilters = await getFilters(category.breadcrumbs[0].seo)
 
   function showSubCategories() {
     if (!category.categories) return null
@@ -29,7 +31,7 @@ async function CategoryLayout({ category, children }: Props) {
     <>
       <Breadcrumbs category={category} />
       <Container className='mb-[24px] flex items-start justify-between md:mb-[50px]'>
-        <PageTitle title={category.seoTitle || category.name} />
+        <PageTitle title={category.name} />
         <ObjectsAmount className='text-base-300-lg-100 hidden translate-x-0 text-base-650 md:block' />
       </Container>
       {!!category.categories?.length && (
@@ -39,7 +41,9 @@ async function CategoryLayout({ category, children }: Props) {
           </ul>
         </Container>
       )}
-      <QuickFilter filters={filters} categoryName={category.breadcrumbs[0].seo} />
+      <FilterTagsProvider list={generalFilters.filters}>
+        <QuickFilter filters={quickFilters} categoryName={category.breadcrumbs[0].seo} />
+      </FilterTagsProvider>
       {children}
     </>
   )

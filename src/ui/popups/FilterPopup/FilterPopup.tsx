@@ -10,13 +10,13 @@ import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
 import { DynamicPopup, PopupContext } from '@/features/Popup'
-import FilterTags from '@/components/FilterTags'
 import SortButton from '@/components/QuickFilter/SortButton'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import { objectPlural } from '@/features/utility/pluralRules'
 import Link from 'next/link'
 import { useParams, useSearchParams } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
+import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
 
 interface Props {
   category: string
@@ -77,14 +77,9 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
             <div className='text-header-300 md:text-header-200 md:uppercase'>Фильтры</div>
             <ClosePopupButton />
           </div>
-
-          <FilterTags
-            className='hidden md:mb-[64px] md:flex md:w-full md:max-w-[1112px] md:flex-wrap md:items-center md:gap-[10px] md:overflow-auto md:scrollbar-transparent'
-            list={filters}
-          />
-
-          <div className='flex h-full flex-col overflow-auto pb-[50px] scrollbar-transparent md:block md:w-full md:max-w-[1140px] md:pb-[450px]'>
-            {showFiltersBlocks()}
+          <div className='md:h-full md:w-full md:max-w-[1140px] md:overflow-auto md:pb-[350px] md:scrollbar-transparent'>
+            <FilterTags />
+            <div className='flex h-full flex-col pb-[50px] md:block md:h-fit'>{showFiltersBlocks()}</div>
           </div>
         </div>
         <div className='bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:fixed md:justify-normal md:px-[56px] md:py-[24px]'>

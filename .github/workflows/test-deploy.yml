@@ -33,7 +33,7 @@ jobs:
             cd ${{ env.FOLDER }}
             git fetch
             git checkout ${{ github.ref_name }}
-            docker compose -f compose.yaml -f compose.test.yaml --env-file .env --env-file .env.local up -d --build everest
+            docker compose -f compose.yaml -f compose.test.yaml --env-file .env --env-file .env.testing --env-file .env.local up -d --build everest
 
       - name: Set success deployment
         if: success()

@@ -7,6 +7,8 @@ import PageSlider from './_components/PageSlider'
 import DetailedInfo from './_components/DetailedInfo'
 import PageMenuWrapper from './_components/PageMenuWrapper'
 import LayoutChoice from './_components/LayoutChoice/LayoutChoice'
+import Documentation from './_components/Documentation/Documentation'
+import ExclusiveOffers from './_components/ExclusiveOffers'
 
 async function Page({ params }: ComplexPage) {
   const complex = await getComplexDetailed(params.complex)
@@ -18,8 +20,10 @@ async function Page({ params }: ComplexPage) {
       <PageMenuWrapper>
         <PageSlider complex={complex} />
         <DetailedInfo complex={complex} />
+        <ExclusiveOffers />
       </PageMenuWrapper>
       <LayoutChoice complex={complex} />
+      <Documentation />
     </>
   )
 }

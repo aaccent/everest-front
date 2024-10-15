@@ -21,7 +21,7 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   const [isLoading, setIsLoading] = useState(false)
   const { filter } = useCategoryFilter()
   const { sort } = useCategorySort()
-  const timeoutId = useRef<NodeJS.Timeout | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const updateState = async () => {
     setIsLoading(true)
@@ -36,9 +36,10 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   }
 
   useEffect(() => {
-    updateState()
-    if (timeoutId.current) clearTimeout(timeoutId.current)
-    timeoutId.current = setTimeout(updateState, 750)
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+    }
+    timeoutRef.current = setTimeout(updateState, 500)
   }, [sort, filter])
 
   return { list, isLoading }

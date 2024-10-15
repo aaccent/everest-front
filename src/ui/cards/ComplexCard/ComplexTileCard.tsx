@@ -2,12 +2,12 @@ import { createComplexLink } from '@/features/catalog/link'
 import Link from 'next/link'
 import CardInfo from '@/ui/cards/ComplexCard/CardInfo'
 import React from 'react'
-import { ComplexCard as ComplexCardType } from '@/types/Complex'
+import { ComplexObject } from '@/types/catalog/Complex'
 import Tags from '@/components/Tags'
 import Img from '@/ui/Img'
 
 interface Props {
-  item: ComplexCardType
+  item: ComplexObject
   className?: string
   isBanner?: boolean
 }

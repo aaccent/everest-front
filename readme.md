@@ -61,6 +61,11 @@ pnpm run release
 4. `pnpm run release -- --beta` - создаст версию `1.2.3-beta.2`
 5. `pnpm run release -- --minor --beta` - создаст версию `1.3.0-beta.2`
 
+Предположим, что текущая версия `1.2.3-beta.1`:
+
+1. `pnpm run release -- --stable` - создаст версию `1.2.3`
+2. `pnpm run release -- --minor --stable` - создаст версию `1.3.0`
+
 ### Работа скрипта
 
 1. Проверяется указан ли токен в env переменной `GITHUB_TOKEN`

@@ -15,7 +15,7 @@ export const LAYER_IDS = {
 interface Props {
   activePoint: MapObject | null
   sourceId: string
-  data: FeatureCollection
+  data: FeatureCollection | null
 }
 
 /**

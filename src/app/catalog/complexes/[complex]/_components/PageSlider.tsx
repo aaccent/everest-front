@@ -6,7 +6,7 @@ import Carousel, {
   CarouselWhiteNavigations,
 } from '@/components/Carousel/Carousel'
 import Img from '@/ui/Img'
-import { DetailComplex } from '@/types/Complex'
+import { DetailComplex } from '@/types/catalog/Complex'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
 
 function showSlides(images: string[]) {

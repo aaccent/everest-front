@@ -4,10 +4,11 @@ import Header from '@/layout/Header/Header'
 import { AdaptiveProvider } from '@/features/adaptive'
 import { basePageProps } from '@/globals/pageProps'
 import { PopupProvider } from '@/features/Popup'
+import ContactForm from '@/components/ContactForm/ContactForm'
+import CookieNotification from '@/components/CookieNotification'
+import { CityContextProvider } from '@/globals/CityContext'
 
 import packageJSON from '@/../package.json'
-import ContactForm from '@/components/ContactForm/ContactForm'
-import { CityContextProvider } from '@/globals/CityContext'
 
 function BasePage({ children }: PropsWithChildren) {
   const baseProps = basePageProps()
@@ -27,6 +28,7 @@ function BasePage({ children }: PropsWithChildren) {
             </main>
             <Footer />
           </div>
+          <CookieNotification />
         </PopupProvider>
       </CityContextProvider>
     </AdaptiveProvider>
