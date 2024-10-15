@@ -1,0 +1,10 @@
+version: '3.*'
+
+services:
+  everest:
+    container_name: front-test
+    env_file: !override
+      - .env
+      - path: .env.local
+        required: false
+      - .env.testing

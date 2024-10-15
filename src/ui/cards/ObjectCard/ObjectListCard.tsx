@@ -1,15 +1,14 @@
 import React from 'react'
-import { ObjectCard } from '@/types/ObjectCard'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 import Link from 'next/link'
 import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/catalog/link'
-import { LayoutObject } from '@/types/Complex'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 import { TEST_ID } from '@/globals/testIds'
 
 interface Props {
-  item: ObjectCard | LayoutObject
+  item: DefaultObject
   category: CategoryForGeneratingLink
 }
 
@@ -18,11 +17,13 @@ function ObjectListCard({ item, category }: Props) {
 
   return (
     <div className='group/object-card flex w-full rounded-[32px] border border-base-400 p-[40px]'>
-      <Link className='relative mr-[40px]' href={link} data-testid={TEST_ID.OBJECT}>
-        {'tags' in item && <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />}
-        <Gallery />
-      </Link>
-      <Link className='max-w-[570px]' href={link}>
+      <div className='relative mr-[40px]'>
+        {'tags' in item && item.tags && (
+          <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />
+        )}
+        <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
+      </div>
+      <Link className='max-w-[570px]' href={link} data-testid={TEST_ID.OBJECT}>
         <div className='text-header-300 mb-[12px]'>{item.name}</div>
         {!!item.address && (
           <span className='text-base-300-lg-100 flex gap-[4px] text-base-600/50 before:size-[24px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default'>

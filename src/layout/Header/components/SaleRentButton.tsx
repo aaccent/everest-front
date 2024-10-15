@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { hideScroll, showScroll } from '@/features/visible/scroll'
+import { hideScroll, showScroll } from '@/features/scroll'
 import { HeaderContext } from '@/layout/Header/Header.context'
 import { MenuType } from '@/globals/api'
 
@@ -21,7 +21,7 @@ function SaleRentButton({ type }: Props) {
     }
   }
 
-  const text = type === 'rent' ? 'Аренда' : 'Продажа'
+  const text = type === 'rent' ? 'Аренда' : 'Покупка'
 
   return (
     <>

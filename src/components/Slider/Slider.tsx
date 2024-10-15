@@ -7,9 +7,9 @@ import Carousel, {
   CarouselSlide,
   CarouselNavigations,
 } from '@/components/Carousel/Carousel'
-import { ComplexCard as ComplexCardType } from '@/types/Complex'
+import { ComplexObject } from '@/types/catalog/Complex'
 import SeeAllCard from '@/ui/cards/SeeAllCard'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 
 export type SliderProps = {
@@ -17,11 +17,11 @@ export type SliderProps = {
 } & (
   | {
       type: 'complex'
-      list: ComplexCardType[]
+      list: ComplexObject[]
     }
   | {
       type: 'objects'
-      list: ObjectCardType[]
+      list: DefaultObject[]
     }
 )
 
@@ -43,14 +43,19 @@ function Slider({ list, type, link }: SliderProps) {
           </>
         )
       case 'objects':
-        return list.map((card) => (
-          <CarouselSlide
-            className='mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
-            key={card.id}
-          >
-            <ObjectCard category={{ breadcrumbs: [{ name: '', seo: card.typeObject }] }} item={card} />
-          </CarouselSlide>
-        ))
+        return (
+          <>
+            {list.map((card) => (
+              <CarouselSlide
+                className='slider group mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
+                key={card.id}
+              >
+                <ObjectCard category={{ breadcrumbs: [{ name: '', seo: card.typeObject }] }} item={card} />
+              </CarouselSlide>
+            ))}
+            <SeeAllCard link={link} />
+          </>
+        )
     }
   }
 

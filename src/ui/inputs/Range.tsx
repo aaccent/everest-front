@@ -11,27 +11,27 @@ export type RangeProps = {
   max: number
   /** @default { min, max } */
   defaultValue?: RangeValue
-  units?: string
+  prefix?: string
   className?: string
   title: string
   showTitle?: boolean
+  step?: number
 } & InputValue<RangeValue>
 
 function Range({
   name,
   min,
   max,
-  units = '',
+  prefix = '',
   className,
   title,
   showTitle,
   onChange,
   value: customValue,
   defaultValue = { min, max },
+  step = 1,
 }: RangeProps) {
   const [value, setValue] = useState<RangeValue>(defaultValue)
-
-  const step = 1
 
   const _value = customValue || value
 
@@ -56,14 +56,14 @@ function Range({
   }
 
   const onMinInputChange = (newValue: string) => {
-    const numberValue = parseInt(newValue)
+    const numberValue = Number(newValue)
 
     if (numberValue < min || numberValue === _value.min) return
     if (numberValue > _value.max) return _setValue({ min, max: _value.max })
     _setValue({ min: +numberValue, max: _value.max })
   }
   const onMaxInputChange = (newValue: string) => {
-    const numberValue = parseInt(newValue)
+    const numberValue = Number(newValue)
 
     if (numberValue > max || numberValue < _value.min || numberValue === _value.max) return
     _setValue({ min: _value.min, max: +numberValue })
@@ -82,18 +82,14 @@ function Range({
         <div className='text-base-400-lg-100 flex items-center justify-between'>
           <label>
             <IMaskInput
-              mask={`от num ${units}`}
+              mask={`от num ${prefix}`}
+              lazy={false}
               blocks={{
                 num: {
                   mask: Number,
-                  min,
-                  max: _value.max,
-                  scale: 1,
-                  normalizeZeros: false,
                   radix: '.',
                 },
               }}
-              lazy={false}
               className='w-full focus:outline-0'
               value={_value.min.toString()}
               onAccept={(value) => onMinInputChange(value)}
@@ -103,15 +99,11 @@ function Range({
           <div className='absolute inset-1/2 h-[12px] w-[1px] -translate-x-1/2 -translate-y-1/2 bg-base-400' />
           <label>
             <IMaskInput
-              mask={`до num ${units}`}
+              mask={`до num ${prefix}`}
               lazy={false}
               blocks={{
                 num: {
                   mask: Number,
-                  min: _value.min,
-                  max,
-                  scale: 1,
-                  normalizeZeros: false,
                   radix: '.',
                 },
               }}
@@ -123,7 +115,7 @@ function Range({
           </label>
         </div>
         <div className='absolute inset-x-0 bottom-0 h-[12px]'>
-          <div className='absolute inset-x-[12px] inset-y-0'>
+          <div className='absolute inset-x-[12px] bottom-[-10px] top-0'>
             <input
               type='range'
               step={step}
@@ -132,7 +124,6 @@ function Range({
               value={_value.min}
               min={min}
               max={max}
-              onMouseUp={() => _setValue?.({ min: _value.min, max: _value.max })}
             />
             <input
               type='range'
@@ -142,7 +133,6 @@ function Range({
               onChange={onMaxValChange}
               className='track-transparent'
               value={_value.max}
-              onMouseUp={() => _setValue({ min: _value.min, max: _value.max })}
             />
           </div>
 

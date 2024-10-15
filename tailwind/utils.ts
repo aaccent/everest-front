@@ -58,6 +58,19 @@ export const scrollbarUtilities = plugin(function ({ addUtilities, theme }) {
         backgroundColor: theme('colors.base.400'),
       },
     },
+    '.scrollbar-custom-wide': {
+      '&::-webkit-scrollbar': {
+        width: '6px',
+        height: '6px',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: theme('colors.base.500'),
+        borderRadius: '4px',
+      },
+      '&::-webkit-scrollbar-track': {
+        backgroundColor: theme('colors.base.400'),
+      },
+    },
   })
 })
 export const inputRangeTrackUtilities = plugin(function ({ addUtilities }) {
@@ -133,8 +146,8 @@ export const customVariants = plugin(function ({ addVariant, matchVariant }) {
   matchVariant('previous-has', function (value, { modifier }) {
     return modifier ? `:merge(.peer\\/${modifier})${value} + &` : `:merge(.peer)${value} + &`
   })
-  addVariant('scroll-btn-yt', ['&::-webkit-scrollbar-button:vertical:decrement'])
-  addVariant('scroll-btn-yb', ['&::-webkit-scrollbar-button:vertical:increment'])
+  addVariant('scroll-btn-yt', ['&::-webkit-scrollbar-button:single-button:vertical:decrement'])
+  addVariant('scroll-btn-yb', ['&::-webkit-scrollbar-button:single-button:vertical:increment'])
 })
 
 export const miscUtilities = plugin(function ({ matchUtilities, theme }) {

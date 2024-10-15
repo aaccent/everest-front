@@ -64,12 +64,10 @@ function FormMap(props: Props) {
   return (
     <CustomMap
       className='h-[420px] w-full rounded-[20px] md:h-[618px] md:w-[649px]'
-      customProps={{
-        initialViewState: {
-          zoom: 14,
-          bounds: initBounds,
-          fitBoundsOptions: { padding: 50, minZoom: 25, maxZoom: 50 },
-        },
+      initialViewState={{
+        zoom: 14,
+        bounds: initBounds,
+        fitBoundsOptions: { padding: 50, minZoom: 25, maxZoom: 50 },
       }}
     >
       <Image src={mapBavel} alt='' className='absolute right-0 top-0 hidden filter-primary md:block' />

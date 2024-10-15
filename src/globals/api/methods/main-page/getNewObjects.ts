@@ -1,7 +1,7 @@
 import { apiCall, APIResponse } from '@/globals/api/apiCall'
-import { ObjectCard } from '@/types/ObjectCard'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 
-type Response = APIResponse<ObjectCard[]>
+type Response = APIResponse<DefaultObject[]>
 
 export async function getNewObjects() {
   const res = await apiCall<false, Response>('/info/new-objects', { method: 'GET' })

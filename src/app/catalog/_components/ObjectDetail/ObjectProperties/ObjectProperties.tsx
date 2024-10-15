@@ -1,5 +1,5 @@
 import React from 'react'
-import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
+import { DetailDefaultObject } from '@/types/catalog/DetailDefaultObject'
 import Section from '@/layout/Section'
 import ObjectPropertiesWrapper from '@/app/catalog/_components/ObjectDetail/ObjectProperties/ObjectPropertiesWrapper'
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
@@ -7,7 +7,7 @@ import { formatDate } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
 
 interface Props {
-  item: DetailSecondaryObject
+  item: DetailDefaultObject
 }
 
 function Properties({ item }: Props) {
@@ -28,7 +28,11 @@ function Properties({ item }: Props) {
     ))
   }
 
-  return <div className='flex flex-col gap-[20px] md:flex-row md:gap-[52px]'>{showList()}</div>
+  return (
+    <div className='grid select-none grid-cols-1 gap-[20px] md:grid-cols-[repeat(3,370px)] md:gap-[52px]'>
+      {showList()}
+    </div>
+  )
 }
 
 function Description({ item }: Props) {

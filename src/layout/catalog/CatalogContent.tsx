@@ -2,10 +2,9 @@
 import React, { useContext } from 'react'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import Container from '@/layout/Container'
-import { Props as CategoryObjectsHookProps, useCategoryObjects } from '@/features/catalog/useCategoryObject'
 import { CategoryForGeneratingLink } from '@/features/catalog/link'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
-import { ComplexCard as ComplexCardType, LayoutObject } from '@/types/Complex'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
+import { ComplexObject } from '@/types/catalog/Complex'
 import ComplexCard from '@/ui/cards/ComplexCard/ComplexCard'
 import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 
@@ -13,25 +12,12 @@ type CatalogContentProps = {
   category: CategoryForGeneratingLink
   tileClassName?: string
   listClassName?: string
-} & (
-  | ({
-      type: 'complex'
-    } & CategoryObjectsHookProps<ComplexCardType>)
-  | ({
-      type: 'secondary'
-    } & CategoryObjectsHookProps<ObjectCardType>)
-  | ({
-      type: 'layout'
-    } & CategoryObjectsHookProps<LayoutObject>)
-)
+  type: string
+}
 
-function CatalogContent({ type, category, initList, getObjects, tileClassName, listClassName }: CatalogContentProps) {
-  const { list, isLoading } = useCategoryObjects<unknown>({ initList, getObjects })
-
-  const { view } = useContext(CategoryContext)
-
+function CatalogContent({ category, tileClassName, listClassName, type }: CatalogContentProps) {
+  const { view, list, isLoading } = useContext(CategoryContext)
   const onMoreBtnClick = () => {}
-
   let viewStyle
 
   if (view === 'tile') {
@@ -44,9 +30,9 @@ function CatalogContent({ type, category, initList, getObjects, tileClassName, l
     return list.map((item) => {
       switch (type) {
         case 'complex':
-          return <ComplexCard item={item as ComplexCardType} view={view} />
+          return <ComplexCard item={item as ComplexObject} view={view} />
         case 'secondary':
-          return <ObjectCard item={item as ObjectCardType} category={category} view={view} />
+          return <ObjectCard item={item as DefaultObject} category={category} view={view} />
       }
     })
   }

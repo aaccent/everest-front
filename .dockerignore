@@ -10,8 +10,5 @@ node_modules
 # next.js
 .next
 
-# local env files
-.env*.local
-
 # app
 _bazar-cache

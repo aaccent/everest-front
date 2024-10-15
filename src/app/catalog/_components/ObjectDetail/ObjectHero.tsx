@@ -1,6 +1,6 @@
 import React from 'react'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
-import { DetailSecondaryObject } from '@/types/DetailSecondaryObject'
+import { DetailDefaultObject } from '@/types/catalog/DetailDefaultObject'
 import Section from '@/layout/Section'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
@@ -22,21 +22,8 @@ function ActionButton({ className }: { className?: string }) {
 }
 
 interface Props {
-  item: DetailSecondaryObject
+  item: DetailDefaultObject
 }
-
-const testGallery = [
-  '/slider-1.png',
-  '/slider-2.png',
-  '/slider-3.png',
-  '/slider-2.png',
-  '/slider-1.png',
-  '/slider-1.png',
-  '/slider-2.png',
-  '/slider-3.png',
-  '/slider-2.png',
-  '/slider-1.png',
-]
 
 function ObjectHero({ item }: Props) {
   function showProps() {
@@ -54,7 +41,7 @@ function ObjectHero({ item }: Props) {
         decorativeClassName='md:-scale-x-100'
         type='medium'
       >
-        <ObjectGallery list={testGallery} />
+        <ObjectGallery list={item.gallery} />
       </DecorativeBlock>
       <DecorativeBlock
         className='!rounded-[20px] bg-base-200 p-[20px] md:w-full md:max-w-[644px] md:rounded-[32px] md:px-[40px] md:py-[70px]'

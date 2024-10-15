@@ -76,17 +76,18 @@ export function useCategoryFilter() {
    */
   function addFilter(id: number, rawValue: Filter['value'] | RangeValue) {
     const value = sanitizeFilterValue(rawValue)
-    const newFilter = [...filter.parsed]
+    const newFilter = new Map<number, Filter>(filter.parsed.map((i) => [i.id, i]))
 
-    const sameId = filter.parsed.findIndex((item) => item.id === id)
-    if (sameId === -1) {
-      newFilter.push({ id, value })
+    if (!newFilter.has(id)) {
+      newFilter.set(id, { id, value })
+    } else if ((value instanceof Array && !value.length) || !value) {
+      newFilter.delete(id)
     } else {
-      newFilter[sameId].value = value
+      newFilter.get(id)!.value = value
     }
 
     const params = new URLSearchParams(searchParams.toString())
-    params.set('filter', convertToBase64(newFilter))
+    params.set('filter', convertToBase64([...newFilter.values()]))
     window.history.replaceState(null, '', `?${params.toString()}`)
   }
 
@@ -105,5 +106,5 @@ export function useCategoryFilter() {
     window.history.replaceState(null, '', `?${params.toString()}`)
   }
 
-  return { filter, addFilter, findFilter, setFilters, clearFilters, removeFilter }
+  return { filter, addFilter, findFilter, clearFilters, removeFilter }
 }

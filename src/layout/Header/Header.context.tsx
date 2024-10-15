@@ -1,6 +1,6 @@
 'use client'
 import { createContext, PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react'
-import { showScroll, useScroll } from '@/features/visible/scroll'
+import { showScroll, useScroll } from '@/features/scroll'
 import { usePathname } from 'next/navigation'
 
 export const HEADER_MENUS = {
@@ -164,6 +164,7 @@ export function HeaderProvider({ children, pathname: serverPathname }: HeaderSta
   const dataset = {
     ...(menu ? { 'data-menu': menu } : {}),
     ...(pathname !== '/' ? { 'data-inner-page': '' } : { 'data-main-page': '' }),
+    ...(pathname.includes('/map') ? { 'data-map-page': '' } : {}),
   }
 
   return (

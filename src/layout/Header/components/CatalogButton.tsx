@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useContext } from 'react'
-import { IsDesktop, IsMobile } from '@/features/visible/adaptive'
+import { IsDesktop, IsMobile } from '@/features/adaptive'
 import Button, { ButtonVariation } from '@/ui/buttons/Button'
-import { hideScroll, showScroll } from '@/features/visible/scroll'
+import { hideScroll, showScroll } from '@/features/scroll'
 import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
 import { usePathname } from 'next/navigation'
 

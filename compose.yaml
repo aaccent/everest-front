@@ -1,0 +1,14 @@
+version: '3.*'
+
+services:
+  everest:
+    build:
+      context: .
+      no_cache: true
+    env_file:
+      - .env
+      - path: .env.local
+        required: false
+    restart: always
+    ports:
+      - ${PORT}:${PORT}

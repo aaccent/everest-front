@@ -11,7 +11,7 @@ interface Props {
 function ResetFiltersButton({ className, text = 'Сбросить' }: Props) {
   const { filter, clearFilters } = useCategoryFilter()
 
-  if (!filter.str) return null
+  if (!filter.parsed.length) return null
 
   return (
     <button

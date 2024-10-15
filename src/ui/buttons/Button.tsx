@@ -1,11 +1,13 @@
 import React, { ButtonHTMLAttributes, PropsWithChildren } from 'react'
 import { IconName, ICONS_NAME } from '@/globals/icons/icons'
+import Link from 'next/link'
 
 export type ButtonVariation = 'primary' | 'second' | 'third' | 'transparent' | 'outline'
 type HTMLButtonProps = Pick<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>
 
 export type Props = PropsWithChildren &
   HTMLButtonProps & {
+    href?: string
     text?: string
     variation?: ButtonVariation
     size?: 'small' | 'medium' | 'large'
@@ -67,20 +69,23 @@ function Button(props: Props) {
     ].join(' ')
   }
 
-  function loading() {
+  function inner() {
     if (!props.loading) return props.text || props.children
 
     let spinColor
     switch (props.variation) {
-      case 'primary' || 'transparent':
-      default:
-        spinColor = 'filter-base-100'
-        break
-      case 'second' || 'third':
+      case 'third':
+      case 'second':
         spinColor = 'filter-base-600'
         break
       case 'outline':
         spinColor = 'filter-primary'
+        break
+      case 'transparent':
+      case 'primary':
+      default:
+        spinColor = 'filter-base-100'
+        break
     }
 
     return (
@@ -91,14 +96,19 @@ function Button(props: Props) {
     )
   }
 
+  const className = `rounded-[16px] uppercase transition-colors after:transition-[filter] ${iconClassName()} ${sizeClassName()} ${typeClassName()} text-base-500-reg-100-upper disabled:pointer-events-none ${props.className}`
+
+  if (props.href) {
+    return (
+      <Link href={props.href} className={className} onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
+        {inner()}
+      </Link>
+    )
+  }
+
   return (
-    <button
-      className={`rounded-[16px] uppercase transition-colors after:transition-[filter] ${iconClassName()} ${sizeClassName()} ${typeClassName()} text-base-500-reg-100-upper disabled:pointer-events-none ${props.className}`}
-      disabled={props.disabled}
-      onClick={props.onClick}
-      onMouseEnter={props.onMouseEnter}
-    >
-      {loading()}
+    <button className={className} disabled={props.disabled} onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
+      {inner()}
     </button>
   )
 }

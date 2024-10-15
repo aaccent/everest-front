@@ -1,0 +1,60 @@
+name: Development deploy
+
+on:
+  push:
+    branches:
+      - 'dev'
+    paths:
+      - '**/*'
+      - '!**/*.md'
+      - '!.idea'
+  workflow_dispatch:
+
+env:
+  URL: https://everest-dev.aaccent.su
+  FOLDER: /root/front/development
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      deployments: write
+
+    steps:
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          environment: development
+
+      - name: Run docker compose via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd ${{ env.FOLDER }}
+            git fetch
+            git pull
+            docker compose -f compose.yaml -f compose.dev.yaml --env-file .env --env-file .env.development --env-file .env.local up -d --build everest
+
+      - name: Set success deployment
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          state: 'success'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+
+      - name: Set failure deployment
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ env.URL }}
+          state: 'failure'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}

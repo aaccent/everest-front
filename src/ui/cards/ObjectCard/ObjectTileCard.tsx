@@ -1,9 +1,8 @@
 import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
-import { ObjectCard as ObjectCardType } from '@/types/ObjectCard'
+import { DefaultObject as ObjectCardType } from '@/types/catalog/DefaultObject'
 import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
 import { CategoryForGeneratingLink, generateObjectLink } from '@/features/catalog/link'
-import { LayoutObject } from '@/types/Complex'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 import { TEST_ID } from '@/globals/testIds'
@@ -14,8 +13,10 @@ function InfoItem({ children }: PropsWithChildren) {
 
 interface Props {
   category: CategoryForGeneratingLink
-  item: ObjectCardType | LayoutObject
+  item: ObjectCardType
 }
+
+const test = ['/slider-3.png', '/slider-1.png', '/slider-2.png']
 
 function ObjectCard({ item, category }: Props) {
   const link = generateObjectLink(item, category)
@@ -23,15 +24,15 @@ function ObjectCard({ item, category }: Props) {
   return (
     <div className='group/object-card'>
       <div className='relative mb-[22px]'>
-        {'tags' in item && <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />}
+        {'tags' in item && item.tags && (
+          <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />
+        )}
         <div className='absolute right-[16px] top-[16px] z-10 flex gap-[4px] md:right-[14px] md:top-[14px] md:gap-[8px]'>
           <ActionButton className='before:bg-icon-scale md:opacity-0' />
           <ActionButton className='before:bg-icon-address md:opacity-0' />
           <ActionButton className='before:bg-icon-heart' />
         </div>
-        <Link href={link}>
-          <Gallery />
-        </Link>
+        <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
       </div>
       <Link href={link} data-testid={TEST_ID.OBJECT}>
         <div className='text-header-400 mb-[12px] md:mb-[14px]'>{item.price} ₽</div>

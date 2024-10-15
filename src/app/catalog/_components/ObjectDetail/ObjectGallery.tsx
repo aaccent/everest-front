@@ -3,12 +3,13 @@ import React, { Dispatch, SetStateAction, useCallback, useContext, useEffect, us
 import { CarouselSlide } from '@/components/Carousel/CarouselSlide'
 import Img from '@/ui/Img'
 import Carousel, { CarouselContext, CarouselInner, CarouselProgressBar } from '@/components/Carousel/Carousel'
-import { PopupContext } from '@/features/visible/Popup'
+import { PopupContext } from '@/features/Popup'
 import { EmblaCarouselType } from 'embla-carousel'
 import {
   CarouselNavigationButtonNext,
   CarouselNavigationButtonPrev,
 } from '@/components/Carousel/components/CarouselNavigationButtons'
+import { useSearchParams } from 'next/navigation'
 
 interface ThumbsProps {
   onSlideChange: Dispatch<SetStateAction<number>>
@@ -59,16 +60,17 @@ interface GalleryProps {
 function ObjectGallery({ list }: GalleryProps) {
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0)
   const { openPopup } = useContext(PopupContext)
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.has('gallery')) {
+      openPopup({ name: 'galleryPopup' })
+    }
+  }, [])
 
   const onSlideClickHandle = () => {
     if (window.matchMedia('(min-width:768px)').matches) {
-      openPopup({
-        name: 'galleryPopup',
-        args: {
-          list,
-          activeSlideIndex,
-        },
-      })
+      openPopup({ name: 'galleryPopup' })
     }
   }
 
@@ -111,15 +113,7 @@ function ObjectGallery({ list }: GalleryProps) {
       <button
         type='button'
         className='absolute right-[20px] top-[35px] size-[42px] rounded-full bg-base-650 bg-icon-zoom-arrows bg-default-auto md:hidden'
-        onClick={() =>
-          openPopup({
-            name: 'galleryPopup',
-            args: {
-              list,
-              activeSlideIndex,
-            },
-          })
-        }
+        onClick={() => openPopup({ name: 'galleryPopup' })}
       />
       <Thumbs onSlideChange={setActiveSlideIndex}>
         <Carousel>

@@ -23,14 +23,14 @@ function MobileFilterItem({ filters, name, count = 0 }: FilterItemProps) {
   }
 
   return (
-    <div>
-      <div
-        className='text-base-100-reg-100 md:text-base-500-reg-100-upper flex items-center pb-[18px] text-base-600 after:ml-auto after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain md:after:rotate-90'
+    <div className='border-b border-b-base-600/10 py-[18px] last:border-none'>
+      <button
+        className='text-base-100-reg-100 md:text-base-500-reg-100-upper flex w-full items-center text-base-600 after:ml-auto after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain md:after:rotate-90'
         onClick={() => setOpened(true)}
       >
         {name}
         {showCount()}
-      </div>
+      </button>
       <div
         className={`absolute inset-x-0 top-0 z-10 block h-full rounded-[24px] bg-base-100 px-[20px] py-[24px] ${!opened && 'hidden'} flex flex-col`}
       >
@@ -42,7 +42,7 @@ function MobileFilterItem({ filters, name, count = 0 }: FilterItemProps) {
           <div className='text-header-300'>{name}</div>
         </div>
 
-        <div className='mt-[33px] flex h-1 grow flex-col gap-[18px] overflow-auto'>
+        <div className='mt-[33px] flex h-1 grow flex-col gap-[18px] overflow-auto scrollbar-transparent'>
           <FilterItems filters={filters} />
         </div>
       </div>
