@@ -16,7 +16,7 @@ async function GeoPosition() {
   const ip = (headers().get('x-forwarded-for') ?? '').split(',')[0]
 
   const locations = await getLocation().then((res) => res.cities)
-  const cityName = await getCityByIp(ip)
+  const cityName = ip ? await getCityByIp(ip) : DEFAULT_CITY.name
   const cityByIp = locations.find((city) => cityName.includes(city.name)) ?? DEFAULT_CITY
 
   if (cookies().has(COOKIES.CITY)) return null
