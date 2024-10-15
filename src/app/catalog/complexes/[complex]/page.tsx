@@ -9,6 +9,7 @@ import PageMenuWrapper from './_components/PageMenuWrapper'
 import LayoutChoice from './_components/LayoutChoice/LayoutChoice'
 import Documentation from './_components/Documentation/Documentation'
 import ExclusiveOffers from './_components/ExclusiveOffers'
+import Bonuses from '@/app/catalog/complexes/[complex]/_components/Bonuses'
 
 async function Page({ params }: ComplexPage) {
   const complex = await getComplexDetailed(params.complex)
@@ -23,6 +24,7 @@ async function Page({ params }: ComplexPage) {
         <ExclusiveOffers />
       </PageMenuWrapper>
       <LayoutChoice complex={complex} />
+      <Bonuses />
       <Documentation />
     </>
   )
