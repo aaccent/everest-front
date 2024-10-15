@@ -7,6 +7,7 @@ import UsefulLinks from './_components/UsefulLinks/UsefulLinks'
 
 import { getNewBuildingsOnMain, getNewObjects } from '@/globals/api'
 import { ROUTES } from '@/globals/paths'
+import GeoPosition from '@/components/GeoPosition'
 
 export default async function Home() {
   const newBuildingsOnMain = await getNewBuildingsOnMain()
@@ -15,6 +16,7 @@ export default async function Home() {
   return (
     <>
       <MainHero />
+      <GeoPosition />
       <SliderSection type='complex' link={ROUTES.COMPLEXES} list={newBuildingsOnMain} title='Новостройки' />
       <Services />
       <SliderSection type='objects' link={ROUTES.SECONDARY_HOUSING} list={newObjects} title='Новинки в каталоге' />
