@@ -6,7 +6,10 @@ export const EXAMPLE_IP = '94.180.249.90'
 export function middleware(request: NextRequest) {
   const requestHeaders = new Headers(request.headers)
   requestHeaders.set('x-url', request.url)
-  if (process.env.NODE_ENV === 'development') requestHeaders.set('x-forwarded-for', EXAMPLE_IP)
+
+  if (process.env.NODE_ENV === 'development') {
+    requestHeaders.set('x-forwarded-for', EXAMPLE_IP)
+  }
 
   return NextResponse.next({
     request: {
