@@ -21,7 +21,7 @@ async function Page({ params }: ComplexPage) {
         <DetailedInfo complex={complex} />
       </PageMenuWrapper>
       <LayoutChoice complex={complex} />
-      <Documentation />
+      <Documentation complexCode={params.complex} />
     </>
   )
 }
