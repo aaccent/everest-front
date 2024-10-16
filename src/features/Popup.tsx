@@ -9,6 +9,7 @@ import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import ThxPopup from '@/ui/popups/ThxPopup'
 import MapObjectsPopup from '@/ui/popups/MapObjectsPopup'
 import { createPortal } from 'react-dom'
+import GeoPopup from '@/ui/popups/GeoPopup/GeoPopup'
 
 const popups = {
   callPopup: CallPopup,
@@ -17,6 +18,7 @@ const popups = {
   galleryPopup: GalleryPopup,
   thxPopup: ThxPopup,
   mapObject: MapObjectsPopup,
+  geoPopup: GeoPopup,
 } as const
 
 type PopupName = keyof typeof popups

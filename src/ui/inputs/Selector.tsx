@@ -85,13 +85,7 @@ function Selector({
       return isRadio ? (
         <Radio key={index} onClick={onRadioClick} {...props} />
       ) : (
-        <Checkbox
-          key={index}
-          isInSelect
-          defaultChecked={_value.includes(itemValue)}
-          onChange={onCheckboxChanged}
-          {...props}
-        />
+        <Checkbox key={index} defaultChecked={_value.includes(itemValue)} onChange={onCheckboxChanged} {...props} />
       )
     })
   }

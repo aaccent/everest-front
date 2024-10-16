@@ -1,13 +1,17 @@
+'use server'
+
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 
+export type SimilarType = 'price' | 'min_area'
+
 type Response = APIResponse<DefaultObject[]>
 type Request = APIRequest<{
-  type: 'min_area' | 'price'
+  type: SimilarType
   objectUrl: string
 }>
 
-export async function getSimilarObjects(objectUrl: string, type: 'min_area' | 'price'): Promise<DefaultObject[]> {
+export async function getSimilarObjects(objectUrl: string, type: SimilarType): Promise<DefaultObject[]> {
   const res = await apiCall<Request, Response>('/info/similar', {
     method: 'GET',
     request: {
