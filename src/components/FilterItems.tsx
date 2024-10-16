@@ -122,6 +122,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             checked={value || false}
             value={filter.id.toString()}
             onChange={onChange}
+            changeMobileView
           />
         )
       }

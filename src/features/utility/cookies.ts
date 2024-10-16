@@ -1,5 +1,6 @@
 export const COOKIES = {
   NOTIFICATION: 'notification',
+  CITY: 'city',
 } as const
 
 export type CookieName = (typeof COOKIES)[keyof typeof COOKIES]

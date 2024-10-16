@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Section from '@/layout/Section'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 import Carousel, { CarouselInner, CarouselProgressBar, CarouselSlide } from '@/components/Carousel/Carousel'
@@ -8,19 +8,20 @@ import {
   CarouselNavigationButtonNext,
   CarouselNavigationButtonPrev,
 } from '@/components/Carousel/components/CarouselNavigationButtons'
+import { getSimilarObjects, SimilarType } from '@/globals/api'
 
 interface SimilarObjectsProps {
-  props: {
-    similarByPrice: DefaultObject[]
-    similarByMinArea: DefaultObject[]
-  }
+  objectCode: string
+  initList: DefaultObject[]
 }
 
-function SimilarObjects({ props }: SimilarObjectsProps) {
-  const [type, setType] = useState<{ type: 'price' | 'minArea'; list: DefaultObject[] }>({
-    type: 'price',
-    list: props.similarByPrice,
-  })
+function SimilarObjects({ objectCode, initList }: SimilarObjectsProps) {
+  const [list, setList] = useState<DefaultObject[]>(initList)
+  const [type, setType] = useState<SimilarType>('price')
+
+  useEffect(() => {
+    getSimilarObjects(objectCode, type).then(setList)
+  }, [type, objectCode])
 
   function showObjects(list: DefaultObject[]) {
     return list.map((object) => {
@@ -40,6 +41,7 @@ function SimilarObjects({ props }: SimilarObjectsProps) {
     })
   }
 
+  // TODO: Rewrite button onto Tabs
   return (
     <Section>
       <Carousel>
@@ -47,15 +49,15 @@ function SimilarObjects({ props }: SimilarObjectsProps) {
         <div className='mb-[32px] flex items-center justify-between'>
           <div className='*:text-base-500-reg-100-upper flex items-center gap-[8px] *:rounded-[50px] *:px-[14px] *:py-[10px]'>
             <button
-              onClick={() => setType({ type: 'price', list: props.similarByPrice })}
+              onClick={() => setType('price')}
               type='button'
-              className={type.type === 'price' ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}
+              className={type === 'price' ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}
             >
               По стоимости
             </button>
             <button
-              onClick={() => setType({ type: 'minArea', list: props.similarByMinArea })}
-              className={type.type === 'minArea' ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}
+              onClick={() => setType('min_area')}
+              className={type === 'min_area' ? 'bg-primary text-base-100' : 'bg-base-300 text-base-600'}
             >
               По площади
             </button>
@@ -65,7 +67,7 @@ function SimilarObjects({ props }: SimilarObjectsProps) {
             <CarouselNavigationButtonNext className='bg-icon-arrow filter-base-600 bg-default-auto' />
           </div>
         </div>
-        <CarouselInner>{showObjects(type.list)}</CarouselInner>
+        <CarouselInner>{showObjects(list)}</CarouselInner>
         <CarouselProgressBar className='hidden md:mt-[70px]' />
       </Carousel>
     </Section>

@@ -3,8 +3,9 @@ import { cleanup, renderHook, RenderHookResult, screen } from '@testing-library/
 import { afterEach, describe, expect, test, vi } from 'vitest'
 import userEvent from '@testing-library/user-event'
 
-import { Form, FormContext, FormImperativeRef, InputsMap } from '@/features/form/form'
+import { Form, FormContext, FormImperativeRef } from '@/features/form/form'
 import { InputErrorCode } from '@/features/form/useInputRegister'
+import { InputsMap } from '@/features/form/form.types'
 
 interface TestInputProps {
   name: string
