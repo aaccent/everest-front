@@ -20,13 +20,13 @@ import { ROUTES } from '@/globals/paths'
 
 interface Props {
   category: string
-  objectsAmount?: number
+  objectsAmount?: number | null
   quickFilters: QuickFilters
 }
 
-function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
+function FilterPopup({ category, objectsAmount = null, quickFilters }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>([])
-  const { amount } = useContext(CategoryContext)
+  const { list } = useContext(CategoryContext)
   const { closePopup } = useContext(PopupContext)
   const params = useParams()
   const searchParams = useSearchParams()
@@ -34,6 +34,13 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
 
   function convertBlocksToFilterType(blocks: FilterBlock[]): FilterType<FilterView>[] {
     return blocks.reduce((acc, current) => acc.concat(current.filters), [] as FilterType<FilterView>[])
+  }
+
+  function getTotal() {
+    if (objectsAmount === null) {
+      return list.total
+    }
+    return objectsAmount
   }
 
   useEffect(() => {
@@ -98,7 +105,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
             <Button
               variation='primary'
               size='small'
-              text={`Показать ${objectsAmount || amount} ${objectPlural.get(objectsAmount || amount)}`}
+              text={`Показать ${getTotal()} ${objectPlural.get(getTotal())}`}
               className='md:mr-[12px]'
             />
           </Link>

@@ -23,5 +23,9 @@ export async function getComplexes(
     ...res.data,
     categories: [],
     objects: res.data.categories,
+    page: res.data.page | 1,
+    perPage: res.data.perPage | 9,
+    total: res.data.total | res.data.categories.length,
+    count: res.data.count,
   }
 }
