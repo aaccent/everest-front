@@ -1,8 +1,9 @@
 import React from 'react'
 import ObjectsMap, { GetItemsForMapFn } from '@/app/map/_components/ObjectsMap'
-import { getCategory, getQuickFilters } from '@/globals/api'
+import { getCategory, getGeneralFilters, getQuickFilters } from '@/globals/api'
 import { convertZoomInRadius } from '@/features/utility/map-zoom'
 import { CategoryPage } from '@/types/Page'
+import { GetFiltersFn } from '@/layout/catalog/CategoryLayout'
 
 interface GetItemsProps {
   category: string
@@ -34,7 +35,7 @@ export async function getItems({ category: categoryCode, subcategory, zoom, cent
 }
 
 async function Page({ params }: CategoryPage) {
-  const quickFilter = await getQuickFilters(params.category)
+  const categoryCode = params.category
 
   const _getItems: GetItemsForMapFn = async function (filters, center, zoom) {
     'use server'
@@ -47,7 +48,18 @@ async function Page({ params }: CategoryPage) {
     })
   }
 
-  return <ObjectsMap categoryCode={params.category} quickFilters={quickFilter} getItems={_getItems} />
+  const _getFilters: GetFiltersFn = async () => {
+    'use server'
+    const general = await getGeneralFilters(categoryCode)
+    const quick = await getQuickFilters(categoryCode)
+    return {
+      quick,
+      general,
+      categoryCode,
+    }
+  }
+
+  return <ObjectsMap getFilters={_getFilters} getItems={_getItems} />
 }
 
 export default Page

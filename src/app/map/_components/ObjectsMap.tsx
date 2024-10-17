@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import Button from '@/ui/buttons/Button'
 import { FilterItems } from '@/components/FilterItems'
@@ -13,13 +13,14 @@ import ObjectsMapSource, { LAYER_IDS } from './ObjectsMapSource'
 import { GetItemsForMapFn, MapObject, useObjectsMapData } from './useObjectsMapData'
 import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 
-import { QuickFilters } from '@/types/FiltersType'
 import ObjectsMapAsideDetail from '@/app/map/_components/ObjectsMapAsideDetail'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
-import { usePathname } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
 import { PopupContext } from '@/features/Popup'
 import { AdaptiveContext } from '@/features/adaptive'
+import { AllFilters, GetFiltersFn } from '@/layout/catalog/CategoryLayout'
+import { getGeneralFilters, getQuickFilters } from '@/globals/api'
 
 function useCategoryLink() {
   const pathname = usePathname()
@@ -34,12 +35,11 @@ function useCategoryLink() {
 const SOURCE_ID = 'objects'
 
 interface Props {
-  quickFilters: QuickFilters
-  categoryCode: string
+  getFilters: GetFiltersFn
   getItems: GetItemsForMapFn
 }
 
-function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
+function ObjectsMap({ getFilters, getItems }: Props) {
   const { isDesktop } = useContext(AdaptiveContext)
   const { openPopup, closePopup } = useContext(PopupContext)
 
@@ -47,6 +47,21 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
   const { mapRefCallback } = useObjectsMapImages()
   const { objects, viewStateControl } = useObjectsMapData({ getItems })
   const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
+  const [filters, setFilters] = useState<AllFilters>({
+    quick: { filters: [], sorts: [] },
+    general: { filters: [], sorts: [] },
+  })
+  const params = useParams()
+
+  async function updateFilters(categoryCode: string) {
+    const quick = await getQuickFilters(categoryCode)
+    const general = await getGeneralFilters(categoryCode)
+    setFilters({ quick, general })
+  }
+
+  useEffect(() => {
+    updateFilters(params.category as string)
+  }, [])
 
   function setItems(items: MapObject[]) {
     setActivePoints(items)
@@ -132,8 +147,8 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
           </Button>
         </div>
         <div className='pointer-events-auto mt-auto hidden w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px] md:flex'>
-          <DetailFilterButton categoryName={categoryCode} quickFilters={quickFilters} />
-          <FilterItems filters={quickFilters.filters} isQuick />
+          <DetailFilterButton getFilters={getFilters} />
+          <FilterItems filters={filters.quick.filters} isQuick />
           <button
             className='text-base-500-reg-100-upper ml-auto flex items-center gap-[4px] text-base-600/50 after:size-[13px] after:bg-icon-close after:opacity-50 after:bg-default'
             type='button'

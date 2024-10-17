@@ -13,12 +13,16 @@ interface Props extends PropsWithChildren {
   category: AnyCategory
 }
 
-export type GetFiltersFn = () => Promise<{ quick: QuickFilters; general: Filters; categoryCode: string }>
+export type AllFilters = {
+  quick: QuickFilters
+  general: Filters
+}
+export type GetFiltersFn = () => Promise<AllFilters>
 
 async function CategoryLayout({ category, children }: Props) {
   const categoryCode = category.breadcrumbs[0].seo
 
-  const _getFilters: GetFiltersFn = async () => {
+  const _getFilters = async () => {
     'use server'
     const general = await getGeneralFilters(categoryCode)
     const quick = await getQuickFilters(categoryCode)
