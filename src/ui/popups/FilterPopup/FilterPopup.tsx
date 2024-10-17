@@ -32,12 +32,7 @@ function FilterPopup({ category, objectsAmount = null, quickFilters }: Props) {
   const searchParams = useSearchParams()
   const link = params.toString().includes('catalog') ? '' : `${ROUTES.CATALOG}/${category}/?${searchParams.toString()}`
 
-  function getTotal() {
-    if (objectsAmount === null) {
-      return list.total
-    }
-    return objectsAmount
-  }
+  const total = objectsAmount ?? list.total
 
   useEffect(() => {
     getFilters(category).then((res) => {
@@ -96,7 +91,7 @@ function FilterPopup({ category, objectsAmount = null, quickFilters }: Props) {
             <Button
               variation='primary'
               size='small'
-              text={`Показать ${getTotal()} ${objectPlural.get(getTotal())}`}
+              text={`Показать ${total} ${objectPlural.get(total)}`}
               className='md:mr-[12px]'
             />
           </Link>

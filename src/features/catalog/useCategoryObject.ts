@@ -5,30 +5,28 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { useCategorySort } from '@/features/catalog/useCategorySort'
 import { PER_PAGE } from '@/layout/catalog/CategoryContext'
 
-export type Options = {
+type GetObjectsOptions = {
   filter: object[] | null
   sort: Sort['value'] | null
   page: number
   perPage: number
 }
 
-export type ListType = {
-  objects: unknown[]
+export type ListType<TType = unknown> = {
+  objects: TType[]
+  /** Общее количество объектов в категории */
   total: number
+  /** Количество объектов, которое добавилось к общему списку объектов после изменения пагинации */
   count: number
 }
 
-const emptyList: ListType = {
+const EMPTY_LIST: ListType = {
   objects: [],
   count: 0,
   total: 0,
 }
 
-export type GetObjectsFn<TType = unknown> = (options: Options) => Promise<{
-  objects: TType[]
-  total: number
-  count: number
-}>
+export type GetObjectsFn<TType = unknown> = (options: GetObjectsOptions) => Promise<ListType>
 
 export interface Props<TType = unknown> {
   initList: TType[]
@@ -43,7 +41,7 @@ export type ObjectManagerType = {
   }
   pagination: {
     page: number
-    setPage: Dispatch<SetStateAction<number>>
+    nextPage: () => void
     perPage: number
     setPerPage: Dispatch<SetStateAction<number>>
   }
@@ -70,8 +68,8 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   const { sort } = useCategorySort()
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  async function _getObjects(pageNumber: number = page) {
-    const options: Options = {
+  async function _getObjects(pageNumber: number = 1) {
+    const options: GetObjectsOptions = {
       filter: filter.parsed,
       sort,
       page: pageNumber,
@@ -83,20 +81,20 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   const filterUpdate = async () => {
     setIsLoading(true)
     try {
-      const data = await _getObjects(1)
+      const data = await _getObjects()
       setPage(1)
       setList(data)
     } catch (e) {
-      setList(emptyList)
+      setList(EMPTY_LIST)
     } finally {
       setIsLoading(false)
     }
   }
 
-  const paginationUpdate = async () => {
+  const paginationUpdate = async (newPage: number) => {
     setIsLoading(true)
     try {
-      const data = await _getObjects()
+      const data = await _getObjects(newPage)
       const { objects, count, total } = data
       setList({
         objects: list.objects.concat(objects),
@@ -104,7 +102,7 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
         total,
       })
     } catch (e) {
-      setList(emptyList)
+      setList(EMPTY_LIST)
     } finally {
       setIsLoading(false)
     }
@@ -117,10 +115,13 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
     timeoutRef.current = setTimeout(filterUpdate, 500)
   }, [sort, filter])
 
-  useEffect(() => {
-    if (page === 1) return
-    paginationUpdate()
-  }, [page, perPage])
+  function nextPage() {
+    setPage((currentPage) => {
+      const newPage = ++currentPage
+      paginationUpdate(newPage)
+      return newPage
+    })
+  }
 
   return {
     list,
@@ -130,7 +131,7 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
     },
     pagination: {
       page,
-      setPage,
+      nextPage,
       perPage,
       setPerPage,
     },

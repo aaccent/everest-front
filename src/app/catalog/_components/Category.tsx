@@ -27,7 +27,6 @@ function Category({ category }: Props) {
       page,
       perPage,
     })
-
     return {
       objects: data.objects,
       total: data.total,

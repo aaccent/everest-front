@@ -1,6 +1,7 @@
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 import { ComplexesCategory } from '@/types/catalog/Complex'
+import { Pagination } from '@/types/Pagination'
 
 /** Используется для поля `categories` в {@link Category} и других подобных типах */
 export interface Subcategory {
@@ -11,12 +12,9 @@ export interface Subcategory {
   type: string
   imageUrl: string | null
   count: number
-  page: number
-  perPage: number
-  total: number
 }
 
-export interface Category {
+export type Category = {
   id: number
   name: string
   seoUrl: string
@@ -25,10 +23,7 @@ export interface Category {
   breadcrumbs: BreadcrumbItem[]
   categories: Subcategory[]
   objects: DefaultObject[]
-  page: number
-  perPage: number
-  total: number
-}
+} & Pagination
 
 /** Тип подкатегории после преобразований */
 export type SubcategoryLikeCategory = Subcategory & {
@@ -36,7 +31,7 @@ export type SubcategoryLikeCategory = Subcategory & {
   categories?: never
   objects: DefaultObject[]
   parent: Pick<Category, 'id' | 'name' | 'seoUrl' | 'count' | 'breadcrumbs'>
-}
+} & Pagination
 
 export type AnyCategory = Category | SubcategoryLikeCategory | ComplexesCategory
 export type AnyCategoryExceptComplexes = Category | SubcategoryLikeCategory
@@ -49,4 +44,9 @@ export type SortRequestParam = string | null
 export interface CategoryRequestWithFilters {
   filter?: FilterRequestParam
   sort?: SortRequestParam
+}
+
+export interface CategoryRequestWithPagination {
+  page?: number
+  perPage?: number
 }

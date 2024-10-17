@@ -21,7 +21,7 @@ function CatalogContent({ category, tileClassName, listClassName, type }: Catalo
   const { view, list, pagination } = useContext(CategoryContext)
 
   const onMoreBtnClick = () => {
-    pagination.setPage((prev) => prev + 1)
+    pagination.nextPage()
   }
   let viewStyle
 
