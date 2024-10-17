@@ -4,15 +4,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import { PopupContext } from '@/features/Popup'
-import { QuickFilters } from '@/types/FiltersType'
+import { GetFiltersFn } from '@/layout/catalog/CategoryLayout'
 
 interface Props {
   className?: string
-  categoryName: string
-  quickFilters: QuickFilters
+  getFilters: GetFiltersFn
 }
 
-function DetailFilterButton({ className, categoryName, quickFilters }: Props) {
+function DetailFilterButton({ className, getFilters }: Props) {
   const { filter } = useCategoryFilter()
   const [count, setCount] = useState<number>(filter.parsed.length)
   const { openDynamicPopup } = useContext(PopupContext)
@@ -32,7 +31,7 @@ function DetailFilterButton({ className, categoryName, quickFilters }: Props) {
         type='button'
         onClick={() => openDynamicPopup('filterPopup')}
       />
-      <FilterPopup category={categoryName} quickFilters={quickFilters} />
+      <FilterPopup getFilters={getFilters} />
     </div>
   )
 }

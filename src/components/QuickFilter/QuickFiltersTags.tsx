@@ -96,7 +96,7 @@ function QuickFiltersTags() {
   }
 
   return (
-    <div className='flex items-center gap-[10px]'>
+    <div className='relative flex items-center gap-[10px]'>
       {showFirstTags()}
       {activeFilters.length > TAGS_IN_VIEW && <FilterTagsSelector list={activeFilters} />}
     </div>

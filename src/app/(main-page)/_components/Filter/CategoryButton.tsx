@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import Img from '@/ui/Img'
 import Link from 'next/link'

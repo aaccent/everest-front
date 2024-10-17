@@ -5,17 +5,29 @@ import PageTitle from '@/ui/text/PageTitle'
 import Container from '@/layout/Container'
 import QuickFilter from '@/components/QuickFilter/QuickFilter'
 import SubCategoryLink from '@/layout/catalog/SubCategoryLink'
-import { getFilters, getQuickFilters } from '@/globals/api'
+import { getGeneralFilters, getQuickFilters } from '@/globals/api'
 import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
-import FilterTagsProvider from '@/components/FilterTagsContext'
+import { Filters, QuickFilters } from '@/types/FiltersType'
 
 interface Props extends PropsWithChildren {
   category: AnyCategory
 }
 
+export type GetFiltersFn = () => Promise<{ quick: QuickFilters; general: Filters; categoryCode: string }>
+
 async function CategoryLayout({ category, children }: Props) {
-  const quickFilters = await getQuickFilters(category.breadcrumbs[0].seo)
-  const generalFilters = await getFilters(category.breadcrumbs[0].seo)
+  const categoryCode = category.breadcrumbs[0].seo
+
+  const _getFilters: GetFiltersFn = async () => {
+    'use server'
+    const general = await getGeneralFilters(categoryCode)
+    const quick = await getQuickFilters(categoryCode)
+    return {
+      quick,
+      general,
+      categoryCode,
+    }
+  }
 
   function showSubCategories() {
     if (!category.categories) return null
@@ -41,9 +53,7 @@ async function CategoryLayout({ category, children }: Props) {
           </ul>
         </Container>
       )}
-      <FilterTagsProvider list={generalFilters.filters}>
-        <QuickFilter filters={quickFilters} categoryName={category.breadcrumbs[0].seo} />
-      </FilterTagsProvider>
+      <QuickFilter getFilters={_getFilters} />
       {children}
     </>
   )

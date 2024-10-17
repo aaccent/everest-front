@@ -52,7 +52,7 @@ function Filters({ categories }: { categories: MenuCategory[] }) {
           ]}
           onChange={onTabButtonClick}
         />
-        <CategoryFilter categoryName={activeCategory.seoUrl} rent={activeCategory.isRent} />
+        <CategoryFilter categoryCode={activeCategory.seoUrl} rent={activeCategory.isRent} />
       </div>
     </div>
   )
