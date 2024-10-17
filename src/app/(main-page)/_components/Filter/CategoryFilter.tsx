@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { QuickFilters } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
-import { getQuickFilters } from '@/globals/api/methods/getFilters'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
 import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
@@ -10,7 +9,7 @@ import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import { PopupContext } from '@/features/Popup'
-import { getCategory } from '@/globals/api'
+import { getCategory, getQuickFilters } from '@/globals/api'
 
 interface CategoryFilterProps {
   categoryName: string

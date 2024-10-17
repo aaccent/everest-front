@@ -1,19 +1,19 @@
 'use client'
 import React, { useContext } from 'react'
-import { DetailComplex } from '@/types/catalog/Complex'
 import { LayoutContext } from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/LayoutListContext'
+import LayoutCard from '@/ui/cards/LayoutCard/LayoutCard'
+import { DetailComplex } from '@/types/catalog/Complex'
 
 interface Props {
   complex: DetailComplex
 }
 
-function LayoutCard({ complex }: Props) {
+function ActiveLayoutCard({ complex }: Props) {
   const { activeObject } = useContext(LayoutContext)
 
   if (!activeObject) return null
 
-  // TODO: Карточку планировки
-  return <div></div>
+  return <LayoutCard item={activeObject} complex={complex} />
 }
 
-export default LayoutCard
+export default ActiveLayoutCard
