@@ -11,6 +11,9 @@ export interface Subcategory {
   type: string
   imageUrl: string | null
   count: number
+  page: number
+  perPage: number
+  total: number
 }
 
 export interface Category {
@@ -22,6 +25,9 @@ export interface Category {
   breadcrumbs: BreadcrumbItem[]
   categories: Subcategory[]
   objects: DefaultObject[]
+  page: number
+  perPage: number
+  total: number
 }
 
 /** Тип подкатегории после преобразований */

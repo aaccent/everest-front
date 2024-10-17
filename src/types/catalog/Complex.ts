@@ -38,6 +38,9 @@ export interface ComplexesCategoryFromAPI {
   breadcrumbs: BreadcrumbItem[]
   categories: ComplexObject[]
   objects: []
+  page: number
+  perPage: number
+  total: number
 }
 
 export type ComplexesCategory = Omit<ComplexesCategoryFromAPI, 'categories' | 'objects'> & {

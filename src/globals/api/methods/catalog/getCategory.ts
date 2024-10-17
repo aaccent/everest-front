@@ -14,6 +14,8 @@ interface Props {
   sort?: SortRequestParam | null
   location?: CategoryLocation
   rent?: boolean
+  page?: number
+  perPage?: number
 }
 
 type Response = APIResponse<Category>
@@ -22,6 +24,8 @@ type Request = APIRequest<
     location?: CategoryLocation
     chainUrl?: string
     rent?: boolean
+    page?: number
+    perPage?: number
   }
 >
 
@@ -50,5 +54,8 @@ export async function getCategory(
     },
     breadcrumbs: res.data.breadcrumbs,
     objects: res.data.objects,
+    page: res.data.page,
+    perPage: res.data.perPage,
+    total: res.data.total,
   }
 }

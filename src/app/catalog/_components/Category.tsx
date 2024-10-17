@@ -12,7 +12,7 @@ interface Props {
 }
 
 function Category({ category }: Props) {
-  const getObjects: GetObjectsFn<DefaultObject> = async function (filter, sort) {
+  const getObjects: GetObjectsFn<DefaultObject> = async function ({ filter, sort, page, perPage }) {
     'use server'
 
     const isSubcategory = 'parent' in category
@@ -24,15 +24,21 @@ function Category({ category }: Props) {
       subcategory: isSubcategory ? category.seoUrl : undefined,
       filter,
       sort,
+      page,
+      perPage,
     })
 
-    return data.objects
+    return {
+      objects: data.objects,
+      total: data.total,
+      count: data.count,
+    }
   }
 
   return (
     <CategoryProvider type='default' initList={category.objects} getObjects={getObjects}>
       <CategoryLayout category={category}>
-        <CatalogContent tileClassName='gap-y-[32px] md:gap-y-[56px]' type='secondary' category={category} />
+        <CatalogContent tileClassName='gap-y-[32px] md:gap-y-[56px]' type='default' category={category} />
       </CategoryLayout>
     </CategoryProvider>
   )
