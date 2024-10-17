@@ -20,6 +20,7 @@ import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
 import { PopupContext } from '@/features/Popup'
 import { AdaptiveContext } from '@/features/adaptive'
+import { getFilters, getQuickFilters } from '@/globals/api'
 
 function useCategoryLink() {
   const pathname = usePathname()
@@ -85,6 +86,15 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
     viewStateControl.setViewState({ ...viewStateControl.viewState, zoom })
   }
 
+  const getAllFilters = async () => {
+    const quick = await getQuickFilters(categoryCode)
+    const general = await getFilters(categoryCode)
+    return {
+      quick,
+      general,
+    }
+  }
+
   return (
     <ObjectsMapContainer>
       <div className='pointer-events-none absolute inset-[16px] z-10 flex flex-col gap-[40px] md:inset-[20px]'>
@@ -132,7 +142,7 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
           </Button>
         </div>
         <div className='pointer-events-auto mt-auto hidden w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px] md:flex'>
-          <DetailFilterButton categoryName={categoryCode} quickFilters={quickFilters} />
+          <DetailFilterButton getAllFilters={getAllFilters} />
           <FilterItems filters={quickFilters.filters} isQuick />
           <button
             className='text-base-500-reg-100-upper ml-auto flex items-center gap-[4px] text-base-600/50 after:size-[13px] after:bg-icon-close after:opacity-50 after:bg-default'

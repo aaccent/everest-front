@@ -3,8 +3,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
-import { getFilters } from '@/globals/api'
-import { FilterBlock, QuickFilters } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
@@ -13,28 +11,31 @@ import { DynamicPopup, PopupContext } from '@/features/Popup'
 import SortButton from '@/components/QuickFilter/SortButton'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import { objectPlural } from '@/features/utility/pluralRules'
-import Link from 'next/link'
-import { useParams, useSearchParams } from 'next/navigation'
-import { ROUTES } from '@/globals/paths'
 import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
+import { AllFilters, GetAllFiltersFn } from '@/layout/catalog/CategoryLayout'
 
 interface Props {
-  category: string
   objectsAmount?: number
-  quickFilters: QuickFilters
+  getAllFilters: GetAllFiltersFn
 }
 
-function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
-  const [filters, setFilters] = useState<FilterBlock[]>([])
+function FilterPopup({ objectsAmount, getAllFilters }: Props) {
+  const [filters, setFilters] = useState<AllFilters>({
+    general: {
+      filters: [],
+      sorts: [],
+    },
+    quick: {
+      filters: [],
+      sorts: [],
+    },
+  })
   const { amount } = useContext(CategoryContext)
   const { closePopup } = useContext(PopupContext)
-  const params = useParams()
-  const searchParams = useSearchParams()
-  const link = params.toString().includes('catalog') ? '' : `${ROUTES.CATALOG}/${category}/?${searchParams.toString()}`
 
   useEffect(() => {
-    getFilters(category).then((res) => {
-      setFilters(res.filters)
+    getAllFilters().then((res) => {
+      setFilters(res)
     })
   }, [])
 
@@ -43,17 +44,17 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
       <>
         <IsMobile>
           <div className='mb-[40px] flex flex-col gap-[18px]'>
-            <FilterItems filters={quickFilters.filters} />
+            <FilterItems filters={filters.quick.filters} />
           </div>
           <div className='border-b border-b-base-600/10 pb-[18px]'>
-            <SortButton sorts={quickFilters.sorts} />
+            <SortButton sorts={filters.quick.sorts} />
           </div>
-          {filters.map((block, index) => {
+          {filters.general.filters.map((block, index) => {
             return <FilterBlockWrapper filterBlock={block.filters} name={block.name} key={index} />
           })}
         </IsMobile>
         <IsDesktop>
-          {filters.map((block) => {
+          {filters.general.filters.map((block) => {
             return (
               <>
                 <div className='text-header-500 mb-[36px] text-base-600'>{block.name}</div>
@@ -84,15 +85,13 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
         </div>
         <div className='bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:fixed md:justify-normal md:px-[56px] md:py-[24px]'>
           <button className='flex size-[50px] items-center justify-center rounded-[16px] bg-base-300 after:block after:size-[22px] after:bg-icon-search-favorite after:bg-default-contain md:hidden' />
-
-          <Link href={link} onClick={closePopup}>
-            <Button
-              variation='primary'
-              size='small'
-              text={`Показать ${objectsAmount || amount} ${objectPlural.get(objectsAmount || amount)}`}
-              className='md:mr-[12px]'
-            />
-          </Link>
+          <Button
+            variation='primary'
+            size='small'
+            text={`Показать ${objectsAmount || amount} ${objectPlural.get(objectsAmount || amount)}`}
+            className='md:mr-[12px]'
+            onClick={closePopup}
+          />
           <ResetFiltersButton
             text='Сбросить'
             className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'
