@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from 'react'
-import CategoryButton, { CategoryButtonProps } from '@/app/(main-page)/_components/Filter/CategoryButton'
+import CategoryButton, { CategoryButtonProps } from '@/app/(main-page)/_components/FilterOnMain/CategoryButton'
 import { MenuCategory } from '@/types/Menu'
-import CategoryFilter from '@/app/(main-page)/_components/Filter/CategoryFilter'
+import CategoryFilter from '@/app/(main-page)/_components/FilterOnMain/CategoryFilter'
 import TabButtons from '@/components/TabButtons'
 
-function Filters({ categories }: { categories: MenuCategory[] }) {
+function FilterOnMain({ categories }: { categories: MenuCategory[] }) {
   const [activeCategory, setActiveCategory] = useState<{
     seoUrl: CategoryButtonProps['seoUrl']
     isRent: boolean
@@ -52,10 +52,10 @@ function Filters({ categories }: { categories: MenuCategory[] }) {
           ]}
           onChange={onTabButtonClick}
         />
-        <CategoryFilter categoryName={activeCategory.seoUrl} rent={activeCategory.isRent} />
+        <CategoryFilter categoryCode={activeCategory.seoUrl} rent={activeCategory.isRent} />
       </div>
     </div>
   )
 }
 
-export default Filters
+export default FilterOnMain

@@ -9,34 +9,43 @@ import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import { PopupContext } from '@/features/Popup'
-import { getCategory, getQuickFilters } from '@/globals/api'
+import { getCategory, getFilters, getQuickFilters } from '@/globals/api'
 
 interface CategoryFilterProps {
-  categoryName: string
+  categoryCode: string
   rent: boolean
 }
 
-function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
+function CategoryFilter({ categoryCode, rent }: CategoryFilterProps) {
   const [filterInputs, setFilterInputs] = useState<QuickFilters>({ filters: [], sorts: [] })
   const [list, setList] = useState<unknown[]>([])
   const { openDynamicPopup } = useContext(PopupContext)
   const { clearFilters, filter } = useCategoryFilter()
   const searchParams = useSearchParams()
 
+  const getAllFilters = async () => {
+    const quick = await getQuickFilters(categoryCode)
+    const general = await getFilters(categoryCode)
+    return {
+      quick,
+      general,
+    }
+  }
+
   useEffect(() => {
     if (filter.str) clearFilters()
-  }, [categoryName])
+  }, [categoryCode])
 
   useEffect(() => {
-    getQuickFilters(categoryName).then((res) => setFilterInputs(res))
+    getQuickFilters(categoryCode).then((res) => setFilterInputs(res))
 
-    getCategory(categoryName, { filter: filter.parsed, rent }).then((res) => {
+    getCategory(categoryCode, { filter: filter.parsed, rent }).then((res) => {
       setList(res.objects)
     })
-  }, [categoryName, rent, filter])
+  }, [categoryCode, rent, filter])
 
-  const categoryLink = `${ROUTES.CATALOG}/${categoryName}/?${searchParams.toString()}`
-  const mapLink = `${ROUTES.MAP}/${categoryName}/?${searchParams.toString()}`
+  const categoryLink = `${ROUTES.CATALOG}/${categoryCode}/?${searchParams.toString()}`
+  const mapLink = `${ROUTES.MAP}/${categoryCode}/?${searchParams.toString()}`
 
   return (
     <div className='relative mt-[22px]'>
@@ -45,7 +54,7 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
         className='text-base-400-lg-100 absolute right-0 top-[-100%] flex items-center gap-[6px] text-primary after:block after:size-[20px] after:bg-icon-detail-filter after:filter-primary after:bg-default-contain'
         onClick={() => openDynamicPopup('filterPopup')}
       >
-        <FilterPopup category={categoryName} objectsAmount={list.length} quickFilters={filterInputs} />
+        <FilterPopup objectsAmount={list.length} getAllFilters={getAllFilters} />
         Расширенный фильтр
       </button>
       <div className='flex justify-between'>
