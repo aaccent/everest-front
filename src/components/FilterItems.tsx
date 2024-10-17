@@ -5,7 +5,7 @@ import SelectorInline from '@/ui/inputs/SelectorInline'
 import Range, { RangeValue } from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
 import React from 'react'
-import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { Filter, useFilter } from '@/features/catalog/useFilter'
 import { formatLongPriceForRange, formatShortPriceObjForRange } from '@/features/utility/price'
 
 /** @param filters Полученный от бэкенда массив фильтров
@@ -17,7 +17,7 @@ interface FilterItemsProps {
 }
 
 export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
-  const filterManager = useCategoryFilter()
+  const filterManager = useFilter()
 
   function onChange(id: string, value: Filter['value'] | RangeValue) {
     filterManager.addFilter(Number(id), value)

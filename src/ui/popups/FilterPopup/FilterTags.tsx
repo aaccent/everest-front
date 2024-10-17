@@ -1,12 +1,12 @@
 'use client'
 import React, { useContext } from 'react'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { useFilter } from '@/features/catalog/useFilter'
 import { FilterTagsContext } from '@/components/FilterTagsContext'
 import { formatTagText } from '@/features/utility/texts'
 
 export function FilterTags() {
   const { activeFilters } = useContext(FilterTagsContext)
-  const { removeFilter } = useCategoryFilter()
+  const { removeFilter } = useFilter()
 
   function showAllTags() {
     return activeFilters.map((f) => {

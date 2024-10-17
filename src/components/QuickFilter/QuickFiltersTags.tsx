@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
 import Checkbox from '@/ui/inputs/Checkbox'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { useFilter } from '@/features/catalog/useFilter'
 import Button from '@/ui/buttons/Button'
 import { FilterTagsContext } from '@/components/FilterTagsContext'
 import { formatTagText } from '@/features/utility/texts'
@@ -17,7 +17,7 @@ interface FilterTagsSelectorProps {
 function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   const [filterList, setFilterList] = useState<FilterType<FilterView>[]>([])
   const [selectorOpened, setSelectorOpened] = useState<boolean>(false)
-  const { removeFilter, clearFilters } = useCategoryFilter()
+  const { removeFilter, clearFilters } = useFilter()
 
   useEffect(() => {
     setFilterList(() => {
@@ -78,7 +78,7 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
 
 function QuickFiltersTags() {
   const { activeFilters } = useContext(FilterTagsContext)
-  const { removeFilter } = useCategoryFilter()
+  const { removeFilter } = useFilter()
 
   function showFirstTags() {
     const firstTags = activeFilters.slice(0, TAGS_IN_VIEW)

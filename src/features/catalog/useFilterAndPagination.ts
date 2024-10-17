@@ -1,8 +1,8 @@
 'use client'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { useFilter } from '@/features/catalog/useFilter'
 import { Sort } from '@/types/FiltersType'
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
-import { useCategorySort } from '@/features/catalog/useCategorySort'
+import { useSort } from '@/features/catalog/useSort'
 import { PER_PAGE } from '@/layout/catalog/CategoryContext'
 
 type GetObjectsOptions = {
@@ -48,7 +48,7 @@ export type ObjectManagerType = {
 }
 
 /**
- * Использует хуки {@link useCategoryFilter} и {@link useCategorySort} для контроля внутреннего состояния со списком объектов.
+ * Использует хуки {@link useFilter} и {@link useSort} для контроля внутреннего состояния со списком объектов.
  * @param initList - Инициализирующий список объектов. Выводится пока не будет закончен запрос
  * @param getObjects - функция для запроса объектов
  */
@@ -64,8 +64,8 @@ export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Pr
   const [page, setPage] = useState<number>(1)
   const [perPage, setPerPage] = useState<number>(PER_PAGE.TILE)
 
-  const { filter } = useCategoryFilter()
-  const { sort } = useCategorySort()
+  const { filter } = useFilter()
+  const { sort } = useSort()
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   async function _getObjects(pageNumber: number = 1) {

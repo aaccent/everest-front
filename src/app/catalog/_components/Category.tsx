@@ -3,7 +3,7 @@ import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
 import { AnyCategoryExceptComplexes } from '@/types/catalog/Category'
 import { getCategory } from '@/globals/api'
-import { GetObjectsFn } from '@/features/catalog/useCategoryObject'
+import { GetObjectsFn } from '@/features/catalog/useFilterAndPagination'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 

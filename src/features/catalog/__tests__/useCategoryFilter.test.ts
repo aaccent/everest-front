@@ -1,14 +1,14 @@
 import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest'
 import { renderHook, RenderHookResult } from '@testing-library/react'
-import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { Filter, useFilter } from '@/features/catalog/useFilter'
 import { convertToBase64 } from '@/features/utility/convertBase64'
 
 function TestComponent() {
-  return useCategoryFilter()
+  return useFilter()
 }
 
 function AnotherTestComponent() {
-  return useCategoryFilter()
+  return useFilter()
 }
 
 class TestFilters {

@@ -15,7 +15,7 @@ import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 
 import { QuickFilters } from '@/types/FiltersType'
 import ObjectsMapAsideDetail from '@/app/map/_components/ObjectsMapAsideDetail'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { useFilter } from '@/features/catalog/useFilter'
 import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
 import { PopupContext } from '@/features/Popup'
@@ -23,7 +23,7 @@ import { AdaptiveContext } from '@/features/adaptive'
 
 function useCategoryLink() {
   const pathname = usePathname()
-  const { filter } = useCategoryFilter()
+  const { filter } = useFilter()
 
   const category = pathname.match(/\/map\/(.*)[/?]?/)
   if (!category) return ''
