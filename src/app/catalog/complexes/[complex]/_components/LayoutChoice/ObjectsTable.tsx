@@ -27,7 +27,7 @@ function showCharacteristicsCells(characteristics: Characteristic[]) {
     <Cell
       content={item.value}
       key={index}
-      className={`text-base-400-lg-100 py-[20px] last:rounded-br-[16px] last:rounded-tr-[16px] group-hover:bg-primary group-hover:text-base-100 group-[:nth-child(odd):hover]:bg-primary group-[:nth-child(odd)]:bg-base-200 md:table-cell md:py-[17px] md:last:rounded-br-[16px] md:last:rounded-tr-[16px] [&:nth-child(2)]:rounded-l-[20px] md:[&:nth-child(2)]:rounded-l-none ${isHidden(item.name)} `}
+      className={`text-base-400-lg-100 py-[20px] last:rounded-br-[16px] last:rounded-tr-[16px] group-hover:bg-primary group-hover:text-base-100 group-[.active]:bg-primary group-[:nth-child(odd):hover]:bg-primary group-[:nth-child(odd)]:bg-base-200 group-[.active]:text-base-100 md:table-cell md:py-[17px] md:last:rounded-br-[16px] md:last:rounded-tr-[16px] [&:nth-child(2)]:rounded-l-[20px] md:[&:nth-child(2)]:rounded-l-none ${isHidden(item.name)} `}
     />
   ))
 }
@@ -41,7 +41,7 @@ function ObjectsTable({ complex }: ObjectsTableProps) {
     return objects.map((object) => {
       return (
         <Row className='group cursor-pointer text-center' key={object.id} object={object}>
-          <td className='hidden items-center justify-center rounded-bl-[16px] rounded-tl-[16px] after:block after:size-[24px] after:bg-icon-grid-view after:bg-default-auto group-hover:bg-primary group-hover:after:filter-base-100 group-[:nth-child(odd):hover]:bg-primary group-[:nth-child(odd)]:bg-base-200 md:flex md:py-[17px]'></td>
+          <td className='hidden items-center justify-center rounded-bl-[16px] rounded-tl-[16px] after:block after:size-[24px] after:bg-icon-grid-view after:bg-default-auto group-hover:bg-primary group-hover:after:filter-base-100 group-[.active]:bg-primary group-[:nth-child(odd):hover]:bg-primary group-[:nth-child(odd)]:bg-base-200 group-[.active]:after:filter-base-100 md:flex md:py-[17px]'></td>
           {showCharacteristicsCells(object.characteristics)}
         </Row>
       )
