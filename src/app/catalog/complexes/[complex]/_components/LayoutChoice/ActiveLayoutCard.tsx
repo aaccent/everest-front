@@ -13,7 +13,11 @@ function ActiveLayoutCard({ complex }: Props) {
 
   if (!activeObject) return null
 
-  return <LayoutCard item={activeObject} complex={complex} />
+  return (
+    <div className='sticky top-[50px] h-fit w-full max-w-[380px]'>
+      <LayoutCard item={activeObject} complex={complex} />
+    </div>
+  )
 }
 
 export default ActiveLayoutCard
