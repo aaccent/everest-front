@@ -8,12 +8,14 @@ type Props = SliderProps & {
 }
 
 async function SliderSection(props: Props) {
+  if (!props.list.length) return null
+
   function showSlider() {
     switch (props.type) {
       case 'complex':
-        return <Slider type={props.type} list={props.list} link={props.link} />
+        return <Slider {...props} />
       case 'objects':
-        return <Slider type={props.type} list={props.list} link={props.link} />
+        return <Slider {...props} />
       default:
         null
     }
