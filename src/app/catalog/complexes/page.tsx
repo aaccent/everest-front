@@ -14,9 +14,9 @@ async function Page() {
     name: 'Жилые Комплексы',
   }
 
-  const getObjects: GetObjectsFn<ComplexObject> = async function ({ filter, sort, page, perPage }) {
+  const getObjects: GetObjectsFn<ComplexObject> = async function ({ filter, sort, page, perPage, location }) {
     'use server'
-    return await getComplexes(filter, sort)
+    return await getComplexes({ filter, sort, page, perPage, location })
   }
 
   return (

@@ -9,12 +9,6 @@ import {
 import { ComplexObject, LayoutObject } from '@/types/catalog/Complex'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 
-export const PER_PAGE = {
-  MOBILE: 5,
-  LIST: 3,
-  TILE: 9,
-}
-
 type View = 'tile' | 'list'
 
 type CategoryContextObject = {

@@ -1,27 +1,18 @@
-import {
-  Category,
-  CategoryRequestWithFilters,
-  CategoryRequestWithPagination,
-  SubcategoryLikeCategory,
-} from '@/types/catalog/Category'
-import { CategoryLocation } from '@/types/Map'
+import { Category, SubcategoryLikeCategory } from '@/types/catalog/Category'
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
+import { GeneralRequestParams } from '@/types/RequestProps'
 
-type Props = CategoryRequestWithPagination &
-  CategoryRequestWithFilters & {
-    subcategory?: string
-    location?: CategoryLocation
-    rent?: boolean
-  }
+type Props = GeneralRequestParams & {
+  subcategory?: string
+  rent?: boolean
+}
 
 type Response = APIResponse<Category>
 type Request = APIRequest<
-  CategoryRequestWithFilters &
-    CategoryRequestWithPagination & {
-      location?: CategoryLocation
-      chainUrl?: string
-      rent?: boolean
-    }
+  GeneralRequestParams & {
+    chainUrl?: string
+    rent?: boolean
+  }
 >
 
 export async function getCategory(
@@ -37,6 +28,7 @@ export async function getCategory(
   })
 
   if (!subcategory) return res.data
+  if (subcategory === 'complexes') return res.data
 
   return {
     ...res.data.categories[0],

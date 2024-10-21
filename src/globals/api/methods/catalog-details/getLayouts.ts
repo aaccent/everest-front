@@ -1,8 +1,8 @@
-import { CategoryRequestWithFilters, CategoryRequestWithPagination } from '@/types/catalog/Category'
+import { GeneralRequestParams } from '@/types/RequestProps'
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 import { LayoutGroup } from '@/types/catalog/LayoutGroup'
 
-type Request = APIRequest<CategoryRequestWithPagination & CategoryRequestWithFilters>
+type Request = APIRequest<GeneralRequestParams>
 type Response = APIResponse<LayoutGroup[]>
 
 export async function getLayouts(complexCode: string, props: Request = {}) {
