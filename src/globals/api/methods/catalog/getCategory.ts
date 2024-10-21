@@ -37,6 +37,7 @@ export async function getCategory(
   })
 
   if (!subcategory) return res.data
+  if (subcategory === 'complexes') return res.data
 
   return {
     ...res.data.categories[0],

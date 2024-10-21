@@ -1,12 +1,18 @@
 import { ComplexesCategory, ComplexesCategoryFromAPI } from '@/types/catalog/Complex'
-import { CategoryRequestWithFilters, FilterRequestParam, SortRequestParam } from '@/types/catalog/Category'
+import {
+  CategoryRequestWithFilters,
+  CategoryRequestWithPagination,
+  FilterRequestParam,
+  SortRequestParam,
+} from '@/types/catalog/Category'
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
-import { PER_PAGE } from '@/layout/catalog/CategoryContext'
+import { PER_PAGE } from '@/globals/paginationConst'
 
 type Request = APIRequest<
   {
     chainUrl?: string
-  } & CategoryRequestWithFilters
+  } & CategoryRequestWithFilters &
+    CategoryRequestWithPagination
 >
 
 type Response = APIResponse<ComplexesCategoryFromAPI>
