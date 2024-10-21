@@ -55,10 +55,11 @@ function MiniImages({ activeSlideIndex, children }: MiniImagesProps) {
 
 interface GalleryProps {
   list: string[]
+  activeSlide?: number
 }
 
-function ObjectGallery({ list }: GalleryProps) {
-  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0)
+function ObjectGallery({ list, activeSlide }: GalleryProps) {
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(activeSlide || 0)
   const { openPopup } = useContext(PopupContext)
   const searchParams = useSearchParams()
 
@@ -74,8 +75,13 @@ function ObjectGallery({ list }: GalleryProps) {
     }
   }, [])
 
+  function isDesktop() {
+    if (typeof window === undefined) return false
+    return window.matchMedia('(min-width:768px)').matches
+  }
+
   const onSlideClickHandle = () => {
-    if (window.matchMedia('(min-width:768px)').matches) {
+    if (isDesktop()) {
       openPopup({
         name: 'galleryPopup',
         args: {
@@ -90,10 +96,10 @@ function ObjectGallery({ list }: GalleryProps) {
     return list.map((image, i) => (
       <CarouselSlide
         key={i}
-        className='relative before:absolute before:inset-0 before:z-10 before:bg-[linear-gradient(0deg,#000_0%,rgba(0,0,0,0)100%);] before:opacity-50'
+        className='relative cursor-pointer before:absolute before:inset-0 before:z-10 before:bg-[linear-gradient(0deg,#000_0%,rgba(0,0,0,0)100%);] before:opacity-50'
         onClick={onSlideClickHandle}
       >
-        <Img className='block h-full w-full' src={image} fill />
+        <Img className='block h-full w-full object-cover object-center' src={image} fill />
       </CarouselSlide>
     ))
   }
@@ -120,7 +126,7 @@ function ObjectGallery({ list }: GalleryProps) {
   }
 
   return (
-    <Carousel className='relative h-full' fade>
+    <Carousel className='relative h-full' fade startIndex={activeSlideIndex}>
       <CarouselInner>{showImages()}</CarouselInner>
       <button
         type='button'

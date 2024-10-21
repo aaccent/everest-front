@@ -27,6 +27,7 @@ interface Props {
 
 function ObjectHero({ item }: Props) {
   function showProps() {
+    if (!item.characteristics[0]) return null
     return item.characteristics[0].characteristics.slice(0, 4).map((prop, index) => (
       <PropItem title={prop.name} key={index}>
         {prop.value}
