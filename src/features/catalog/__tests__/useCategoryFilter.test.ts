@@ -58,7 +58,7 @@ class TestFilters {
   }
 }
 
-describe('useCategoryFilter', () => {
+describe('useFilter', () => {
   beforeAll(() => {
     vi.mock('next/navigation', () => {
       const useSearchParams = function () {

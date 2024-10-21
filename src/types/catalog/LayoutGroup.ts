@@ -1,4 +1,4 @@
-import { Filter } from '@/features/catalog/useCategoryFilter'
+import { Filter } from '@/features/catalog/useFilter'
 
 export interface LayoutGroup {
   name: string

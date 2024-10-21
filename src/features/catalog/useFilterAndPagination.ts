@@ -1,7 +1,7 @@
 'use client'
 import { useFilter } from '@/features/catalog/useFilter'
 import { Sort } from '@/types/FiltersType'
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSort } from '@/features/catalog/useSort'
 import { PER_PAGE } from '@/layout/catalog/CategoryContext'
 
@@ -33,26 +33,14 @@ export interface Props<TType = unknown> {
   getObjects: GetObjectsFn<TType>
 }
 
-export type ObjectManagerType = {
-  list: ListType
-  loading: {
-    isLoading: boolean
-    setIsLoading: Dispatch<SetStateAction<boolean>>
-  }
-  pagination: {
-    page: number
-    nextPage: () => void
-    perPage: number
-    setPerPage: Dispatch<SetStateAction<number>>
-  }
-}
+export type ObjectManagerType = ReturnType<typeof useFilterAndPagination>
 
 /**
  * Использует хуки {@link useFilter} и {@link useSort} для контроля внутреннего состояния со списком объектов.
  * @param initList - Инициализирующий список объектов. Выводится пока не будет закончен запрос
  * @param getObjects - функция для запроса объектов
  */
-export function useCategoryObjects<TType = unknown>({ initList, getObjects }: Props<TType>): ObjectManagerType {
+export function useFilterAndPagination<TType = unknown>({ initList, getObjects }: Props<TType>) {
   const [list, setList] = useState<ListType>({
     objects: initList,
     total: initList.length,

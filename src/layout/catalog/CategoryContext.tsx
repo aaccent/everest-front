@@ -4,7 +4,7 @@ import React, { createContext, Dispatch, SetStateAction, useEffect, useState } f
 import {
   ObjectManagerType,
   Props as CategoryObjectsHookProps,
-  useCategoryObjects,
+  useFilterAndPagination,
 } from '@/features/catalog/useFilterAndPagination'
 import { ComplexObject, LayoutObject } from '@/types/catalog/Complex'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
@@ -39,7 +39,7 @@ type CategoryProviderProps = {
 )
 
 export function CategoryProvider({ children, initList, getObjects }: CategoryProviderProps) {
-  const objectsManager = useCategoryObjects<unknown>({ initList, getObjects })
+  const objectsManager = useFilterAndPagination<unknown>({ initList, getObjects })
 
   const [view, setView] = useState<View>('tile')
 
