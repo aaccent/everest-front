@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { formatPriceShortBy } from '@/features/utility/price'
 import { formatStatusByQuarter } from '@/features/utility/date'
 import Img from '@/ui/Img'
-import { createComplexLink } from '@/features/catalog/link'
+import { createComplexLink } from '@/features/link'
 import Tags from '@/components/Tags'
 
 function showObjectTypes(objectTypes: FlatType[]) {

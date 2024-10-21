@@ -10,10 +10,12 @@ interface RowProps {
 }
 
 function Row({ className, children, object }: RowProps) {
-  const { setActiveObject } = useContext(LayoutContext)
+  const { setActiveObject, activeObject } = useContext(LayoutContext)
+
+  const activeClass = activeObject?.id === object?.id ? 'active' : ''
 
   return (
-    <tr className={className} onClick={() => setActiveObject(object)}>
+    <tr className={`${className} ${activeClass}`} onClick={() => setActiveObject(object)}>
       {children}
     </tr>
   )

@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
 import { DefaultObject as ObjectCardType } from '@/types/catalog/DefaultObject'
 import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
-import { CategoryForGeneratingLink, generateObjectLink } from '@/features/catalog/link'
+import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 

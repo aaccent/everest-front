@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react'
 import { DefaultObject as ObjectCardType } from '@/types/catalog/DefaultObject'
-import { CategoryForGeneratingLink } from '@/features/catalog/link'
+import { CategoryForGeneratingLink } from '@/features/link'
 import ObjectListCard from '@/ui/cards/ObjectCard/ObjectListCard'
 import ObjectTileCard from '@/ui/cards/ObjectCard/ObjectTileCard'
 

@@ -20,17 +20,19 @@ import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
 
 interface Props {
   category: string
-  objectsAmount?: number
+  objectsAmount?: number | null
   quickFilters: QuickFilters
 }
 
-function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
+function FilterPopup({ category, objectsAmount = null, quickFilters }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>([])
-  const { amount } = useContext(CategoryContext)
+  const { list } = useContext(CategoryContext)
   const { closePopup } = useContext(PopupContext)
   const params = useParams()
   const searchParams = useSearchParams()
   const link = params.toString().includes('catalog') ? '' : `${ROUTES.CATALOG}/${category}/?${searchParams.toString()}`
+
+  const total = objectsAmount ?? list.total
 
   useEffect(() => {
     getFilters(category).then((res) => {
@@ -89,7 +91,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
             <Button
               variation='primary'
               size='small'
-              text={`Показать ${objectsAmount || amount} ${objectPlural.get(objectsAmount || amount)}`}
+              text={`Показать ${total} ${objectPlural.get(total)}`}
               className='md:mr-[12px]'
             />
           </Link>

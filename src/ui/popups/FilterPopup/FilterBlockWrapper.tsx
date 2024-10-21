@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { useFilter } from '@/features/useFilter'
 import MobileFilterItem from '@/ui/popups/FilterPopup/MobileFilterItem'
 
 interface FilterBlockWrapperProps {
@@ -10,7 +10,7 @@ interface FilterBlockWrapperProps {
 }
 
 function FilterBlockWrapper({ filterBlock, name }: FilterBlockWrapperProps) {
-  const { filter } = useCategoryFilter()
+  const { filter } = useFilter()
 
   const activeIdList = filter.parsed.map((f) => f.id)
   const blockIdList = filterBlock.map((f) => f.id)
