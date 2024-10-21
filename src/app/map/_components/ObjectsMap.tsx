@@ -15,7 +15,7 @@ import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 
 import { QuickFilters } from '@/types/FiltersType'
 import ObjectsMapAsideDetail from '@/app/map/_components/ObjectsMapAsideDetail'
-import { useFilter } from '@/features/catalog/useFilter'
+import { useFilter } from '@/features/useFilter'
 import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
 import { PopupContext } from '@/features/Popup'

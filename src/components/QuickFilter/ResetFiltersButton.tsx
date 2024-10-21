@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useFilter } from '@/features/catalog/useFilter'
+import { useFilter } from '@/features/useFilter'
 
 interface Props {
   className?: string

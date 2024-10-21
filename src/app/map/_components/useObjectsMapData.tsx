@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { MapViewState } from '@/components/CustomMap'
-import { Filter, useFilter } from '@/features/catalog/useFilter'
+import { Filter, useFilter } from '@/features/useFilter'
 import { MapCenter } from '@/types/Map'
 import { FeatureCollection } from 'geojson'
 import { ABAKAN_VIEW_STATE } from '@/globals/map'

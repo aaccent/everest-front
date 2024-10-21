@@ -1,6 +1,6 @@
 import { beforeAll, beforeEach, describe, expect, test, vi } from 'vitest'
 import { renderHook, RenderHookResult } from '@testing-library/react'
-import { Filter, useFilter } from '@/features/catalog/useFilter'
+import { Filter, useFilter } from '@/features/useFilter'
 import { convertToBase64 } from '@/features/utility/convertBase64'
 
 function TestComponent() {

@@ -2,7 +2,7 @@ import React from 'react'
 import { getComplexes } from '@/globals/api'
 import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
-import { GetObjectsFn } from '@/features/catalog/useFilterAndPagination'
+import { GetObjectsFn } from '@/features/useFilterAndPagination'
 import { ComplexObject } from '@/types/catalog/Complex'
 import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 

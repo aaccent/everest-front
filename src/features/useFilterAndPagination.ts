@@ -1,8 +1,8 @@
 'use client'
-import { useFilter } from '@/features/catalog/useFilter'
+import { useFilter } from '@/features/useFilter'
 import { Sort } from '@/types/FiltersType'
 import { useEffect, useRef, useState } from 'react'
-import { useSort } from '@/features/catalog/useSort'
+import { useSort } from '@/features/useSort'
 import { PER_PAGE } from '@/layout/catalog/CategoryContext'
 
 type GetObjectsOptions = {

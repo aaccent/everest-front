@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { Sort } from '@/types/FiltersType'
-import { useSort } from '@/features/catalog/useSort'
+import { useSort } from '@/features/useSort'
 import Radio from '@/ui/inputs/Radio'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import { IsDesktop, IsMobile } from '@/features/adaptive'

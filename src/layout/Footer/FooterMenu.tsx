@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { MenuCategory } from '@/types/Menu'
-import { generateCategoryLink } from '@/features/catalog/link'
+import { generateCategoryLink } from '@/features/link'
 
 interface Props {
   list: MenuCategory[]

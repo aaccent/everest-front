@@ -5,7 +5,7 @@ import {
   ObjectManagerType,
   Props as CategoryObjectsHookProps,
   useFilterAndPagination,
-} from '@/features/catalog/useFilterAndPagination'
+} from '@/features/useFilterAndPagination'
 import { ComplexObject, LayoutObject } from '@/types/catalog/Complex'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 

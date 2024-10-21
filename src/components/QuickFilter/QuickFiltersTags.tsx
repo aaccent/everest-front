@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
 import Checkbox from '@/ui/inputs/Checkbox'
-import { useFilter } from '@/features/catalog/useFilter'
+import { useFilter } from '@/features/useFilter'
 import Button from '@/ui/buttons/Button'
 import { FilterTagsContext } from '@/components/FilterTagsContext'
 import { formatTagText } from '@/features/utility/texts'

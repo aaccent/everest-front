@@ -5,7 +5,7 @@ import SelectorInline from '@/ui/inputs/SelectorInline'
 import Range, { RangeValue } from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
 import React from 'react'
-import { Filter, useFilter } from '@/features/catalog/useFilter'
+import { Filter, useFilter } from '@/features/useFilter'
 import { formatLongPriceForRange, formatShortPriceObjForRange } from '@/features/utility/price'
 
 /** @param filters Полученный от бэкенда массив фильтров

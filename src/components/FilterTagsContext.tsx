@@ -1,7 +1,7 @@
 'use client'
 import React, { createContext, PropsWithChildren, useEffect, useState } from 'react'
 import { FilterBlock, FilterType, FilterView } from '@/types/FiltersType'
-import { Filter, useFilter } from '@/features/catalog/useFilter'
+import { Filter, useFilter } from '@/features/useFilter'
 
 function getActiveFilters(filtersGeneral: FilterType<FilterView>[], activeFilterValues: Filter[]) {
   if (!filtersGeneral.length) return []

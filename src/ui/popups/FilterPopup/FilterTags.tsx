@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { useFilter } from '@/features/catalog/useFilter'
+import { useFilter } from '@/features/useFilter'
 import { FilterTagsContext } from '@/components/FilterTagsContext'
 import { formatTagText } from '@/features/utility/texts'
 

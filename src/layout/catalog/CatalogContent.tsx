@@ -2,7 +2,7 @@
 import React, { useContext } from 'react'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import Container from '@/layout/Container'
-import { CategoryForGeneratingLink } from '@/features/catalog/link'
+import { CategoryForGeneratingLink } from '@/features/link'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 import { ComplexObject } from '@/types/catalog/Complex'
 import ComplexCard from '@/ui/cards/ComplexCard/ComplexCard'

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
-import { useFilter } from '@/features/catalog/useFilter'
+import { useFilter } from '@/features/useFilter'
 import MobileFilterItem from '@/ui/popups/FilterPopup/MobileFilterItem'
 
 interface FilterBlockWrapperProps {
