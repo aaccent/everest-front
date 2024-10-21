@@ -9,7 +9,7 @@ export interface Filter {
   value: string[] | (string | number)[] | boolean
 }
 
-export function useCategoryFilter() {
+export function useFilter() {
   const searchParams = useSearchParams()
 
   /**

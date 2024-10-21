@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useContext, useEffect, useState } from 'react'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { useFilter } from '@/features/useFilter'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import { PopupContext } from '@/features/Popup'
 import { QuickFilters } from '@/types/FiltersType'
@@ -13,7 +13,7 @@ interface Props {
 }
 
 function DetailFilterButton({ className, categoryName, quickFilters }: Props) {
-  const { filter } = useCategoryFilter()
+  const { filter } = useFilter()
   const [count, setCount] = useState<number>(filter.parsed.length)
   const { openDynamicPopup } = useContext(PopupContext)
 

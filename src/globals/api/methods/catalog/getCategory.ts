@@ -1,28 +1,27 @@
 import {
   Category,
   CategoryRequestWithFilters,
-  FilterRequestParam,
-  SortRequestParam,
+  CategoryRequestWithPagination,
   SubcategoryLikeCategory,
 } from '@/types/catalog/Category'
 import { CategoryLocation } from '@/types/Map'
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 
-interface Props {
-  subcategory?: string
-  filter?: FilterRequestParam | null
-  sort?: SortRequestParam | null
-  location?: CategoryLocation
-  rent?: boolean
-}
+type Props = CategoryRequestWithPagination &
+  CategoryRequestWithFilters & {
+    subcategory?: string
+    location?: CategoryLocation
+    rent?: boolean
+  }
 
 type Response = APIResponse<Category>
 type Request = APIRequest<
-  CategoryRequestWithFilters & {
-    location?: CategoryLocation
-    chainUrl?: string
-    rent?: boolean
-  }
+  CategoryRequestWithFilters &
+    CategoryRequestWithPagination & {
+      location?: CategoryLocation
+      chainUrl?: string
+      rent?: boolean
+    }
 >
 
 export async function getCategory(
@@ -50,5 +49,8 @@ export async function getCategory(
     },
     breadcrumbs: res.data.breadcrumbs,
     objects: res.data.objects,
+    page: res.data.page,
+    perPage: res.data.perPage,
+    total: res.data.total,
   }
 }

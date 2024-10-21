@@ -4,7 +4,7 @@ import { QuickFilters } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { useFilter } from '@/features/useFilter'
 import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
 import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
@@ -20,7 +20,7 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
   const [filterInputs, setFilterInputs] = useState<QuickFilters>({ filters: [], sorts: [] })
   const [list, setList] = useState<unknown[]>([])
   const { openDynamicPopup } = useContext(PopupContext)
-  const { clearFilters, filter } = useCategoryFilter()
+  const { clearFilters, filter } = useFilter()
   const searchParams = useSearchParams()
 
   useEffect(() => {

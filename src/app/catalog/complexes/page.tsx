@@ -2,7 +2,7 @@ import React from 'react'
 import { getComplexes } from '@/globals/api'
 import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
-import { GetObjectsFn } from '@/features/catalog/useCategoryObject'
+import { GetObjectsFn } from '@/features/useFilterAndPagination'
 import { ComplexObject } from '@/types/catalog/Complex'
 import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 
@@ -14,10 +14,9 @@ async function Page() {
     name: 'Жилые Комплексы',
   }
 
-  const getObjects: GetObjectsFn<ComplexObject> = async function (filter, sort) {
+  const getObjects: GetObjectsFn<ComplexObject> = async function ({ filter, sort, page, perPage }) {
     'use server'
-    const category = await getComplexes(filter, sort)
-    return category.objects
+    return await getComplexes(filter, sort)
   }
 
   return (

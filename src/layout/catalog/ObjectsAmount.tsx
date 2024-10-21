@@ -5,10 +5,11 @@ import { suggestionPlural } from '@/features/utility/pluralRules'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 
 function ObjectsAmount({ className }: { className: string }) {
-  const { amount } = useContext(CategoryContext)
+  const { list } = useContext(CategoryContext)
+
   return (
     <span className={className}>
-      Найдено {amount} {suggestionPlural.get(amount)}
+      Найдено {list.total} {suggestionPlural.get(list.total)}
     </span>
   )
 }

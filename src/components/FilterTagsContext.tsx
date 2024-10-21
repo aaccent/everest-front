@@ -1,7 +1,7 @@
 'use client'
 import React, { createContext, PropsWithChildren, useEffect, useState } from 'react'
 import { FilterBlock, FilterType, FilterView } from '@/types/FiltersType'
-import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { Filter, useFilter } from '@/features/useFilter'
 
 function getActiveFilters(filtersGeneral: FilterType<FilterView>[], activeFilterValues: Filter[]) {
   if (!filtersGeneral.length) return []
@@ -51,7 +51,7 @@ interface FilterTagsProps extends PropsWithChildren {
  */
 
 function FilterTagsProvider({ list, children }: FilterTagsProps) {
-  const { filter } = useCategoryFilter()
+  const { filter } = useFilter()
 
   const [activeFilters, setActiveFilters] = useState<FilterType<FilterView>[]>([])
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { MapViewState } from '@/components/CustomMap'
-import { Filter, useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { Filter, useFilter } from '@/features/useFilter'
 import { MapCenter } from '@/types/Map'
 import { FeatureCollection } from 'geojson'
 import { ABAKAN_VIEW_STATE } from '@/globals/map'
@@ -48,7 +48,7 @@ interface Props {
  */
 export function useObjectsMapData({ getItems }: Props) {
   const [viewState, setViewState] = useState<MapViewState>(ABAKAN_VIEW_STATE)
-  const { filter } = useCategoryFilter()
+  const { filter } = useFilter()
   const [objects, setObjects] = useState<MapObject[]>([])
   const timeoutId = useRef<NodeJS.Timeout | null>(null)
 

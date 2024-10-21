@@ -64,13 +64,25 @@ function ObjectGallery({ list }: GalleryProps) {
 
   useEffect(() => {
     if (searchParams.has('gallery')) {
-      openPopup({ name: 'galleryPopup' })
+      openPopup({
+        name: 'galleryPopup',
+        args: {
+          list,
+          activeSlideIndex,
+        },
+      })
     }
   }, [])
 
   const onSlideClickHandle = () => {
     if (window.matchMedia('(min-width:768px)').matches) {
-      openPopup({ name: 'galleryPopup' })
+      openPopup({
+        name: 'galleryPopup',
+        args: {
+          list,
+          activeSlideIndex,
+        },
+      })
     }
   }
 
