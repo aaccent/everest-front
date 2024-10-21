@@ -4,13 +4,13 @@ import { DetailDefaultObject } from '@/types/catalog/DetailDefaultObject'
 import Section from '@/layout/Section'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
-import Button from '@/ui/buttons/Button'
 import { formatDate } from '@/features/utility/date'
 import { formatFullPrice, formatPriceForArea } from '@/features/utility/price'
 import { OBJECT_PROPS_ID } from '@/app/catalog/_components/ObjectDetail/ObjectProperties/ObjectProperties'
 
 import styles from './ObjectHero.module.css'
 import ObjectGallery from '@/app/catalog/_components/ObjectDetail/ObjectGallery'
+import CallPopupButton from '@/app/catalog/_components/ObjectDetail/CallPopupButton'
 
 function ActionButton({ className }: { className?: string }) {
   return (
@@ -87,7 +87,7 @@ function ObjectHero({ item }: Props) {
             <span className='text-header-400'>{formatFullPrice(item.price)}</span>
           </div>
           <div className='flex flex-col gap-[20px] md:flex-row'>
-            <Button className='h-[50px] w-full md:h-[42px] md:w-fit md:p-0 md:px-[46px]'>Забронировать</Button>
+            <CallPopupButton />
             <div className='flex w-full justify-between'>
               <div className='flex gap-[6px]'>
                 <ActionButton className='after:bg-icon-heart' />
