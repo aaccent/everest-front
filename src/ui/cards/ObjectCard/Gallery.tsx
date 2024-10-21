@@ -6,6 +6,9 @@ import { CarouselSlide } from '@/components/Carousel/CarouselSlide'
 import Carousel, { CarouselContext, CarouselInner } from '@/components/Carousel/Carousel'
 import { EmblaCarouselType } from 'embla-carousel'
 import Link from 'next/link'
+import { isDesktop } from '@/features/isDesktop'
+
+const IMAGES_IN_CARD = 3
 
 interface GridsProps {
   onMouseEnter: (index: number) => void
@@ -13,9 +16,10 @@ interface GridsProps {
   images: string[]
   link: string
   cols: number
+  seeAllGrid?: boolean
 }
 
-function Grids({ onMouseEnter, onMouseLeave, images, link, cols }: GridsProps) {
+function Grids({ onMouseEnter, onMouseLeave, images, link, cols, seeAllGrid }: GridsProps) {
   const galleryLink = link + '?gallery'
   const { emblaApi } = useContext(CarouselContext)
 
@@ -29,14 +33,6 @@ function Grids({ onMouseEnter, onMouseLeave, images, link, cols }: GridsProps) {
     emblaApi?.scrollTo(0)
   }
 
-  /**
-   * `true` - с бека приходит информация о количество фотографий больше, чем показано в галерее карточки.
-   * В этом случае последним будет слайд, который ведет на страницу объекта с открытой галереей
-   *
-   * `false` - количество слайдов будет равно количеству фотографий в массиве
-   */
-  const seeAllGridLink = cols !== images.length
-
   return (
     <div
       className={`absolute inset-0 hidden md:grid grid-cols-${cols} z-20 size-full`}
@@ -45,7 +41,7 @@ function Grids({ onMouseEnter, onMouseLeave, images, link, cols }: GridsProps) {
       {images.map((_, index) => (
         <Link href={link} className='block' key={index} onMouseEnter={() => onMouseEnterHandle(index)} />
       ))}
-      {seeAllGridLink && <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length)} />}
+      {seeAllGrid && <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length)} />}
     </div>
   )
 }
@@ -94,6 +90,14 @@ interface GalleryProps {
 
 function Gallery({ images, count, link }: GalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0)
+  /**
+   * `true` - с бека приходит информация о количество фотографий больше, чем показано в галерее карточки.
+   * В этом случае последним будет слайд, который ведет на страницу объекта с открытой галереей
+   *
+   * `false` - количество слайдов будет равно количеству фотографий в массиве
+   */
+  const seeAllLink = count > IMAGES_IN_CARD
+  const _images = seeAllLink ? images.slice(0, IMAGES_IN_CARD) : images
 
   const onMouseLeaveHandle = () => {
     setActiveIndex(0)
@@ -102,23 +106,23 @@ function Gallery({ images, count, link }: GalleryProps) {
   function showImages() {
     return (
       <>
-        {images.map((image, index) => (
+        {_images.map((image, index) => (
           <CarouselSlide key={index}>
             <Img src={image} key={index} width={512} height={340} className='size-full object-cover object-center' />
           </CarouselSlide>
         ))}
-        {count !== 0 && (
+        {seeAllLink && isDesktop() && (
           <CarouselSlide>
             <div className='relative z-10 size-full'>
               <Img
-                src={images[images.length - 1]}
+                src={_images[_images.length - 1]}
                 width={512}
                 height={340}
                 className='size-full object-cover object-center'
               />
 
               <div className='absolute inset-0 z-10 flex size-full items-center justify-center bg-gradient-to-b from-[#000]/[.3] to-[#000]/[.35]'>
-                <button className='text-base-200-lg-100 flex flex-col items-center gap-[12px] text-base-100 before:block before:size-[80px] before:-rotate-45 before:rounded-full before:bg-base-100 before:bg-icon-full-arrow before:bg-default-auto'>{`Ещё ${count} фото`}</button>
+                <button className='text-base-200-lg-100 flex flex-col items-center gap-[12px] text-base-100 before:block before:size-[80px] before:-rotate-45 before:rounded-full before:bg-base-100 before:bg-icon-full-arrow before:bg-default-auto'>{`Ещё ${count - _images.length} фото`}</button>
               </div>
             </div>
           </CarouselSlide>
@@ -130,15 +134,16 @@ function Gallery({ images, count, link }: GalleryProps) {
   return (
     <>
       <Carousel
-        className={`relative h-[248px] w-full max-w-[350px] overflow-hidden rounded-[16px] group-[.slider]:hidden md:h-[340px] md:max-w-[512px] group-[.slider]:md:block ${activeIndex === images.length ? 'z-20' : ''}`}
+        className={`relative h-[248px] w-full max-w-[350px] overflow-hidden rounded-[16px] group-[.slider]:hidden md:h-[340px] md:max-w-[512px] group-[.slider]:md:block ${activeIndex === _images.length ? 'z-20' : ''}`}
         fade
       >
         <Grids
           onMouseEnter={setActiveIndex}
-          images={images}
-          cols={count ? images.length + 1 : images.length}
+          images={_images}
+          cols={seeAllLink ? _images.length + 1 : _images.length}
           onMouseLeave={() => onMouseLeaveHandle()}
           link={link}
+          seeAllGrid={seeAllLink}
         />
         <CarouselInner>{showImages()}</CarouselInner>
         <div className='absolute bottom-[20px] z-20 flex w-full items-center justify-center gap-[10px]'>
@@ -146,7 +151,7 @@ function Gallery({ images, count, link }: GalleryProps) {
         </div>
       </Carousel>
       <div className='relative hidden h-[248px] w-full max-w-[350px] overflow-hidden rounded-[16px] group-[.slider]:block group-[.slider]:md:hidden'>
-        <Img src={images[0]} width={512} height={340} className='size-full object-cover object-center' />
+        <Img src={_images[0]} width={512} height={340} className='size-full object-cover object-center' />
       </div>
     </>
   )

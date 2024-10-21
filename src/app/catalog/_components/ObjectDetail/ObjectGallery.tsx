@@ -10,6 +10,9 @@ import {
   CarouselNavigationButtonPrev,
 } from '@/components/Carousel/components/CarouselNavigationButtons'
 import { useSearchParams } from 'next/navigation'
+import { isDesktop } from '@/features/isDesktop'
+
+const LAST_INDEX_IN_OBJECT_CARD = 2
 
 interface ThumbsProps {
   onSlideChange: Dispatch<SetStateAction<number>>
@@ -69,16 +72,11 @@ function ObjectGallery({ list, activeSlide }: GalleryProps) {
         name: 'galleryPopup',
         args: {
           list,
-          activeSlideIndex,
+          activeSlideIndex: LAST_INDEX_IN_OBJECT_CARD,
         },
       })
     }
   }, [])
-
-  function isDesktop() {
-    if (typeof window === undefined) return false
-    return window.matchMedia('(min-width:768px)').matches
-  }
 
   const onSlideClickHandle = () => {
     if (isDesktop()) {
