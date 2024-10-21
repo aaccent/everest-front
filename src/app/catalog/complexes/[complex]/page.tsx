@@ -10,6 +10,7 @@ import LayoutChoice from './_components/LayoutChoice/LayoutChoice'
 import Documentation from './_components/Documentation/Documentation'
 import ExclusiveOffers from './_components/ExclusiveOffers'
 import Bonuses from '@/app/catalog/complexes/[complex]/_components/Bonuses'
+import BuildingProgress from '@/app/catalog/complexes/[complex]/_components/BuildingProgress/BuildingProgress'
 
 async function Page({ params }: ComplexPage) {
   const complex = await getComplexDetailed(params.complex)
@@ -26,6 +27,7 @@ async function Page({ params }: ComplexPage) {
       <LayoutChoice complex={complex} />
       <Documentation complexCode={params.complex} />
       <Bonuses />
+      <BuildingProgress />
     </>
   )
 }
