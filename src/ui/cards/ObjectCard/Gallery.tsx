@@ -6,7 +6,6 @@ import { CarouselSlide } from '@/components/Carousel/CarouselSlide'
 import Carousel, { CarouselContext, CarouselInner } from '@/components/Carousel/Carousel'
 import { EmblaCarouselType } from 'embla-carousel'
 import Link from 'next/link'
-import { isDesktop } from '@/features/isDesktop'
 
 const IMAGES_IN_CARD = 3
 
@@ -101,6 +100,10 @@ function Gallery({ images, count, link }: GalleryProps) {
 
   const onMouseLeaveHandle = () => {
     setActiveIndex(0)
+  }
+  function isDesktop() {
+    if (typeof window === undefined) return false
+    return window.matchMedia('(min-width:768px)').matches
   }
 
   function showImages() {

@@ -10,7 +10,6 @@ import {
   CarouselNavigationButtonPrev,
 } from '@/components/Carousel/components/CarouselNavigationButtons'
 import { useSearchParams } from 'next/navigation'
-import { isDesktop } from '@/features/isDesktop'
 
 const LAST_INDEX_IN_OBJECT_CARD = 2
 
@@ -78,6 +77,11 @@ function ObjectGallery({ list, activeSlide }: GalleryProps) {
     }
   }, [])
 
+  function isDesktop() {
+    if (typeof window === undefined) return false
+    return window.matchMedia('(min-width:768px)').matches
+  }
+
   const onSlideClickHandle = () => {
     if (isDesktop()) {
       openPopup({
@@ -129,7 +133,15 @@ function ObjectGallery({ list, activeSlide }: GalleryProps) {
       <button
         type='button'
         className='absolute right-[20px] top-[35px] size-[42px] rounded-full bg-base-650 bg-icon-zoom-arrows bg-default-auto md:hidden'
-        onClick={() => openPopup({ name: 'galleryPopup' })}
+        onClick={() =>
+          openPopup({
+            name: 'galleryPopup',
+            args: {
+              list,
+              activeSlideIndex,
+            },
+          })
+        }
       />
       <Thumbs onSlideChange={setActiveSlideIndex}>
         <Carousel>
