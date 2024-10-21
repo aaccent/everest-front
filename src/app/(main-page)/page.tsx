@@ -10,8 +10,8 @@ import { ROUTES } from '@/globals/paths'
 import GeoPosition from '@/components/GeoPosition'
 
 export default async function Home() {
-  const newBuildingsOnMain = await getNewBuildingsOnMain()
-  const newObjects = await getNewObjects()
+  const newBuildingsOnMain = await getNewBuildingsOnMain().catch(() => [])
+  const newObjects = await getNewObjects().catch(() => [])
 
   return (
     <>
