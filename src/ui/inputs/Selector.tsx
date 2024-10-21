@@ -68,7 +68,7 @@ function Selector({
   function onRadioClick(item: string) {
     _setValue((prev) => {
       if (prev.includes(item)) return prev
-
+      setOpened(false)
       return [item]
     })
   }
