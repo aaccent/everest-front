@@ -1,38 +1,26 @@
 import { ComplexesCategory, ComplexesCategoryFromAPI } from '@/types/catalog/Complex'
-import {
-  CategoryRequestWithFilters,
-  CategoryRequestWithPagination,
-  FilterRequestParam,
-  SortRequestParam,
-} from '@/types/catalog/Category'
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
-import { PER_PAGE } from '@/globals/paginationConst'
+import { GeneralRequestParams } from '@/types/RequestProps'
 
-type Request = APIRequest<
-  {
-    chainUrl?: string
-  } & CategoryRequestWithFilters &
-    CategoryRequestWithPagination
->
+type Request = APIRequest<GeneralRequestParams & { chainUrl?: string }>
+
+type Props = GeneralRequestParams
 
 type Response = APIResponse<ComplexesCategoryFromAPI>
 
-export async function getComplexes(
-  filter: FilterRequestParam = null,
-  sort: SortRequestParam = null,
-): Promise<ComplexesCategory> {
+export async function getComplexes({ ...options }: Props = {}): Promise<ComplexesCategory> {
   const res = await apiCall<Request | false, Response>(`/catalog/complexes`, {
     method: 'POST',
-    request: { chainUrl: 'complexes', sort, filter },
+    request: { chainUrl: 'complexes', ...options },
   })
 
   return {
     ...res.data,
     categories: [],
     objects: res.data.categories,
-    page: res.data.page | 1,
-    perPage: res.data.perPage | PER_PAGE.TILE,
-    total: res.data.total | res.data.categories.length,
+    page: res.data.page,
+    perPage: res.data.perPage,
+    total: res.data.total,
     count: res.data.count,
   }
 }

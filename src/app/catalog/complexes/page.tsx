@@ -1,5 +1,5 @@
 import React from 'react'
-import { getCategory } from '@/globals/api'
+import { getComplexes } from '@/globals/api'
 import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
 import { GetObjectsFn } from '@/features/useFilterAndPagination'
@@ -7,16 +7,16 @@ import { ComplexObject } from '@/types/catalog/Complex'
 import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 
 async function Page() {
-  const data = await getCategory('complexes', { subcategory: 'complexes' })
+  const data = await getComplexes()
 
   const _category = {
     ...data,
     name: 'Жилые Комплексы',
   }
 
-  const getObjects: GetObjectsFn<ComplexObject> = async function ({ filter, sort, page, perPage }) {
+  const getObjects: GetObjectsFn<ComplexObject> = async function ({ filter, sort, page, perPage, location }) {
     'use server'
-    return await getCategory('complexes', { subcategory: 'complexes', filter, sort, page, perPage })
+    return await getComplexes({ filter, sort, page, perPage, location })
   }
 
   return (
