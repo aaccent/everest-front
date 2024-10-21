@@ -3,32 +3,28 @@ import Section from '@/layout/Section'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
 import DocumentationWrapperWithButton from './DocumentationWrapperWithButton'
 import Link from 'next/link'
+import { getDocumentation } from '@/globals/api'
 
-interface DocsType {
+export interface DocsType {
   id: number
   title: string
   size: string
   format: string
-  link: string
+  filePath: string
 }
 
-const textDocs = Array(10)
-  .fill('')
-  .map((_, i) => ({
-    id: i,
-    title: 'Проектная декларация №72-3243434',
-    size: '0.72',
-    format: 'pdf',
-    link: '#',
-  }))
+interface Props {
+  complexCode: string
+}
 
-function Documentation() {
+async function Documentation({ complexCode }: Props) {
+  const docs = await getDocumentation(complexCode)
   function showLinks() {
-    return textDocs.map((doc) => {
+    return docs.map((doc) => {
       return (
         <li key={doc.id}>
           <Link
-            href={doc.link}
+            href={doc.filePath}
             className='text-base-300-lg-100 flex flex-col gap-[8px] rounded-[20px] bg-base-100 p-[20px] md:flex-row md:justify-between md:gap-0 md:rounded-[24px]'
             download
           >
@@ -44,6 +40,9 @@ function Documentation() {
       )
     })
   }
+
+  if (!docs.length) return null
+
   return (
     <Section>
       <DecorativeBlock className='px-container bg-base-200 pb-[20px] pt-[33px] md:pb-[40px]'>

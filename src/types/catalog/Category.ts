@@ -41,6 +41,7 @@ export type FilterRequestParam = object[] | null
 /** Используется как плейсхолдер для возможного рефактора типизации сортировки */
 export type SortRequestParam = string | null
 
+// TODO: rename into FilterRequest and split sort and filter on different interfaces
 export interface CategoryRequestWithFilters {
   filter?: FilterRequestParam
   sort?: SortRequestParam

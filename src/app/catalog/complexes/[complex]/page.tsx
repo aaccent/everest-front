@@ -24,8 +24,8 @@ async function Page({ params }: ComplexPage) {
         <ExclusiveOffers />
       </PageMenuWrapper>
       <LayoutChoice complex={complex} />
+      <Documentation complexCode={params.complex} />
       <Bonuses />
-      <Documentation />
     </>
   )
 }

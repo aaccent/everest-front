@@ -2,7 +2,7 @@ import React from 'react'
 import { ComplexObject, FlatType } from '@/types/catalog/Complex'
 import Link from 'next/link'
 import { formatPriceShortBy } from '@/features/utility/price'
-import { formatStatus } from '@/features/utility/date'
+import { formatStatusByQuarter } from '@/features/utility/date'
 import Img from '@/ui/Img'
 import { createComplexLink } from '@/features/catalog/link'
 import Tags from '@/components/Tags'
@@ -42,7 +42,7 @@ function ComplexListCard({ item }: Props) {
         <div className='mb-[12px] flex items-center gap-[16px]'>
           <span className='text-header-300'>{item.name}</span>
           <div className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[6.5px]'>
-            {formatStatus(item.status)}
+            {formatStatusByQuarter(item.status)}
           </div>
         </div>
         <div className='text-base-200-lg-100 mb-[17px] flex items-center gap-[10px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-default-auto'>
