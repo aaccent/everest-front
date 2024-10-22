@@ -3,7 +3,7 @@ import { useFilter } from '@/features/useFilter'
 import { Sort } from '@/types/FiltersType'
 import { useEffect, useRef, useState } from 'react'
 import { useSort } from '@/features/useSort'
-import { PER_PAGE } from '@/layout/catalog/CategoryContext'
+import { PER_PAGE } from '@/globals/pagination'
 
 type GetObjectsOptions = {
   filter: object[] | null
