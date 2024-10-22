@@ -71,7 +71,7 @@ function BuildingProgress({ complexCode }: Props) {
       return {
         text: `${index + 1} квартал`,
         value: JSON.stringify(quarter),
-        disabled: !!!album.length,
+        disabled: !album.length,
       }
     })
   }
