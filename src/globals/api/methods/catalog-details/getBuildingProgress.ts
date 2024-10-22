@@ -1,15 +1,15 @@
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 
-interface QuarterRequest {
-  dateFrom: Date
-  dateTo: Date
+export interface QuarterRequest {
+  dateFrom: Date | string
+  dateTo: Date | string
 }
 
 type BuildingProgressProps = QuarterRequest & {
   complexCode: string
 }
 
-interface BuildingProgressPart {
+export interface BuildingProgressPart {
   date: Date
   image: string
 }
