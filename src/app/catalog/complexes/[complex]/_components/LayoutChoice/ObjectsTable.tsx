@@ -49,6 +49,7 @@ function ObjectsTable({ complex }: ObjectsTableProps) {
   }
 
   function showHousesTable() {
+    if (!complex.objects) return null
     return complex.objects.map((house, index) => {
       return (
         <div className='mb-[32px] last:mb-0 md:mb-[64px]' key={index}>

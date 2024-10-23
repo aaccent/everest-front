@@ -8,7 +8,7 @@ type Props = GeneralRequestParams
 
 type Response = APIResponse<ComplexesCategoryFromAPI>
 
-export async function getComplexes({ ...options }: Props = {}): Promise<ComplexesCategory> {
+export async function getComplexes(options: Props = {}): Promise<ComplexesCategory> {
   const res = await apiCall<Request | false, Response>(`/catalog/complexes`, {
     method: 'POST',
     request: { chainUrl: 'complexes', ...options },
