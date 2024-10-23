@@ -6,6 +6,7 @@ import { CarouselSlide } from '@/components/Carousel/CarouselSlide'
 import Carousel, { CarouselContext, CarouselInner } from '@/components/Carousel/Carousel'
 import { EmblaCarouselType } from 'embla-carousel'
 import Link from 'next/link'
+import { AdaptiveContext } from '@/features/adaptive'
 
 const IMAGES_IN_CARD = 3
 
@@ -89,6 +90,7 @@ interface GalleryProps {
 
 function Gallery({ images, count, link }: GalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number>(0)
+  const { isDesktop } = useContext(AdaptiveContext)
   /**
    * `true` - с бека приходит информация о количество фотографий больше, чем показано в галерее карточки.
    * В этом случае последним будет слайд, который ведет на страницу объекта с открытой галереей
@@ -101,10 +103,6 @@ function Gallery({ images, count, link }: GalleryProps) {
   const onMouseLeaveHandle = () => {
     setActiveIndex(0)
   }
-  function isDesktop() {
-    if (typeof window === undefined) return false
-    return window.matchMedia('(min-width:768px)').matches
-  }
 
   function showImages() {
     return (
@@ -114,7 +112,7 @@ function Gallery({ images, count, link }: GalleryProps) {
             <Img src={image} key={index} width={512} height={340} className='size-full object-cover object-center' />
           </CarouselSlide>
         ))}
-        {seeAllLink && isDesktop() && (
+        {seeAllLink && isDesktop && (
           <CarouselSlide>
             <div className='relative z-10 size-full'>
               <Img
