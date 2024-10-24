@@ -20,11 +20,11 @@ import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
 
 interface Props {
   category: string
-  objectsAmount?: number | null
+  objectsAmount?: number
   quickFilters: QuickFilters
 }
 
-function FilterPopup({ category, objectsAmount = null, quickFilters }: Props) {
+function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>([])
   const { list } = useContext(CategoryContext)
   const { closePopup } = useContext(PopupContext)
@@ -71,7 +71,7 @@ function FilterPopup({ category, objectsAmount = null, quickFilters }: Props) {
   }
 
   return (
-    <DynamicPopup popupName='filterPopup'>
+    <DynamicPopup activePopup='filterPopup'>
       <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 md:top-[48px] md:block md:h-[(100dvh-48px)] md:p-[56px]'>
         <div className='relative h-1 grow p-[24px] md:static md:h-full md:grow-0 md:p-0'>
           <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
