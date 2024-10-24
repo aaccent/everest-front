@@ -22,6 +22,8 @@ export function FilterTags() {
     })
   }
 
+  if (!activeFilters) return null
+
   return (
     <div className={`hidden flex-wrap items-center gap-[10px] md:flex ${activeFilters.length ? 'mb-[64px]' : ''}`}>
       {showAllTags()}
