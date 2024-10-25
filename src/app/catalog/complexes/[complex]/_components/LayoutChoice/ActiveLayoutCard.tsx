@@ -38,7 +38,7 @@ function ActiveLayoutCard({ complex }: Props) {
   if (!activeObject) return null
 
   return (
-    <div className='sticky top-[50px] h-fit w-full max-w-[380px]'>
+    <div className='sticky top-[50px] hidden h-fit w-full max-w-[380px] md:block'>
       <LayoutCard item={convertActiveLayoutItemToLayoutCard(activeObject)} complex={complex} />
     </div>
   )

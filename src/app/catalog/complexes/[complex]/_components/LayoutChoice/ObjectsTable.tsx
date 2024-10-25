@@ -13,13 +13,13 @@ function HeadRow({ houseNumber }: { houseNumber: string }) {
   return (
     <Row className='text-base-400-lg-100 text-base-650'>
       <th className='text-base-400-reg-100 hidden uppercase text-base-600 md:table-cell md:pb-[20px]'>{`дом №${houseNumber}`}</th>
-      <Cell thead content='Секция' className='md:pb-[20px]' />
-      <Cell thead content='Кв.№' className='hidden md:table-cell md:pb-[20px]' />
-      <Cell thead content='Комнат' className='md:pb-[20px]' />
-      <Cell thead content='Площадь' className='md:pb-[20px]' />
-      <Cell thead content='Этаж' className='md:pb-[20px]' />
-      <Cell thead content='Тип отделки' className='hidden md:table-cell md:pb-[20px]' />
-      <Cell thead content='Стоимость' className='md:pb-[20px]' />
+      <Cell thead content='Секция' className='pb-[10px] md:pb-[20px]' />
+      <Cell thead content='Кв.№' className='hidden pb-[10px] md:table-cell md:pb-[20px]' />
+      <Cell thead content='Комнат' className='pb-[10px] md:pb-[20px]' />
+      <Cell thead content='Площадь' className='pb-[10px] md:pb-[20px]' />
+      <Cell thead content='Этаж' className='pb-[10px] md:pb-[20px]' />
+      <Cell thead content='Тип отделки' className='hidden pb-[10px] md:table-cell md:pb-[20px]' />
+      <Cell thead content='Стоимость' className='pb-[10px] md:pb-[20px]' />
     </Row>
   )
 }
