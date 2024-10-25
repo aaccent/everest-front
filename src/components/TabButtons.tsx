@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
+export type TabButtonItem = { text: string; value: string; disabled?: boolean }
 
 export type TabButtonsProps = {
-  list: { text: string; value: string; disabled?: boolean }[]
+  list: TabButtonItem[]
   onChange?: (value: string) => void
   defaultActiveValue?: string
 }
 
 function TabButtons({ onChange, list, defaultActiveValue }: TabButtonsProps) {
-  const [active, setActive] = useState<string>(defaultActiveValue || list[0].value)
+  const [active, setActive] = useState<string>(list[0].value)
+
+  useEffect(() => {
+    if (defaultActiveValue) setActive(defaultActiveValue)
+  }, [defaultActiveValue])
 
   function _onChange(value: string) {
     const disabledButtons = list.filter((v) => v.disabled)
@@ -16,7 +22,7 @@ function TabButtons({ onChange, list, defaultActiveValue }: TabButtonsProps) {
     setActive(value)
   }
 
-  const currentClass = (btn: TabButtonsProps['list'][0]) => {
+  const currentClass = (btn: TabButtonItem) => {
     if (active === btn.value) return 'bg-primary text-base-100'
     if (btn.disabled) return 'bg-base-300 text-base-500 cursor-default'
     return 'bg-base-300 text-base-600'

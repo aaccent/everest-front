@@ -1,21 +1,21 @@
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 
-export interface QuarterRequest {
-  dateFrom: Date | string
-  dateTo: Date | string
+export interface Period {
+  dateFrom: string
+  dateTo: string
 }
 
-type BuildingProgressProps = QuarterRequest & {
+type BuildingProgressProps = Period & {
   complexCode: string
 }
 
-export interface BuildingProgressPart {
+export interface BuildingProgressImage {
   date: Date
   image: string
 }
 
-type Request = APIRequest<QuarterRequest>
-type Response = APIResponse<BuildingProgressPart[]>
+type Request = APIRequest<Period>
+type Response = APIResponse<BuildingProgressImage[]>
 
 export async function getBuildingProgress({ complexCode, ...options }: BuildingProgressProps) {
   const res = await apiCall<Request, Response>(`/catalog/complexes/${complexCode}/building-progress`, {

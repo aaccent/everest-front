@@ -1,34 +1,11 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Selector from '@/ui/inputs/Selector'
-import { BuildingProgressPart as Album, getBuildingProgress, QuarterRequest } from '@/globals/api'
+import { BuildingProgressImage as Album, getBuildingProgress, Period } from '@/globals/api'
 import Section from '@/layout/Section'
-import TabButtons, { TabButtonsProps } from '@/components/TabButtons'
+import TabButtons, { TabButtonItem } from '@/components/TabButtons'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
 import Img from '@/ui/Img'
-
-const testData = [2021, 2022, 2023]
-
-function getQuarters(year: number | string): QuarterRequest[] {
-  return [
-    {
-      dateFrom: `${year}-01-01`,
-      dateTo: `${year}-03-31`,
-    },
-    {
-      dateFrom: `${year}-04-01`,
-      dateTo: `${year}-06-30`,
-    },
-    {
-      dateFrom: `${year}-07-01`,
-      dateTo: `${year}-09-30`,
-    },
-    {
-      dateFrom: `${year}-10-01`,
-      dateTo: `${year}-12-31`,
-    },
-  ]
-}
 
 interface AlbumsProps {
   albums: Album[]
@@ -53,35 +30,39 @@ interface Props {
 }
 
 function BuildingProgress({ complexCode }: Props) {
-  const [year, setYear] = useState<number | string>(testData[0])
+  const [yearsList, setYearsList] = useState<string[]>([])
+  const [selectedYear, setSelectedYear] = useState<string>('')
   const [albums, setAlbums] = useState<Album[]>()
-  const [activeQuarter, setActiveQuarter] = useState<QuarterRequest>()
-  const [tabButtons, setTabButtons] = useState<TabButtonsProps['list']>([])
+  const [activeQuarter, setActiveQuarter] = useState<Period>()
+  const [tabButtons, setTabButtons] = useState<TabButtonItem[]>([])
 
-  const onYearChange = (name: string, newYear: Array<string | number>) => {
-    setYear((prev) => {
+  useEffect(() => {
+    fetch(`/api/${complexCode}/get-years-list`)
+      .then((res) => res.json())
+      .then((data) => {
+        setYearsList(data)
+        setSelectedYear(data[0])
+      })
+  }, [])
+
+  const onYearChange = (name: string, newYear: Array<string>) => {
+    setSelectedYear((prev) => {
       if (newYear[0] === prev) return prev
       return newYear[0]
     })
   }
 
-  function convertQuartersToTabButtonsProp(quarters: QuarterRequest[]) {
-    return quarters.map(async (quarter, index) => {
-      const album = await getBuildingProgress({ complexCode, ...quarter })
-      return {
-        text: `${index + 1} квартал`,
-        value: JSON.stringify(quarter),
-        disabled: !album.length,
-      }
-    })
-  }
-
   useEffect(() => {
-    const quarters = getQuarters(year)
-    setActiveQuarter(quarters[0])
-    Promise.all(convertQuartersToTabButtonsProp(quarters)).then((res) => setTabButtons(res))
-    getBuildingProgress({ complexCode, ...quarters[0] }).then((res) => setAlbums(res))
-  }, [year])
+    if (!selectedYear) return
+
+    fetch(`/api/${complexCode}/get-year-quarters?year=${selectedYear}`)
+      .then((res) => res.json())
+      .then((res) => {
+        setTabButtons(res)
+        const active: TabButtonItem = res.find((quarter: TabButtonItem) => !quarter.disabled)
+        setActiveQuarter(JSON.parse(active.value))
+      })
+  }, [selectedYear])
 
   const onQuarterChange = (value: string) => {
     const quarter = JSON.parse(value)
@@ -100,9 +81,9 @@ function BuildingProgress({ complexCode }: Props) {
             name='building-progress-year'
             title=''
             showTitle={false}
-            list={testData}
+            list={yearsList}
             isRadio
-            value={[year]}
+            value={[selectedYear]}
             onChange={onYearChange}
             className='md:w-[334px]'
           />
@@ -115,7 +96,7 @@ function BuildingProgress({ complexCode }: Props) {
           ) : null}
         </div>
       </div>
-      {albums ? <Albums albums={albums} /> : null}
+      {/*{albums ? <Albums albums={albums} /> : null}*/}
     </Section>
   )
 }
