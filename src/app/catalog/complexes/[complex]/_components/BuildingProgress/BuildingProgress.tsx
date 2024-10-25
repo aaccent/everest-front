@@ -1,22 +1,22 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Selector from '@/ui/inputs/Selector'
-import { BuildingProgressImage as Album, getBuildingProgress, Period } from '@/globals/api'
+import { BuildingProgressImage, Period } from '@/globals/api'
 import Section from '@/layout/Section'
 import TabButtons, { TabButtonItem } from '@/components/TabButtons'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
 import Img from '@/ui/Img'
 
-interface AlbumsProps {
-  albums: Album[]
+type Albums = {
+  albums: BuildingProgressImage[][]
 }
 
-function Albums({ albums }: AlbumsProps) {
+function Albums({ albums }: Albums) {
   function showAlbums() {
     return albums.map((album) => {
       return (
-        <DecorativeBlock type='small' key={album.date.toString()}>
-          <Img src={album.image} width={776} height={560} className='size-full object-cover object-center' />
+        <DecorativeBlock type='small' key={album[0].date.toString()}>
+          <Img src={album[0].image} width={776} height={560} className='size-full object-cover object-center' />
         </DecorativeBlock>
       )
     })
@@ -32,7 +32,7 @@ interface Props {
 function BuildingProgress({ complexCode }: Props) {
   const [yearsList, setYearsList] = useState<string[]>([])
   const [selectedYear, setSelectedYear] = useState<string>('')
-  const [albums, setAlbums] = useState<Album[]>()
+  const [albums, setAlbums] = useState<BuildingProgressImage[][]>()
   const [activeQuarter, setActiveQuarter] = useState<Period>()
   const [tabButtons, setTabButtons] = useState<TabButtonItem[]>([])
 
@@ -67,10 +67,14 @@ function BuildingProgress({ complexCode }: Props) {
   const onQuarterChange = (value: string) => {
     const quarter = JSON.parse(value)
     setActiveQuarter(quarter)
-    getBuildingProgress({ complexCode, ...quarter }).then((res) => setAlbums(res))
   }
 
-  useEffect(() => {}, [activeQuarter])
+  useEffect(() => {
+    if (!activeQuarter) return
+    fetch(`/api/${complexCode}/get-albums?quarter=${JSON.stringify(activeQuarter)}`)
+      .then((res) => res.json())
+      .then((data) => setAlbums(() => Object.values(data)))
+  }, [activeQuarter])
 
   return (
     <Section>
@@ -96,7 +100,7 @@ function BuildingProgress({ complexCode }: Props) {
           ) : null}
         </div>
       </div>
-      {/*{albums ? <Albums albums={albums} /> : null}*/}
+      {albums ? <Albums albums={albums} /> : null}
     </Section>
   )
 }

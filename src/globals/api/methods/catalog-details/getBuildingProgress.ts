@@ -10,7 +10,7 @@ type BuildingProgressProps = Period & {
 }
 
 export interface BuildingProgressImage {
-  date: Date
+  date: string
   image: string
 }
 
