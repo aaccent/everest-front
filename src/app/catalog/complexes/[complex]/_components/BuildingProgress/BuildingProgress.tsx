@@ -4,26 +4,7 @@ import Selector from '@/ui/inputs/Selector'
 import { BuildingProgressImage, Period } from '@/globals/api'
 import Section from '@/layout/Section'
 import TabButtons, { TabButtonItem } from '@/components/TabButtons'
-import { DecorativeBlock } from '@/layout/DecorativeSection'
-import Img from '@/ui/Img'
-
-type Albums = {
-  albums: BuildingProgressImage[][]
-}
-
-function Albums({ albums }: Albums) {
-  function showAlbums() {
-    return albums.map((album) => {
-      return (
-        <DecorativeBlock type='small' key={album[0].date.toString()}>
-          <Img src={album[0].image} width={776} height={560} className='size-full object-cover object-center' />
-        </DecorativeBlock>
-      )
-    })
-  }
-
-  return <div className='mt-[40px] grid grid-cols-2 gap-[16px]'>{showAlbums()}</div>
-}
+import AlbumsList from '@/app/catalog/complexes/[complex]/_components/BuildingProgress/AlbumsList'
 
 interface Props {
   complexCode: string
@@ -89,18 +70,19 @@ function BuildingProgress({ complexCode }: Props) {
             isRadio
             value={[selectedYear]}
             onChange={onYearChange}
-            className='md:w-[334px]'
+            className='w-[350px] rounded-[20px] border border-base-400 px-[16px] pt-[18px] md:w-[334px]'
           />
           {tabButtons.length ? (
             <TabButtons
               list={tabButtons}
               onChange={onQuarterChange}
               defaultActiveValue={JSON.stringify(activeQuarter)}
+              className='text-nowrap'
             />
           ) : null}
         </div>
       </div>
-      {albums ? <Albums albums={albums} /> : null}
+      {albums ? <AlbumsList albums={albums} /> : null}
     </Section>
   )
 }

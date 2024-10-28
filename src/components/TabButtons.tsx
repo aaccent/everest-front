@@ -6,9 +6,10 @@ export type TabButtonsProps = {
   list: TabButtonItem[]
   onChange?: (value: string) => void
   defaultActiveValue?: string
+  className?: string
 }
 
-function TabButtons({ onChange, list, defaultActiveValue }: TabButtonsProps) {
+function TabButtons({ onChange, list, defaultActiveValue, className }: TabButtonsProps) {
   const [active, setActive] = useState<string>(list[0].value)
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function TabButtons({ onChange, list, defaultActiveValue }: TabButtonsProps) {
         <button
           key={btn.value}
           onClick={() => _onChange(btn.value)}
-          className={`text-base-500-reg-100-upper rounded-[50px] px-[14px] py-[9px] ${currentClass(btn)}`}
+          className={`text-base-500-reg-100-upper rounded-[50px] px-[14px] py-[9px] ${className} ${currentClass(btn)}`}
         >
           {btn.text}
         </button>
