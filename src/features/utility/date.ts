@@ -41,7 +41,7 @@ export function formatStatusByQuarter(timestamp: Timestamp) {
 }
 
 export function formatStatusExtended(timestamp: Timestamp) {
-  if (!timestamp) return 'неизвестно'
+  if (!timestamp) return null
 
   // TODO: Скорее всего он не учитывает часовой пояс
   const date = new Date(timestamp)

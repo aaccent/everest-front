@@ -26,7 +26,7 @@ function QuickFilter({ filters, categoryName }: Props) {
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>
           <DetailFilterButton quickFilters={filters} categoryName={categoryName} />
-          <div className='flex gap-[16px]'>
+          <div className='ml-[16px] flex gap-[16px]'>
             <FilterItems filters={filters.filters.slice(0, 5)} isQuick />
           </div>
           <ResetFiltersButton
