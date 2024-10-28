@@ -4,9 +4,8 @@ import Img from '@/ui/Img'
 import React, { useContext } from 'react'
 import Carousel, { CarouselInner, CarouselSlide } from '@/components/Carousel/Carousel'
 import { PopupContext } from '@/features/Popup'
-import moment from 'moment'
-import 'moment/locale/ru'
 import { photosPlural } from '@/features/utility/pluralRules'
+import { formatLongDate } from '@/features/utility/date'
 
 interface Props {
   albums: BuildingProgressImage[][]
@@ -16,7 +15,8 @@ function AlbumsList({ albums }: Props) {
   const { openPopup } = useContext(PopupContext)
   function showAlbums() {
     return albums.map((album) => {
-      const formattedDate = moment(album[0].date).format('D MMMM YYYY').toString()
+      const date = new Date(album[0].date)
+      const formattedDate = formatLongDate(date)
       const photosList: BuildingProgressImage['image'][] = album.map((photo) => photo.image)
       return (
         <CarouselSlide className='pr-[12px] md:basis-1/2 md:pr-[16px]' key={album[0].date}>

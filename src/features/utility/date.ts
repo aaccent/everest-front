@@ -27,6 +27,33 @@ export function convertToRoman(num: number): string {
   }
 }
 
+/**
+ * Выводит дату вида 12 февраля 2022
+ * @param date - [Date]{@link Date} конструктор
+ */
+export function formatLongDate(date: Date): string {
+  if (!date) return 'неизвестно'
+
+  // TODO: Скорее всего он не учитывает часовой пояс
+  const formatter = new Intl.DateTimeFormat('ru-RU', {
+    month: 'long',
+    year: 'numeric',
+    day: '2-digit',
+  })
+
+  return formatter
+    .formatToParts(date)
+    .map(({ type, value }, index) => {
+      if (type === 'literal') {
+        return ' '
+      }
+
+      return value
+    })
+    .join('')
+    .trim()
+}
+
 type Timestamp = DateString | number | string | null | undefined
 
 export function formatStatusByQuarter(timestamp: Timestamp) {
@@ -53,23 +80,7 @@ export function formatStatusExtended(timestamp: Timestamp) {
       text: 'Выдача ключей',
     }
 
-  const formatter = new Intl.DateTimeFormat('ru-RU', {
-    month: 'long',
-    year: 'numeric',
-    day: '2-digit',
-  })
-
-  const dateStr = formatter
-    .formatToParts(date)
-    .map(({ type, value }, index) => {
-      if (type === 'literal') {
-        return ' '
-      }
-
-      return value
-    })
-    .join('')
-    .trim()
+  const dateStr = formatLongDate(date)
 
   return {
     giveAway: false,

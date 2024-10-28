@@ -1,10 +1,10 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import Selector from '@/ui/inputs/Selector'
-import { BuildingProgressImage, Period } from '@/globals/api'
 import Section from '@/layout/Section'
 import TabButtons, { TabButtonItem } from '@/components/TabButtons'
 import AlbumsList from '@/app/catalog/complexes/[complex]/_components/BuildingProgress/AlbumsList'
+import { BuildingProgressImage, getAlbums, getQuarters, getYearsList, Period } from '@/globals/api'
 
 interface Props {
   complexCode: string
@@ -15,34 +15,27 @@ function BuildingProgress({ complexCode }: Props) {
   const [selectedYear, setSelectedYear] = useState<string>('')
   const [albums, setAlbums] = useState<BuildingProgressImage[][]>()
   const [activeQuarter, setActiveQuarter] = useState<Period>()
-  const [tabButtons, setTabButtons] = useState<TabButtonItem[]>([])
+  const [quarters, setQuarters] = useState<TabButtonItem[]>([])
 
   useEffect(() => {
-    fetch(`/api/${complexCode}/get-years-list`)
-      .then((res) => res.json())
-      .then((data) => {
-        setYearsList(data)
-        setSelectedYear(data[0])
-      })
+    getYearsList(complexCode).then((data) => {
+      setYearsList(data)
+      setSelectedYear(data[0])
+    })
   }, [])
 
   const onYearChange = (name: string, newYear: Array<string>) => {
-    setSelectedYear((prev) => {
-      if (newYear[0] === prev) return prev
-      return newYear[0]
-    })
+    setSelectedYear(newYear[0])
   }
 
   useEffect(() => {
     if (!selectedYear) return
 
-    fetch(`/api/${complexCode}/get-year-quarters?year=${selectedYear}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setTabButtons(res)
-        const active: TabButtonItem = res.find((quarter: TabButtonItem) => !quarter.disabled)
-        setActiveQuarter(JSON.parse(active.value))
-      })
+    getQuarters(complexCode, selectedYear).then((res) => {
+      setQuarters(res)
+      const active: TabButtonItem = res.find((quarter: TabButtonItem) => !quarter.disabled)
+      setActiveQuarter(JSON.parse(active.value))
+    })
   }, [selectedYear])
 
   const onQuarterChange = (value: string) => {
@@ -52,9 +45,8 @@ function BuildingProgress({ complexCode }: Props) {
 
   useEffect(() => {
     if (!activeQuarter) return
-    fetch(`/api/${complexCode}/get-albums?quarter=${JSON.stringify(activeQuarter)}`)
-      .then((res) => res.json())
-      .then((data) => setAlbums(() => Object.values(data)))
+
+    getAlbums(complexCode, activeQuarter).then((data) => setAlbums(() => Object.values(data)))
   }, [activeQuarter])
 
   return (
@@ -72,9 +64,9 @@ function BuildingProgress({ complexCode }: Props) {
             onChange={onYearChange}
             className='mt-0 w-[350px] rounded-[20px] border border-base-400 px-[16px] pt-[18px] md:w-[334px]'
           />
-          {tabButtons.length ? (
+          {quarters.length ? (
             <TabButtons
-              list={tabButtons}
+              list={quarters}
               onChange={onQuarterChange}
               defaultActiveValue={JSON.stringify(activeQuarter)}
               className='text-nowrap'
