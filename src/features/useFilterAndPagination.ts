@@ -1,16 +1,9 @@
 'use client'
 import { useFilter } from '@/features/useFilter'
-import { Sort } from '@/types/FiltersType'
 import { useEffect, useRef, useState } from 'react'
 import { useSort } from '@/features/useSort'
-import { PER_PAGE } from '@/layout/catalog/CategoryContext'
-
-type GetObjectsOptions = {
-  filter: object[] | null
-  sort: Sort['value'] | null
-  page: number
-  perPage: number
-}
+import { PER_PAGE } from '@/globals/pagination'
+import { GeneralRequestParams } from '@/types/RequestProps'
 
 export type ListType<TType = unknown> = {
   objects: TType[]
@@ -26,7 +19,7 @@ const EMPTY_LIST: ListType = {
   total: 0,
 }
 
-export type GetObjectsFn<TType = unknown> = (options: GetObjectsOptions) => Promise<ListType>
+export type GetObjectsFn<TType = unknown> = (options: GeneralRequestParams) => Promise<ListType>
 
 export interface Props<TType = unknown> {
   initList: TType[]
@@ -57,7 +50,7 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   async function _getObjects(pageNumber: number = 1) {
-    const options: GetObjectsOptions = {
+    const options: GeneralRequestParams = {
       filter: filter.parsed,
       sort,
       page: pageNumber,
