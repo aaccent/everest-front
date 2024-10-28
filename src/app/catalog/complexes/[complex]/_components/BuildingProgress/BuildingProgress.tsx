@@ -59,7 +59,7 @@ function BuildingProgress({ complexCode }: Props) {
 
   return (
     <Section>
-      <div className='flex flex-col items-end gap-[32px] md:flex-row md:items-start md:justify-between md:gap-0'>
+      <div className='flex flex-col items-start gap-[32px] md:flex-row md:items-end md:justify-between'>
         <h2 className='text-header-200 uppercase'>Ход строительства</h2>
         <div className='flex flex-col items-center gap-[16px] md:flex-row md:gap-[40px]'>
           <Selector
@@ -70,7 +70,7 @@ function BuildingProgress({ complexCode }: Props) {
             isRadio
             value={[selectedYear]}
             onChange={onYearChange}
-            className='w-[350px] rounded-[20px] border border-base-400 px-[16px] pt-[18px] md:w-[334px]'
+            className='mt-0 w-[350px] rounded-[20px] border border-base-400 px-[16px] pt-[18px] md:w-[334px]'
           />
           {tabButtons.length ? (
             <TabButtons
