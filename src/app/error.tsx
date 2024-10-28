@@ -22,7 +22,7 @@ export default function Error({ error }: Props) {
 
   return (
     <>
-      <Breadcrumbs className='mb-[135px] md:mb-[50px]' list={[{ name: 'Страница не найдена', seo: '' }]} />
+      <Breadcrumbs className='mb-[135px] md:mb-[50px]' list={[{ name: 'Ошибка загрузки', seo: '' }]} />
       <Container className='error-section peer relative flex h-screen flex-col'>
         <h1 className='text-header-100 mx-auto mt-[100px] block text-center uppercase'>Ошибка загрузки</h1>
         <Button
