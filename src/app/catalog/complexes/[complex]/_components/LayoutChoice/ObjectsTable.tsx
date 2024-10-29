@@ -5,7 +5,7 @@ import Cell, { CellProps } from '@/ui/Cell'
 
 import { DetailComplex } from '@/types/catalog/Complex'
 import ActiveLayoutCard from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/ActiveLayoutCard'
-import { getComplexHouseObjects } from '@/globals/api/methods/complex/getComplexHouseObjects'
+import { getComplexHouseObjects } from '@/globals/api'
 import { ComplexHouse, ComplexHouseObject } from '@/types/complex/ComplexHouse'
 import { formatFullPrice } from '@/features/utility/price'
 

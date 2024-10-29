@@ -7,7 +7,7 @@ import CallForm from '@/ui/forms/CallForm'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 
-import { getSocials } from '@/globals/api/methods/getSocials'
+import { getSocials } from '@/globals/api'
 import { socialItem } from '@/layout/Footer/Footer'
 
 import bgLogo from '@/assets/static/call-popup-bg.svg'
