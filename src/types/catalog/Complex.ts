@@ -78,16 +78,12 @@ export interface Complex {
   characteristics: Characteristic[]
 }
 
-export interface DetailComplexHouse {
-  objects: LayoutObject[]
-}
-
 /** Детальная ЖК из АПИ */
 export interface DetailComplexFromAPI {
   breadcrumbs: BreadcrumbItem[]
   complex: Complex
+  houseNumbers: string[]
   gallery: string[]
-  objects: DetailComplexHouse[]
 }
 
 export type DetailComplex = Complex & Omit<DetailComplexFromAPI, 'complex'>
