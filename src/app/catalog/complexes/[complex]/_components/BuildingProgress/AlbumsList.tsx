@@ -15,8 +15,7 @@ function AlbumsList({ albums }: Props) {
   const { openPopup } = useContext(PopupContext)
   function showAlbums() {
     return albums.map((album) => {
-      const date = new Date(album[0].date)
-      const formattedDate = formatLongDate(date)
+      const formattedDate = formatLongDate(album[0].date)
       const photosList: BuildingProgressImage['image'][] = album.map((photo) => photo.image)
       return (
         <CarouselSlide className='pr-[12px] md:basis-1/2 md:pr-[16px]' key={album[0].date}>
