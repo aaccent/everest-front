@@ -1,6 +1,6 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
-import { MapRef, Marker } from 'react-map-gl'
+import React, { useState } from 'react'
+import { Marker } from 'react-map-gl'
 import { LngLatBounds } from 'mapbox-gl'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,44 +9,35 @@ import CustomMap from '@/components/CustomMap'
 
 import logoMini from '@/assets/static/logo-mini.svg'
 import mapBavel from '@/assets/static/decorative-bg/map-bavel.svg'
-
-interface Address {
-  id: string
-  coords: {
-    latitude: number
-    longitude: number
-  }
-  default?: boolean
-  address: string
-}
+import { Office } from '@/types/Geo'
 
 interface Props {
-  list: Address[]
-  city: string
+  offices: Office[]
 }
 
-function FormMap(props: Props) {
-  const [currentAddress, setCurrentAddress] = useState(props.list.find((address) => address.default))
-  const mapRef = useRef<MapRef>(null)
-  const initBounds = props.list.reduce((bounds, address) => {
-    return bounds.extend({ lat: address.coords.latitude, lng: address.coords.longitude })
+function FormMap({ offices }: Props) {
+  const initBounds = offices.reduce((bounds, office) => {
+    return bounds.extend({ lat: office.latitude, lng: office.longitude })
   }, new LngLatBounds())
 
-  useEffect(() => {
-    let bound: LngLatBounds = new LngLatBounds()
-    props.list?.forEach((address) => bound.extend({ lat: address.coords.latitude, lng: address.coords.longitude }))
-    mapRef.current?.fitBounds(bound, {
-      padding: { top: 100, right: 100, bottom: 100, left: 100 },
-      maxZoom: 14,
-    })
-  }, [props.list])
+  const center = {
+    latitude: initBounds.getCenter().lat,
+    longitude: initBounds.getCenter().lng,
+  }
+
+  const [selectedOffice, setSelectedOffice] = useState<Office>(offices[0])
 
   function showMarkers() {
-    return props.list.map((address) => {
-      const isActive = address === currentAddress
+    return offices.map((office) => {
+      const isActive = office.id === selectedOffice.id
 
       return (
-        <Marker {...address.coords} key={address.id} onClick={() => setCurrentAddress(address)}>
+        <Marker
+          latitude={office.latitude}
+          longitude={office.longitude}
+          key={office.id}
+          onClick={() => setSelectedOffice(office)}
+        >
           <div
             className={`group/marker flex size-[56px] items-center justify-center rounded-full ${isActive ? 'active bg-primary' : 'bg-base-100'} md:size-[82px]`}
           >
@@ -64,19 +55,16 @@ function FormMap(props: Props) {
   return (
     <CustomMap
       className='h-[420px] w-full rounded-[20px] md:h-[618px] md:w-[649px]'
-      initialViewState={{
-        zoom: 14,
-        bounds: initBounds,
-        fitBoundsOptions: { padding: 50, minZoom: 25, maxZoom: 50 },
-      }}
+      initialCenter={center}
+      initialZoom={13}
     >
       <Image src={mapBavel} alt='' className='absolute right-0 top-0 hidden filter-primary md:block' />
 
       {showMarkers()}
       <div className='absolute bottom-[8px] left-[8px] right-[8px] flex items-center justify-between rounded-[20px] bg-base-100 px-[20px] py-[16px] md:bottom-[24px] md:left-[24px] md:right-[24px] md:rounded-[32px] md:p-[24px]'>
         <div className='flex flex-col gap-[6px]'>
-          <div className='text-header-500 font-coolvetica'>{currentAddress?.address}</div>
-          <div className='text-base-300-lg-100 text-base-650'>{`г. ${props.city}`}</div>
+          <div className='text-header-500 font-coolvetica'>{selectedOffice.address}</div>
+          <div className='text-base-300-lg-100 text-base-650'>{selectedOffice.city.name}</div>
         </div>
         <Link
           href='#'

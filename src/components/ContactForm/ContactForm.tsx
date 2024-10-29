@@ -9,7 +9,7 @@ import NameInput from '@/ui/inputs/NameInput'
 import PhoneInput from '@/ui/inputs/PhoneInput'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
-import { getAddresses, getSocials } from '@/globals/api'
+import { getSocials } from '@/globals/api'
 
 import { INPUT_NAMES } from '@/globals/inputs/call-form'
 import { getPathname } from '@/features/pathname'
@@ -17,6 +17,7 @@ import { ROUTES } from '@/globals/paths'
 
 import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
+import { getOffices } from '@/globals/api/methods/geo/getOffices'
 
 interface socialItem {
   name: string
@@ -25,13 +26,8 @@ interface socialItem {
 }
 
 async function ContactForm() {
-  const city = 'Абакан'
-  const addresses = await getAddresses()
-  const currentCityAddresses = addresses.find((el) => el.city === city)
-
-  if (!currentCityAddresses) return
-
   const socials: socialItem[] = await getSocials()
+  const offices = await getOffices()
 
   if (getPathname() === ROUTES.MAP) return null
 
@@ -99,7 +95,7 @@ async function ContactForm() {
           </div>
         </div>
       </div>
-      <FormMap list={currentCityAddresses.offices} city={city} />
+      <FormMap offices={offices} />
     </Section>
   )
 }

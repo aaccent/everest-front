@@ -26,7 +26,7 @@ export function CityContextProvider({ children }: PropsWithChildren) {
   }, [])
 
   function _setCurrentCity(city: City) {
-    setCookie(COOKIES.CITY, city.name)
+    setCookie(COOKIES.CITY, JSON.stringify({ name: city.name, id: city.id }))
     setCurrentCity(city)
   }
 
