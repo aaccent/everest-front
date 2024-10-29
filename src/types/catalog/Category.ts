@@ -35,19 +35,3 @@ export type SubcategoryLikeCategory = Subcategory & {
 
 export type AnyCategory = Category | SubcategoryLikeCategory | ComplexesCategory
 export type AnyCategoryExceptComplexes = Category | SubcategoryLikeCategory
-
-/** Используется как плейсхолдер для возможного рефактора типизации фильтров */
-export type FilterRequestParam = object[] | null
-/** Используется как плейсхолдер для возможного рефактора типизации сортировки */
-export type SortRequestParam = string | null
-
-// TODO: rename into FilterRequest and split sort and filter on different interfaces
-export interface CategoryRequestWithFilters {
-  filter?: FilterRequestParam
-  sort?: SortRequestParam
-}
-
-export interface CategoryRequestWithPagination {
-  page?: number
-  perPage?: number
-}
