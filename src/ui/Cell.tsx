@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface CellProps {
+export interface CellProps {
   className?: string
   thead?: boolean
   content: string | number

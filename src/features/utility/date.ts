@@ -27,6 +27,36 @@ export function convertToRoman(num: number): string {
   }
 }
 
+/** Выводит дату вида `12 февраля 2022` */
+export function formatLongDate(timestamp: Timestamp): string {
+  if (!timestamp) return 'неизвестно'
+
+  const date = new Date(timestamp)
+
+  // TODO: Скорее всего он не учитывает часовой пояс
+  const formatter = new Intl.DateTimeFormat('ru-RU', {
+    month: 'long',
+    year: 'numeric',
+    day: '2-digit',
+  })
+
+  return (
+    formatter
+      // Получаем составные части даты.
+      .formatToParts(date)
+      // Без изменений мы получаем дату вида 29 октября 2024 г.
+      // Пробелы (" ") и год (" г.") являются literal частью даты.
+      // Если встречается literal, то заменяем на пробел (" ")
+      .map(({ type, value }) => {
+        if (type === 'literal') return ' '
+
+        return value
+      })
+      .join('')
+      .trim()
+  )
+}
+
 type Timestamp = DateString | number | string | null | undefined
 
 export function formatStatusByQuarter(timestamp: Timestamp) {
@@ -53,23 +83,7 @@ export function formatStatusExtended(timestamp: Timestamp) {
       text: 'Выдача ключей',
     }
 
-  const formatter = new Intl.DateTimeFormat('ru-RU', {
-    month: 'long',
-    year: 'numeric',
-    day: '2-digit',
-  })
-
-  const dateStr = formatter
-    .formatToParts(date)
-    .map(({ type, value }, index) => {
-      if (type === 'literal') {
-        return ' '
-      }
-
-      return value
-    })
-    .join('')
-    .trim()
+  const dateStr = formatLongDate(timestamp)
 
   return {
     giveAway: false,

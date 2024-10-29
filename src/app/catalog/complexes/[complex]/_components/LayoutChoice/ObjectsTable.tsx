@@ -1,61 +1,70 @@
 import React from 'react'
 
 import Row from '@/ui/Row'
-import Cell from '@/ui/Cell'
+import Cell, { CellProps } from '@/ui/Cell'
 
-import { DetailComplex, DetailComplexHouse, LayoutObject } from '@/types/catalog/Complex'
-import { Characteristic } from '@/types/Characteristic'
+import { DetailComplex } from '@/types/catalog/Complex'
 import ActiveLayoutCard from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/ActiveLayoutCard'
+import { getComplexHouseObjects } from '@/globals/api'
+import { ComplexHouse, ComplexHouseObject } from '@/types/complex/ComplexHouse'
+import { formatFullPrice } from '@/features/utility/price'
 
-function isHidden(value: string | number) {
-  return value === 'Номер квартиры' || value === 'Тип отделки' ? 'hidden md:table-cell' : ''
-}
-
-function HeadRow({ characteristics, houseNumber }: { characteristics: Characteristic[]; houseNumber: number }) {
+function HeadRow({ houseNumber }: { houseNumber: string }) {
   return (
     <Row className='text-base-400-lg-100 text-base-650'>
       <th className='text-base-400-reg-100 hidden uppercase text-base-600 md:table-cell md:pb-[20px]'>{`дом №${houseNumber}`}</th>
-      {characteristics.map((item, index) => (
-        <Cell content={item.name} thead key={index} className={`md:pb-[20px] ${isHidden(item.name)}`} />
-      ))}
+      <Cell thead content='Секция' className='pb-[10px] md:pb-[20px]' />
+      <Cell thead content='Кв.№' className='hidden pb-[10px] md:table-cell md:pb-[20px]' />
+      <Cell thead content='Комнат' className='pb-[10px] md:pb-[20px]' />
+      <Cell thead content='Площадь' className='pb-[10px] md:pb-[20px]' />
+      <Cell thead content='Этаж' className='pb-[10px] md:pb-[20px]' />
+      <Cell thead content='Тип отделки' className='hidden pb-[10px] md:table-cell md:pb-[20px]' />
+      <Cell thead content='Стоимость' className='pb-[10px] md:pb-[20px]' />
     </Row>
   )
 }
 
-function CharacteristicsCells({ characteristics }: { characteristics: Characteristic[] }) {
-  return characteristics.map((item, index) => (
+function BodyCell({ className, content }: Omit<CellProps, 'thead'>) {
+  return (
     <Cell
-      content={item.value}
-      key={index}
-      className={`text-base-400-lg-100 py-[20px] last:rounded-br-[16px] last:rounded-tr-[16px] group-hover:bg-primary group-hover:text-base-100 group-[.active]:bg-primary group-[:nth-child(odd):hover]:bg-primary group-[:nth-child(odd)]:bg-base-200 group-[.active]:text-base-100 md:table-cell md:py-[17px] md:last:rounded-br-[16px] md:last:rounded-tr-[16px] [&:nth-child(2)]:rounded-l-[20px] md:[&:nth-child(2)]:rounded-l-none ${isHidden(item.name)} `}
+      content={content}
+      className={`text-base-400-lg-100 py-[20px] last:rounded-br-[16px] last:rounded-tr-[16px] group-hover:bg-primary group-hover:text-base-100 group-[.active:nth-child(odd)]:bg-primary group-[.active]:bg-primary group-[:nth-child(odd):hover]:bg-primary group-[:nth-child(odd)]:bg-base-200 group-[.active]:text-base-100 md:table-cell md:py-[17px] md:last:rounded-br-[16px] md:last:rounded-tr-[16px] [&:nth-child(2)]:rounded-l-[20px] md:[&:nth-child(2)]:rounded-l-none ${className} `}
     />
-  ))
+  )
 }
 
-interface ObjectsTableProps {
-  complex: DetailComplex
+function outputValue(rawValue: string | number | null) {
+  if (!rawValue) return ''
+
+  return rawValue
 }
 
-function TableBody({ objects }: { objects: LayoutObject[] }) {
+function TableBody({ objects }: { objects: ComplexHouseObject[] }) {
   return objects.map((object) => (
     <Row className='group cursor-pointer text-center' key={object.id} object={object}>
-      <td className='hidden items-center justify-center rounded-bl-[16px] rounded-tl-[16px] after:block after:size-[24px] after:bg-icon-grid-view after:bg-default-auto group-hover:bg-primary group-hover:after:filter-base-100 group-[.active]:bg-primary group-[:nth-child(odd):hover]:bg-primary group-[:nth-child(odd)]:bg-base-200 group-[.active]:after:filter-base-100 md:flex md:py-[17px]'></td>
-      <CharacteristicsCells characteristics={object.characteristics} />
+      <td className='hidden items-center justify-center rounded-bl-[16px] rounded-tl-[16px] after:block after:size-[24px] after:bg-icon-grid-view after:bg-default-auto group-hover:bg-primary group-hover:after:filter-base-100 group-[.active:nth-child(odd)]:bg-primary group-[.active]:bg-primary group-[:nth-child(odd):hover]:bg-primary group-[:nth-child(odd)]:bg-base-200 group-[.active]:after:filter-base-100 md:flex md:py-[17px]' />
+      <BodyCell content={outputValue(object.section)} />
+      <BodyCell className='hidden md:table-cell' content={outputValue(object.flatNumber)} />
+      <BodyCell content={outputValue(object.room)} />
+      <BodyCell content={outputValue(object.square)} />
+      <BodyCell content={outputValue(object.floor)} />
+      <BodyCell className='hidden md:table-cell' content={outputValue(object.finishType)} />
+      <BodyCell className='text-system-green' content={formatFullPrice(object.price)} />
     </Row>
   ))
 }
 
-function HouseTable({ house }: { house: DetailComplexHouse }) {
+function HouseTable({ house }: { house: ComplexHouse }) {
   return (
     <div className='mb-[32px] last:mb-0 md:mb-[64px]'>
-      <div className='text-base-400-reg-100 mb-[20px] uppercase md:hidden'>{`дом №${house.objects[0].houseNumber}`}</div>
+      <div className='text-base-400-reg-100 mb-[20px] uppercase md:hidden'>{`дом №${house.houseNumber}`}</div>
       <div className='flex w-full max-w-[911px] flex-col gap-[16px]'>
         <table className='w-full'>
           <thead>
-            <HeadRow characteristics={house.objects[0].characteristics} houseNumber={house.objects[0].houseNumber} />
+            <HeadRow houseNumber={house.houseNumber} />
           </thead>
           <tbody>
-            <TableBody objects={house.objects} />
+            <TableBody objects={house.list} />
           </tbody>
         </table>
       </div>
@@ -64,9 +73,15 @@ function HouseTable({ house }: { house: DetailComplexHouse }) {
   )
 }
 
-function ObjectsTable({ complex }: ObjectsTableProps) {
+async function ObjectsTable({ complex }: { complex: DetailComplex }) {
+  const houses = await Promise.all(
+    complex.houseNumbers.map((houseNumber) => {
+      return getComplexHouseObjects(complex.seoUrl, houseNumber, { perPage: 9 })
+    }),
+  )
+
   function showHousesTable() {
-    return complex.objects.map((house, index) => <HouseTable house={house} key={index} />)
+    return houses.map((house, index) => <HouseTable house={house} key={index} />)
   }
 
   return (
