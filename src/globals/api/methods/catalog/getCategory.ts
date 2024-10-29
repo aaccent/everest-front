@@ -1,25 +1,15 @@
-import {
-  Category,
-  CategoryRequestWithFilters,
-  FilterRequestParam,
-  SortRequestParam,
-  SubcategoryLikeCategory,
-} from '@/types/catalog/Category'
-import { CategoryLocation } from '@/types/Map'
+import { Category, SubcategoryLikeCategory } from '@/types/catalog/Category'
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
+import { GeneralRequestParams } from '@/types/RequestProps'
 
-interface Props {
+type Props = GeneralRequestParams & {
   subcategory?: string
-  filter?: FilterRequestParam | null
-  sort?: SortRequestParam | null
-  location?: CategoryLocation
   rent?: boolean
 }
 
 type Response = APIResponse<Category>
 type Request = APIRequest<
-  CategoryRequestWithFilters & {
-    location?: CategoryLocation
+  GeneralRequestParams & {
     chainUrl?: string
     rent?: boolean
   }
@@ -50,5 +40,8 @@ export async function getCategory(
     },
     breadcrumbs: res.data.breadcrumbs,
     objects: res.data.objects,
+    page: res.data.page,
+    perPage: res.data.perPage,
+    total: res.data.total,
   }
 }

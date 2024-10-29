@@ -4,7 +4,7 @@ import Checkbox from '@/ui/inputs/Checkbox'
 import Radio from '@/ui/inputs/Radio'
 import { CheckboxChangeFn, InputValue } from '@/globals/utilityTypes'
 
-export type SelectorValue = Array<string | number>
+export type SelectorValue = Array<string>
 
 export type Props = {
   name: string
@@ -68,7 +68,7 @@ function Selector({
   function onRadioClick(item: string) {
     _setValue((prev) => {
       if (prev.includes(item)) return prev
-
+      setOpened(false)
       return [item]
     })
   }
@@ -85,13 +85,7 @@ function Selector({
       return isRadio ? (
         <Radio key={index} onClick={onRadioClick} {...props} />
       ) : (
-        <Checkbox
-          key={index}
-          isInSelect
-          defaultChecked={_value.includes(itemValue)}
-          onChange={onCheckboxChanged}
-          {...props}
-        />
+        <Checkbox key={index} defaultChecked={_value.includes(itemValue)} onChange={onCheckboxChanged} {...props} />
       )
     })
   }

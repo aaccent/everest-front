@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { useFilter } from '@/features/useFilter'
 
 interface Props {
   className?: string
@@ -9,7 +9,7 @@ interface Props {
 }
 
 function ResetFiltersButton({ className, text = 'Сбросить' }: Props) {
-  const { filter, clearFilters } = useCategoryFilter()
+  const { filter, clearFilters } = useFilter()
 
   if (!filter.parsed.length) return null
 

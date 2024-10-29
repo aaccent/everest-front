@@ -4,10 +4,11 @@ import Header from '@/layout/Header/Header'
 import { AdaptiveProvider } from '@/features/adaptive'
 import { basePageProps } from '@/globals/pageProps'
 import { PopupProvider } from '@/features/Popup'
-
-import packageJSON from '@/../package.json'
 import ContactForm from '@/components/ContactForm/ContactForm'
 import CookieNotification from '@/components/CookieNotification'
+import { CityContextProvider } from '@/globals/CityContext'
+
+import packageJSON from '@/../package.json'
 
 function BasePage({ children }: PropsWithChildren) {
   const baseProps = basePageProps()
@@ -17,17 +18,19 @@ function BasePage({ children }: PropsWithChildren) {
       <span id='app-version' className='absolute hidden'>
         {'v' + packageJSON.version}
       </span>
-      <PopupProvider>
-        <Header />
-        <div className='flex min-h-screen w-full flex-col justify-between'>
-          <main className='h-full flex-[1_1_0]'>
-            {children}
-            <ContactForm />
-          </main>
-          <Footer />
-        </div>
-        <CookieNotification />
-      </PopupProvider>
+      <CityContextProvider>
+        <PopupProvider>
+          <Header />
+          <div className='flex min-h-screen w-full flex-col justify-between'>
+            <main className='h-full flex-[1_1_0]'>
+              {children}
+              <ContactForm />
+            </main>
+            <Footer />
+          </div>
+          <CookieNotification />
+        </PopupProvider>
+      </CityContextProvider>
     </AdaptiveProvider>
   )
 }

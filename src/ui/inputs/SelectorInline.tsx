@@ -35,10 +35,10 @@ function SelectorInline({
     _setValue((prev) => {
       const valueSet = new Set(prev)
 
-      if (valueSet.has(newValue)) {
-        valueSet.delete(newValue)
+      if (valueSet.has(newValue.toString())) {
+        valueSet.delete(newValue.toString())
       } else {
-        valueSet.add(newValue)
+        valueSet.add(newValue.toString())
       }
 
       return Array.from(valueSet)

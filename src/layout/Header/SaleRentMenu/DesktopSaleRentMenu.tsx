@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { suggestionPlural } from '@/features/utility/pluralRules'
 import { getCatalogMenu, MenuType } from '@/globals/api'
-import { generateCategoryLink } from '@/features/catalog/link'
+import { generateCategoryLink } from '@/features/link'
 
 interface Props {
   className?: string

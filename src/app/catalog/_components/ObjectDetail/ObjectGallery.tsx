@@ -11,6 +11,8 @@ import {
 } from '@/components/Carousel/components/CarouselNavigationButtons'
 import { useSearchParams } from 'next/navigation'
 
+const LAST_INDEX_IN_OBJECT_CARD = 2
+
 interface ThumbsProps {
   onSlideChange: Dispatch<SetStateAction<number>>
   children: React.ReactNode
@@ -55,22 +57,40 @@ function MiniImages({ activeSlideIndex, children }: MiniImagesProps) {
 
 interface GalleryProps {
   list: string[]
+  activeSlide?: number
 }
 
-function ObjectGallery({ list }: GalleryProps) {
-  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0)
+function ObjectGallery({ list, activeSlide }: GalleryProps) {
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(activeSlide || 0)
   const { openPopup } = useContext(PopupContext)
   const searchParams = useSearchParams()
 
   useEffect(() => {
     if (searchParams.has('gallery')) {
-      openPopup({ name: 'galleryPopup' })
+      openPopup({
+        name: 'galleryPopup',
+        args: {
+          list,
+          activeSlideIndex: LAST_INDEX_IN_OBJECT_CARD,
+        },
+      })
     }
   }, [])
 
+  function isDesktop() {
+    if (typeof window === undefined) return false
+    return window.matchMedia('(min-width:768px)').matches
+  }
+
   const onSlideClickHandle = () => {
-    if (window.matchMedia('(min-width:768px)').matches) {
-      openPopup({ name: 'galleryPopup' })
+    if (isDesktop()) {
+      openPopup({
+        name: 'galleryPopup',
+        args: {
+          list,
+          activeSlideIndex,
+        },
+      })
     }
   }
 
@@ -78,10 +98,10 @@ function ObjectGallery({ list }: GalleryProps) {
     return list.map((image, i) => (
       <CarouselSlide
         key={i}
-        className='relative before:absolute before:inset-0 before:z-10 before:bg-[linear-gradient(0deg,#000_0%,rgba(0,0,0,0)100%);] before:opacity-50'
+        className='relative cursor-pointer before:absolute before:inset-0 before:z-10 before:bg-[linear-gradient(0deg,#000_0%,rgba(0,0,0,0)100%);] before:opacity-50'
         onClick={onSlideClickHandle}
       >
-        <Img className='block h-full w-full' src={image} fill />
+        <Img className='block h-full w-full object-cover object-center' src={image} fill />
       </CarouselSlide>
     ))
   }
@@ -108,12 +128,20 @@ function ObjectGallery({ list }: GalleryProps) {
   }
 
   return (
-    <Carousel className='relative h-full' fade>
+    <Carousel className='relative h-full' fade startIndex={activeSlideIndex}>
       <CarouselInner>{showImages()}</CarouselInner>
       <button
         type='button'
         className='absolute right-[20px] top-[35px] size-[42px] rounded-full bg-base-650 bg-icon-zoom-arrows bg-default-auto md:hidden'
-        onClick={() => openPopup({ name: 'galleryPopup' })}
+        onClick={() =>
+          openPopup({
+            name: 'galleryPopup',
+            args: {
+              list,
+              activeSlideIndex,
+            },
+          })
+        }
       />
       <Thumbs onSlideChange={setActiveSlideIndex}>
         <Carousel>

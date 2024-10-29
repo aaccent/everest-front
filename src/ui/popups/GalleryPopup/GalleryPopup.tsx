@@ -7,10 +7,10 @@ import Carousel, { CarouselInner, CarouselProgressBar, CarouselWhiteNavigations 
 
 interface GalleryPopupProps {
   list: string[]
-  activeSlideIndex: number
+  activeSlideIndex?: number
 }
 
-function GalleryPopup({ list, activeSlideIndex }: GalleryPopupProps) {
+function GalleryPopup({ list, activeSlideIndex = 0 }: GalleryPopupProps) {
   function showSlides() {
     return list.map((photo, i) => (
       <CarouselSlide key={i}>

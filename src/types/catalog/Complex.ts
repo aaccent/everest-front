@@ -2,6 +2,7 @@ import { Tag } from '@/types/Tag'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import { Characteristic } from '@/types/Characteristic'
 import { DateString } from '@/types/Date'
+import { Pagination } from '@/types/Pagination'
 
 /** Тип квартир. Используется в карточке ЖК на странице категории со списком ЖК */
 export interface FlatType {
@@ -29,7 +30,7 @@ export interface ComplexObject {
 }
 
 /** Категория ЖК из АПИ */
-export interface ComplexesCategoryFromAPI {
+export type ComplexesCategoryFromAPI = {
   id: number
   name: string
   seoUrl: string
@@ -38,7 +39,7 @@ export interface ComplexesCategoryFromAPI {
   breadcrumbs: BreadcrumbItem[]
   categories: ComplexObject[]
   objects: []
-}
+} & Pagination
 
 export type ComplexesCategory = Omit<ComplexesCategoryFromAPI, 'categories' | 'objects'> & {
   objects: ComplexObject[]

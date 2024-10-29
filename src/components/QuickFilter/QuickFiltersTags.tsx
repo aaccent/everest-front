@@ -1,11 +1,14 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
-import { formatTagText } from '@/ui/popups/FilterPopup/PopupFilterTags'
 import Checkbox from '@/ui/inputs/Checkbox'
-import { useCategoryFilter } from '@/features/catalog/useCategoryFilter'
+import { useFilter } from '@/features/useFilter'
 import Button from '@/ui/buttons/Button'
+import { FilterTagsContext } from '@/components/FilterTagsContext'
+import { formatTagText } from '@/features/utility/texts'
+
+const TAGS_IN_VIEW = 4
 
 interface FilterTagsSelectorProps {
   list: FilterType<FilterView>[]
@@ -14,11 +17,11 @@ interface FilterTagsSelectorProps {
 function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   const [filterList, setFilterList] = useState<FilterType<FilterView>[]>([])
   const [selectorOpened, setSelectorOpened] = useState<boolean>(false)
-  const { removeFilter, clearFilters } = useCategoryFilter()
+  const { removeFilter, clearFilters } = useFilter()
 
   useEffect(() => {
     setFilterList(() => {
-      return list.slice(3)
+      return list.slice(TAGS_IN_VIEW)
     })
   }, [list])
 
@@ -73,16 +76,12 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   )
 }
 
-function QuickFiltersTags({ list }: { list: FilterType<FilterView>[] }) {
-  const [activeFilters, setActiveFilters] = useState<FilterType<FilterView>[]>([])
-  const { removeFilter } = useCategoryFilter()
-
-  useEffect(() => {
-    setActiveFilters(list)
-  }, [list])
+function QuickFiltersTags() {
+  const { activeFilters } = useContext(FilterTagsContext)
+  const { removeFilter } = useFilter()
 
   function showFirstTags() {
-    const firstTags = activeFilters.slice(0, 3)
+    const firstTags = activeFilters.slice(0, TAGS_IN_VIEW)
     return firstTags.map((f) => {
       return f.value ? (
         <button
@@ -97,10 +96,10 @@ function QuickFiltersTags({ list }: { list: FilterType<FilterView>[] }) {
   }
 
   return (
-    <>
+    <div className='flex items-center gap-[10px]'>
       {showFirstTags()}
-      {list.length > 3 && <FilterTagsSelector list={activeFilters} />}
-    </>
+      {activeFilters.length > TAGS_IN_VIEW && <FilterTagsSelector list={activeFilters} />}
+    </div>
   )
 }
 

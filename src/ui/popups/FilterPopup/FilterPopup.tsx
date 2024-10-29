@@ -4,19 +4,19 @@ import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
 import { getFilters } from '@/globals/api'
-import { FilterBlock, FilterType, FilterView, QuickFilters } from '@/types/FiltersType'
+import { FilterBlock, QuickFilters } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
 import { DynamicPopup, PopupContext } from '@/features/Popup'
-import FilterTags from '@/components/FilterTags'
 import SortButton from '@/components/QuickFilter/SortButton'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import { objectPlural } from '@/features/utility/pluralRules'
 import Link from 'next/link'
 import { useParams, useSearchParams } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
+import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
 
 interface Props {
   category: string
@@ -26,15 +26,13 @@ interface Props {
 
 function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>([])
-  const { amount } = useContext(CategoryContext)
+  const { list } = useContext(CategoryContext)
   const { closePopup } = useContext(PopupContext)
   const params = useParams()
   const searchParams = useSearchParams()
   const link = params.toString().includes('catalog') ? '' : `${ROUTES.CATALOG}/${category}/?${searchParams.toString()}`
 
-  function convertBlocksToFilterType(blocks: FilterBlock[]): FilterType<FilterView>[] {
-    return blocks.reduce((acc, current) => acc.concat(current.filters), [] as FilterType<FilterView>[])
-  }
+  const total = objectsAmount ?? list.total
 
   useEffect(() => {
     getFilters(category).then((res) => {
@@ -73,7 +71,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
   }
 
   return (
-    <DynamicPopup popupName='filterPopup'>
+    <DynamicPopup activePopup='filterPopup'>
       <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 md:top-[48px] md:block md:h-[(100dvh-48px)] md:p-[56px]'>
         <div className='relative h-1 grow p-[24px] md:static md:h-full md:grow-0 md:p-0'>
           <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
@@ -81,14 +79,9 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
             <div className='text-header-300 md:text-header-200 md:uppercase'>Фильтры</div>
             <ClosePopupButton />
           </div>
-
-          <FilterTags
-            className='hidden md:mb-[64px] md:flex md:w-full md:max-w-[1112px] md:flex-wrap md:items-center md:gap-[10px] md:overflow-auto md:scrollbar-transparent'
-            list={convertBlocksToFilterType(filters)}
-          />
-
-          <div className='flex h-full flex-col overflow-auto pb-[50px] scrollbar-transparent md:block md:w-full md:max-w-[1140px] md:pb-[450px]'>
-            {showFiltersBlocks()}
+          <div className='md:h-full md:w-full md:max-w-[1140px] md:overflow-auto md:pb-[350px] md:scrollbar-transparent'>
+            <FilterTags />
+            <div className='flex h-full flex-col pb-[50px] md:block md:h-fit'>{showFiltersBlocks()}</div>
           </div>
         </div>
         <div className='bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:fixed md:justify-normal md:px-[56px] md:py-[24px]'>
@@ -98,7 +91,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
             <Button
               variation='primary'
               size='small'
-              text={`Показать ${objectsAmount || amount} ${objectPlural.get(objectsAmount || amount)}`}
+              text={`Показать ${total} ${objectPlural.get(total)}`}
               className='md:mr-[12px]'
             />
           </Link>

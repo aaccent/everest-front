@@ -1,18 +1,20 @@
 'use client'
 
 import React, { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { Props as CategoryObjectsHookProps, useCategoryObjects } from '@/features/catalog/useCategoryObject'
+import {
+  ObjectManagerType,
+  Props as CategoryObjectsHookProps,
+  useFilterAndPagination,
+} from '@/features/useFilterAndPagination'
 import { ComplexObject, LayoutObject } from '@/types/catalog/Complex'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
-type ViewType = 'tile' | 'list'
+
+type View = 'tile' | 'list'
 
 type CategoryContextObject = {
-  view: ViewType
-  setView: Dispatch<SetStateAction<ViewType>>
-  list: unknown[]
-  isLoading: boolean
-  amount: number
-}
+  view: View
+  setView: Dispatch<SetStateAction<View>>
+} & ObjectManagerType
 
 export const CategoryContext = createContext<CategoryContextObject>({} as CategoryContextObject)
 
@@ -31,22 +33,16 @@ type CategoryProviderProps = {
 )
 
 export function CategoryProvider({ children, initList, getObjects }: CategoryProviderProps) {
-  const [view, setView] = useState<ViewType>('tile')
-  const { list, isLoading } = useCategoryObjects<unknown>({ initList, getObjects })
-  const [amount, setAmount] = useState<number>(list.length)
+  const objectsManager = useFilterAndPagination<unknown>({ initList, getObjects })
 
-  useEffect(() => {
-    setAmount(list.length)
-  }, [list])
+  const [view, setView] = useState<View>('tile')
 
   useEffect(() => {
     if (typeof window === 'undefined') return
 
     const isMobile = matchMedia('max-width: 768px').matches
-    setView(isMobile ? 'list' : 'tile')
+    setView(isMobile ? 'tile' : view)
   }, [])
 
-  return (
-    <CategoryContext.Provider value={{ view, setView, list, isLoading, amount }}>{children}</CategoryContext.Provider>
-  )
+  return <CategoryContext.Provider value={{ view, setView, ...objectsManager }}>{children}</CategoryContext.Provider>
 }

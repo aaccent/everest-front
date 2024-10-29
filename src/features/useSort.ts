@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 /** Функциональность для управления сортировкой категории в GET параметрах ссылки */
-export function useCategorySort() {
+export function useSort() {
   const searchParams = useSearchParams()
 
   /**

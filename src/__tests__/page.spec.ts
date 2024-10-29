@@ -29,7 +29,6 @@ test('Should load catalog/secondary-housing subcategory page', async ({ page }) 
   const categoryName = await category.innerText()
 
   await category.click()
-  await page.getByRole('heading', { level: 1 }).waitFor({ state: 'attached' })
   await category.waitFor({ state: 'detached' })
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(categoryName, { ignoreCase: true })
 })
