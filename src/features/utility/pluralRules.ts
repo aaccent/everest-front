@@ -32,3 +32,6 @@ export const flatPlural = createPlural('квартира', 'квартиры', '
 
 /** Слово 'Объект' с суффиксами в зависимости от числа */
 export const objectPlural = createPlural('объект', 'объекта', 'объектов')
+
+/** Слово 'фотография' с суффиксами в зависимости от числа */
+export const photosPlural = createPlural('фотография', 'фотографии', 'фотографий')

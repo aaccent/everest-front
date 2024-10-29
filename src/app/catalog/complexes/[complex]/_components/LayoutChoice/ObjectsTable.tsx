@@ -66,6 +66,7 @@ function HouseTable({ house }: { house: DetailComplexHouse }) {
 
 function ObjectsTable({ complex }: ObjectsTableProps) {
   function showHousesTable() {
+    if (!complex.objects) return null
     return complex.objects.map((house, index) => <HouseTable house={house} key={index} />)
   }
 
