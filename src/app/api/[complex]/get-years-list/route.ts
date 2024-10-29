@@ -1,6 +1,5 @@
 import { ComplexPage } from '@/types/Page'
-import { getYears } from '@/globals/api/methods/catalog-details/getYears'
-import { getBuildingProgress, Period } from '@/globals/api'
+import { getBuildingProgress, Period, getYears } from '@/globals/api'
 
 async function convertToList(raw: Period, complexCode: string) {
   const start = new Date(raw.dateFrom).getFullYear()

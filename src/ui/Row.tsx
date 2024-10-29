@@ -1,12 +1,12 @@
 'use client'
 import React, { useContext } from 'react'
-import { LayoutObject } from '@/types/catalog/Complex'
 import { LayoutContext } from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/LayoutListContext'
+import { ComplexHouseObject } from '@/types/complex/ComplexHouse'
 
 interface RowProps {
   className?: string
   children?: React.ReactNode
-  object?: LayoutObject
+  object?: ComplexHouseObject
 }
 
 function Row({ className, children, object }: RowProps) {
@@ -14,8 +14,14 @@ function Row({ className, children, object }: RowProps) {
 
   const activeClass = activeObject?.id === object?.id ? 'active' : ''
 
+  function onClickHandler() {
+    if (!object) return
+
+    setActiveObject(object)
+  }
+
   return (
-    <tr className={`${className} ${activeClass}`} onClick={() => setActiveObject(object)}>
+    <tr className={`${className} ${activeClass}`} onClick={onClickHandler}>
       {children}
     </tr>
   )

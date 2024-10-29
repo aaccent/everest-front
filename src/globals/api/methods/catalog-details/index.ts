@@ -1,7 +1,2 @@
 export * from './getObject'
 export * from './getSimilarObjects'
-export * from './getComplexDetailed'
-export * from './getDocumentation'
-export * from './getExclusiveOffers'
-export * from './getBonuses'
-export * from './getLayouts'
