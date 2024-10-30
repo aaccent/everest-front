@@ -1,62 +1,24 @@
 'use client'
-import React, { useState } from 'react'
-import { Marker } from 'react-map-gl'
-import { LngLatBounds } from 'mapbox-gl'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-
 import CustomMap from '@/components/CustomMap'
-
-import logoMini from '@/assets/static/logo-mini.svg'
 import mapBavel from '@/assets/static/decorative-bg/map-bavel.svg'
 import { Office } from '@/types/Geo'
+import { useOfficesMap } from '@/app/contacts/_components/OfficesMap/useOfficesMap'
 
 interface Props {
   offices: Office[]
 }
 
 function FormMap({ offices }: Props) {
-  const initBounds = offices.reduce((bounds, office) => {
-    return bounds.extend({ lat: office.latitude, lng: office.longitude })
-  }, new LngLatBounds())
-
-  const center = {
-    latitude: initBounds.getCenter().lat,
-    longitude: initBounds.getCenter().lng,
-  }
-
-  const [selectedOffice, setSelectedOffice] = useState<Office>(offices[0])
-
-  function showMarkers() {
-    return offices.map((office) => {
-      const isActive = office.id === selectedOffice.id
-
-      return (
-        <Marker
-          latitude={office.latitude}
-          longitude={office.longitude}
-          key={office.id}
-          onClick={() => setSelectedOffice(office)}
-        >
-          <div
-            className={`group/marker flex size-[56px] items-center justify-center rounded-full ${isActive ? 'active bg-primary' : 'bg-base-100'} md:size-[82px]`}
-          >
-            <Image
-              src={logoMini}
-              alt=''
-              className='relative top-[-2px] w-[26px] object-cover object-center filter-primary group-[.active]/marker:filter-base-100 md:top-[-4px] md:w-[44px]'
-            />
-          </div>
-        </Marker>
-      )
-    })
-  }
+  const { showMarkers, selectedOffice, view, setView } = useOfficesMap({ offices })
 
   return (
     <CustomMap
       className='h-[420px] w-full rounded-[20px] md:h-[618px] md:w-[649px]'
-      initialCenter={center}
-      initialZoom={13}
+      viewState={view}
+      setViewState={setView}
     >
       <Image src={mapBavel} alt='' className='absolute right-0 top-0 hidden filter-primary md:block' />
 
