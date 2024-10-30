@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { IMaskInput } from 'react-imask'
 import { InputValue } from '@/globals/utilityTypes'
 
-export type RangeValue = { min: number; max: number }
+export type RangeValue = number[]
 
 export type RangeProps = {
   name: string
@@ -28,7 +28,7 @@ function Range({
   showTitle,
   onChange,
   value: customValue,
-  defaultValue = { min, max },
+  defaultValue = [min, max],
   step = 1,
 }: RangeProps) {
   const [value, setValue] = useState<RangeValue>(defaultValue)
@@ -41,36 +41,30 @@ function Range({
   }
 
   const onMinValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value > _value.max || +e.target.value < min) return
-    _setValue({
-      min: +e.target.value,
-      max: _value.max,
-    })
+    if (+e.target.value > _value[1] || +e.target.value < min) return
+    _setValue([+e.target.value, _value[1]])
   }
   const onMaxValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value < _value.min) return
-    _setValue({
-      min: _value.min,
-      max: +e.target.value,
-    })
+    if (+e.target.value < _value[0]) return
+    _setValue([_value[0], +e.target.value])
   }
 
   const onMinInputChange = (newValue: string) => {
     const numberValue = Number(newValue)
 
-    if (numberValue < min || numberValue === _value.min) return
-    if (numberValue > _value.max) return _setValue({ min, max: _value.max })
-    _setValue({ min: +numberValue, max: _value.max })
+    if (numberValue < min || numberValue === _value[0]) return
+    if (numberValue > _value[1]) return _setValue([min, _value[1]])
+    _setValue([+numberValue, _value[1]])
   }
   const onMaxInputChange = (newValue: string) => {
     const numberValue = Number(newValue)
 
-    if (numberValue > max || numberValue < _value.min || numberValue === _value.max) return
-    _setValue({ min: _value.min, max: +numberValue })
+    if (numberValue > max || numberValue < _value[0] || numberValue === _value[1]) return
+    _setValue([_value[0], +numberValue])
   }
 
-  const minPos = ((_value.min - min) / (max - min)) * 100
-  const maxPos = ((_value.max - min) / (max - min)) * 100
+  const minPos = ((_value[0] - min) / (max - min)) * 100
+  const maxPos = ((_value[1] - min) / (max - min)) * 100
 
   return (
     <div className='flex flex-col gap-[8px]'>
@@ -78,7 +72,7 @@ function Range({
       <div
         className={`text-base-400-lg-100 relative w-full min-w-[260px] rounded-[20px] border border-base-400 bg-base-100 px-[16px] py-[18px] md:max-w-[260px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
       >
-        <input type='hidden' name={title} value={`${[_value.min, _value.max]}`} />
+        <input type='hidden' name={title} value={`${[_value[0], _value[1]]}`} />
         <div className='text-base-400-lg-100 flex items-center justify-between'>
           <label>
             <IMaskInput
@@ -91,7 +85,7 @@ function Range({
                 },
               }}
               className='w-full focus:outline-0'
-              value={_value.min.toString()}
+              value={_value[0].toString()}
               onAccept={(value) => onMinInputChange(value)}
               unmask
             />
@@ -108,7 +102,7 @@ function Range({
                 },
               }}
               className='w-full text-end focus:outline-0'
-              value={_value.max.toString()}
+              value={_value[1].toString()}
               onAccept={(value) => onMaxInputChange(value)}
               unmask
             />
@@ -121,7 +115,7 @@ function Range({
               step={step}
               onChange={onMinValChange}
               className='track-transparent'
-              value={_value.min}
+              value={_value[0]}
               min={min}
               max={max}
             />
@@ -132,7 +126,7 @@ function Range({
               max={max}
               onChange={onMaxValChange}
               className='track-transparent'
-              value={_value.max}
+              value={_value[1]}
             />
           </div>
 
