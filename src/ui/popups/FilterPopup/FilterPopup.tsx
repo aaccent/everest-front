@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
@@ -41,33 +41,16 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
   }, [])
 
   function showFiltersBlocks() {
-    return (
-      <>
-        <IsMobile>
-          <div className='mb-[40px] flex flex-col gap-[18px]'>
-            <FilterItems filters={quickFilters.filters} />
+    return filters.map((block, i) => {
+      return (
+        <Fragment key={i}>
+          <div className='text-header-500 mb-[36px] text-base-600'>{block.name}</div>
+          <div className='mb-[60px] flex flex-wrap gap-[24px] last:mb-0'>
+            <FilterItems filters={block.filters} />
           </div>
-          <div className='border-b border-b-base-600/10 pb-[18px]'>
-            <SortButton sorts={quickFilters.sorts} />
-          </div>
-          {filters.map((block, index) => {
-            return <FilterBlockWrapper filterBlock={block.filters} name={block.name} key={index} />
-          })}
-        </IsMobile>
-        <IsDesktop>
-          {filters.map((block) => {
-            return (
-              <>
-                <div className='text-header-500 mb-[36px] text-base-600'>{block.name}</div>
-                <div className='mb-[60px] flex flex-wrap gap-[24px] last:mb-0'>
-                  <FilterItems filters={block.filters} />
-                </div>
-              </>
-            )
-          })}
-        </IsDesktop>
-      </>
-    )
+        </Fragment>
+      )
+    })
   }
 
   return (
@@ -81,7 +64,20 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
           </div>
           <div className='md:h-full md:w-full md:max-w-[1140px] md:overflow-auto md:pb-[350px] md:scrollbar-transparent'>
             <FilterTags />
-            <div className='flex h-full flex-col pb-[50px] md:block md:h-fit'>{showFiltersBlocks()}</div>
+            <div className='flex h-full flex-col pb-[50px] md:block md:h-fit'>
+              <IsMobile>
+                <div className='mb-[40px] flex flex-col gap-[18px]'>
+                  <FilterItems filters={quickFilters.filters} />
+                </div>
+                <div className='border-b border-b-base-600/10 pb-[18px]'>
+                  <SortButton sorts={quickFilters.sorts} />
+                </div>
+                {filters.map((block, index) => {
+                  return <FilterBlockWrapper filterBlock={block.filters} name={block.name} key={index} />
+                })}
+              </IsMobile>
+              <IsDesktop>{showFiltersBlocks()}</IsDesktop>
+            </div>
           </div>
         </div>
         <div className='bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:fixed md:justify-normal md:px-[56px] md:py-[24px]'>

@@ -93,6 +93,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
         }
         return (
           <Range
+            key={filter.id}
             min={formalValue(filter.prefix).min}
             max={formalValue(filter.prefix).max}
             name={filter.id.toString()}
@@ -111,6 +112,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
         return (
           <Checkbox
+            key={filter.id}
             title={filter.name}
             name={filter.id.toString()}
             defaultChecked={value || false}
