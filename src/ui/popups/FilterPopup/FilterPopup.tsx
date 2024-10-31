@@ -32,7 +32,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
   const searchParams = useSearchParams()
   const link = params.toString().includes('catalog') ? '' : `${ROUTES.CATALOG}/${category}/?${searchParams.toString()}`
 
-  const total = objectsAmount ?? list.total
+  const total = objectsAmount ?? list?.total
 
   useEffect(() => {
     getFilters(category).then((res) => {
