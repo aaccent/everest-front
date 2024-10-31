@@ -41,6 +41,8 @@ function SimilarObjects({ objectCode, initList }: SimilarObjectsProps) {
     })
   }
 
+  if (!initList.length) return null
+
   // TODO: Rewrite button onto Tabs
   return (
     <Section>
