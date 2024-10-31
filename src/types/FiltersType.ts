@@ -32,7 +32,7 @@ export type Choice = {
 }
 export type Range = {
   fieldType: 'range'
-  value: { min: number; max: number }
+  value: [number, number]
   prefix: string
 }
 
