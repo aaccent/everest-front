@@ -77,7 +77,9 @@ export default function ObjectsMapAsideDetail({ houseAddress, flatsCount, onClos
           onClick={onCloseButtonClick}
         />
       </div>
-      <ul className='flex flex-col gap-[24px]'>{showList()}</ul>
+      <ul className='flex h-1 grow flex-col gap-[24px] overflow-y-auto pb-[25px] scrollbar-custom scroll-btn-yb:h-[90px]'>
+        {showList()}
+      </ul>
     </div>
   )
 }
