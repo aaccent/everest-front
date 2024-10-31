@@ -7,27 +7,19 @@ function getActiveFilters(filtersGeneral: FilterType<FilterView>[], activeFilter
   if (!filtersGeneral.length) return []
   const activeFilters = Object.fromEntries(activeFilterValues.map((filter) => [filter.id, filter]))
 
-  function formatValue(value: FilterView['value']) {
-    if (typeof value === 'object' && 'min' in value) {
-      return [value.min, value.max]
-    }
-    return value
-  }
-
-  return filtersGeneral.reduce(function (accumulator, currentFilter) {
+  return filtersGeneral.reduce<FilterType<FilterView>[]>(function (accumulator, currentFilter) {
     if (!(currentFilter.id in activeFilters)) return accumulator
 
     accumulator.push({
       id: currentFilter.id,
       name: currentFilter.name,
-      // @ts-expect-error
-      value: formatValue(activeFilters[currentFilter.id].value),
-      fieldType: currentFilter.fieldType,
+      value: activeFilters[currentFilter.id].value,
+      fieldType: currentFilter.fieldType as any,
       prefix: currentFilter.prefix,
     })
 
     return accumulator
-  }, [] as FilterType<FilterView>[])
+  }, [])
 }
 
 function convertBlocksToFilterType(blocks: FilterBlock[]): FilterType<FilterView>[] {

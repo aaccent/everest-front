@@ -87,17 +87,11 @@ export function formatPriceShort(rawPrice: RawPrice) {
 }
 
 export function formatLongPriceForRange(value: RangeValue): RangeValue {
-  return {
-    min: value.min * 1_000_000,
-    max: value.max * 1_000_000,
-  }
+  return [value[0] * 1_000_000, value[1] * 1_000_000]
 }
 
 export function formatShortPriceObjForRange(value: RangeValue): RangeValue {
-  return {
-    min: +(value.min / 1_000_000).toFixed(1),
-    max: +(value.max / 1_000_000).toFixed(1),
-  }
+  return [+(value[0] / 1_000_000).toFixed(1), +(value[1] / 1_000_000).toFixed(1)]
 }
 
 export function formatShortPriceArrForRange(value: [number, number]): number[] {
