@@ -26,7 +26,7 @@ export default function Error({ error }: Props) {
       <Container className='error-section peer relative flex h-screen flex-col'>
         <h1 className='text-header-100 mx-auto mt-[100px] block text-center uppercase'>Ошибка загрузки</h1>
         <Button
-          className='text-base-500-reg-100-upper mx-auto mt-[48px] h-[50px] w-full text-center md:h-[48px] md:w-fit'
+          className='text-base-500-reg-100-upper mx-auto mt-[48px] h-[50px] w-full px-[15px] text-center md:h-[48px] md:w-fit'
           href='/'
         >
           Перейти на главную
