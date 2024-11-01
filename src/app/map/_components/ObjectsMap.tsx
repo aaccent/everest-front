@@ -21,6 +21,7 @@ import { ROUTES } from '@/globals/paths'
 import { PopupContext } from '@/features/Popup'
 import { AdaptiveContext } from '@/features/adaptive'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
+import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 
 function useCategoryLink() {
   const pathname = usePathname()
@@ -135,12 +136,10 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
         <div className='pointer-events-auto mt-auto hidden w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px] md:flex'>
           <DetailFilterButton categoryName={categoryCode} quickFilters={quickFilters} />
           <FilterItems filters={quickFilters.filters} isQuick />
-          <button
-            className='text-base-500-reg-100-upper ml-auto flex items-center gap-[4px] text-base-600/50 after:size-[13px] after:bg-icon-close after:opacity-50 after:bg-default'
-            type='button'
-          >
-            Сбросить всё
-          </button>
+          <ResetFiltersButton
+            className='ml-auto flex items-center gap-[4px] text-base-600/50 after:size-[13px] after:bg-icon-close after:opacity-50 after:bg-default'
+            text='Сбросить всё'
+          />
         </div>
       </div>
       <CustomMap
