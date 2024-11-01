@@ -1,33 +1,43 @@
 import React from 'react'
 import Img from '@/ui/Img'
-import { MapObject } from '@/app/map/_components/useObjectsMapData'
 import { formatPriceShort } from '@/features/utility/price'
 import { flatPlural } from '@/features/utility/pluralRules'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
+import Link from 'next/link'
+import { generateObjectLink } from '@/features/link'
 
 /**
  * Выводит детальную информацию элемента с карты
- * @param img - адрес картинки
- * @param price
- * @param properties
- * @constructor
  */
-export function ObjectsMapDetailListItem({ img, price, properties = [] }: MapObject) {
+export function ObjectsMapDetailListItem(item: DefaultObject) {
+  const href = generateObjectLink(item)
+
   function showProperties() {
-    return properties.map((item, i) => (
-      <span className='after:size-[5px] after:rounded-full after:bg-base-600/50' key={i}>
-        {item}
+    return item.characteristics?.map((prop) => (
+      <span
+        className='flex items-center gap-[4px] after:size-[5px] after:rounded-full after:bg-base-600/50 last:after:hidden'
+        key={prop.id}
+      >
+        {prop.value}
       </span>
     ))
   }
 
   return (
     <li className='flex gap-[16px]'>
-      <div className='relative h-[100px] w-[140px] rounded-[16px] bg-base-600/10'>
-        <Img src={img} fill />
-      </div>
+      <Link className='relative h-[100px] w-[140px] rounded-[16px] bg-base-600/10' href={href}>
+        <Img src={item.gallery?.images?.[0]} fill />
+      </Link>
       <div className='flex flex-col'>
-        <div className='text-header-500 mt-[8px]'>{formatPriceShort(price)}</div>
-        {!!properties.length && <div className='mt-[12px] flex items-center gap-[4px]'>{showProperties()}</div>}
+        <Link className='text-header-500 flex gap-[8px]' href={href}>
+          <span>{formatPriceShort(item.priceDiscount || item.price)}</span>
+          {!!item.priceDiscount && <span className='line-through opacity-40'>{formatPriceShort(item.price)}</span>}
+        </Link>
+        {!!item.characteristics?.length && (
+          <Link className='text-base-400-lg-100 mb-[12px] mt-[8px] flex items-center gap-[4px]' href={href}>
+            {showProperties()}
+          </Link>
+        )}
         <div className='mt-auto flex gap-[6px]'>
           <button className='flex size-[36px] items-center justify-center rounded-full bg-base-300 after:size-[20px] after:bg-icon-heart after:bg-default' />
           <button className='flex size-[36px] items-center justify-center rounded-full bg-base-300 after:size-[20px] after:bg-icon-scale after:bg-default' />
@@ -41,7 +51,7 @@ interface Props {
   houseAddress: string | null
   flatsCount: number
   onCloseButtonClick: () => void
-  list: MapObject[]
+  list: DefaultObject[]
 }
 
 /**

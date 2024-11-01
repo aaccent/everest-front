@@ -10,7 +10,7 @@ import CustomMap, { Props as CustomMapProps } from '@/components/CustomMap'
 import { useObjectsMapImages } from './useObjectsMapImages'
 import ObjectsMapContainer from './ObjectsMapContainer'
 import ObjectsMapSource, { LAYER_IDS } from './ObjectsMapSource'
-import { GetItemsForMapFn, MapObject, useObjectsMapData } from './useObjectsMapData'
+import { GetItemsForMapFn, useObjectsMapData } from './useObjectsMapData'
 import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 
 import { QuickFilters } from '@/types/FiltersType'
@@ -20,6 +20,7 @@ import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
 import { PopupContext } from '@/features/Popup'
 import { AdaptiveContext } from '@/features/adaptive'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 function useCategoryLink() {
   const pathname = usePathname()
@@ -46,9 +47,9 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
   const categoryLink = useCategoryLink()
   const { mapRefCallback } = useObjectsMapImages()
   const { objects, viewStateControl } = useObjectsMapData({ getItems })
-  const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
+  const [activePoints, setActivePoints] = useState<DefaultObject[] | null>(null)
 
-  function setItems(items: MapObject[]) {
+  function setItems(items: DefaultObject[]) {
     setActivePoints(items)
 
     if (isDesktop) return
@@ -68,11 +69,11 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
   }
 
   const onPointClickHandler: CustomMapProps['onPointClick'] = function (_, feature) {
-    setItems([feature.properties as MapObject])
+    setItems([feature.properties as DefaultObject])
   }
 
   const onClusterClickHandler: CustomMapProps['onClusterClick'] = function (_, features) {
-    setItems(features.map((item) => item.properties as MapObject))
+    setItems(features.map((item) => item.properties as DefaultObject))
   }
 
   const onMoreZoomClick = () => {

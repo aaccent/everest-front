@@ -1,5 +1,4 @@
 import { Tag } from '@/types/Tag'
-import { Characteristic } from '@/types/Characteristic'
 import { DateString } from '@/types/Date'
 
 export interface DefaultObject {
@@ -19,10 +18,14 @@ export interface DefaultObject {
     images: string[]
     count: number
   }
+  categoryObject: string | null
   completionDate: DateString
   publicationTime: DateString
   tags: Tag[] | null
-  characteristics: Characteristic[]
+  characteristics: {
+    id: number
+    value: string | number
+  }[]
   latitude: number
   longitude: number
 }
