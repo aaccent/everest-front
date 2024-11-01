@@ -16,6 +16,14 @@ interface FilterItemsProps {
   isQuick?: boolean
 }
 
+function valueIsNull(value: Filter['value']) {
+  if (value instanceof Array && value[0] === null) {
+    return true
+  }
+
+  return value === null
+}
+
 export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   const filterManager = useFilter()
 
@@ -28,7 +36,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   }
 
   return filters.map((filter) => {
-    if (!filter.value && filter.fieldType !== 'toggle') return null
+    if (valueIsNull(filter.value) && filter.fieldType !== 'toggle') return null
 
     switch (filter.fieldType) {
       case 'multilist': {
