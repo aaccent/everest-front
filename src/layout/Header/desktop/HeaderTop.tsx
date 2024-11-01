@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import CallPopupButton from '@/layout/Header/components/CallPopupButton'
+import CityButton from '@/layout/Header/desktop/CityButton'
 
 interface Props {
   className?: string
@@ -23,9 +24,7 @@ function HeaderTop({ className }: Props) {
         </ul>
       </nav>
       <div className='flex items-center gap-[24px] peer-any-parent-[.is-black]/header-state:text-primary'>
-        <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-location before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/header-state:before:filter-primary'>
-          Абакан
-        </button>
+        <CityButton />
         <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-add before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/header-state:before:filter-primary'>
           добавить объявление
         </button>
