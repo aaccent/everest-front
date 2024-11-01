@@ -5,6 +5,7 @@ import Img from '@/ui/Img'
 import { suggestionPlural } from '@/features/utility/pluralRules'
 import { getSaleRentMenu, MenuType } from '@/globals/api'
 import { generateCategoryLink } from '@/features/link'
+import SeeAllCategoryItem from '@/layout/Header/components/SeeAllCategoryItem'
 
 interface Props {
   className?: string
@@ -23,7 +24,12 @@ async function DesktopSaleRentMenu({ className, category }: Props) {
           className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
           href={generateCategoryLink(item)}
         >
-          <Img src={item.imageUrl} width={86} height={86} className='size-[86px] object-cover object-center' />
+          <Img
+            src={item.imageUrl}
+            width={86}
+            height={86}
+            className='size-[86px] rounded-[24px] object-cover object-center'
+          />
           <div className='w-[140px]'>
             <div className='text-base-300-reg-100-upper mb-[6px] text-base-600'>{item.name}</div>
             <div className='text-base-400-lg-100 text-base-650'>{`${item.count} ${suggestionPlural.get(item.count)}`}</div>
@@ -47,16 +53,7 @@ async function DesktopSaleRentMenu({ className, category }: Props) {
             </div>
             <ul className='ml-[-10px] mt-[30px] grid h-1 grow auto-rows-max grid-cols-3 gap-x-[12px] gap-y-[12px] overflow-y-auto transition-opacity scrollbar-custom'>
               <li>
-                <Link
-                  className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
-                  href=''
-                >
-                  <div className='flex size-[86px] items-center justify-center rounded-[24px] bg-primary after:block after:size-[32px] after:bg-icon-more-houses after:bg-default-contain'></div>
-                  <div>
-                    <div className='text-base-300-reg-100-upper mb-[6px] text-base-600'>смотреть все</div>
-                    <div className='text-base-400-lg-100 text-base-650'>{`${fullAmount} ${suggestionPlural.get(fullAmount)}`}</div>
-                  </div>
-                </Link>
+                <SeeAllCategoryItem href='' amount={fullAmount} />
               </li>
               {showCategories()}
             </ul>

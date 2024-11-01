@@ -1,5 +1,5 @@
 import React from 'react'
-import SeeAllCard from '@/layout/Header/components/SeeAllCard'
+import SeeAllCategoryItem from '@/layout/Header/components/SeeAllCategoryItem'
 import MenuItemCard from '@/layout/Header/components/MenuItemCard'
 import CatalogMenuButton from './components/CatalogMenuButton'
 import MobileCatalogMenuWrapper from './MobileCatalogMenuWrapper'
@@ -34,7 +34,7 @@ function outputInnerItems(list: MenuCategory[]) {
       key={item.id}
     >
       <li>
-        <SeeAllCard link={generateCategoryLink(item)} amount={item.total} />
+        <SeeAllCategoryItem href={generateCategoryLink(item)} amount={item.total} />
       </li>
       {item.subCategories.map((subitem: any) => (
         <MenuItemCard key={subitem.id} parent={item} item={subitem} />

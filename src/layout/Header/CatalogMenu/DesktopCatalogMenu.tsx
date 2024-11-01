@@ -2,7 +2,7 @@ import React from 'react'
 import { getCatalogMenu, getNewBuildingsBanner } from '@/globals/api'
 import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories } from './components/CatalogMenuInner'
 import Img from '@/ui/Img'
-import SeeAllCard from '@/layout/Header/components/SeeAllCard'
+import SeeAllCategoryItem from '@/layout/Header/components/SeeAllCategoryItem'
 import MenuItemCard from '@/layout/Header/components/MenuItemCard'
 import { MenuCategory } from '@/types/Menu'
 import { generateCategoryLink } from '@/features/link'
@@ -35,7 +35,7 @@ function showSubCategories(list: MenuCategory[]) {
       id={category.id.toString()}
     >
       <li>
-        <SeeAllCard link={generateCategoryLink(category)} amount={category.total} />
+        <SeeAllCategoryItem href={generateCategoryLink(category)} amount={category.total} />
       </li>
       {category.subCategories.map((subcategory) => (
         <li key={subcategory.id}>
