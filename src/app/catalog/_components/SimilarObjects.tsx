@@ -30,12 +30,7 @@ function SimilarObjects({ objectCode, initList }: SimilarObjectsProps) {
           className='mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
           key={object.id}
         >
-          <ObjectCard
-            item={object}
-            category={{
-              seoUrl: object.typeObject,
-            }}
-          />
+          <ObjectCard item={object} />
         </CarouselSlide>
       )
     })
