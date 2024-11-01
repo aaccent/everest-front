@@ -59,7 +59,7 @@ export function generateObjectLink(
   return link
 }
 
-export function createComplexLink(item: ObjectForLinkGeneration) {
+export function createComplexLink(item: Pick<ObjectForLinkGeneration, 'seoUrl'>) {
   let link = ROUTES.COMPLEXES
   link += `/${item.seoUrl}`
   return link
