@@ -6,8 +6,9 @@ import Container from '@/layout/Container'
 import { getOffices } from '@/globals/api/methods/geo/getOffices'
 
 async function Page() {
-  const citiesWithOffices = await getLocation({ isOffice: true }).then((location) => location.cities)
-  const initialOffices = await getOffices(Number(citiesWithOffices[0].id))
+  const citiesWithOffices = await getLocation({ isOffice: true }).then((location) => location?.cities || [])
+  const id = citiesWithOffices?.[0]?.id || '1'
+  const initialOffices = await getOffices(Number(id))
 
   return (
     <>
