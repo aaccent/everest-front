@@ -88,7 +88,7 @@ function DesktopHeader() {
                 <Submenu list={aboutMenu} />
               </li>
               <li>
-                <Link href='#'>Контакты</Link>
+                <Link href='/contacts'>Контакты</Link>
               </li>
             </ul>
           </div>
