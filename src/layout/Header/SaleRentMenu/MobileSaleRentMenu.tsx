@@ -6,11 +6,11 @@ import { getSaleRentMenu, MenuType } from '@/globals/api'
 import SeeAllCategoryItem from '@/layout/Header/components/SeeAllCategoryItem'
 
 interface Props {
-  type: MenuType
+  menuType: MenuType
 }
 
-async function MobileSaleRentMenu({ type }: Props) {
-  const data = await getSaleRentMenu(type)
+async function MobileSaleRentMenu({ menuType }: Props) {
+  const data = await getSaleRentMenu(menuType)
   const fullAmount = data.reduce((inc, item) => inc + item.count, 0)
 
   function showCategories() {
@@ -42,6 +42,20 @@ async function MobileSaleRentMenu({ type }: Props) {
       <li>
         <SeeAllCategoryItem href='' amount={fullAmount} />
       </li>
+      {menuType === 'rent' && (
+        <li>
+          <Link
+            className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
+            href=''
+          >
+            <Img src='' width={86} height={86} className='size-[86px] rounded-[24px] object-cover object-center' />
+            <div>
+              <div className='text-base-300-reg-100-upper mb-[6px] text-base-600'>Посуточно</div>
+              <div className='text-base-400-lg-100 text-base-650'>{`${0} ${suggestionPlural.get(0)}`}</div>
+            </div>
+          </Link>
+        </li>
+      )}
 
       {showCategories()}
     </ul>

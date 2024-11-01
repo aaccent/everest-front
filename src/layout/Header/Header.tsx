@@ -22,8 +22,8 @@ function Header() {
         <DesktopHeader />
       </IsDesktop>
       <CatalogMenu />
-      <DesktopSaleRentMenu className='peer-[[data-menu="sale"]]/header-state:flex' category='sale' />
-      <DesktopSaleRentMenu className='peer-[[data-menu="rent"]]/header-state:flex' category='rent' />
+      <DesktopSaleRentMenu className='peer-[[data-menu="sale"]]/header-state:flex' menuType='sale' />
+      <DesktopSaleRentMenu className='peer-[[data-menu="rent"]]/header-state:flex' menuType='rent' />
       <IsMobile>
         <MobileMenu />
         <MobileDetailMenu />

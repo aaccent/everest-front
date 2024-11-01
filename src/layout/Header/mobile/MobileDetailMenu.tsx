@@ -27,10 +27,10 @@ async function MobileDetailMenu() {
         <nav className='mb-[32px]'>
           <ul>
             <MobileMenuItem text='Покупка'>
-              <MobileSaleRentMenu type='sale' />
+              <MobileSaleRentMenu menuType='sale' />
             </MobileMenuItem>
             <MobileMenuItem text='Аренда'>
-              <MobileSaleRentMenu type='rent' />
+              <MobileSaleRentMenu menuType='rent' />
             </MobileMenuItem>
             <MobileMenuItem text='Новостройки'>{showItems(newBuildingsMenu)}</MobileMenuItem>
             <MobileMenuItem href='#' text='Ипотека' />
