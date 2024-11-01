@@ -16,6 +16,14 @@ interface FilterItemsProps {
   isQuick?: boolean
 }
 
+function valueIsNull(value: Filter['value']) {
+  if (value instanceof Array && value[0] === null) {
+    return true
+  }
+
+  return value === null
+}
+
 export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   const filterManager = useFilter()
 
@@ -28,7 +36,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
   }
 
   return filters.map((filter) => {
-    if (!filter.value && filter.fieldType !== 'toggle') return null
+    if (valueIsNull(filter.value) && filter.fieldType !== 'toggle') return null
 
     switch (filter.fieldType) {
       case 'multilist': {
@@ -65,12 +73,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
       }
       case 'range': {
         const rawValue = getCurrentFilter<[number, number]>(filter.id)?.value
-        const value = rawValue
-          ? { min: rawValue[0], max: rawValue[1] }
-          : {
-              min: filter.value.min,
-              max: filter.value.max,
-            }
+        const value: RangeValue = rawValue ? [rawValue[0], rawValue[1]] : [filter.value[0], filter.value[1]]
 
         const formalValue = (prefix: string) => {
           switch (prefix) {
@@ -80,8 +83,8 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
                 onChange: (id: string, newValue: RangeValue) => {
                   onChange(id, formatLongPriceForRange(newValue))
                 },
-                min: formatShortPriceObjForRange(filter.value).min,
-                max: formatShortPriceObjForRange(filter.value).max,
+                min: formatShortPriceObjForRange(filter.value)[0],
+                max: formatShortPriceObjForRange(filter.value)[1],
                 step: 0.1,
                 prefix: `млн ${prefix}`,
               }
@@ -89,8 +92,8 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
               return {
                 value,
                 onChange,
-                min: filter.value.min,
-                max: filter.value.max,
+                min: filter.value[0],
+                max: filter.value[1],
                 prefix,
               }
             }
@@ -98,6 +101,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
         }
         return (
           <Range
+            key={filter.id}
             min={formalValue(filter.prefix).min}
             max={formalValue(filter.prefix).max}
             name={filter.id.toString()}
@@ -116,6 +120,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
         return (
           <Checkbox
+            key={filter.id}
             title={filter.name}
             name={filter.id.toString()}
             defaultChecked={value || false}

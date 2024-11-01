@@ -1,13 +1,13 @@
 import React from 'react'
 import { flatPlural } from '@/features/utility/pluralRules'
-import { MapObject } from '@/app/map/_components/useObjectsMapData'
 import { ObjectsMapDetailListItem } from '@/app/map/_components/ObjectsMapAsideDetail'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 interface Props {
   house: string | null
   flatsCount: number
   onCloseButtonClick: () => void
-  list: MapObject[]
+  list: DefaultObject[]
 }
 
 function MapObjectsPopup({ house, flatsCount, onCloseButtonClick, list }: Props) {

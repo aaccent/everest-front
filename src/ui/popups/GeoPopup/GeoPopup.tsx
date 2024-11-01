@@ -13,7 +13,7 @@ interface GeoPopupProps {
 }
 
 function GeoPopup({ selectGeoAuto }: GeoPopupProps) {
-  const [location, setLocation] = useState<Location>()
+  const [location, setLocation] = useState<Location | null>(null)
   const { closePopup } = useContext(PopupContext)
   const { setCurrentCity } = useContext(CityContext)
 
