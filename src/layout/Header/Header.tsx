@@ -28,6 +28,7 @@ function Header() {
         <MobileMenu />
         <MobileDetailMenu />
       </IsMobile>
+      <div className='pointer-events-none fixed inset-0 z-10 bg-base-600/60 opacity-0 transition-opacity peer-[[data-menu]]/header-state:opacity-100' />
     </HeaderProvider>
   )
 }
