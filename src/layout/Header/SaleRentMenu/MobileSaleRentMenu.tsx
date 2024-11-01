@@ -1,16 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
+import Img from '@/ui/Img'
 import { suggestionPlural } from '@/features/utility/pluralRules'
-import { getCatalogMenu, MenuType } from '@/globals/api'
+import { getSaleRentMenu, MenuType } from '@/globals/api'
 
 interface Props {
   type: MenuType
 }
 
 async function MobileSaleRentMenu({ type }: Props) {
-  const data = await getCatalogMenu(type)
-  const fullAmount = data.reduce((inc, item) => inc + item.total, 0)
+  const data = await getSaleRentMenu(type)
+  const fullAmount = data.reduce((inc, item) => inc + item.count, 0)
 
   function showCategories() {
     return data.map((item) => {
@@ -20,20 +20,10 @@ async function MobileSaleRentMenu({ type }: Props) {
             className='flex w-full items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
             href={item.seoUrl}
           >
-            {item.iconUrl ? (
-              <Image
-                src={item.iconUrl}
-                alt=''
-                width={52}
-                height={52}
-                className='size-[52px] object-cover object-center'
-              />
-            ) : (
-              <div className='size-[52px] rounded-[16px] bg-primary'></div>
-            )}
+            <Img src={item.imageUrl} width={52} height={52} className='size-[52px] object-cover object-center' />
             <div>
               <div className='text-base-300-reg-100-upper mb-[6px] text-base-600'>{item.name}</div>
-              <div className='text-base-400-lg-100 text-base-650'>{`${item.total} ${suggestionPlural.get(item.total)}`}</div>
+              <div className='text-base-400-lg-100 text-base-650'>{`${item.count} ${suggestionPlural.get(item.count)}`}</div>
             </div>
           </Link>
         </li>
