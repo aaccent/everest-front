@@ -50,12 +50,12 @@ async function DesktopSaleRentMenu({ className, category }: Props) {
           className={`px-container fixed inset-x-0 top-[115px] z-20 hidden h-[580px] w-full gap-[16px] rounded-b-[32px] bg-base-100 pb-[56px] pt-[32px] ${className}`}
           data-menu-type={category}
         >
-          <div className='flex w-full max-w-[900px] flex-col rounded-[32px] bg-base-300 p-[40px]'>
+          <div className='flex w-full max-w-[900px] flex-col rounded-[32px] bg-base-300 p-[40px] pb-[30px]'>
             <div>
               <span className='text-header-300 text-base-600'>{`${title} — `}</span>
               <span className='text-header-300 text-base-650'>{`${fullAmount} ${suggestionPlural.get(fullAmount)}`}</span>
             </div>
-            <ul className='ml-[-10px] mt-[40px] grid h-1 grow auto-rows-max grid-cols-3 gap-x-[12px] gap-y-[13px] overflow-y-auto transition-opacity scrollbar-custom'>
+            <ul className='ml-[-10px] mt-[30px] grid h-1 grow auto-rows-max grid-cols-3 gap-x-[12px] gap-y-[12px] overflow-y-auto transition-opacity scrollbar-custom'>
               <li>
                 <Link
                   className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
