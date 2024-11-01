@@ -5,7 +5,7 @@ import { Pagination } from '@/types/Pagination'
 
 type Response = APIResponse<
   {
-    data: ComplexHouseObject[]
+    objects: ComplexHouseObject[]
   } & Pagination
 >
 
@@ -34,7 +34,7 @@ export async function getComplexHouseObjects(
 
   return {
     houseNumber,
-    list: res.data.data,
+    list: res.data.objects,
     page: res.data.page,
     perPage: res.data.perPage,
     total: res.data.total,

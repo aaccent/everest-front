@@ -1,13 +1,10 @@
-import { apiCall, APIResponse, SlashPath } from '@/globals/api/apiCall'
+import { apiCall, APIResponse } from '@/globals/api/apiCall'
 import { MenuCategory } from '@/types/Menu'
 
 type Response = APIResponse<MenuCategory[]>
 
-export type MenuType = 'sale' | 'rent'
-
-export async function getCatalogMenu(type?: MenuType) {
-  const uri: SlashPath = type ? `/category/${type}` : `/category`
-  const res = await apiCall<false, Response>(uri, { method: 'GET' })
+export async function getCatalogMenu() {
+  const res = await apiCall<false, Response>('/category', { method: 'GET' })
 
   return res.data
 }

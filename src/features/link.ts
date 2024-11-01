@@ -28,22 +28,38 @@ export function generateCategoryLink(item: CategoryForGeneratingLink | undefined
 
 type ObjectForLinkGeneration = {
   seoUrl: string
+  typeObject: string
+  categoryObject: string | null
+}
+
+function generateCategoryLinkFromObject(item: ObjectForLinkGeneration | undefined) {
+  if (!item) return '#'
+
+  let link = ROUTES.CATALOG
+  link += `/${item.typeObject}`
+
+  if (item.categoryObject) {
+    link += `/${item.categoryObject}`
+  }
+
+  return link
 }
 
 export function generateObjectLink(
   item: ObjectForLinkGeneration | undefined,
-  category: CategoryForGeneratingLink | undefined,
+  category?: CategoryForGeneratingLink | undefined,
 ) {
-  if (!category || !item) return '#'
+  if (!item) return '#'
 
-  let link = generateCategoryLink(category)
+  let link = category ? generateCategoryLink(category) : generateCategoryLinkFromObject(item)
+
   link += '/object'
   link += `/${item.seoUrl}`
 
   return link
 }
 
-export function createComplexLink(item: ObjectForLinkGeneration) {
+export function createComplexLink(item: Pick<ObjectForLinkGeneration, 'seoUrl'>) {
   let link = ROUTES.COMPLEXES
   link += `/${item.seoUrl}`
   return link

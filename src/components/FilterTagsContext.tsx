@@ -7,19 +7,19 @@ function getActiveFilters(filtersGeneral: FilterType<FilterView>[], activeFilter
   if (!filtersGeneral.length) return []
   const activeFilters = Object.fromEntries(activeFilterValues.map((filter) => [filter.id, filter]))
 
-  return filtersGeneral.reduce(function (accumulator, currentFilter) {
+  return filtersGeneral.reduce<FilterType<FilterView>[]>(function (accumulator, currentFilter) {
     if (!(currentFilter.id in activeFilters)) return accumulator
 
     accumulator.push({
       id: currentFilter.id,
       name: currentFilter.name,
       value: activeFilters[currentFilter.id].value,
-      fieldType: currentFilter.fieldType,
+      fieldType: currentFilter.fieldType as any,
       prefix: currentFilter.prefix,
-    } as FilterType<FilterView>)
+    })
 
     return accumulator
-  }, [] as FilterType<FilterView>[])
+  }, [])
 }
 
 function convertBlocksToFilterType(blocks: FilterBlock[]): FilterType<FilterView>[] {

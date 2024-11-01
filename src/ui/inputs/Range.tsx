@@ -2,8 +2,9 @@
 import React, { useState } from 'react'
 import { IMaskInput } from 'react-imask'
 import { InputValue } from '@/globals/utilityTypes'
+import { Range as RangeType } from '@/types/FiltersType'
 
-export type RangeValue = number[]
+export type RangeValue = RangeType['value']
 
 export type RangeProps = {
   name: string

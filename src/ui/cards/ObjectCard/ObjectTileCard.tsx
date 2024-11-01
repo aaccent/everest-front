@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react'
 import Link from 'next/link'
 import { DefaultObject as ObjectCardType } from '@/types/catalog/DefaultObject'
 import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
-import { CategoryForGeneratingLink, generateObjectLink } from '@/features/link'
+import { generateObjectLink } from '@/features/link'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 
@@ -11,14 +11,11 @@ function InfoItem({ children }: PropsWithChildren) {
 }
 
 interface Props {
-  category: CategoryForGeneratingLink
   item: ObjectCardType
 }
 
-const test = ['/slider-3.png', '/slider-1.png', '/slider-2.png']
-
-function ObjectCard({ item, category }: Props) {
-  const link = generateObjectLink(item, category)
+function ObjectCard({ item }: Props) {
+  const link = generateObjectLink(item)
 
   return (
     <div className='group/object-card'>

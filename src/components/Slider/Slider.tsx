@@ -50,7 +50,7 @@ function Slider({ list, type, link }: SliderProps) {
                 className='slider group mr-[12px] max-w-[320px] md:mr-0 md:max-w-none md:basis-1/3 md:pr-[16px] md:[&:nth-child(3n)]:pr-0 md:[&:nth-child(4n)]:pl-[16px]'
                 key={card.id}
               >
-                <ObjectCard category={{ breadcrumbs: [{ name: '', seo: card.typeObject }] }} item={card} />
+                <ObjectCard item={card} />
               </CarouselSlide>
             ))}
             <SeeAllCard link={link} />

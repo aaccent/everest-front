@@ -20,7 +20,7 @@ export function CityContextProvider({ children }: PropsWithChildren) {
     if (!cookie) return
 
     getLocation().then((res) => {
-      const city = res.cities.find((c) => cookie.value.includes(c.name))
+      const city = res?.cities.find((c) => cookie.value.includes(c.name))
       setCurrentCity(city || null)
     })
   }, [])

@@ -18,7 +18,7 @@ function CookieNotification() {
 
   return (
     <div
-      className={`${active ? 'flex' : 'hidden'} text-base-300-lg-100 sticky bottom-[20px] left-[20px] z-50 w-[350px] flex-col gap-[20px] rounded-[24px] bg-base-650 px-[24px] py-[24px] text-base-100 backdrop-blur-[12px] md:inset-x-1/2 md:bottom-[32px] md:w-[433px] md:-translate-x-1/2 md:flex-row md:py-[26px]`}
+      className={`${active ? 'flex' : 'hidden'} text-base-300-lg-100 fixed bottom-[20px] left-[20px] z-50 w-[350px] flex-col gap-[20px] rounded-[24px] bg-base-650 px-[24px] py-[24px] text-base-100 backdrop-blur-[12px] md:inset-x-1/2 md:bottom-[32px] md:w-[433px] md:-translate-x-1/2 md:flex-row md:py-[26px]`}
     >
       <div>
         Мы используем Яндекс.метрика и сохраняем{' '}

@@ -5,7 +5,7 @@ import { convertToBase64, convertBase64ToArray } from '@/features/utility/conver
 
 export interface Filter {
   id: number
-  value: string[] | number[] | boolean | (string | number)[]
+  value: string[] | boolean | [number, number]
 }
 
 export function useFilter() {

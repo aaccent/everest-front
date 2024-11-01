@@ -12,11 +12,15 @@ type Props = {
 }
 
 export async function getLocation({ countryId = 1, isOffice = false }: Props = {}) {
-  const res = await apiCall<Request, Response>(`/location/country/${countryId}`, {
-    method: 'POST',
-    request: {
-      isOffice,
-    },
-  })
-  return res.data
+  try {
+    const res = await apiCall<Request, Response>(`/location/country/${countryId}`, {
+      method: 'POST',
+      request: {
+        isOffice,
+      },
+    })
+    return res.data
+  } catch {
+    return null
+  }
 }

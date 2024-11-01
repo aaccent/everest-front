@@ -32,7 +32,7 @@ export type Choice = {
 }
 export type Range = {
   fieldType: 'range'
-  value: number[]
+  value: [number, number]
   prefix: string
 }
 

@@ -1,7 +1,7 @@
 'use client'
 import React, { useContext } from 'react'
 import Button, { ButtonVariation } from '@/ui/buttons/Button'
-import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
+import { HeaderContext } from '@/layout/Header/Header.context'
 import { usePathname } from 'next/navigation'
 
 function LoginButton() {
@@ -10,7 +10,7 @@ function LoginButton() {
 
   let type: ButtonVariation = 'transparent'
 
-  if (header.hasMenu(HEADER_MENUS.CATALOG) || header.scrolled || pathName !== '/') {
+  if (header.menu || header.scrolled || pathName !== '/') {
     type = 'second'
   }
 
