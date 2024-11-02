@@ -6,6 +6,7 @@ export const PATHS = {
   APARTMENTS: 'apartments',
   MAP: 'map',
   COMPLEX_OBJECTS: 'complex-objects',
+  CONTACTS: 'contacts',
 }
 
 export const ROUTES = {
@@ -15,4 +16,5 @@ export const ROUTES = {
   NEW_BUILDINGS: `/${PATHS.CATALOG}/${PATHS.NEW_BUILDINGS}`,
   SECONDARY_HOUSING: `/${PATHS.CATALOG}/${PATHS.SECONDARY_HOUSING}`,
   MAP: `/${PATHS.MAP}`,
+  CONTACTS: `/${PATHS.CONTACTS}`,
 }

@@ -1,4 +1,5 @@
 import { LogError } from '@/globals/api/LogError'
+import { tryJSONParse } from '@/globals/fetch'
 
 function filterBody(object: object) {
   const entries = Object.entries(object).filter(([_, value]) => {
@@ -17,20 +18,6 @@ function convertObjectToURLSearchParams(object: object) {
 }
 
 export type SlashPath = `/${string}`
-
-/**
- * Преобразовывает строку в JSON Объект.
- * Оборачивает try catch объявление в `async` функцию для использования `await` оператора
- * @typeParam TType - тип возвращаемый при успешной конвертации
- * @return JSON Объект если успешно, иначе `false`
- * */
-export async function tryJSONParse<TType extends any = any>(value: any): Promise<TType | false> {
-  try {
-    return JSON.parse(value)
-  } catch {
-    return false
-  }
-}
 
 export type APIRequest<TQuery extends object = object> = TQuery
 

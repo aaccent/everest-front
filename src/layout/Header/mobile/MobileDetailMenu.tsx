@@ -36,7 +36,7 @@ async function MobileDetailMenu() {
             <MobileMenuItem href='#' text='Ипотека' />
             <MobileMenuItem text='Сервисы'>{showItems(services as any[])}</MobileMenuItem>
             <MobileMenuItem text='О нас'>{showItems(aboutMenu)}</MobileMenuItem>
-            <MobileMenuItem href='#' text='Контакты' />
+            <MobileMenuItem href='/contacts' text='Контакты' />
           </ul>
         </nav>
         <div className='grid grid-cols-2 gap-[8px]'>

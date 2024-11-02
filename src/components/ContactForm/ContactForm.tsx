@@ -9,7 +9,7 @@ import NameInput from '@/ui/inputs/NameInput'
 import PhoneInput from '@/ui/inputs/PhoneInput'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
-import { getAddresses, getSocials } from '@/globals/api'
+import { getSocials } from '@/globals/api'
 
 import { INPUT_NAMES } from '@/globals/inputs/call-form'
 import { getPathname } from '@/features/pathname'
@@ -17,6 +17,18 @@ import { ROUTES } from '@/globals/paths'
 
 import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
+import { getOffices } from '@/globals/api/methods/geo/getOffices'
+import { getCityIdFromCookie } from '@/features/utility/getCityIdFromCookie'
+import Img from '@/ui/Img'
+
+function ContactFormImage() {
+  return (
+    <div className='relative hidden w-full max-w-[649px] overflow-hidden rounded-[32px] md:block'>
+      <Img src='/contact-form-image.png' width={649} height={618} className='size-full object-cover object-center' />
+      <Img src={bavel} className='absolute right-0 top-0 filter-primary' />
+    </div>
+  )
+}
 
 interface socialItem {
   name: string
@@ -25,15 +37,13 @@ interface socialItem {
 }
 
 async function ContactForm() {
-  const city = 'Абакан'
-  const addresses = await getAddresses()
-  const currentCityAddresses = addresses.find((el) => el.city === city)
-
-  if (!currentCityAddresses) return
-
   const socials: socialItem[] = await getSocials()
+  const cityId = getCityIdFromCookie()
+  const offices = await getOffices(cityId)
 
-  if (getPathname() === ROUTES.MAP) return null
+  const pathname = getPathname()
+  if (pathname === ROUTES.MAP) return null
+  const isContactsPage = pathname === ROUTES.CONTACTS
 
   function showSocials() {
     return socials.map((social, index) => (
@@ -102,7 +112,7 @@ async function ContactForm() {
           </div>
         </div>
       </div>
-      <FormMap list={currentCityAddresses.offices} city={city} />
+      {isContactsPage ? <ContactFormImage /> : <FormMap offices={offices} />}
     </Section>
   )
 }
