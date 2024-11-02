@@ -56,3 +56,10 @@ test('Should load complex detail page', async ({ page }) => {
   await page.getByRole('main').getByTestId(TEST_ID.COMPLEX_CARD).first().click()
   await expect(page.getByTestId(TEST_ID.COMPLEX_DETAIL_H1)).toBeAttached()
 })
+
+test('Should load contacts page', async ({ page }) => {
+  const res = await page.goto(ROUTES.CONTACTS)
+
+  expect(res?.status()).toEqual(200)
+  await expect(page.getByTestId(TEST_ID.DETAIL_OFFICE_INFO)).toBeAttached()
+})

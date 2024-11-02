@@ -11,6 +11,7 @@ import logoMini from '@/assets/static/logo-mini.svg'
 import Img from '@/ui/Img'
 import Button from '@/ui/buttons/Button'
 import Link from 'next/link'
+import { TEST_ID } from '@/globals/testIds'
 
 function DetailedOfficeInfo({ activeOffice }: { activeOffice: Office }) {
   const [full, setFull] = useState<boolean>(false)
@@ -29,6 +30,7 @@ function DetailedOfficeInfo({ activeOffice }: { activeOffice: Office }) {
   return (
     <div
       className={`absolute inset-x-[10px] bottom-[10px] flex flex-col ${full ? 'top-[10px]' : ''} rounded-[20px] bg-base-100 p-[16px] md:bottom-auto md:left-[24px] md:right-auto md:top-[24px] md:h-[519px] md:w-full md:max-w-[382px] md:rounded-[32px] md:p-[20px]`}
+      data-testid={TEST_ID.DETAIL_OFFICE_INFO}
     >
       <div className='flex items-center'>
         <div className='mr-[12px] flex items-center justify-center bg-primary circle-[40px] md:circle-[48px]'>
