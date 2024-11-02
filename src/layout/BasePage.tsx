@@ -9,6 +9,7 @@ import CookieNotification from '@/components/CookieNotification'
 import { CityContextProvider } from '@/globals/CityContext'
 
 import packageJSON from '@/../package.json'
+import GeoPosition from '@/components/GeoPosition'
 
 function BasePage({ children }: PropsWithChildren) {
   const baseProps = basePageProps()
@@ -20,6 +21,7 @@ function BasePage({ children }: PropsWithChildren) {
       </span>
       <CityContextProvider>
         <PopupProvider>
+          <GeoPosition />
           <Header />
           <div className='flex min-h-screen w-full flex-col justify-between'>
             <main className='h-full flex-[1_1_0]'>

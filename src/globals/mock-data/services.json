@@ -7,35 +7,35 @@
     "icon": "/icons/key.svg"
   },
   {
-    "id": "a",
+    "id": "b",
     "title": "Trade-in",
     "code": "#",
     "showInFooter": true,
     "icon": "/icons/trade-in.svg"
   },
   {
-    "id": "a",
+    "id": "c",
     "title": "Страхование",
     "code": "#",
     "showInFooter": true,
     "icon": "/icons/umbrella.svg"
   },
   {
-    "id": "a",
+    "id": "d",
     "title": "Юридическое сопровождение",
     "code": "#",
     "showInFooter": true,
     "icon": "/icons/doc.svg"
   },
   {
-    "id": "a",
+    "id": "e",
     "title": "Аналитика рынка",
     "code": "#",
     "showInFooter": true,
     "icon": "/icons/diagram.svg"
   },
   {
-    "id": "a",
+    "id": "f",
     "title": "Онлайн-сделка",
     "code": "#",
     "showInFooter": true,

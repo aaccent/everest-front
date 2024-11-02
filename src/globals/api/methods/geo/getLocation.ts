@@ -1,11 +1,26 @@
-import { apiCall, APIResponse } from '@/globals/api/apiCall'
+import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 import { Location } from '@/types/Geo'
 
 type Response = APIResponse<Location>
+type Request = APIRequest<{
+  isOffice: boolean
+}>
 
-export async function getLocation(countryId: number = 1) {
-  const res = await apiCall<false, Response>(`/location/country/${countryId}`, {
-    method: 'GET',
-  })
-  return res.data
+type Props = {
+  countryId?: number
+  isOffice?: boolean
+}
+
+export async function getLocation({ countryId = 1, isOffice = false }: Props = {}) {
+  try {
+    const res = await apiCall<Request, Response>(`/location/country/${countryId}`, {
+      method: 'POST',
+      request: {
+        isOffice,
+      },
+    })
+    return res.data
+  } catch {
+    return null
+  }
 }

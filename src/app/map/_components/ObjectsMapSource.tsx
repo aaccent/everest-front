@@ -2,7 +2,7 @@ import React from 'react'
 import { Layer, Source } from 'react-map-gl'
 import { FeatureCollection } from 'geojson'
 import { IMAGE_IDS } from '@/app/map/_components/useObjectsMapImages'
-import { MapObject } from '@/app/map/_components/useObjectsMapData'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 export const LAYER_IDS = {
   UNCLUSTERED: 'unclustered-point',
@@ -13,7 +13,7 @@ export const LAYER_IDS = {
 }
 
 interface Props {
-  activePoint: MapObject | null
+  activePoint: DefaultObject | null
   sourceId: string
   data: FeatureCollection | null
 }

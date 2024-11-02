@@ -4,19 +4,10 @@ import { Filter, useFilter } from '@/features/useFilter'
 import { MapCenter } from '@/types/Map'
 import { FeatureCollection } from 'geojson'
 import { ABAKAN_VIEW_STATE } from '@/globals/map'
-
-export interface MapObject {
-  id: number
-  price: number
-  longitude: number
-  latitude: number
-  address: string | null
-  properties?: string[]
-  img: string | null
-}
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 /** Превращает `list` в формат geojson */
-function convertMapObjectsToGeojson(list: MapObject[]): FeatureCollection | null {
+function convertDefaultObjectsToGeojson(list: DefaultObject[]): FeatureCollection | null {
   if (!list) return null
   return {
     type: 'FeatureCollection',
@@ -34,7 +25,7 @@ function convertMapObjectsToGeojson(list: MapObject[]): FeatureCollection | null
   }
 }
 
-export type GetItemsForMapFn = (filter: Filter[], center: MapCenter, zoom: number) => Promise<MapObject[]>
+export type GetItemsForMapFn = (filter: Filter[], center: MapCenter, zoom: number) => Promise<DefaultObject[]>
 
 interface Props {
   getItems: GetItemsForMapFn
@@ -49,7 +40,7 @@ interface Props {
 export function useObjectsMapData({ getItems }: Props) {
   const [viewState, setViewState] = useState<MapViewState>(ABAKAN_VIEW_STATE)
   const { filter } = useFilter()
-  const [objects, setObjects] = useState<MapObject[]>([])
+  const [objects, setObjects] = useState<DefaultObject[]>([])
   const timeoutId = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
@@ -67,5 +58,5 @@ export function useObjectsMapData({ getItems }: Props) {
     }
   }, [filter.parsed, viewState])
 
-  return { objects: convertMapObjectsToGeojson(objects), viewStateControl: { viewState, setViewState } }
+  return { objects: convertDefaultObjectsToGeojson(objects), viewStateControl: { viewState, setViewState } }
 }

@@ -14,7 +14,7 @@ interface Props {
 async function ObjectDetail({ item, isComplexes }: Props) {
   const breadcrumbs = isComplexes ? item.breadcrumbs.slice(1) : item.breadcrumbs
   const objectCode = breadcrumbs.at(-1)?.seo || ''
-  const initSimilar = await getSimilarObjects(objectCode, 'price')
+  const initSimilar = await getSimilarObjects(objectCode, 'price').catch(() => [])
 
   return (
     <>

@@ -14,3 +14,11 @@ export interface MenuCategory {
   total: number
   subCategories: MenuSubcategory[]
 }
+
+export interface SaleRentCategory {
+  id: number
+  imageUrl: string
+  name: string
+  seoUrl: string
+  count: number
+}

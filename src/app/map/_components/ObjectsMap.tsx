@@ -10,7 +10,7 @@ import CustomMap, { Props as CustomMapProps } from '@/components/CustomMap'
 import { useObjectsMapImages } from './useObjectsMapImages'
 import ObjectsMapContainer from './ObjectsMapContainer'
 import ObjectsMapSource, { LAYER_IDS } from './ObjectsMapSource'
-import { GetItemsForMapFn, MapObject, useObjectsMapData } from './useObjectsMapData'
+import { GetItemsForMapFn, useObjectsMapData } from './useObjectsMapData'
 import ObjectsMapActivePoint from './ObjectsMapActivePoint'
 
 import { QuickFilters } from '@/types/FiltersType'
@@ -20,6 +20,8 @@ import { usePathname } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
 import { PopupContext } from '@/features/Popup'
 import { AdaptiveContext } from '@/features/adaptive'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
+import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 
 function useCategoryLink() {
   const pathname = usePathname()
@@ -46,9 +48,9 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
   const categoryLink = useCategoryLink()
   const { mapRefCallback } = useObjectsMapImages()
   const { objects, viewStateControl } = useObjectsMapData({ getItems })
-  const [activePoints, setActivePoints] = useState<MapObject[] | null>(null)
+  const [activePoints, setActivePoints] = useState<DefaultObject[] | null>(null)
 
-  function setItems(items: MapObject[]) {
+  function setItems(items: DefaultObject[]) {
     setActivePoints(items)
 
     if (isDesktop) return
@@ -68,11 +70,11 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
   }
 
   const onPointClickHandler: CustomMapProps['onPointClick'] = function (_, feature) {
-    setItems([feature.properties as MapObject])
+    setItems([feature.properties as DefaultObject])
   }
 
   const onClusterClickHandler: CustomMapProps['onClusterClick'] = function (_, features) {
-    setItems(features.map((item) => item.properties as MapObject))
+    setItems(features.map((item) => item.properties as DefaultObject))
   }
 
   const onMoreZoomClick = () => {
@@ -134,12 +136,10 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
         <div className='pointer-events-auto mt-auto hidden w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px] md:flex'>
           <DetailFilterButton categoryName={categoryCode} quickFilters={quickFilters} />
           <FilterItems filters={quickFilters.filters} isQuick />
-          <button
-            className='text-base-500-reg-100-upper ml-auto flex items-center gap-[4px] text-base-600/50 after:size-[13px] after:bg-icon-close after:opacity-50 after:bg-default'
-            type='button'
-          >
-            Сбросить всё
-          </button>
+          <ResetFiltersButton
+            className='ml-auto flex items-center gap-[4px] text-base-600/50 after:size-[13px] after:bg-icon-close after:opacity-50 after:bg-default'
+            text='Сбросить всё'
+          />
         </div>
       </div>
       <CustomMap

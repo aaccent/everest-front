@@ -2,7 +2,7 @@ import React from 'react'
 import { getCatalogMenu, getNewBuildingsBanner } from '@/globals/api'
 import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories } from './components/CatalogMenuInner'
 import Img from '@/ui/Img'
-import SeeAllCard from '@/layout/Header/components/SeeAllCard'
+import SeeAllCategoryItem from '@/layout/Header/components/SeeAllCategoryItem'
 import MenuItemCard from '@/layout/Header/components/MenuItemCard'
 import { MenuCategory } from '@/types/Menu'
 import { generateCategoryLink } from '@/features/link'
@@ -17,7 +17,7 @@ function showTopLevel(list: MenuCategory[]) {
         id={category.id.toString()}
       >
         <div className='relative size-[20px] flex-shrink-0'>
-          <Img className='object-contain object-center' src={category.seoUrl} isDecorative isSVG />
+          <Img className='object-contain object-center' src={category.iconUrl} isDecorative isSVG />
         </div>
         {category.name}
       </CatalogMenuInnerButton>
@@ -35,7 +35,7 @@ function showSubCategories(list: MenuCategory[]) {
       id={category.id.toString()}
     >
       <li>
-        <SeeAllCard link={generateCategoryLink(category)} amount={category.total} />
+        <SeeAllCategoryItem href={generateCategoryLink(category)} amount={category.total} />
       </li>
       {category.subCategories.map((subcategory) => (
         <li key={subcategory.id}>
@@ -52,7 +52,7 @@ async function DesktopCatalogMenu() {
   const total = catalog.reduce((init, item) => init + item.total, 0)
 
   return (
-    <aside className='px-container invisible fixed inset-x-0 top-0 z-30 flex w-full gap-[16px] bg-base-100 pb-[56px] pt-[145px] opacity-0 transition-opacity peer-[[data-menu="catalog"]]/header-state:visible peer-[[data-menu="catalog"]]/header-state:opacity-100'>
+    <aside className='px-container invisible fixed inset-x-0 top-0 z-30 flex w-full gap-[16px] rounded-b-[32px] bg-base-100 pb-[56px] pt-[145px] opacity-0 transition-opacity peer-[[data-menu="catalog"]]/header-state:visible peer-[[data-menu="catalog"]]/header-state:opacity-100'>
       <div className='flex h-[540px] w-full flex-col rounded-[32px] bg-base-300'>
         <div className='text-header-300 mx-[40px] border-b border-b-base-600/10 py-[40px]'>
           Каталог — <span className='text-base-600/50'>{`${total} предложений`}</span>

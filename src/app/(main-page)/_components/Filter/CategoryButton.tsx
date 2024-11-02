@@ -22,7 +22,7 @@ function CategoryButton({ name, seoUrl, icon, isActive, onClick }: CategoryButto
           src={icon}
           height={42}
           width={42}
-          className={`size-[42px] object-cover object-center filter-base-100 md:filter-none ${isActive ? '' : 'md:filter-base-100'}`}
+          className={`mb-[10px] size-[42px] object-contain object-center filter-base-100 md:filter-none ${isActive ? '' : 'md:filter-base-100'}`}
         />
         <span>{name}</span>
       </button>

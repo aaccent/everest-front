@@ -38,7 +38,7 @@ function CatalogContent({ category, tileClassName, listClassName, type }: Catalo
         case 'complex':
           return <ComplexCard item={item as ComplexObject} view={view} />
         case 'default':
-          return <ObjectCard item={item as DefaultObject} category={category} view={view} />
+          return <ObjectCard item={item as DefaultObject} view={view} />
       }
     })
   }

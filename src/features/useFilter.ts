@@ -2,11 +2,10 @@
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { convertToBase64, convertBase64ToArray } from '@/features/utility/convertBase64'
-import { RangeValue } from '@/ui/inputs/Range'
 
 export interface Filter {
   id: number
-  value: string[] | (string | number)[] | boolean
+  value: string[] | boolean | [number, number]
 }
 
 export function useFilter() {
@@ -51,12 +50,6 @@ export function useFilter() {
     })
   }, [searchParams])
 
-  function sanitizeFilterValue(rawValue: Filter['value'] | RangeValue): Filter['value'] {
-    if (typeof rawValue !== 'object' || !('min' in rawValue)) return rawValue
-
-    return [rawValue.min, rawValue.max]
-  }
-
   /**
    * Кодирует значения в `base64` и добавляет результат в
    * GET параметры ссылки новое значение `value` фильтра по `id`.
@@ -71,11 +64,10 @@ export function useFilter() {
    * ```
    * в base64 представлении
    * @param id - идентификатора фильтра
-   * @param rawValue - значение фильтра. Если передаётся boolean, то в
+   * @param value - значение фильтра. Если передаётся boolean, то в
    * ссылку попадают `"true"` и `"false"` строки
    */
-  function addFilter(id: number, rawValue: Filter['value'] | RangeValue) {
-    const value = sanitizeFilterValue(rawValue)
+  function addFilter(id: number, value: Filter['value']) {
     const newFilter = new Map<number, Filter>(filter.parsed.map((i) => [i.id, i]))
 
     if (!newFilter.has(id)) {

@@ -20,13 +20,13 @@ export function CityContextProvider({ children }: PropsWithChildren) {
     if (!cookie) return
 
     getLocation().then((res) => {
-      const city = res.cities.find((c) => cookie.value.includes(c.name))
+      const city = res?.cities.find((c) => cookie.value.includes(c.name))
       setCurrentCity(city || null)
     })
   }, [])
 
   function _setCurrentCity(city: City) {
-    setCookie(COOKIES.CITY, city.name)
+    setCookie(COOKIES.CITY, JSON.stringify({ name: city.name, id: city.id }))
     setCurrentCity(city)
   }
 
