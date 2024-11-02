@@ -8,19 +8,19 @@ test('Should load main page', async ({ page }) => {
   expect(res?.status()).toEqual(200)
 })
 
-test('Should load catalog/new-buildings page', async ({ page }) => {
+test('Should load new-buildings category page', async ({ page }) => {
   const res = await page.goto(ROUTES.NEW_BUILDINGS)
 
   expect(res?.status()).toEqual(200)
 })
 
-test('Should load catalog/secondary-housing page', async ({ page }) => {
+test('Should load secondary-housing category page', async ({ page }) => {
   const res = await page.goto(ROUTES.SECONDARY_HOUSING)
 
   expect(res?.status()).toEqual(200)
 })
 
-test('Should load catalog/secondary-housing subcategory page', async ({ page }) => {
+test('Should load first subcategory page', async ({ page }) => {
   const res = await page.goto(ROUTES.SECONDARY_HOUSING)
 
   expect(res?.status()).toEqual(200)
