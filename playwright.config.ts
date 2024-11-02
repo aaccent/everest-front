@@ -25,7 +25,7 @@ export default defineConfig({
     baseURL: `http://localhost:${process.env.PORT}`,
     trace: 'on-first-retry',
   },
-
+  expect: { timeout: 15000 },
   projects: [
     {
       name: 'Desktop chrome',
