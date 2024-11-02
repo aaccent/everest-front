@@ -4,7 +4,7 @@ import { Office } from '@/types/Geo'
 import { Marker } from 'react-map-gl'
 import Image from 'next/image'
 import logoMini from '@/assets/static/logo-mini.svg'
-import { getContactMapCenter } from '@/app/contacts/_components/OfficesMap/getMapCenter'
+import { getContactMapCenter } from '@/app/contacts/_components/OfficesMap/getContactMapCenter'
 import { MapViewState } from '@/components/CustomMap'
 
 type OfficesMap = {

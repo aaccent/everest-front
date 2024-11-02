@@ -4,16 +4,23 @@ import CustomMap from '@/components/CustomMap'
 import { City, Office } from '@/types/Geo'
 import TabButtons, { TabButtonItem } from '@/components/TabButtons'
 import { getOffices } from '@/globals/api/methods/geo/getOffices'
-import { getContactMapCenter } from '@/app/contacts/_components/OfficesMap/getMapCenter'
+import { getContactMapCenter } from '@/app/contacts/_components/OfficesMap/getContactMapCenter'
 import { useOfficesMap } from '@/app/contacts/_components/OfficesMap/useOfficesMap'
 import { AdaptiveContext } from '@/features/adaptive'
 import logoMini from '@/assets/static/logo-mini.svg'
 import Img from '@/ui/Img'
 import Button from '@/ui/buttons/Button'
+import Link from 'next/link'
 
 function DetailedOfficeInfo({ activeOffice }: { activeOffice: Office }) {
   const [full, setFull] = useState<boolean>(false)
   const { isMobile } = useContext(AdaptiveContext)
+
+  function replaceMinusToTilda(number: number) {
+    return number.toString().replace('-', '~')
+  }
+
+  const href = `https://yandex.ru/maps/?mode=routes&rtext=${replaceMinusToTilda(activeOffice.latitude)}%2C${replaceMinusToTilda(activeOffice.longitude)}`
 
   useEffect(() => {
     if (!isMobile) setFull(true)
@@ -59,8 +66,10 @@ function DetailedOfficeInfo({ activeOffice }: { activeOffice: Office }) {
           <div className='text-base-400-lg-100 text-base-650'>Телефон</div>
           <div className='text-base-100-lg-100 md:text-base-100-reg-100'>{activeOffice.phone}</div>
         </div>
-        <Button href='#' variation='second' size='medium' className='mt-auto w-full text-center'>
-          проложить маршрут
+        <Button variation='second' size='medium' className='mt-auto w-full text-center'>
+          <Link href={href} target='_blank'>
+            проложить маршрут
+          </Link>
         </Button>
       </div>
     </div>
