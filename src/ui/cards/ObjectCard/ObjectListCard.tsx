@@ -5,6 +5,7 @@ import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
 import { generateObjectLink } from '@/features/link'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
+import { TEST_ID } from '@/globals/testIds'
 
 interface Props {
   item: DefaultObject
@@ -21,7 +22,7 @@ function ObjectListCard({ item }: Props) {
         )}
         <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
       </div>
-      <Link className='max-w-[570px]' href={link}>
+      <Link className='max-w-[570px]' href={link} data-testid={TEST_ID.OBJECT_CARD}>
         <div className='text-header-300 mb-[12px]'>{item.name}</div>
         {!!item.address && (
           <span className='text-base-300-lg-100 flex gap-[4px] text-base-600/50 before:size-[24px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default'>
