@@ -30,11 +30,12 @@ export default defineConfig({
     {
       name: 'Desktop chrome',
       use: { ...devices['Desktop Chrome'] },
+      grepInvert: /@only-mobile/,
     },
-
     {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
+      grepInvert: /@only-desktop/,
     },
   ],
 
