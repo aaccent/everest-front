@@ -26,7 +26,7 @@ function GeoPositionNotification({ cityByIp }: Props) {
     openPopup({
       name: 'geoPopup',
       args: {
-        selectGeoAuto: onOkCityButtonClick,
+        onAutoGeolocationClick: onOkCityButtonClick,
       },
     })
   }
