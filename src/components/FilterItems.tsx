@@ -72,14 +72,13 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
         )
       }
       case 'range': {
-        const rawValue = getCurrentFilter<[number, number]>(filter.id)?.value
-        const value: RangeValue = rawValue ? [rawValue[0], rawValue[1]] : [filter.value[0], filter.value[1]]
+        const value = getCurrentFilter<[number, number]>(filter.id)?.value
 
         const formalValue = (prefix: string) => {
           switch (prefix) {
             case '₽':
               return {
-                value: formatShortPriceObjForRange(value),
+                value: value && formatShortPriceObjForRange(value),
                 onChange: (id: string, newValue: RangeValue) => {
                   onChange(id, formatLongPriceForRange(newValue))
                 },
@@ -107,7 +106,6 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             name={filter.id.toString()}
             title={filter.name}
             showTitle={!isQuick}
-            defaultValue={formalValue(filter.prefix).value}
             value={formalValue(filter.prefix).value}
             onChange={formalValue(filter.prefix).onChange}
             prefix={formalValue(filter.prefix).prefix || ''}

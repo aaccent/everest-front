@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IMaskInput } from 'react-imask'
 import { InputValue } from '@/globals/utilityTypes'
 import { Range as RangeType } from '@/types/FiltersType'
@@ -34,38 +34,40 @@ function Range({
 }: RangeProps) {
   const [value, setValue] = useState<RangeValue>(defaultValue)
 
-  const _value = customValue || value
-
-  const _setValue = (value: RangeValue) => {
-    onChange?.(name, value)
-    if (!customValue) setValue(value)
-  }
+  useEffect(() => {
+    if (customValue) return setValue(customValue)
+    setValue(defaultValue)
+  }, [customValue])
 
   const onMinValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value > _value[1] || +e.target.value < min) return
-    _setValue([+e.target.value, _value[1]])
+    if (+e.target.value > value[1] || +e.target.value < min) return
+    setValue([+e.target.value, value[1]])
   }
   const onMaxValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value < _value[0]) return
-    _setValue([_value[0], +e.target.value])
+    if (+e.target.value < value[0]) return
+    setValue([value[0], +e.target.value])
   }
 
   const onMinInputChange = (newValue: string) => {
     const numberValue = Number(newValue)
 
-    if (numberValue < min || numberValue === _value[0]) return
-    if (numberValue > _value[1]) return _setValue([min, _value[1]])
-    _setValue([+numberValue, _value[1]])
+    if (numberValue < min || numberValue === value[0]) return
+    if (numberValue > value[1]) return setValue([min, value[1]])
+    setValue([+numberValue, value[1]])
   }
   const onMaxInputChange = (newValue: string) => {
     const numberValue = Number(newValue)
 
-    if (numberValue > max || numberValue < _value[0] || numberValue === _value[1]) return
-    _setValue([_value[0], +numberValue])
+    if (numberValue > max || numberValue < value[0] || numberValue === value[1]) return
+    setValue([value[0], +numberValue])
   }
 
-  const minPos = ((_value[0] - min) / (max - min)) * 100
-  const maxPos = ((_value[1] - min) / (max - min)) * 100
+  const onMouseUp = () => {
+    onChange?.(name, value)
+  }
+
+  const minPos = ((value[0] - min) / (max - min)) * 100
+  const maxPos = ((value[1] - min) / (max - min)) * 100
 
   return (
     <div className='flex flex-col gap-[8px]'>
@@ -73,7 +75,7 @@ function Range({
       <div
         className={`text-base-400-lg-100 relative w-full min-w-[260px] rounded-[20px] border border-base-400 bg-base-100 px-[16px] py-[18px] md:max-w-[260px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
       >
-        <input type='hidden' name={title} value={`${[_value[0], _value[1]]}`} />
+        <input type='hidden' name={title} value={`${[value[0], value[1]]}`} />
         <div className='text-base-400-lg-100 flex items-center justify-between'>
           <label>
             <IMaskInput
@@ -86,7 +88,7 @@ function Range({
                 },
               }}
               className='w-full focus:outline-0'
-              value={_value[0].toString()}
+              value={value[0].toString()}
               onAccept={(value) => onMinInputChange(value)}
               unmask
             />
@@ -103,7 +105,7 @@ function Range({
                 },
               }}
               className='w-full text-end focus:outline-0'
-              value={_value[1].toString()}
+              value={value[1].toString()}
               onAccept={(value) => onMaxInputChange(value)}
               unmask
             />
@@ -116,9 +118,10 @@ function Range({
               step={step}
               onChange={onMinValChange}
               className='track-transparent'
-              value={_value[0]}
+              value={value[0]}
               min={min}
               max={max}
+              onMouseUp={onMouseUp}
             />
             <input
               type='range'
@@ -127,7 +130,8 @@ function Range({
               max={max}
               onChange={onMaxValChange}
               className='track-transparent'
-              value={_value[1]}
+              value={value[1]}
+              onMouseUp={onMouseUp}
             />
           </div>
 
