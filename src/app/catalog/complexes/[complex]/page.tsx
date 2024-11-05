@@ -1,4 +1,5 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
 import { ComplexPage } from '@/types/Page'
 import { getComplexDetailed } from '@/globals/api'
 import Breadcrumbs from '@/components/Breadcrumbs'
@@ -13,7 +14,7 @@ import Bonuses from '@/app/catalog/complexes/[complex]/_components/Bonuses'
 import BuildingProgress from './_components/BuildingProgress/BuildingProgress'
 
 async function Page({ params }: ComplexPage) {
-  const complex = await getComplexDetailed(params.complex)
+  const complex = await getComplexDetailed(params.complex).catch(notFound)
 
   return (
     <>
