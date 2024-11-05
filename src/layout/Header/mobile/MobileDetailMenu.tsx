@@ -7,6 +7,7 @@ import { getServices } from '@/globals/api'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 import MobileSaleRentMenu from '@/layout/Header/SaleRentMenu/MobileSaleRentMenu'
 import { ActionButton, MobileCallPopupButton, MobileCityButton } from '@/layout/Header/mobile/ActionButton'
+import { getCityByIpFromLocation } from '@/components/GeoPosition'
 
 function showItems(list: MenuItem[]) {
   return list.map((item, i) => (
@@ -20,6 +21,7 @@ function showItems(list: MenuItem[]) {
 
 async function MobileDetailMenu() {
   const services = await getServices()
+  const cityFromIp = await getCityByIpFromLocation()
 
   return (
     <MobileDetailMenuWrapper className='invisible fixed bottom-0 z-20 h-full w-full bg-base-100 opacity-0 transition-opacity peer-[[data-menu="mobile"]]/header-state:visible peer-[[data-menu="mobile"]]/header-state:opacity-100'>
@@ -42,7 +44,7 @@ async function MobileDetailMenu() {
         <div className='grid grid-cols-2 gap-[8px]'>
           <MobileCallPopupButton />
           <ActionButton text='Добавить объявление' icon='ADD' href='#' />
-          <MobileCityButton />
+          <MobileCityButton autoSelectedCity={cityFromIp} />
           <ActionButton text='Подобрать квартиру' icon='KEYS' />
         </div>
       </div>

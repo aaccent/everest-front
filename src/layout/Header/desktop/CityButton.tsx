@@ -5,11 +5,11 @@ import { PopupContext } from '@/features/Popup'
 import { CityContext } from '@/globals/CityContext'
 import { City } from '@/types/Geo'
 
-type Props = {
+export type CityButtonProps = {
   autoSelectedCity: City
 }
 
-function CityButton({ autoSelectedCity }: Props) {
+function CityButton({ autoSelectedCity }: CityButtonProps) {
   const { currentCity } = useContext(CityContext)
   const { openPopup } = useContext(PopupContext)
   const { setCurrentCity } = useContext(CityContext)

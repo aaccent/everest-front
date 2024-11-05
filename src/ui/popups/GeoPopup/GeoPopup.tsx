@@ -48,7 +48,7 @@ function GeoPopup({ selectGeoAuto }: GeoPopupProps) {
   }
 
   return (
-    <div className='absolute inset-x-0 bottom-0 h-[calc(100dvh-64px)] rounded-t-[24px] bg-base-100 p-[24px] md:bottom-auto md:top-0 md:rounded-b-[32px] md:rounded-t-none md:p-[56px]'>
+    <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-t-[24px] bg-base-100 p-[24px] md:bottom-auto md:top-0 md:rounded-b-[32px] md:rounded-t-none md:p-[56px]'>
       <div className='mb-[24px] flex items-center justify-end md:mb-[32px]'>
         <div className='text-header-300 md:text-header-100 w-full text-center md:text-left md:uppercase'>Ваш город</div>
         <ClosePopupButton className='' />
@@ -59,7 +59,9 @@ function GeoPopup({ selectGeoAuto }: GeoPopupProps) {
         value='определить автоматически'
         onChange={onCheckboxClick}
       />
-      <div className='mt-[24px] flex flex-col gap-[16px] md:mt-[32px]'>{showCitiesList()}</div>
+      <div className='mt-[24px] h-full overflow-y-auto scrollbar-transparent md:mr-[-46px] md:mt-[32px] md:pr-[44px] md:scrollbar-custom'>
+        <div className='flex flex-col gap-[16px]'>{showCitiesList()}</div>
+      </div>
     </div>
   )
 }

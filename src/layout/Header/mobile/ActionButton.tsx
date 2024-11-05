@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React, { useContext } from 'react'
 import { CityContext } from '@/globals/CityContext'
 import { PopupContext } from '@/features/Popup'
+import { CityButtonProps } from '@/layout/Header/desktop/CityButton'
 
 interface Props {
   text: string
@@ -47,13 +48,22 @@ export function MobileCallPopupButton() {
   return <ActionButton text='Заказать звонок' icon='PHONE' accentColor onClick={clickHandler} />
 }
 
-export function MobileCityButton() {
+export function MobileCityButton({ autoSelectedCity }: CityButtonProps) {
   const { currentCity } = useContext(CityContext)
   const { openPopup } = useContext(PopupContext)
+
+  const { setCurrentCity } = useContext(CityContext)
+
+  const selectGeoAuto = () => {
+    setCurrentCity(autoSelectedCity)
+  }
 
   function clickHandler() {
     openPopup({
       name: 'geoPopup',
+      args: {
+        selectGeoAuto,
+      },
     })
   }
 
