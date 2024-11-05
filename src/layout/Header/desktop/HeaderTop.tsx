@@ -2,12 +2,15 @@ import React from 'react'
 import Link from 'next/link'
 import CallPopupButton from '@/layout/Header/components/CallPopupButton'
 import CityButton from '@/layout/Header/desktop/CityButton'
+import { getCityByIpFromLocation } from '@/components/GeoPosition'
 
 interface Props {
   className?: string
 }
 
-function HeaderTop({ className }: Props) {
+async function HeaderTop({ className }: Props) {
+  const cityFromIp = await getCityByIpFromLocation()
+
   return (
     <div className={`items-center justify-between border-b border-b-base-100/15 pb-[13px] ${className}`}>
       <nav>
@@ -24,7 +27,7 @@ function HeaderTop({ className }: Props) {
         </ul>
       </nav>
       <div className='flex items-center gap-[24px] peer-any-parent-[.is-black]/header-state:text-primary'>
-        <CityButton />
+        <CityButton autoSelectedCity={cityFromIp} />
         <button className='text-base-500-reg-100-upper flex items-center gap-[4px] before:size-[17px] before:bg-icon-add before:filter-base-100 before:bg-default peer-any-parent-[.is-black]/header-state:before:filter-primary'>
           добавить объявление
         </button>

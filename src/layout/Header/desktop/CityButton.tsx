@@ -3,14 +3,27 @@
 import React, { useContext } from 'react'
 import { PopupContext } from '@/features/Popup'
 import { CityContext } from '@/globals/CityContext'
+import { City } from '@/types/Geo'
 
-function CityButton() {
+type Props = {
+  autoSelectedCity: City
+}
+
+function CityButton({ autoSelectedCity }: Props) {
   const { currentCity } = useContext(CityContext)
   const { openPopup } = useContext(PopupContext)
+  const { setCurrentCity } = useContext(CityContext)
+
+  const selectGeoAuto = () => {
+    setCurrentCity(autoSelectedCity)
+  }
 
   function clickHandler() {
     openPopup({
       name: 'geoPopup',
+      args: {
+        selectGeoAuto,
+      },
     })
   }
 

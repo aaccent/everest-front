@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers'
 import { COOKIES } from '@/features/utility/cookies'
-import { DEFAULT_CITY } from '@/components/GeoPosition'
 import { syncTryJSONParse } from '@/globals/fetch'
+import { DEFAULT_CITY } from '@/globals/CityContext'
 
 export function getCityIdFromCookie(): number {
   const cityInCookie = cookies()?.get(COOKIES.CITY)?.value
