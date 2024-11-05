@@ -6,6 +6,7 @@ import { formatStatusByQuarter } from '@/features/utility/date'
 import Img from '@/ui/Img'
 import { createComplexLink } from '@/features/link'
 import Tags from '@/components/Tags'
+import { TEST_ID } from '@/globals/testIds'
 
 function showObjectTypes(objectTypes: FlatType[]) {
   return objectTypes.map((object) => {
@@ -30,7 +31,11 @@ interface Props {
 
 function ComplexListCard({ item }: Props) {
   return (
-    <Link href={createComplexLink(item)} className='relative flex rounded-[32px] border border-base-400 p-[40px]'>
+    <Link
+      href={createComplexLink(item)}
+      className='relative flex rounded-[32px] border border-base-400 p-[40px]'
+      data-testid={TEST_ID.COMPLEX_CARD}
+    >
       <Img
         className='mr-[40px] rounded-[20px] object-cover object-center'
         src='/no-photo.jpg'

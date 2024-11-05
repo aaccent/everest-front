@@ -5,6 +5,7 @@ import React from 'react'
 import { ComplexObject } from '@/types/catalog/Complex'
 import Tags from '@/components/Tags'
 import Img from '@/ui/Img'
+import { TEST_ID } from '@/globals/testIds'
 
 interface Props {
   item: ComplexObject
@@ -19,7 +20,7 @@ export function ComplexTileCard({ item, className, isBanner = false }: Props) {
     <div
       className={`relative block h-[250px] w-full overflow-hidden rounded-[20px] md:h-[388px] md:rounded-[24px] ${className}`}
     >
-      <Link href={link}>
+      <Link className='block h-full' href={link} data-testid={TEST_ID.COMPLEX_CARD}>
         <Img
           className='object-cover object-center transition-transform duration-500 hover:scale-110 hover:transition-transform hover:duration-500'
           src={item.mainImg}

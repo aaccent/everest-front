@@ -8,6 +8,7 @@ import { formatPriceShortBy } from '@/features/utility/price'
 import Button from '@/ui/buttons/Button'
 import NoPhoto from '@/assets/static/no-photo.jpg'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
+import { TEST_ID } from '@/globals/testIds'
 
 interface Props {
   complex: DetailComplex
@@ -22,7 +23,9 @@ function ComplexHero({ complex }: Props) {
       <DecorativeBlock type='medium' className='px-container md:order-2 md:px-0'>
         <div className='mt-[33px] bg-transparent md:mt-0 md:h-full md:w-[644px] md:rounded-[20px] md:bg-base-200'>
           <div className='md:flex md:h-full md:flex-col md:px-[40px] md:pb-[40px] md:pt-[68px]'>
-            <h1 className='text-header-100 mb-[16px] text-base-600'>{complex.name}</h1>
+            <h1 className='text-header-100 mb-[16px] text-base-600' data-testid={TEST_ID.COMPLEX_DETAIL_H1}>
+              {complex.name}
+            </h1>
             <div className='mb-[32px] flex items-center gap-[10px] md:mb-[56px] md:gap-0'>
               <div className='flex size-[34px] items-center justify-center rounded-full border border-base-400 after:block after:size-[14px] after:bg-icon-address after:filter-base-600 after:bg-default-contain md:border-none md:after:filter-primary'></div>
               <div className='text-base-300-lg-100 text-base-650 md:text-primary'>Нет адреса</div>
