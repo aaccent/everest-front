@@ -53,7 +53,11 @@ test('Should load complex detail page', async ({ page }) => {
 
   expect(res?.status()).toEqual(200)
 
-  await page.getByRole('main').getByTestId(TEST_ID.COMPLEX_CARD).first().click()
+  await page
+    .getByRole('main')
+    .getByTestId(TEST_ID.COMPLEX_CARD)
+    .first()
+    .click({ position: { x: 25, y: 25 } })
   await expect(page.getByTestId(TEST_ID.COMPLEX_DETAIL_H1)).toBeAttached()
 })
 
