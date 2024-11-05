@@ -1,4 +1,5 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
 import { getCategory } from '@/globals/api'
 import Category from '@/app/catalog/_components/Category'
 import { CategoryPage, SubcategoryPage } from '@/types/Page'
@@ -6,7 +7,7 @@ import { CategoryPage, SubcategoryPage } from '@/types/Page'
 async function Page({ params }: SubcategoryPage & CategoryPage) {
   const category = await getCategory(params.category, {
     subcategory: params.subcategory,
-  })
+  }).catch(notFound)
 
   return <Category category={category} />
 }
