@@ -1,5 +1,5 @@
 import React from 'react'
-import { getComplexes } from '@/globals/api'
+import { getComplexes, getComplexesFilters, getComplexesQuickFilters } from '@/globals/api'
 import CatalogContent from '@/layout/catalog/CatalogContent'
 import CategoryLayout from '@/layout/catalog/CategoryLayout'
 import { GetObjectsFn } from '@/features/useFilterAndPagination'
@@ -7,10 +7,19 @@ import { ComplexObject } from '@/types/catalog/Complex'
 import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 
 async function Page() {
-  const data = await getComplexes()
+  // prettier-ignore
+  const [
+    complexesCategory,
+    quickFilters, 
+    detailFilters
+  ] = await Promise.all([
+    getComplexes(),
+    getComplexesQuickFilters(),
+    getComplexesFilters(),
+  ])
 
   const _category = {
-    ...data,
+    ...complexesCategory,
     name: 'Жилые Комплексы',
   }
 
@@ -20,8 +29,8 @@ async function Page() {
   }
 
   return (
-    <CategoryProvider type='complex' initList={data.objects} getObjects={getObjects}>
-      <CategoryLayout category={_category}>
+    <CategoryProvider type='complex' initList={complexesCategory} getObjects={getObjects}>
+      <CategoryLayout category={_category} quickFilters={quickFilters} detailFilters={detailFilters}>
         <CatalogContent type='complex' category={_category} />
       </CategoryLayout>
     </CategoryProvider>

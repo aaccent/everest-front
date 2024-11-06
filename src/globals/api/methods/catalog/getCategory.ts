@@ -31,6 +31,9 @@ export async function getCategory(
 
   return {
     ...res.data.categories[0],
+    // Перезаписываем потому что в res.data.categories[0].count общее количество объектов,
+    // а в res.data.count которое ожидаем увидеть
+    count: res.data.count,
     parent: {
       id: res.data.id,
       name: res.data.name,

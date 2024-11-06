@@ -7,6 +7,8 @@ import { CategoryPage, SubcategoryPage } from '@/types/Page'
 async function Page({ params }: SubcategoryPage & CategoryPage) {
   const category = await getCategory(params.category, {
     subcategory: params.subcategory,
+    page: 1,
+    perPage: 9,
   }).catch(notFound)
 
   return <Category category={category} />
