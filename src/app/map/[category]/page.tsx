@@ -1,4 +1,5 @@
 import React from 'react'
+import { notFound } from 'next/navigation'
 import ObjectsMap, { GetItemsForMapFn } from '@/app/map/_components/ObjectsMap'
 import { getCategory, getQuickFilters } from '@/globals/api'
 import { convertZoomInRadius } from '@/features/utility/map-zoom'
@@ -27,7 +28,7 @@ export async function getItems({ category: categoryCode, subcategory, zoom, cent
 }
 
 async function Page({ params }: CategoryPage) {
-  const quickFilter = await getQuickFilters(params.category)
+  const quickFilter = await getQuickFilters(params.category).catch(notFound)
 
   const _getItems: GetItemsForMapFn = async function (filters, center, zoom) {
     'use server'

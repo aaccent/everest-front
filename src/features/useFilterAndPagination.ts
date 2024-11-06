@@ -22,7 +22,7 @@ const EMPTY_LIST: ListType = {
 export type GetObjectsFn<TType = unknown> = (options: GeneralRequestParams) => Promise<ListType>
 
 export interface Props<TType = unknown> {
-  initList: TType[]
+  initList: ListType<TType>
   getObjects: GetObjectsFn<TType>
 }
 
@@ -34,11 +34,7 @@ export type ObjectManagerType = ReturnType<typeof useFilterAndPagination>
  * @param getObjects - функция для запроса объектов
  */
 export function useFilterAndPagination<TType = unknown>({ initList, getObjects }: Props<TType>) {
-  const [list, setList] = useState<ListType>({
-    objects: initList,
-    total: initList.length,
-    count: initList.length - PER_PAGE.TILE,
-  })
+  const [list, setList] = useState<ListType>(initList)
 
   const [isLoading, setIsLoading] = useState(false)
 

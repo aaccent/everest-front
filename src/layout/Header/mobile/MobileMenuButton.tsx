@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext } from 'react'
-import { toggleScroll } from '@/features/scroll'
+import { hideScroll, showScroll } from '@/features/scroll'
 import { HEADER_MENUS, HeaderContext } from '@/layout/Header/Header.context'
 
 function MobileMenuButton() {
@@ -8,7 +8,11 @@ function MobileMenuButton() {
 
   function clickHandler() {
     header.toggleMenu(HEADER_MENUS.MOBILE)
-    toggleScroll()
+    if (header.menu) {
+      showScroll()
+    } else {
+      hideScroll()
+    }
   }
 
   return (

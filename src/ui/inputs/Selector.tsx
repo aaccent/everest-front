@@ -91,8 +91,7 @@ function Selector({
   }
 
   function showSelected() {
-    const defaultValue = window.matchMedia('(min-width:768px').matches ? 'Выбрать' : title
-    const selectedNames = _value.length ? _value.join(', ') : defaultValue
+    const selectedNames = _value.length ? _value.join(', ') : title
 
     if (selectedNames.length > maxStringSize) return selectedNames.slice(0, maxStringSize) + `...`
 

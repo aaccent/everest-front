@@ -11,6 +11,7 @@ import { OBJECT_PROPS_ID } from '@/app/catalog/_components/ObjectDetail/ObjectPr
 import styles from './ObjectHero.module.css'
 import ObjectGallery from '@/app/catalog/_components/ObjectDetail/ObjectGallery'
 import CallPopupButton from '@/app/catalog/_components/ObjectDetail/CallPopupButton'
+import { TEST_ID } from '@/globals/testIds'
 
 function ActionButton({ className }: { className?: string }) {
   return (
@@ -52,7 +53,9 @@ function ObjectHero({ item }: Props) {
         <div className='mb-[20px] flex justify-between gap-[11px]'>
           <div className='flex w-full flex-col gap-[12px]'>
             <div className='flex justify-between gap-[20px]'>
-              <h1 className='text-header-300'>{item.name}</h1>
+              <h1 className='text-header-300' data-testid={TEST_ID.OBJECT_DETAIL_H1}>
+                {item.name}
+              </h1>
               <div className='text-base-300-lg-100 mt-[15px] hidden flex-col gap-[8px] md:flex'>
                 <span>Марат Лутфуллин</span>
                 <span className='flex items-center gap-[6px] text-base-600/50 before:size-[19px] before:bg-icon-clip before:opacity-50 before:filter-base-600 before:bg-default'>

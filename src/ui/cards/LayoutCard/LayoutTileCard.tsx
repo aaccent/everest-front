@@ -54,7 +54,7 @@ function LayoutTileCard({ item, complex }: Props) {
         </div>
         <div className='mb-[8px] flex gap-[6px] md:mb-[12px]'>{showProps()}</div>
         <span className='text-base-300-lg-100 flex items-center gap-[6px] text-base-600/50 before:size-[15px] before:bg-icon-address before:opacity-50 before:bg-default'>
-          ул. Космонавтов, д.5
+          {complex.address}
         </span>
       </Link>
     </div>

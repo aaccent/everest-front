@@ -10,6 +10,7 @@ import { getPathname } from '@/features/pathname'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import DesktopHeader from '@/layout/Header/desktop/DesktopHeader'
 import DesktopSaleRentMenu from '@/layout/Header/SaleRentMenu/DesktopSaleRentMenu'
+import BlackZone from '@/layout/Header/components/BlackZone'
 
 /** @name {Header} */
 function Header() {
@@ -28,7 +29,7 @@ function Header() {
         <MobileMenu />
         <MobileDetailMenu />
       </IsMobile>
-      <div className='pointer-events-none fixed inset-0 z-10 bg-base-600/60 opacity-0 transition-opacity peer-[[data-menu]]/header-state:opacity-100' />
+      <BlackZone />
     </HeaderProvider>
   )
 }

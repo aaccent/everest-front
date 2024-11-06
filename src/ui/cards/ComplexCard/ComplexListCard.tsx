@@ -1,11 +1,12 @@
 import React from 'react'
 import { ComplexObject, FlatType } from '@/types/catalog/Complex'
 import Link from 'next/link'
-import { formatPriceShortBy } from '@/features/utility/price'
-import { formatStatusByQuarter } from '@/features/utility/date'
+import { formatPriceShort, formatFullPrice } from '@/features/utility/price'
+import { formatStatusInComplexCard } from '@/features/utility/date'
 import Img from '@/ui/Img'
 import { createComplexLink } from '@/features/link'
 import Tags from '@/components/Tags'
+import { TEST_ID } from '@/globals/testIds'
 
 function showObjectTypes(objectTypes: FlatType[]) {
   return objectTypes.map((object) => {
@@ -18,7 +19,7 @@ function showObjectTypes(objectTypes: FlatType[]) {
         <div className='text-base-650'>
           от {object.minArea} м<sup>2</sup>
         </div>
-        <div className=''>{formatPriceShortBy(Number(object.minPrice))}</div>
+        <div className=''>от {formatPriceShort(object.minPrice)}</div>
       </div>
     )
   })
@@ -29,11 +30,20 @@ interface Props {
 }
 
 function ComplexListCard({ item }: Props) {
+  const statusFormatted = formatStatusInComplexCard(item.status)
+  const statusClasses = statusFormatted.giveAway
+    ? 'text-system-green flex item-center before:block before:size-[18px] before:bg-icon-checkmark before:bg-default-contain gap-[4px]'
+    : ''
+
   return (
-    <Link href={createComplexLink(item)} className='relative flex rounded-[32px] border border-base-400 p-[40px]'>
+    <Link
+      href={createComplexLink(item)}
+      className='relative flex rounded-[32px] border border-base-400 p-[40px]'
+      data-testid={TEST_ID.COMPLEX_CARD}
+    >
       <Img
-        className='mr-[40px] rounded-[20px] object-cover object-center'
-        src='/no-photo.jpg'
+        className='mr-[40px] h-[342px] w-full max-w-[472px] rounded-[20px] object-cover object-center'
+        src={item.mainImg}
         width={427}
         height={342}
       />
@@ -41,21 +51,28 @@ function ComplexListCard({ item }: Props) {
       <div>
         <div className='mb-[12px] flex items-center gap-[16px]'>
           <span className='text-header-300'>{item.name}</span>
-          <div className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[6.5px]'>
-            {formatStatusByQuarter(item.status)}
+          <div
+            className={`text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[6.5px] ${statusClasses}`}
+          >
+            {statusFormatted.text}
           </div>
         </div>
         <div className='text-base-200-lg-100 mb-[17px] flex items-center gap-[10px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-default-auto'>
           {item.address ? item.address : 'нет адреса'}
         </div>
-        <span className='text-header-400 mr-[12px]'>{formatPriceShortBy(item.minPrice)}</span>
+        <span className='text-header-400 mr-[12px]'>от {formatFullPrice(item.minPrice)}</span>
         {!!item.minPriceDiscount && (
-          <span className='text-header-400 line-through opacity-50'>{formatPriceShortBy(item.minPriceDiscount)}</span>
+          <span className='text-header-400 line-through opacity-50'>от {formatPriceShort(item.minPriceDiscount)}</span>
         )}
         <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(item.objectsType)}</div>
       </div>
       <div className='relative ml-auto flex flex-col justify-between'>
-        <Img className='absolute right-0 top-0 !h-[26px] !w-[102px]' src={item.developerLogo} width={102} height={26} />
+        <Img
+          className='absolute right-0 top-0 !h-[26px] !w-[102px] object-cover object-center'
+          src={item.developerLogo}
+          width={102}
+          height={26}
+        />
         <div className='relative'>
           <Img src='/icons/donstroy.svg' isSVG />
         </div>

@@ -13,7 +13,7 @@ type RawPrice = number | string | null | undefined
  * если результат конвертации `NaN` - возвращает `null`,
  * иначе результат конвертации.
  */
-function safeConvertToPriceNumber(rawPrice: RawPrice) {
+function safeConvertToNumber(rawPrice: RawPrice) {
   if (typeof rawPrice === 'number') return rawPrice
   if (!rawPrice) return null
 
@@ -24,10 +24,8 @@ function safeConvertToPriceNumber(rawPrice: RawPrice) {
 }
 
 /**
- * Форматирование `price` для вывода вида `от 5.5 млн ₽` или `5.5` если `onlyNumbers` будет `true`
- * @param price Любой примитивный тип
- * @param onlyNumbers  вернуть только цифры без единицы измерения и валюты.
- * Переданный тип преобразуется в нужный для работы функции.
+ * Форматирование `price` для вывода вида `5.5 млн ₽` или `50 тыс ₽`
+ * @param rawPrice Любой примитивный тип. Переданный тип преобразуется в нужный для работы функции.
  * Безопасно работает с пустыми и неопределенными значениями
  * @return В зависимости от типа `price`:
  * * `undefined` или `null` - возвращает [заглушку]{@link PRICE_PLACEHOLDER}.
@@ -36,40 +34,8 @@ function safeConvertToPriceNumber(rawPrice: RawPrice) {
  * иначе форматированную строку.
  * * `number` - возвращает форматированную строку.
  */
-export function formatPriceShortBy(price: RawPrice, onlyNumbers = false) {
-  const _price = safeConvertToPriceNumber(price)
-  if (_price === undefined || _price === null) return PRICE_PLACEHOLDER
-  let shortPrice = (_price / 1000000).toFixed(2)
-  return onlyNumbers ? `${shortPrice}` : `от ${shortPrice} млн ₽`
-}
-
-/**
- * Форматирование `price` для вывода вида `5 000 000 ₽`
- * @param price - Описано в {@link formatPriceShortBy}
- * @return - Описано в {@link formatPriceShortBy}
- */
-export function formatFullPrice(price: RawPrice) {
-  const _price = safeConvertToPriceNumber(price)
-  if (!_price) return PRICE_PLACEHOLDER
-
-  const intl = new Intl.NumberFormat('ru-ru', { currency: 'RUB', style: 'currency', maximumFractionDigits: 0 })
-
-  return intl.format(_price)
-}
-
-/**
- * Форматирование `price` для вывода вида `5 000 000 ₽ / м^2`.
- * `^2` вставляется юникод символом `\u00b2`.
- * @param price - Описано в {@link formatPriceShortBy}
- * @return Описано в {@link formatPriceShortBy}
- */
-export function formatPriceForArea(price: RawPrice) {
-  const fullPrice = formatFullPrice(price)
-  return `${fullPrice} / м\u00B2`
-}
-
 export function formatPriceShort(rawPrice: RawPrice) {
-  const price = safeConvertToPriceNumber(rawPrice)
+  const price = safeConvertToNumber(rawPrice)
   if (price === undefined || price === null) return PRICE_PLACEHOLDER
 
   const digits = price.toString().length
@@ -84,6 +50,29 @@ export function formatPriceShort(rawPrice: RawPrice) {
   }
 
   return `${shortPrice} млн ₽`
+}
+
+/**
+ * Форматирование `price` для вывода вида `5 000 000 ₽`
+ * @return - Описано в {@link formatPriceShort}
+ */
+export function formatFullPrice(price: RawPrice) {
+  const _price = safeConvertToNumber(price)
+  if (!_price) return PRICE_PLACEHOLDER
+
+  const intl = new Intl.NumberFormat('ru-ru', { currency: 'RUB', style: 'currency', maximumFractionDigits: 0 })
+
+  return intl.format(_price)
+}
+
+/**
+ * Форматирование `price` для вывода вида `5 000 000 ₽ / м^2`.
+ * `^2` вставляется юникод символом `\u00b2`.
+ * @return Описано в {@link formatPriceShort}
+ */
+export function formatPriceForArea(price: RawPrice) {
+  const fullPrice = formatFullPrice(price)
+  return `${fullPrice} / м\u00B2`
 }
 
 export function formatLongPriceForRange(value: RangeValue): RangeValue {
