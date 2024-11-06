@@ -25,7 +25,7 @@ export function ObjectsMapDetailListItem(item: DefaultObject) {
 
   return (
     <li className='flex gap-[16px]'>
-      <Link className='relative h-[100px] w-[140px] rounded-[16px] bg-base-600/10' href={href}>
+      <Link className='relative h-[100px] w-[140px] overflow-hidden rounded-[16px] bg-base-600/10' href={href}>
         <Img src={item.gallery?.images?.[0]} fill />
       </Link>
       <div className='flex flex-col'>
