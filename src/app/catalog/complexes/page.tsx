@@ -9,7 +9,7 @@ import { CategoryProvider } from '@/layout/catalog/CategoryContext'
 async function Page() {
   // prettier-ignore
   const [
-    data, 
+    complexesCategory,
     quickFilters, 
     detailFilters
   ] = await Promise.all([
@@ -19,7 +19,7 @@ async function Page() {
   ])
 
   const _category = {
-    ...data,
+    ...complexesCategory,
     name: 'Жилые Комплексы',
   }
 
@@ -29,7 +29,7 @@ async function Page() {
   }
 
   return (
-    <CategoryProvider type='complex' initList={data.objects} getObjects={getObjects}>
+    <CategoryProvider type='complex' initList={complexesCategory} getObjects={getObjects}>
       <CategoryLayout category={_category} quickFilters={quickFilters} detailFilters={detailFilters}>
         <CatalogContent type='complex' category={_category} />
       </CategoryLayout>
