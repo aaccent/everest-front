@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { formatPriceShortBy } from '@/features/utility/price'
+import { formatPriceShort } from '@/features/utility/price'
 import { formatStatusByQuarter } from '@/features/utility/date'
 import { ComplexObject } from '@/types/catalog/Complex'
 import Button from '@/ui/buttons/Button'
@@ -22,7 +22,7 @@ function CardInfo({ complex, link, isBanner }: CardInfoProps) {
         <div className='text-base-650'>
           от {flat.minArea} м<sup>2</sup>
         </div>
-        <div className=''>{formatPriceShortBy(Number(flat.minPrice))}</div>
+        <div className=''>от {formatPriceShort(flat.minPrice)}</div>
       </Link>
     ))
   }
@@ -75,7 +75,7 @@ function CardInfo({ complex, link, isBanner }: CardInfoProps) {
       >
         <div className='mb-[8px] flex items-end justify-between font-coolvetica'>
           <div className='text-header-400'>{complex.name}</div>
-          <div className='text-header-500'>{complex.minPrice ? formatPriceShortBy(complex.minPrice) : 'нет цены'}</div>
+          <div className='text-header-500'>от {formatPriceShort(complex.minPrice)}</div>
         </div>
         <div className='text-base-300-lg-100 flex gap-[8px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-auto before:bg-center before:bg-no-repeat before:filter-base-600'>
           {complex.address}
