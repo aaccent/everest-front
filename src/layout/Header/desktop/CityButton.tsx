@@ -14,7 +14,7 @@ function CityButton({ autoSelectedCity }: CityButtonProps) {
   const { openPopup } = useContext(PopupContext)
   const { setCurrentCity } = useContext(CityContext)
 
-  const selectGeoAuto = () => {
+  const onAutoGeolocationClick = () => {
     setCurrentCity(autoSelectedCity)
   }
 
@@ -22,7 +22,7 @@ function CityButton({ autoSelectedCity }: CityButtonProps) {
     openPopup({
       name: 'geoPopup',
       args: {
-        selectGeoAuto,
+        onAutoGeolocationClick,
       },
     })
   }
