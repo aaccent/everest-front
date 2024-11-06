@@ -17,6 +17,8 @@ function SortButton({ sorts }: SortButtonProps) {
 
   useEffect(() => {
     const currentValue = sorts.find((item) => item.value === getSortFromUrl())
+    if (!currentValue) return
+
     setSortValue(currentValue?.name || sorts[0].name)
   }, [])
 
