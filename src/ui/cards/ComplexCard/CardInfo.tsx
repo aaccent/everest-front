@@ -17,7 +17,7 @@ function CardInfo({ complex, link, isBanner }: CardInfoProps) {
   const statusFormatted = formatStatusInComplexCard(complex.status)
 
   const statusClasses = statusFormatted.giveAway
-    ? 'text-[#178837] flex item-center before:block before:size-[18px] before:bg-icon-checkmark before:bg-default-contain gap-[4px]'
+    ? 'text-system-green flex item-center before:block before:size-[18px] before:bg-icon-checkmark before:bg-default-contain gap-[4px]'
     : ''
 
   function showObjectTypes() {
