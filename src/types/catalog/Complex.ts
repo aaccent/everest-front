@@ -77,6 +77,7 @@ export interface Complex {
   developerLogo: string | null
   presentationLink: string | null
   characteristics: Characteristic[]
+  address: string | null
 }
 
 /** Детальная ЖК из АПИ */

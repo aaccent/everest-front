@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { DefaultObject as ObjectCardType } from '@/types/catalog/DefaultObject'
 import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
@@ -6,10 +6,8 @@ import { generateObjectLink } from '@/features/link'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 import { TEST_ID } from '@/globals/testIds'
-
-function InfoItem({ children }: PropsWithChildren) {
-  return <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[8px]'>{children}</li>
-}
+import { formatFullPrice } from '@/features/utility/price'
+import { showParams } from '@/ui/cards/showParams'
 
 interface Props {
   item: ObjectCardType
@@ -32,12 +30,8 @@ function ObjectCard({ item }: Props) {
         <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
       </div>
       <Link href={link} data-testid={TEST_ID.OBJECT_CARD}>
-        <div className='text-header-400 mb-[12px] md:mb-[14px]'>{item.price} ₽</div>
-        <ul className='mb-[8px] flex gap-[6px] md:mb-[12px]'>
-          <InfoItem>1 комн</InfoItem>
-          <InfoItem>35м²</InfoItem>
-          <InfoItem>2/9 этаж</InfoItem>
-        </ul>
+        <div className='text-header-400 mb-[12px] md:mb-[14px]'>{formatFullPrice(item.price)}</div>
+        <ul className='mb-[8px] flex gap-[6px] md:mb-[12px]'>{showParams(item.characteristics)}</ul>
         <div>
           {!!item.address && (
             <span className='text-base-300-lg-100 flex gap-[4px] text-base-600/50 before:size-[24px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default'>

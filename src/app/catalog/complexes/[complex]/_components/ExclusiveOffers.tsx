@@ -36,7 +36,10 @@ async function ExclusiveOffers() {
     })
   }
   return (
-    <DecorativeBlock className='mt-[72px] bg-primary px-[20px] pb-[20px] pt-[33px] md:mt-[160px] md:px-[40px] md:pb-[40px] md:pt-[32px]'>
+    <DecorativeBlock
+      className='mt-[72px] bg-primary px-[20px] pb-[20px] pt-[33px] md:mt-[160px] md:px-[40px] md:pb-[40px] md:pt-[32px]'
+      id='offers'
+    >
       <h2 className='text-header-100 mb-[24px] uppercase text-base-100 md:mb-[48px] md:w-full md:max-w-[550px]'>
         {offersBlock.title}
       </h2>

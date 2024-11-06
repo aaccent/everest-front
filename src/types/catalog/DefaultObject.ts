@@ -1,5 +1,6 @@
 import { Tag } from '@/types/Tag'
 import { DateString } from '@/types/Date'
+import { ObjectCardCharacteristic } from '@/types/Characteristic'
 
 export interface DefaultObject {
   id: number
@@ -22,10 +23,7 @@ export interface DefaultObject {
   completionDate: DateString
   publicationTime: DateString
   tags: Tag[] | null
-  characteristics: {
-    id: number
-    value: string | number
-  }[]
+  characteristics: ObjectCardCharacteristic[]
   latitude: number
   longitude: number
 }

@@ -2,9 +2,9 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { formatPriceShort } from '@/features/utility/price'
-import { formatStatusByQuarter } from '@/features/utility/date'
 import { ComplexObject } from '@/types/catalog/Complex'
 import Button from '@/ui/buttons/Button'
+import { formatStatusInComplexCard } from '@/features/utility/date'
 
 interface CardInfoProps {
   complex: ComplexObject
@@ -14,6 +14,11 @@ interface CardInfoProps {
 
 function CardInfo({ complex, link, isBanner }: CardInfoProps) {
   const [opened, setOpened] = useState<boolean>(false)
+  const statusFormatted = formatStatusInComplexCard(complex.status)
+
+  const statusClasses = statusFormatted.giveAway
+    ? 'text-system-green flex item-center before:block before:size-[18px] before:bg-icon-checkmark before:bg-default-contain gap-[4px]'
+    : ''
 
   function showObjectTypes() {
     return complex.objectsType.map((flat) => (
@@ -77,12 +82,14 @@ function CardInfo({ complex, link, isBanner }: CardInfoProps) {
           <div className='text-header-400'>{complex.name}</div>
           <div className='text-header-500'>от {formatPriceShort(complex.minPrice)}</div>
         </div>
-        <div className='text-base-300-lg-100 flex gap-[8px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-auto before:bg-center before:bg-no-repeat before:filter-base-600'>
+        <div className='text-base-300-lg-100 flex items-center gap-[8px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-auto before:bg-center before:bg-no-repeat before:filter-base-600'>
           {complex.address}
         </div>
         <div className='mt-[12px] flex items-center justify-between'>
-          <div className='text-base-400-lg-100 w-fit rounded-[10px] border border-base-400 px-[12px] py-[8px]'>
-            {complex.status ? formatStatusByQuarter(complex.status) : 'неизвестно'}
+          <div
+            className={`text-base-400-lg-100 w-fit rounded-[10px] border border-base-400 px-[12px] py-[8px] ${statusClasses}`}
+          >
+            {statusFormatted.text}
           </div>
           {showActionButton()}
         </div>

@@ -5,6 +5,7 @@ import Img from '@/ui/Img'
 import { DetailComplex } from '@/types/catalog/Complex'
 import { ROUTES } from '@/globals/paths'
 import { convertToBase64 } from '@/features/utility/convertBase64'
+import { showParams } from '@/ui/cards/showParams'
 
 interface Props {
   item: LayoutGroup
@@ -13,14 +14,6 @@ interface Props {
 
 export default function LayoutGroupCard({ item, complex }: Props) {
   const link = `${ROUTES.COMPLEX_OBJECTS}/${complex.seoUrl}?filter=${convertToBase64(item.filters)}`
-
-  function showParams() {
-    return item.params.map((param, i) => (
-      <li className='text-base-400-lg-100 rounded-[10px] border border-base-400 px-[12px] py-[5px]' key={i}>
-        {param}
-      </li>
-    ))
-  }
 
   return (
     <Link className='flex h-full flex-col rounded-[32px] border border-base-400 p-[24px]' href={link}>
@@ -36,7 +29,7 @@ export default function LayoutGroupCard({ item, complex }: Props) {
       />
       <div>
         <span className='text-header-400 mb-[12px] block md:mb-[14px]'>от {item.priceFrom} ₽</span>
-        <ul className='mb-[8px] flex gap-[6px] md:mb-[12px]'>{showParams()}</ul>
+        <ul className='mb-[8px] flex gap-[6px] md:mb-[12px]'>{showParams(item.params)}</ul>
         <span className='text-base-300-lg-100 flex items-center gap-[6px] text-base-600/50 before:size-[15px] before:bg-icon-address before:opacity-50 before:bg-default'>
           {item.address}
         </span>

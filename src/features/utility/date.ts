@@ -57,7 +57,7 @@ export function formatLongDate(timestamp: Timestamp): string {
   )
 }
 
-type Timestamp = DateString | number | string | null | undefined
+export type Timestamp = DateString | number | string | null | undefined
 
 export function formatStatusByQuarter(timestamp: Timestamp) {
   if (!timestamp) return 'неизвестно'
@@ -68,6 +68,27 @@ export function formatStatusByQuarter(timestamp: Timestamp) {
   const year = date.getFullYear()
   const quarterRoman = convertToRoman(quarter)
   return `${quarterRoman} кв. ${year} год`
+}
+
+export function formatStatusInComplexCard(timestamp: Timestamp) {
+  if (!timestamp)
+    return {
+      text: 'неизвестно',
+      giveAway: false,
+    }
+
+  const date = new Date(timestamp)
+  const nowDate = new Date()
+  if (nowDate > date)
+    return {
+      giveAway: true,
+      text: 'Выдача ключей',
+    }
+
+  return {
+    giveAway: false,
+    text: formatStatusByQuarter(timestamp),
+  }
 }
 
 export function formatStatusExtended(timestamp: Timestamp) {

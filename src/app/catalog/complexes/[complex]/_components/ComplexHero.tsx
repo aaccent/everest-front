@@ -2,8 +2,6 @@ import React from 'react'
 import Section from '@/layout/Section'
 import { DetailComplex } from '@/types/catalog/Complex'
 import Img from '@/ui/Img'
-import Image from 'next/image'
-import DeveloperLogo from '@/assets/static/donstroy.svg'
 import { formatPriceShort } from '@/features/utility/price'
 import Button from '@/ui/buttons/Button'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
@@ -28,7 +26,7 @@ function ComplexHero({ complex }: Props) {
             </h1>
             <div className='mb-[32px] flex items-center gap-[10px] md:mb-[56px] md:gap-0'>
               <div className='flex size-[34px] items-center justify-center rounded-full border border-base-400 after:block after:size-[14px] after:bg-icon-address after:filter-base-600 after:bg-default-contain md:border-none md:after:filter-primary'></div>
-              <div className='text-base-300-lg-100 text-base-650 md:text-primary'>Нет адреса</div>
+              <div className='text-base-300-lg-100 text-base-650 md:text-primary'>{complex.address}</div>
             </div>
             <div className='text-base-200-lg-100 hidden w-full max-w-[464px] text-base-650 md:mb-[20px] md:block'>
               {complex.description}
@@ -60,12 +58,12 @@ function ComplexHero({ complex }: Props) {
         >
           <Img
             src={complex.mainImg}
-            className='!h-[576px] w-full rounded-[20px] object-cover object-center md:h-full md:w-[908px]'
+            className='h-[344px] w-full rounded-[20px] object-cover object-center md:h-[576px] md:w-[908px]'
             width={310}
             height={576}
           />
-          <Image
-            src={DeveloperLogo}
+          <Img
+            src={complex.developerLogo}
             width={85}
             height={24}
             alt=''
