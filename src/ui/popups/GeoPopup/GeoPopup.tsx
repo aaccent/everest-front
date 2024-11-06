@@ -9,10 +9,10 @@ import { City, Location } from '@/types/Geo'
 import { CityContext } from '@/globals/CityContext'
 
 interface GeoPopupProps {
-  selectGeoAuto: () => void
+  onAutoGeolocationClick: () => void
 }
 
-function GeoPopup({ selectGeoAuto }: GeoPopupProps) {
+function GeoPopup({ onAutoGeolocationClick }: GeoPopupProps) {
   const [location, setLocation] = useState<Location | null>(null)
   const { closePopup } = useContext(PopupContext)
   const { setCurrentCity } = useContext(CityContext)
@@ -21,8 +21,8 @@ function GeoPopup({ selectGeoAuto }: GeoPopupProps) {
     getLocation().then(setLocation)
   }, [])
 
-  const onCheckboxClick = () => {
-    selectGeoAuto()
+  function autoGeolocationHandler() {
+    onAutoGeolocationClick?.()
     closePopup()
   }
 
@@ -57,7 +57,7 @@ function GeoPopup({ selectGeoAuto }: GeoPopupProps) {
         name='geo'
         title='определить автоматически'
         value='определить автоматически'
-        onChange={onCheckboxClick}
+        onChange={autoGeolocationHandler}
       />
       <div className='mt-[24px] h-full overflow-y-auto scrollbar-transparent md:mr-[-46px] md:mt-[32px] md:pr-[44px] md:scrollbar-custom'>
         <div className='flex flex-col gap-[16px]'>{showCitiesList()}</div>
