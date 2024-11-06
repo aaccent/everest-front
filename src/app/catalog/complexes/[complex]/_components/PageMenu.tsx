@@ -29,7 +29,7 @@ function PageMenu({ className }: { className?: string }) {
   const onClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const targetId = e.currentTarget.dataset.id
     if (!targetId) return
-    //setActiveMenuItem(targetId)
+
     const target = document.getElementById(targetId)
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
