@@ -8,6 +8,7 @@ import { formatPriceShortBy } from '@/features/utility/price'
 import Button from '@/ui/buttons/Button'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
 import { TEST_ID } from '@/globals/testIds'
+import { LAYOUT_ID } from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/LayoutChoice'
 
 interface Props {
   complex: DetailComplex
@@ -34,7 +35,13 @@ function ComplexHero({ complex }: Props) {
             </div>
 
             <div className='hidden items-center gap-[24px] md:mt-auto md:flex'>
-              <Button variation='primary' size='medium' text='подобрать квартиру' className='w-full md:min-w-[175px]' />
+              <Button
+                href={`#${LAYOUT_ID}`}
+                variation='primary'
+                size='medium'
+                text='подобрать квартиру'
+                className='w-fit shrink-0 px-[16px]'
+              />
               <Button
                 className='mt-[8px] w-full md:mt-0 md:flex md:gap-[6px] md:bg-transparent md:before:block md:before:size-[16px] md:before:bg-icon-calculator md:before:bg-default-contain md:hover:bg-transparent md:hover:text-base-600'
                 variation='third'
@@ -82,7 +89,7 @@ function ComplexHero({ complex }: Props) {
       </div>
 
       <div className='px-container items-center gap-[24px] md:hidden md:px-0'>
-        <Button variation='primary' size='medium' text='подобрать квартиру' className='w-full md:min-w-[175px]' />
+        <Button href={`#${LAYOUT_ID}`} variation='primary' size='medium' text='подобрать квартиру' className='w-full' />
         <Button
           className='mt-[8px] w-full md:mt-0 md:flex md:gap-[6px] md:bg-transparent md:before:block md:before:size-[16px] md:before:bg-icon-calculator md:before:bg-default-contain md:hover:bg-transparent md:hover:text-base-600'
           variation='third'

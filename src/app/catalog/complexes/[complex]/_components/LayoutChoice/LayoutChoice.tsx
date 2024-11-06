@@ -11,6 +11,8 @@ import { FilterItems } from '@/components/FilterItems'
 import { getComplexQuickFilters } from '@/globals/api'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 
+export const LAYOUT_ID = 'complex-layout'
+
 interface LayoutChoiceProps {
   complex: DetailComplex
 }
@@ -20,7 +22,9 @@ async function LayoutChoice({ complex }: LayoutChoiceProps) {
 
   return (
     <Section>
-      <h2 className='text-header-200 mb-[32px] font-coolvetica uppercase'>Выбор планировки</h2>
+      <h2 className='text-header-200 mb-[32px] font-coolvetica uppercase' id={LAYOUT_ID}>
+        Выбор планировки
+      </h2>
       <Container className='mb-[40px] hidden justify-between gap-[20px] rounded-[32px] bg-base-200 md:flex md:px-[32px] md:py-[32px]'>
         <div className='flex items-center gap-[24px]'>
           <div className='flex items-center gap-[16px]'>
