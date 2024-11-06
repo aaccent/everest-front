@@ -43,7 +43,7 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
     <>
       <IsDesktop>
         <div
-          className={`px-container fixed inset-x-0 top-[115px] z-20 hidden h-[580px] w-full gap-[16px] rounded-b-[32px] bg-base-100 pb-[56px] pt-[32px] ${className}`}
+          className={`px-container fixed inset-x-0 top-[115px] z-40 hidden h-[580px] w-full gap-[16px] rounded-b-[32px] bg-base-100 pb-[56px] pt-[32px] ${className}`}
           data-menu-type={menuType}
         >
           <div className='flex w-full max-w-[900px] flex-col rounded-[32px] bg-base-300 p-[40px] pb-[30px]'>
