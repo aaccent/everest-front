@@ -17,8 +17,6 @@ import { ROUTES } from '@/globals/paths'
 
 import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
-import { getOffices } from '@/globals/api/methods/geo/getOffices'
-import { getCityIdFromCookie } from '@/features/utility/getCityIdFromCookie'
 import Img from '@/ui/Img'
 
 function ContactFormImage() {
@@ -38,8 +36,6 @@ interface socialItem {
 
 async function ContactForm() {
   const socials: socialItem[] = await getSocials()
-  const cityId = getCityIdFromCookie()
-  const offices = await getOffices(cityId)
 
   const pathname = getPathname()
   if (pathname === ROUTES.MAP) return null
@@ -112,7 +108,7 @@ async function ContactForm() {
           </div>
         </div>
       </div>
-      {isContactsPage ? <ContactFormImage /> : <FormMap offices={offices} />}
+      {isContactsPage ? <ContactFormImage /> : <FormMap />}
     </Section>
   )
 }
