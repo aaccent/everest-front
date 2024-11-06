@@ -71,6 +71,7 @@ export interface Complex {
   id: number
   name: string
   seoUrl: string
+  minPrice: number
   mainImg: string | null
   description: string | null
   developerLogo: string | null

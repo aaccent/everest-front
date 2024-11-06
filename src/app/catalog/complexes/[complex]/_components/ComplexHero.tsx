@@ -4,11 +4,11 @@ import { DetailComplex } from '@/types/catalog/Complex'
 import Img from '@/ui/Img'
 import Image from 'next/image'
 import DeveloperLogo from '@/assets/static/donstroy.svg'
-import { formatPriceShortBy } from '@/features/utility/price'
+import { formatPriceShort } from '@/features/utility/price'
 import Button from '@/ui/buttons/Button'
-import NoPhoto from '@/assets/static/no-photo.jpg'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
 import { TEST_ID } from '@/globals/testIds'
+import { LAYOUT_ID } from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/LayoutChoice'
 
 interface Props {
   complex: DetailComplex
@@ -17,7 +17,7 @@ interface Props {
 function ComplexHero({ complex }: Props) {
   return (
     <Section
-      className='relative m-auto flex w-[90%] flex-col rounded-[20px] bg-base-200 pb-[20px] md:w-full md:flex-row md:gap-[16px] md:bg-transparent md:pb-0'
+      className='relative m-auto !mt-0 flex w-[90%] flex-col rounded-[20px] bg-base-200 pb-[20px] md:w-full md:flex-row md:gap-[16px] md:bg-transparent md:pb-0'
       hideContainer
     >
       <DecorativeBlock type='medium' className='px-container md:order-2 md:px-0'>
@@ -35,7 +35,13 @@ function ComplexHero({ complex }: Props) {
             </div>
 
             <div className='hidden items-center gap-[24px] md:mt-auto md:flex'>
-              <Button variation='primary' size='medium' text='подобрать квартиру' className='w-full md:min-w-[175px]' />
+              <Button
+                href={`#${LAYOUT_ID}`}
+                variation='primary'
+                size='medium'
+                text='подобрать квартиру'
+                className='w-fit shrink-0 px-[16px]'
+              />
               <Button
                 className='mt-[8px] w-full md:mt-0 md:flex md:gap-[6px] md:bg-transparent md:before:block md:before:size-[16px] md:before:bg-icon-calculator md:before:bg-default-contain md:hover:bg-transparent md:hover:text-base-600'
                 variation='third'
@@ -46,7 +52,6 @@ function ComplexHero({ complex }: Props) {
           </div>
         </div>
       </DecorativeBlock>
-
       <div className='px-container relative mb-[32px] overflow-hidden md:order-1 md:m-0 md:px-0'>
         <DecorativeBlock
           type='medium'
@@ -54,10 +59,10 @@ function ComplexHero({ complex }: Props) {
           className='md:h-full'
         >
           <Img
-            src={NoPhoto}
-            className='h-[344px] w-full rounded-[20px] object-cover object-center md:h-full md:w-[908px]'
+            src={complex.mainImg}
+            className='!h-[576px] w-full rounded-[20px] object-cover object-center md:h-full md:w-[908px]'
             width={310}
-            height={344}
+            height={576}
           />
           <Image
             src={DeveloperLogo}
@@ -75,7 +80,7 @@ function ComplexHero({ complex }: Props) {
                 <div className='text-base-400-reg-100 min-w-[128px] uppercase opacity-50'>площадь квартир</div>
               </div>
               <div className='min-w-[184px] rounded-[20px] bg-base-600 px-[18px] py-[14px]'>
-                <div className='text-header-300 mb-[12px]'>{formatPriceShortBy(50000)}</div>
+                <div className='text-header-300 mb-[12px]'>от {formatPriceShort(complex.minPrice)}</div>
                 <div className='text-base-400-reg-100 min-w-[128px] uppercase opacity-50'>стоимость квартир</div>
               </div>
             </div>
@@ -84,7 +89,7 @@ function ComplexHero({ complex }: Props) {
       </div>
 
       <div className='px-container items-center gap-[24px] md:hidden md:px-0'>
-        <Button variation='primary' size='medium' text='подобрать квартиру' className='w-full md:min-w-[175px]' />
+        <Button href={`#${LAYOUT_ID}`} variation='primary' size='medium' text='подобрать квартиру' className='w-full' />
         <Button
           className='mt-[8px] w-full md:mt-0 md:flex md:gap-[6px] md:bg-transparent md:before:block md:before:size-[16px] md:before:bg-icon-calculator md:before:bg-default-contain md:hover:bg-transparent md:hover:text-base-600'
           variation='third'

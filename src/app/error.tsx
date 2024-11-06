@@ -11,7 +11,6 @@ import { hideScroll } from '@/features/scroll'
 
 type Props = {
   error: Error & { digest?: string }
-  reset: () => void
 }
 
 export default function Error({ error }: Props) {

@@ -22,6 +22,24 @@ import { PopupContext } from '@/features/Popup'
 import { AdaptiveContext } from '@/features/adaptive'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
+import { syncTryJSONParse } from '@/globals/fetch'
+
+function isStringJSON(value: unknown) {
+  if (typeof value !== 'string') return false
+
+  return /[\[{].*[\]}]/.test(value)
+}
+
+function JSONParseProperties(obj: object) {
+  const newEntries = Object.entries(obj).map(([key, value]) => {
+    if (!isStringJSON(value)) return [key, value]
+
+    const json = syncTryJSONParse<object | any[]>(value)
+    return json ? [key, json] : [key, value]
+  })
+
+  return Object.fromEntries(newEntries)
+}
 
 function useCategoryLink() {
   const pathname = usePathname()
@@ -30,7 +48,9 @@ function useCategoryLink() {
   const category = pathname.match(/\/map\/(.*)[/?]?/)
   if (!category) return ''
 
-  return ROUTES.CATALOG + `/${category[1]}` + `?filter=${filter.str}`
+  const searchParam = filter.str ? `?filter=${filter.str}` : ''
+
+  return ROUTES.CATALOG + `/${category[1]}` + searchParam
 }
 
 const SOURCE_ID = 'objects'
@@ -70,11 +90,11 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
   }
 
   const onPointClickHandler: CustomMapProps['onPointClick'] = function (_, feature) {
-    setItems([feature.properties as DefaultObject])
+    setItems([JSONParseProperties(feature.properties || {}) as DefaultObject])
   }
 
   const onClusterClickHandler: CustomMapProps['onClusterClick'] = function (_, features) {
-    setItems(features.map((item) => item.properties as DefaultObject))
+    setItems(features.map((item) => JSONParseProperties(item.properties || {}) as DefaultObject))
   }
 
   const onMoreZoomClick = () => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComplexObject, FlatType } from '@/types/catalog/Complex'
 import Link from 'next/link'
-import { formatPriceShortBy } from '@/features/utility/price'
+import { formatPriceShort } from '@/features/utility/price'
 import { formatStatusByQuarter } from '@/features/utility/date'
 import Img from '@/ui/Img'
 import { createComplexLink } from '@/features/link'
@@ -19,7 +19,7 @@ function showObjectTypes(objectTypes: FlatType[]) {
         <div className='text-base-650'>
           от {object.minArea} м<sup>2</sup>
         </div>
-        <div className=''>{formatPriceShortBy(Number(object.minPrice))}</div>
+        <div className=''>от {formatPriceShort(object.minPrice)}</div>
       </div>
     )
   })
@@ -53,9 +53,9 @@ function ComplexListCard({ item }: Props) {
         <div className='text-base-200-lg-100 mb-[17px] flex items-center gap-[10px] opacity-50 before:block before:h-[15px] before:w-[12px] before:bg-icon-address before:bg-default-auto'>
           {item.address ? item.address : 'нет адреса'}
         </div>
-        <span className='text-header-400 mr-[12px]'>{formatPriceShortBy(item.minPrice)}</span>
+        <span className='text-header-400 mr-[12px]'>от {formatPriceShort(item.minPrice)}</span>
         {!!item.minPriceDiscount && (
-          <span className='text-header-400 line-through opacity-50'>{formatPriceShortBy(item.minPriceDiscount)}</span>
+          <span className='text-header-400 line-through opacity-50'>от {formatPriceShort(item.minPriceDiscount)}</span>
         )}
         <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(item.objectsType)}</div>
       </div>
