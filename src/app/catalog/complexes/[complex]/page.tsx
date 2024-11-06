@@ -5,7 +5,6 @@ import { getComplexDetailed } from '@/globals/api'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import ComplexHero from './_components/ComplexHero'
 import PageSlider from './_components/PageSlider'
-import DetailedInfo from './_components/DetailedInfo'
 import PageMenuWrapper from './_components/PageMenuWrapper'
 import LayoutChoice from './_components/LayoutChoice/LayoutChoice'
 import Documentation from './_components/Documentation/Documentation'
@@ -22,13 +21,12 @@ async function Page({ params }: ComplexPage) {
       <ComplexHero complex={complex} />
       <PageMenuWrapper>
         <PageSlider complex={complex} />
-        <DetailedInfo complex={complex} />
         <ExclusiveOffers />
+        <LayoutChoice complex={complex} />
+        <Documentation complexCode={params.complex} />
+        <Bonuses />
+        <BuildingProgress complexCode={params.complex} />
       </PageMenuWrapper>
-      <LayoutChoice complex={complex} />
-      <Documentation complexCode={params.complex} />
-      <Bonuses />
-      <BuildingProgress complexCode={params.complex} />
     </>
   )
 }
