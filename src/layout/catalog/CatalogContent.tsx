@@ -46,6 +46,7 @@ function CatalogContent({ category, tileClassName, listClassName, type }: Catalo
   function showButton() {
     const rest = list.total - list.count * pagination.page
     if (list.count < pagination.perPage || rest <= 0) return null
+
     const amountOnButton = rest >= pagination.perPage ? pagination.perPage : rest
     return (
       <Button

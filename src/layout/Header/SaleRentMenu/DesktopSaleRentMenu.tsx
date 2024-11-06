@@ -43,13 +43,18 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
     <>
       <IsDesktop>
         <div
-          className={`px-container fixed inset-x-0 top-[115px] z-20 hidden h-[580px] w-full gap-[16px] rounded-b-[32px] bg-base-100 pb-[56px] pt-[32px] ${className}`}
+          className={`px-container fixed inset-x-0 top-[115px] z-40 hidden h-[580px] w-full gap-[16px] rounded-b-[32px] bg-base-100 pb-[56px] pt-[32px] ${className}`}
           data-menu-type={menuType}
         >
           <div className='flex w-full max-w-[900px] flex-col rounded-[32px] bg-base-300 p-[40px] pb-[30px]'>
             <div>
               <span className='text-header-300 text-base-600'>{`${title} — `}</span>
               <span className='text-header-300 text-base-650'>{`${fullAmount} ${suggestionPlural.get(fullAmount)}`}</span>
+            </div>
+            <ul className='ml-[-10px] mt-[30px] grid h-1 grow auto-rows-max grid-cols-3 gap-x-[12px] gap-y-[12px] overflow-y-auto transition-opacity scrollbar-custom'>
+              <li>
+                <SeeAllCategoryItem href='' amount={fullAmount} />
+              </li>
               {menuType === 'rent' && (
                 <li>
                   <Link
@@ -69,11 +74,6 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
                   </Link>
                 </li>
               )}
-            </div>
-            <ul className='ml-[-10px] mt-[30px] grid h-1 grow auto-rows-max grid-cols-3 gap-x-[12px] gap-y-[12px] overflow-y-auto transition-opacity scrollbar-custom'>
-              <li>
-                <SeeAllCategoryItem href='' amount={fullAmount} />
-              </li>
               {showCategories()}
             </ul>
           </div>

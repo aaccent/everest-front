@@ -1,7 +1,7 @@
 import React from 'react'
 import { ComplexObject, FlatType } from '@/types/catalog/Complex'
 import Link from 'next/link'
-import { formatFullPrice, formatPriceShortBy } from '@/features/utility/price'
+import { formatPriceShort, formatFullPrice } from '@/features/utility/price'
 import { formatStatusInComplexCard } from '@/features/utility/date'
 import Img from '@/ui/Img'
 import { createComplexLink } from '@/features/link'
@@ -19,7 +19,7 @@ function showObjectTypes(objectTypes: FlatType[]) {
         <div className='text-base-650'>
           от {object.minArea} м<sup>2</sup>
         </div>
-        <div className=''>{formatPriceShortBy(Number(object.minPrice))}</div>
+        <div className=''>от {formatPriceShort(object.minPrice)}</div>
       </div>
     )
   })
@@ -62,7 +62,7 @@ function ComplexListCard({ item }: Props) {
         </div>
         <span className='text-header-400 mr-[12px]'>от {formatFullPrice(item.minPrice)}</span>
         {!!item.minPriceDiscount && (
-          <span className='text-header-400 line-through opacity-50'>{formatPriceShortBy(item.minPriceDiscount)}</span>
+          <span className='text-header-400 line-through opacity-50'>от {formatPriceShort(item.minPriceDiscount)}</span>
         )}
         <div className='mt-[40px] flex flex-col gap-[9px]'>{showObjectTypes(item.objectsType)}</div>
       </div>
