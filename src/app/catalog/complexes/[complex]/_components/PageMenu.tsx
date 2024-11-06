@@ -33,6 +33,7 @@ function PageMenu({ className }: { className?: string }) {
     const target = document.getElementById(targetId)
     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
+
   function showMenu() {
     return PAGE_MENU.map((item) => {
       return (
@@ -56,12 +57,14 @@ function PageMenu({ className }: { className?: string }) {
         setActiveMenuItem('')
       }
     })
+
     PAGE_MENU.forEach((item) => {
       if (!item.dataSet) return
       const targetElement = document.getElementById(item.dataSet)
       targetElement && observer.observe(targetElement)
     })
   }, [])
+
   return (
     <div className={className}>
       <nav className='border-b border-b-base-600/10 pb-[32px]'>
