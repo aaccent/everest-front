@@ -61,6 +61,7 @@ interface InnerProps extends PropsWithChildren {
   titleClassName?: string
   /** @description Вариация декоративного фона. 'big' - используется в зеленых секциях, 'medium' на странице объекта, 'small' в риелторах */
   type?: DecorativeBGType
+  id?: string
 }
 
 function DecorativeInner({ type, titleClassName, title, children, className }: InnerProps) {
@@ -108,9 +109,9 @@ export default function DecorativeSection({ title, className, decorativeClassNam
   )
 }
 
-export function DecorativeBlock({ className, reverse, decorativeClassName, ...props }: Props) {
+export function DecorativeBlock({ className, reverse, decorativeClassName, id, ...props }: Props) {
   return (
-    <div className={`relative overflow-hidden rounded-[24px] ${className}`}>
+    <div className={`relative overflow-hidden rounded-[24px] ${className}`} id={id}>
       <DecorativeInner className={`${reverse ? '-scale-x-100' : ''} ${decorativeClassName} `} {...props} />
     </div>
   )
