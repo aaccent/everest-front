@@ -54,7 +54,7 @@ function Popup() {
   const _Popup = popups[popupObj.name]
 
   return (
-    <div className='fixed inset-0 z-50 bg-base-600/60'>
+    <div className='fixed inset-0 z-[80] bg-base-600/60'>
       {/*@ts-ignore*/}
       <_Popup {...(popupObj?.args ?? {})} />
     </div>
@@ -70,7 +70,7 @@ export function DynamicPopup({ activePopup, children }: DynamicPopupProps) {
 
   if (activePopup !== activeDynamicPopup) return null
 
-  return createPortal(<div className='fixed inset-0 z-50 bg-base-600/60'>{children}</div>, document.body)
+  return createPortal(<div className='fixed inset-0 z-[80] bg-base-600/60'>{children}</div>, document.body)
 }
 
 export function PopupProvider({ children }: PropsWithChildren) {
