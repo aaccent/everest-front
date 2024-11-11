@@ -33,6 +33,9 @@ export type Props<TType extends AllowedInputType> =
     type: TType
     mask?: string | RegExp
     getValue?: GetInputValueFn<TType>
+    inputTextTransform?: 'uppercase' | 'none'
+    isSearch?: boolean
+    onChangeCustom?: (value:string) => void
   }
 
 function Input<TType extends AllowedInputType>({
@@ -42,6 +45,9 @@ function Input<TType extends AllowedInputType>({
   checked,
   mask = '',
   getValue,
+  inputTextTransform = 'uppercase',
+  isSearch,
+  onChangeCustom,
   ...inputProps
 }: Props<TType>) {
   const maskRef = useRef<IMaskElement>(null)
@@ -64,6 +70,7 @@ function Input<TType extends AllowedInputType>({
   const [isPassShow, setIsPassShow] = useState<boolean>(false)
 
   const onChange = (value: string) => {
+    onChangeCustom?.(value)
     setValue(value)
   }
 
@@ -85,9 +92,14 @@ function Input<TType extends AllowedInputType>({
     inputProps.placeholder += '*'
   }
 
-  let buttonIcon = 'bg-icon-close'
-  if (type === 'password') {
-    buttonIcon = isPassShow ? 'bg-icon-eye' : 'bg-icon-eye-closed'
+  const buttonIcon = () => {
+    switch (type) {
+      case 'password':
+        return isPassShow ? 'bg-icon-eye' : 'bg-icon-eye-closed'
+      default:
+        if (isSearch) return value ? 'bg-icon-close' : 'bg-icon-search'
+        return value ? 'bg-icon-close' : ''
+    }
   }
 
   return (
@@ -99,12 +111,12 @@ function Input<TType extends AllowedInputType>({
           ref={maskRef}
           inputRef={inputRef}
           type={isPassShow ? 'text' : type}
-          className={`text-base-400-reg-100 w-full rounded-[16px] py-[18px] pl-[14px] pr-[40px] uppercase focus-visible:border-base-600 focus-visible:outline-0 ${className()}`}
+          className={`text-base-400-reg-100 w-full rounded-[16px] py-[18px] pl-[14px] pr-[40px] focus-visible:border-base-600 focus-visible:outline-0 ${inputTextTransform} ${className()}`}
           onAccept={onChange}
           {...inputProps}
         />
         <button
-          className={`${value ? 'opacity-100' : 'opacity-0'} absolute right-[18px] top-[50%] size-[20px] -translate-y-2/4 border-none ${buttonIcon} bg-icon-close bg-auto bg-center bg-no-repeat ${onDark ? 'filter-base-100' : 'filter-base-600'}`}
+          className={`absolute right-[18px] top-[50%] size-[20px] -translate-y-2/4 border-none ${buttonIcon()} bg-auto bg-center bg-no-repeat ${onDark ? 'filter-base-100' : 'filter-base-600'}`}
           onClick={type !== 'password' ? resetButtonHandler : passwordEyeHandler}
           type='button'
           tabIndex={-1}
