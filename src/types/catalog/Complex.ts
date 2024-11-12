@@ -64,6 +64,7 @@ export interface LayoutObject {
   section: string
   characteristics: Characteristic[]
   gallery: string[]
+  address: string
 }
 
 /** Информация о ЖК */
