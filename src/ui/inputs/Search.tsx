@@ -1,22 +1,20 @@
 'use client'
-import React from 'react'
+import React, { useRef } from 'react'
 import Input from '@/ui/inputs/Input'
 
 interface SearchProps {
   placeholder?: string
+  onChange: (value: string) => void
 }
 
-function Search({ placeholder }: SearchProps) {
+function Search({ placeholder, onChange }: SearchProps) {
   const searchRegExp = /^[а-я -]+$/gi
+  const timeoutRef = useRef<NodeJS.Timeout>()
 
-  /**
-   * @todo запрос к апи, когда будет готов бекенд
-   **  const timeoutRef = useRef<NodeJS.Timeout>()
-   **  const onChange = (value: string) => {
-   *   if (timeoutRef.current) clearTimeout(timeoutRef.current)
-   *   timeoutRef.current = setTimeout(() => console.log(`request to api with ${value || null}`), 300)
-   *   }
-   */
+  const _onChange = (value: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    timeoutRef.current = setTimeout(() => onChange(value), 300)
+  }
 
   return (
     <Input
@@ -25,6 +23,7 @@ function Search({ placeholder }: SearchProps) {
       placeholder={placeholder}
       mask={searchRegExp}
       inputTextTransform='none'
+      onChangeCustom={_onChange}
       isSearch
     />
   )

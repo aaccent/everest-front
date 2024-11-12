@@ -17,3 +17,7 @@ export type ObjectPage = Page<{
 export type ComplexPage = Page<{
   complex: string
 }>
+
+export type RealtorPage = Page<{
+  realtorCode: string
+}>
