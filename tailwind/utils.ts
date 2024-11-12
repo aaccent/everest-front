@@ -137,6 +137,7 @@ export const inputRangeTrackUtilities = plugin(function ({ addUtilities }) {
 
 export const customVariants = plugin(function ({ addVariant, matchVariant }) {
   addVariant('pseudo', ['&::before', '&::after'])
+  addVariant('first-next', ['& + *'])
   matchVariant('group-peer', function (value, { modifier }) {
     return modifier ? `${value} ~ :merge(.group\\/${modifier}) &` : `${value} ~ :merge(.group) &`
   })
