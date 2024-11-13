@@ -35,3 +35,6 @@ export const objectPlural = createPlural('объект', 'объекта', 'об
 
 /** Слово 'фотография' с суффиксами в зависимости от числа */
 export const photosPlural = createPlural('фотография', 'фотографии', 'фотографий')
+
+/** Написание слова 'год' в зависимости от числа */
+export const yearPlural = createPlural('год', 'года', 'лет')

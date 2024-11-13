@@ -4,15 +4,7 @@ import React, { useState } from 'react'
 import Search from '@/ui/inputs/Search'
 import RealtorCard from '@/app/realtors/_components/RealtorCard'
 import { getRealtorsList } from '@/globals/api/methods/realtors/getRealtorsList'
-
-export interface RealtorCardType {
-  id: number
-  name: string
-  position: string
-  tel: string
-  photo: string | null
-  code: string
-}
+import { RealtorCardType } from '@/types/Realtor'
 
 interface RealtorsListProps {
   initList: RealtorCardType[]

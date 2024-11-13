@@ -3,17 +3,17 @@ import { DecorativeBlock } from '@/layout/DecorativeSection'
 import Img from '@/ui/Img'
 import RealtorTel from '@/app/realtors/_components/RealtorTel'
 import Link from 'next/link'
-import { RealtorCardType } from '@/app/realtors/_components/RealtorsList'
 import { createRealtorLink } from '@/features/link'
+import { RealtorCardType } from '@/types/Realtor'
 
 function RealtorCard({ ...realtor }: RealtorCardType) {
   const link = createRealtorLink(realtor.code)
   return (
     <Link href={link} className='flex flex-col gap-[16px] md:gap-[20px]'>
       <DecorativeBlock type='small'>
-        {realtor.photo ? (
+        {realtor.image ? (
           <Img
-            src={realtor.photo}
+            src={realtor.image}
             width={380}
             height={448}
             className='h-[410px] w-full max-w-[350px] object-cover object-center md:h-[448px] md:max-w-[380px]'
