@@ -52,13 +52,13 @@ type Props = {
 function DetailFilterButton({ categoryName, quickFilters, objectsAmount, text }: Props) {
   const { filter } = useFilter()
   const [count, setCount] = useState<number>(filter.parsed.length)
-  const { openDynamicPopup } = useContext(PopupContext)
+  const { openPopup } = useContext(PopupContext)
 
   useEffect(() => {
     setCount(filter.parsed.length)
   }, [filter])
 
-  const onClickHandle = () => openDynamicPopup('filterPopup')
+  const onClickHandle = () => openPopup({ name: 'filterPopup' })
 
   function showButton() {
     if (text) return <TextDetailFilterButton onClick={onClickHandle} text={text} />

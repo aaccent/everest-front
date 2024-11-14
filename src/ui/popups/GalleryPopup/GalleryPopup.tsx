@@ -2,6 +2,7 @@
 import React from 'react'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Img from '@/ui/Img'
+import { PopupTemplate } from '@/layout/popups/PopupTemplate'
 import { CarouselSlide } from '@/components/Carousel/CarouselSlide'
 import Carousel, { CarouselInner, CarouselProgressBar, CarouselWhiteNavigations } from '@/components/Carousel/Carousel'
 
@@ -34,21 +35,23 @@ function GalleryPopup({ list, activeSlideIndex = 0 }: GalleryPopupProps) {
   }
 
   return (
-    <Carousel
-      className='text-header-300 md:text-header-200 absolute top-[64px] h-[calc(100svh-64px)] w-full overflow-hidden rounded-t-[24px] bg-base-100 text-base-100 md:bg-transparent md:uppercase'
-      fade
-      startIndex={activeSlideIndex}
-    >
-      <div className='absolute top-[33px] z-10 w-full text-center md:left-[56px] md:top-[55px] md:text-left'>
-        Галерея <span className='opacity-50'>— {list.length} фото</span>
-      </div>
-      <CarouselInner>{showSlides()}</CarouselInner>
-      <div className='absolute bottom-[32px] z-10 flex w-full items-end justify-center md:bottom-[56px] md:justify-between md:px-[56px]'>
-        <CarouselProgressBar className='relative !w-[228px] *:bg-base-100' />
-        <CarouselWhiteNavigations className='!static hidden md:flex' />
-      </div>
-      <ClosePopupButton className='absolute right-[24px] top-[33px] z-10 !bg-base-650 md:right-[56px] md:top-[103px]' />
-    </Carousel>
+    <PopupTemplate>
+      <Carousel
+        className='text-header-300 md:text-header-200 absolute top-[64px] h-[calc(100svh-64px)] w-full overflow-hidden rounded-t-[24px] bg-base-100 text-base-100 md:bg-transparent md:uppercase'
+        fade
+        startIndex={activeSlideIndex}
+      >
+        <div className='absolute top-[33px] z-10 w-full text-center md:left-[56px] md:top-[55px] md:text-left'>
+          Галерея <span className='opacity-50'>— {list.length} фото</span>
+        </div>
+        <CarouselInner>{showSlides()}</CarouselInner>
+        <div className='absolute bottom-[32px] z-10 flex w-full items-end justify-center md:bottom-[56px] md:justify-between md:px-[56px]'>
+          <CarouselProgressBar className='relative !w-[228px] *:bg-base-100' />
+          <CarouselWhiteNavigations className='!static hidden md:flex' />
+        </div>
+        <ClosePopupButton className='absolute right-[24px] top-[33px] z-10 !bg-base-650 md:right-[56px] md:top-[103px]' />
+      </Carousel>
+    </PopupTemplate>
   )
 }
 

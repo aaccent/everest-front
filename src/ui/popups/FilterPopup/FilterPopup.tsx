@@ -9,7 +9,7 @@ import { IsDesktop, IsMobile } from '@/features/adaptive'
 import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
-import { DynamicPopup, PopupContext } from '@/features/Popup'
+import { PopupContext } from '@/features/Popup'
 import SortButton from '@/components/QuickFilter/SortButton'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import { objectPlural } from '@/features/utility/pluralRules'
@@ -17,6 +17,7 @@ import Link from 'next/link'
 import { useParams, useSearchParams } from 'next/navigation'
 import { ROUTES } from '@/globals/paths'
 import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
+import { PopupTemplate } from '@/layout/popups/PopupTemplate'
 
 interface Props {
   category: string
@@ -54,7 +55,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
   }
 
   return (
-    <DynamicPopup activePopup='filterPopup'>
+    <PopupTemplate>
       <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 md:top-[48px] md:block md:h-[(100dvh-48px)] md:p-[56px]'>
         <div className='relative h-1 grow p-[24px] md:static md:h-full md:grow-0 md:p-0'>
           <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
@@ -98,7 +99,7 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
           <MapObjectsButton className='ml-auto hidden md:order-3 md:flex' />
         </div>
       </div>
-    </DynamicPopup>
+    </PopupTemplate>
   )
 }
 
