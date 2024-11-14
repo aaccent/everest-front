@@ -23,6 +23,7 @@ import { AdaptiveContext } from '@/features/adaptive'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import { syncTryJSONParse } from '@/globals/fetch'
+import { getFilters } from '@/globals/api'
 
 function isStringJSON(value: unknown) {
   if (typeof value !== 'string') return false
@@ -107,6 +108,11 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
     viewStateControl.setViewState({ ...viewStateControl.viewState, zoom })
   }
 
+  async function getFiltersAction() {
+    const res = await getFilters(categoryCode)
+    return res.filters
+  }
+
   return (
     <ObjectsMapContainer>
       <div className='pointer-events-none absolute inset-[16px] z-10 flex flex-col gap-[40px] md:inset-[20px]'>
@@ -154,7 +160,7 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
           </Button>
         </div>
         <div className='pointer-events-auto mt-auto hidden w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px] md:flex'>
-          <DetailFilterButton categoryName={categoryCode} quickFilters={quickFilters} />
+          <DetailFilterButton getFilters={getFiltersAction} quickFilters={quickFilters} />
           <FilterItems filters={quickFilters.filters} isQuick />
           <ResetFiltersButton
             className='ml-auto flex items-center gap-[4px] text-base-600/50 after:size-[13px] after:bg-icon-close after:opacity-50 after:bg-default'

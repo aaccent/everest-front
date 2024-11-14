@@ -3,7 +3,6 @@ import React, { Fragment, useContext, useEffect, useState } from 'react'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
-import { getFilters } from '@/globals/api'
 import { FilterBlock, QuickFilters } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import { FilterItems } from '@/components/FilterItems'
@@ -11,35 +10,23 @@ import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
 import { PopupContext } from '@/features/Popup'
 import SortButton from '@/components/QuickFilter/SortButton'
-import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import { objectPlural } from '@/features/utility/pluralRules'
-import Link from 'next/link'
-import { useParams, useSearchParams } from 'next/navigation'
-import { ROUTES } from '@/globals/paths'
 import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
 import { PopupTemplate } from '@/layout/popups/PopupTemplate'
 
 interface Props {
-  category: string
-  objectsAmount?: number
+  count: number
   quickFilters: QuickFilters
+  getFilters: () => Promise<FilterBlock[]>
 }
 
-function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
+function FilterPopup({ count, quickFilters, getFilters }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>([])
-  const { list } = useContext(CategoryContext)
-  const { closePopup } = useContext(PopupContext)
-  const params = useParams()
-  const searchParams = useSearchParams()
-  const link = params.toString().includes('catalog') ? '' : `${ROUTES.CATALOG}/${category}/?${searchParams.toString()}`
-
-  const total = objectsAmount ?? list?.total
+  const { closePopup, updateProps } = useContext(PopupContext)
 
   useEffect(() => {
-    getFilters(category).then((res) => {
-      setFilters(res.filters)
-    })
-  }, [])
+    getFilters().then(setFilters)
+  }, [getFilters])
 
   function showFiltersBlocks() {
     return filters.map((block, i) => {
@@ -84,14 +71,13 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
         <div className='bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:fixed md:justify-normal md:px-[56px] md:py-[24px]'>
           <button className='flex size-[50px] items-center justify-center rounded-[16px] bg-base-300 after:block after:size-[22px] after:bg-icon-search-favorite after:bg-default-contain md:hidden' />
 
-          <Link href={link} onClick={closePopup}>
-            <Button
-              variation='primary'
-              size='small'
-              text={`Показать ${total} ${objectPlural.get(total)}`}
-              className='md:mr-[12px]'
-            />
-          </Link>
+          <Button
+            variation='primary'
+            size='small'
+            text={`Показать ${count} ${objectPlural.get(count)}`}
+            className='md:mr-[12px]'
+            onClick={closePopup}
+          />
           <ResetFiltersButton
             text='Сбросить'
             className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'

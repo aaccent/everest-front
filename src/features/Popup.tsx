@@ -40,7 +40,7 @@ type PopupContextObject = {
   openPopup: <TPopup extends PopupName>(obj: PopupObj<TPopup>) => void
   closePopup: () => void
   popup: PopupName | null
-  updateProps: <TPopup extends PopupName>(popupName: TPopup, args: PopupObj<TPopup>['args']) => void
+  updateProps: <TPopup extends PopupName>(popupName: TPopup, args: Partial<PopupObj<TPopup>['args']>) => void
 }
 
 export const PopupContext = createContext({} as PopupContextObject)
@@ -62,17 +62,9 @@ export function PopupProvider({ children }: PropsWithChildren) {
   }
 
   function updateProps(_popupName: PopupName, args: any) {
-    if (_popupName !== popupName) {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('Вы пытаетесь поменять параметры попапа, который не открыт')
-      }
-      return
-    }
+    if (_popupName !== popupName) return
 
-    setProps((prev) => {
-      if (JSON.stringify(prev) === JSON.stringify(args)) return prev
-      return args
-    })
+    setProps((prev) => ({ ...prev, ...args }))
   }
 
   const ActivePopup = popupName ? popups[popupName] : () => null

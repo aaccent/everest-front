@@ -1,9 +1,10 @@
 'use client'
 import { useFilter } from '@/features/useFilter'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useSort } from '@/features/useSort'
 import { PER_PAGE } from '@/globals/pagination'
 import { GeneralRequestParams } from '@/types/RequestProps'
+import { PopupContext } from '@/features/Popup'
 
 export type ListType<TType = unknown> = {
   objects: TType[]
@@ -35,6 +36,7 @@ export type ObjectManagerType = ReturnType<typeof useFilterAndPagination>
  */
 export function useFilterAndPagination<TType = unknown>({ initList, getObjects }: Props<TType>) {
   const [list, setList] = useState<ListType>(initList)
+  const { updateProps } = useContext(PopupContext)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -44,6 +46,11 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
   const { filter } = useFilter()
   const { sort } = useSort()
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  function _setList(data: ListType) {
+    setList(data)
+    updateProps('filter', { count: data.total })
+  }
 
   async function _getObjects(pageNumber: number = 1) {
     const options: GeneralRequestParams = {
@@ -60,9 +67,9 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
     try {
       const data = await _getObjects()
       setPage(1)
-      setList(data)
+      _setList(data)
     } catch (e) {
-      setList(EMPTY_LIST)
+      _setList(EMPTY_LIST)
     } finally {
       setIsLoading(false)
     }
@@ -73,13 +80,13 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
     try {
       const data = await _getObjects(newPage)
       const { objects, count, total } = data
-      setList({
+      _setList({
         objects: list.objects.concat(objects),
         count,
         total,
       })
     } catch (e) {
-      setList(EMPTY_LIST)
+      _setList(EMPTY_LIST)
     } finally {
       setIsLoading(false)
     }
