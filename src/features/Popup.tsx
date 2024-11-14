@@ -11,13 +11,13 @@ import MapObjectsPopup from '@/ui/popups/MapObjectsPopup'
 import GeoPopup from '@/ui/popups/GeoPopup/GeoPopup'
 
 const popups = {
-  callPopup: CallPopup,
-  mapPopup: MapPopup,
-  filterPopup: FilterPopup,
-  galleryPopup: GalleryPopup,
-  thxPopup: ThxPopup,
+  call: CallPopup,
+  map: MapPopup,
+  filter: FilterPopup,
+  gallery: GalleryPopup,
+  thanks: ThxPopup,
   mapObject: MapObjectsPopup,
-  geoPopup: GeoPopup,
+  geo: GeoPopup,
 } as const
 
 type PopupName = keyof typeof popups

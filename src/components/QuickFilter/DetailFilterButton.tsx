@@ -58,7 +58,7 @@ function DetailFilterButton({ categoryName, quickFilters, objectsAmount, text }:
     setCount(filter.parsed.length)
   }, [filter])
 
-  const onClickHandle = () => openPopup({ name: 'filterPopup' })
+  const onClickHandle = () => openPopup({ name: 'filter' })
 
   function showButton() {
     if (text) return <TextDetailFilterButton onClick={onClickHandle} text={text} />

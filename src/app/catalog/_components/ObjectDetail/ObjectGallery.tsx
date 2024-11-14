@@ -68,7 +68,7 @@ function ObjectGallery({ list, activeSlide }: GalleryProps) {
   useEffect(() => {
     if (searchParams.has('gallery')) {
       openPopup({
-        name: 'galleryPopup',
+        name: 'gallery',
         args: {
           list,
           activeSlideIndex: LAST_INDEX_IN_OBJECT_CARD,
@@ -85,7 +85,7 @@ function ObjectGallery({ list, activeSlide }: GalleryProps) {
   const onSlideClickHandle = () => {
     if (isDesktop()) {
       openPopup({
-        name: 'galleryPopup',
+        name: 'gallery',
         args: {
           list,
           activeSlideIndex,
@@ -135,7 +135,7 @@ function ObjectGallery({ list, activeSlide }: GalleryProps) {
         className='absolute right-[20px] top-[35px] size-[42px] rounded-full bg-base-650 bg-icon-zoom-arrows bg-default-auto md:hidden'
         onClick={() =>
           openPopup({
-            name: 'galleryPopup',
+            name: 'gallery',
             args: {
               list,
               activeSlideIndex,
