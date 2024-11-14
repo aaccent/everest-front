@@ -2,7 +2,7 @@ import realtorWithDateInExperience from '@/globals/mock-data/realtorDetailed_1.j
 import realtorWithStringInExperience from '@/globals/mock-data/realtorDetailed_2.json'
 import { RealtorDetailed } from '@/types/Realtor'
 
-export function getRealtorDetailed(code: string): RealtorDetailed {
+export async function getRealtorDetailed(code: string): Promise<RealtorDetailed> {
   if (code === 'code2') return realtorWithStringInExperience
   return realtorWithDateInExperience
 }

@@ -1,6 +1,6 @@
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import { ROUTES } from '@/globals/paths.js'
-import { RealtorCardType } from '@/app/realtors/_components/RealtorsList'
+import { RealtorCardType } from '@/types/Realtor'
 
 interface CategoryWithSeoUrl {
   seoUrl: string
