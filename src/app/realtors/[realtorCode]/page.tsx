@@ -17,6 +17,7 @@ function Page({ params }: RealtorPage) {
       name: `${realtor.name}`,
     },
   ]
+
   return (
     <>
       <Breadcrumbs list={breadcrumbs} />

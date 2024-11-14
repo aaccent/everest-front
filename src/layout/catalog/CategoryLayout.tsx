@@ -32,7 +32,7 @@ async function CategoryLayout({ category, children, quickFilters, detailFilters 
 
   return (
     <>
-      <Breadcrumbs category={category} />
+      <Breadcrumbs category={category} isCatalog />
       <Container className='mb-[24px] flex items-start justify-between md:mb-[50px]'>
         <PageTitle title={category.name} />
         <ObjectsAmount className='text-base-300-lg-100 hidden translate-x-0 text-base-650 md:block' />

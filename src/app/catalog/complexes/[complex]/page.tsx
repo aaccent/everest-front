@@ -17,7 +17,7 @@ async function Page({ params }: ComplexPage) {
 
   return (
     <>
-      <Breadcrumbs list={complex.breadcrumbs.slice(1)} />
+      <Breadcrumbs list={complex.breadcrumbs.slice(1)} isCatalog />
       <ComplexHero complex={complex} />
       <PageMenuWrapper>
         <PageSlider complex={complex} />

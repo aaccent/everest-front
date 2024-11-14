@@ -18,7 +18,7 @@ async function ObjectDetail({ item, isComplexes }: Props) {
 
   return (
     <>
-      <Breadcrumbs className='!mb-[16px] md:mb-[20px]' list={breadcrumbs} />
+      <Breadcrumbs className='!mb-[16px] md:mb-[20px]' list={breadcrumbs} isCatalog />
       <ObjectHero item={item} />
       <ObjectProperties item={item} />
       <SimilarObjects objectCode={objectCode} initList={initSimilar} />

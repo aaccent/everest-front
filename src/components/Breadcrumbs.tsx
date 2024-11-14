@@ -22,11 +22,11 @@ function Breadcrumb({ title, href }: BreadcrumbProps) {
   )
 }
 
-function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[]) {
-  let link = ROUTES.CATALOG
+function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[], isCatalog: boolean = false) {
+  let link = isCatalog ? `${ROUTES.CATALOG}/` : ''
 
   breadcrumbs.forEach((breadcrumb) => {
-    link += `/${breadcrumb.seo}`
+    link += `${breadcrumb.seo}`
   })
 
   return link
@@ -34,6 +34,7 @@ function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[]) {
 
 type Props = {
   className?: string
+  isCatalog?: boolean
 } & (
   | {
       list: BreadcrumbItem[]
@@ -45,13 +46,14 @@ type Props = {
     }
 )
 
-function Breadcrumbs({ className, list, category }: Props) {
+function Breadcrumbs({ className, list, category, isCatalog }: Props) {
   function showItems() {
     const _list = list ? list : category.breadcrumbs
 
-    return _list.map((item, i) => (
-      <Breadcrumb key={item.seo} href={generateLinkFromBreadcrumb(_list.toSpliced(i + 1))} title={item.name} />
-    ))
+    return _list.map((item, i) => {
+      const link = generateLinkFromBreadcrumb(_list.toSpliced(i + 1), isCatalog)
+      return <Breadcrumb key={item.seo} href={link} title={item.name} />
+    })
   }
 
   return (
