@@ -79,12 +79,14 @@ export interface Complex {
   presentationLink: string | null
   characteristics: Characteristic[]
   address: string | null
+  genPlanImg: string | null
 }
 
 /** Детальная ЖК из АПИ */
 export interface DetailComplexFromAPI {
   breadcrumbs: BreadcrumbItem[]
   complex: Complex
+  objectCount: number
   houseNumbers: string[]
   gallery: string[]
 }

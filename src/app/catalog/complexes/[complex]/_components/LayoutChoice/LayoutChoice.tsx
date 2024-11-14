@@ -29,7 +29,11 @@ async function LayoutChoice({ complex }: LayoutChoiceProps) {
         <Button className='ml-auto' variation='primary' size='small' text='Показать 442 объекта' />
       </Container>
       <LayoutContextProvider>
-        <LayoutInner listView={<ObjectsTable complex={complex} />} typeView={<LayoutTypes complex={complex} />} />
+        <LayoutInner
+          complex={complex}
+          listView={<ObjectsTable complex={complex} />}
+          typeView={<LayoutTypes complex={complex} />}
+        />
       </LayoutContextProvider>
     </Section>
   )
