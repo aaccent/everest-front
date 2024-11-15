@@ -7,24 +7,61 @@ import Cell, { CellProps } from '@/ui/Cell'
 
 import { DetailComplex } from '@/types/catalog/Complex'
 import ActiveLayoutCard from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/ActiveLayoutCard'
-import { ComplexHouse, ComplexHouseObject } from '@/types/complex/ComplexHouse'
+import { ComplexHouse, ComplexHouseObject, ComplexObjectSortType } from '@/types/complex/ComplexHouse'
 import { formatFullPrice } from '@/features/utility/price'
 import { GetObjectsFn, useFilterAndPagination } from '@/features/useFilterAndPagination'
 import { getComplexHouseObjects } from '@/globals/api'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
+import { useSort } from '@/features/useSort'
+
+interface HeadCellProps {
+  content: string
+  className?: string
+  sortType: ComplexObjectSortType
+}
+
+function HeadCell({ content, className, sortType }: HeadCellProps) {
+  const { addSort, sort } = useSort()
+
+  function clickHandler() {
+    const [prevSort, prevOrder] = sort?.split('-') || ['', 'asc']
+    let newOrder = 'asc'
+
+    if (prevSort === sortType) {
+      newOrder = prevOrder === 'asc' ? 'desc' : 'asc'
+    }
+
+    addSort(`${sortType}-${newOrder}`)
+  }
+
+  const isActive = sort?.includes(sortType) ?? false
+  const isAsc = sort?.includes('asc') ?? true
+
+  return (
+    <th className={`pb-[10px] md:pb-[20px] ${className}`}>
+      <button
+        className={`${isActive ? 'text-base-600 before:opacity-100' : 'text-base-600/50 before:opacity-0'} ${isAsc ? 'before:bg-icon-asc' : 'before:bg-icon-desc'} flex w-full items-center justify-center gap-[2px] pr-[18px] before:size-[16px] before:bg-default`}
+        onClick={clickHandler}
+        type='button'
+      >
+        {content}
+      </button>
+    </th>
+  )
+}
 
 function HeadRow({ houseNumber }: { houseNumber: string }) {
   return (
-    <Row className='text-base-400-lg-100 text-base-650'>
+    <Row className='text-base-400-lg-100 text-base-600'>
       <th className='text-base-400-reg-100 hidden uppercase text-base-600 md:table-cell md:pb-[20px]'>{`дом №${houseNumber}`}</th>
-      <Cell thead content='Секция' className='pb-[10px] md:pb-[20px]' />
-      <Cell thead content='Кв.№' className='hidden pb-[10px] md:table-cell md:pb-[20px]' />
-      <Cell thead content='Комнат' className='pb-[10px] md:pb-[20px]' />
-      <Cell thead content='Площадь' className='pb-[10px] md:pb-[20px]' />
-      <Cell thead content='Этаж' className='pb-[10px] md:pb-[20px]' />
-      <Cell thead content='Тип отделки' className='hidden pb-[10px] md:table-cell md:pb-[20px]' />
-      <Cell thead content='Стоимость' className='pb-[10px] md:pb-[20px]' />
+      <HeadCell content='Секция' sortType='section' />
+      <HeadCell content='Кв.№' className='hidden md:table-cell' sortType='flat_number' />
+      <HeadCell content='Комнат' sortType='room' />
+      <HeadCell content='Площадь' sortType='square' />
+      <HeadCell content='Этаж' sortType='floor' />
+      <HeadCell content='Тип отделки' className='hidden md:table-cell' sortType='finish_type' />
+      <HeadCell content='Стоимость' sortType='price' />
     </Row>
   )
 }
@@ -39,7 +76,7 @@ function BodyCell({ className, content }: Omit<CellProps, 'thead'>) {
 }
 
 function outputValue(rawValue: string | number | null) {
-  if (!rawValue) return ''
+  if (!rawValue && rawValue !== 0) return ''
 
   return rawValue
 }
@@ -60,8 +97,15 @@ function TableBody({ objects }: { objects: ComplexHouseObject[] }) {
 }
 
 function HouseTable({ complex, house }: { complex: DetailComplex; house: ComplexHouse }) {
-  const getObjects: GetObjectsFn<ComplexHouseObject> = async ({ filter, perPage, page }) => {
-    return await getComplexHouseObjects(complex.seoUrl, house.houseNumber, { perPage, page, filter })
+  const getObjects: GetObjectsFn<ComplexHouseObject> = async ({ filter, perPage, page, sort }) => {
+    const [orderByWord, orderBy] = sort?.split('-') || [undefined, undefined]
+    return await getComplexHouseObjects(complex.seoUrl, house.houseNumber, {
+      perPage,
+      page,
+      filter,
+      orderByWord: orderByWord as ComplexObjectSortType,
+      orderBy: orderBy as 'asc' | 'desc',
+    })
   }
 
   const { list, pagination } = useFilterAndPagination<ComplexHouseObject>({ initList: house, getObjects })

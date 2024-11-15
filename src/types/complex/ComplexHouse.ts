@@ -19,3 +19,4 @@ export type ComplexHouse = Pagination & {
   objects: ComplexHouseObject[]
   count: number
 }
+export type ComplexObjectSortType = 'flat_number' | 'section' | 'price' | 'floor' | 'finish_type' | 'square' | 'room'
