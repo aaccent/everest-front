@@ -20,7 +20,7 @@ const EMPTY_LIST: ListType = {
   total: 0,
 }
 
-export type GetObjectsFn<TType = unknown> = (options: GeneralRequestParams) => Promise<ListType>
+export type GetObjectsFn<TType = unknown> = (options: GeneralRequestParams) => Promise<ListType<TType>>
 
 export interface Props<TType = unknown> {
   initList: ListType<TType>
@@ -35,7 +35,7 @@ export type ObjectManagerType = ReturnType<typeof useFilterAndPagination>
  * @param getObjects - функция для запроса объектов
  */
 export function useFilterAndPagination<TType = unknown>({ initList, getObjects }: Props<TType>) {
-  const [list, setList] = useState<ListType>(initList)
+  const [list, setList] = useState<ListType<TType>>(initList)
   const { updateProps } = useContext(PopupContext)
 
   const [isLoading, setIsLoading] = useState(false)
@@ -48,7 +48,7 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   function _setList(data: ListType) {
-    setList(data)
+    setList(data as ListType<TType>)
     updateProps('filter', { count: data.total })
   }
 
@@ -81,7 +81,7 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
       const data = await _getObjects(newPage)
       const { objects, count, total } = data
       _setList({
-        objects: list.objects.concat(objects),
+        objects: list.objects.concat(objects as TType),
         count,
         total,
       })
@@ -107,6 +107,10 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
     })
   }
 
+  const restObjects = list.total - list.count * page
+  const hasNextPage = list.count > perPage || restObjects > 0
+  const restForShowing = restObjects >= perPage ? perPage : restObjects
+
   return {
     list,
     loading: {
@@ -118,6 +122,8 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
       nextPage,
       perPage,
       setPerPage,
+      restForShowing,
+      hasNextPage,
     },
   }
 }

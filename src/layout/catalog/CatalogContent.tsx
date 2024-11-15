@@ -17,7 +17,7 @@ type CatalogContentProps = {
   type: 'complex' | 'default' | 'layout'
 }
 
-function CatalogContent({ category, tileClassName, listClassName, type }: CatalogContentProps) {
+function CatalogContent({ tileClassName, listClassName, type }: CatalogContentProps) {
   const { view, list, pagination } = useContext(CategoryContext)
 
   const onMoreBtnClick = () => {
@@ -43,26 +43,20 @@ function CatalogContent({ category, tileClassName, listClassName, type }: Catalo
     })
   }
 
-  function showButton() {
-    const rest = list.total - list.count * pagination.page
-    if (list.count < pagination.perPage || rest <= 0) return null
-
-    const amountOnButton = rest >= pagination.perPage ? pagination.perPage : rest
-    return (
-      <Button
-        type='button'
-        variation='outline'
-        size='large'
-        className='mt-[40px] w-full rounded-[24px]'
-        onClick={onMoreBtnClick}
-      >{`показать ещё ${amountOnButton} ${objectPlural.get(amountOnButton)}`}</Button>
-    )
-  }
-
   return (
     <Container>
       <div className={`flex flex-col ${viewStyle}`}>{showObjects()}</div>
-      {showButton()}
+      {pagination.hasNextPage && (
+        <Button
+          type='button'
+          variation='outline'
+          size='large'
+          className='mt-[40px] w-full rounded-[24px]'
+          onClick={onMoreBtnClick}
+        >
+          показать ещё {pagination.restForShowing} {objectPlural.get(pagination.restForShowing)}
+        </Button>
+      )}
     </Container>
   )
 }
