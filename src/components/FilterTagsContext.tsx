@@ -33,7 +33,7 @@ interface FilterTagsContextProps {
 export const FilterTagsContext = createContext({} as FilterTagsContextProps)
 
 interface FilterTagsProps extends PropsWithChildren {
-  list: FilterBlock[]
+  list: FilterBlock[] | FilterType<FilterView>[]
 }
 
 /**
@@ -44,11 +44,11 @@ interface FilterTagsProps extends PropsWithChildren {
 
 function FilterTagsProvider({ list, children }: FilterTagsProps) {
   const { filter } = useFilter()
-
   const [activeFilters, setActiveFilters] = useState<FilterType<FilterView>[]>([])
 
   useEffect(() => {
-    const convertedList = convertBlocksToFilterType(list)
+    const convertedList =
+      'filters' in list ? convertBlocksToFilterType(list as FilterBlock[]) : (list as FilterType<FilterView>[])
     setActiveFilters(getActiveFilters(convertedList, filter.parsed))
   }, [list, filter])
 

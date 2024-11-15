@@ -12,7 +12,7 @@ import QuickFiltersTags from '@/components/QuickFilter/QuickFiltersTags'
 
 interface Props {
   filters: QuickFilters
-  categoryName: string
+  categoryName?: string
 }
 
 function QuickFilter({ filters, categoryName }: Props) {
@@ -20,12 +20,12 @@ function QuickFilter({ filters, categoryName }: Props) {
     <Container>
       <div className='mb-[32px] mt-[40px] flex items-center justify-between rounded-[24px] bg-base-200 p-[20px] md:w-full md:flex-col md:items-start md:justify-start md:p-[32px] md:pb-[18px]'>
         <div className='flex w-full items-center justify-between md:hidden'>
-          <DetailFilterButton quickFilters={filters} categoryName={categoryName} />
-          <ObjectsAmount className='text-base-300-lg-100 translate-x-0 text-base-650 md:hidden' />
+          {categoryName && <DetailFilterButton quickFilters={filters} categoryName={categoryName} />}
+          {categoryName && <ObjectsAmount className='text-base-300-lg-100 translate-x-0 text-base-650 md:hidden' />}
           <MapObjectsButton />
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>
-          <DetailFilterButton quickFilters={filters} categoryName={categoryName} />
+          {categoryName && <DetailFilterButton quickFilters={filters} categoryName={categoryName} />}
           <div className='ml-[16px] flex gap-[16px]'>
             <FilterItems filters={filters.filters.slice(0, 5)} isQuick />
           </div>

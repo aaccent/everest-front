@@ -1,5 +1,6 @@
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import { ROUTES } from '@/globals/paths.js'
+import { RealtorCardType } from '@/types/Realtor'
 
 interface CategoryWithSeoUrl {
   seoUrl: string
@@ -62,5 +63,11 @@ export function generateObjectLink(
 export function createComplexLink(item: Pick<ObjectForLinkGeneration, 'seoUrl'>) {
   let link = ROUTES.COMPLEXES
   link += `/${item.seoUrl}`
+  return link
+}
+
+export function createRealtorLink(realtorCode: RealtorCardType['code']) {
+  let link = ROUTES.REALTORS
+  link += `/${realtorCode}`
   return link
 }
