@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 import Row from '@/ui/Row'
@@ -5,9 +7,12 @@ import Cell, { CellProps } from '@/ui/Cell'
 
 import { DetailComplex } from '@/types/catalog/Complex'
 import ActiveLayoutCard from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/ActiveLayoutCard'
-import { getComplexHouseObjects } from '@/globals/api'
 import { ComplexHouse, ComplexHouseObject } from '@/types/complex/ComplexHouse'
 import { formatFullPrice } from '@/features/utility/price'
+import { GetObjectsFn, useFilterAndPagination } from '@/features/useFilterAndPagination'
+import { getComplexHouseObjects } from '@/globals/api'
+import Button from '@/ui/buttons/Button'
+import { objectPlural } from '@/features/utility/pluralRules'
 
 function HeadRow({ houseNumber }: { houseNumber: string }) {
   return (
@@ -54,34 +59,41 @@ function TableBody({ objects }: { objects: ComplexHouseObject[] }) {
   ))
 }
 
-function HouseTable({ house }: { house: ComplexHouse }) {
+function HouseTable({ complex, house }: { complex: DetailComplex; house: ComplexHouse }) {
+  const getObjects: GetObjectsFn<ComplexHouseObject> = async ({ filter, perPage, page }) => {
+    return await getComplexHouseObjects(complex.seoUrl, house.houseNumber, { perPage, page, filter })
+  }
+
+  const { list, pagination } = useFilterAndPagination<ComplexHouseObject>({ initList: house, getObjects })
+
+  if (!list.objects.length) return null
+
   return (
     <div className='mb-[32px] last:mb-0 md:mb-[64px]'>
       <div className='text-base-400-reg-100 mb-[20px] uppercase md:hidden'>{`дом №${house.houseNumber}`}</div>
-      <div className='flex w-full max-w-[911px] flex-col gap-[16px]'>
+      <div className='flex w-full max-w-[911px] flex-col gap-[20px]'>
         <table className='w-full'>
           <thead>
             <HeadRow houseNumber={house.houseNumber} />
           </thead>
           <tbody>
-            <TableBody objects={house.list} />
+            <TableBody objects={list.objects} />
           </tbody>
         </table>
+        {pagination.hasNextPage && (
+          <Button className='w-full' variation='outline' onClick={pagination.nextPage}>
+            показать ещё {pagination.restForShowing} {objectPlural.get(pagination.restForShowing)}
+          </Button>
+        )}
       </div>
       <div className='hidden max-w-[380px] md:block'></div>
     </div>
   )
 }
 
-async function ObjectsTable({ complex }: { complex: DetailComplex }) {
-  const houses = await Promise.all(
-    complex.houseNumbers.map((houseNumber) => {
-      return getComplexHouseObjects(complex.seoUrl, houseNumber, { perPage: 9 })
-    }),
-  )
-
+function ObjectsTable({ complex, houses }: { complex: DetailComplex; houses: ComplexHouse[] }) {
   function showHousesTable() {
-    return houses.map((house, index) => <HouseTable house={house} key={index} />)
+    return houses.map((house, index) => <HouseTable complex={complex} house={house} key={index} />)
   }
 
   return (

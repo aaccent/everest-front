@@ -34,9 +34,10 @@ export async function getComplexHouseObjects(
 
   return {
     houseNumber,
-    list: res.data.objects,
+    objects: res.data.objects,
     page: res.data.page,
     perPage: res.data.perPage,
     total: res.data.total,
+    count: res.data.objects.length,
   }
 }
