@@ -5,8 +5,10 @@ import Section from '@/layout/Section'
 import TabButtons, { TabButtonItem } from '@/components/TabButtons'
 import { useParams } from 'next/navigation'
 import { QuickFilters } from '@/types/FiltersType'
-import QuickFilter from '@/components/QuickFilter/QuickFilter'
-import FilterTagsProvider from '@/components/FilterTagsContext'
+import { Category, SubcategoryLikeCategory } from '@/types/catalog/Category'
+import { GetObjectsFn } from '@/features/useFilterAndPagination'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
+import Offers from '@/app/realtors/[realtorCode]/_components/Offers'
 
 const REALTOR_STATES: TabButtonItem[] = [
   {
@@ -27,15 +29,24 @@ const REALTOR_STATES: TabButtonItem[] = [
   },
 ]
 interface AboutProps {
-  quickFilters: QuickFilters
+  propsForOffersState: {
+    quickFilters: QuickFilters
+    initObjectsList: Category | SubcategoryLikeCategory
+    getObjects: GetObjectsFn<DefaultObject>
+  }
 }
-function About({ quickFilters }: AboutProps) {
+function About({ propsForOffersState }: AboutProps) {
   const [state, setState] = useState(REALTOR_STATES[0].value)
   const { realtorCode } = useParams()
 
   const onTabButtonClick = (value: string) => setState(value)
 
-  function showContent() {}
+  function showContent() {
+    switch (state) {
+      case 'offers':
+        return <Offers {...propsForOffersState} />
+    }
+  }
 
   return (
     <Section>
@@ -45,9 +56,7 @@ function About({ quickFilters }: AboutProps) {
           <TabButtons list={REALTOR_STATES} onChange={onTabButtonClick} />
         </div>
       </div>
-      <FilterTagsProvider list={quickFilters.filters}>
-        <QuickFilter filters={quickFilters} />
-      </FilterTagsProvider>
+      {showContent()}
     </Section>
   )
 }

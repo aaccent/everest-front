@@ -6,6 +6,10 @@ import Breadcrumbs from '@/components/Breadcrumbs'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import About from '@/app/realtors/[realtorCode]/_components/About'
 import { getCategory, getQuickFilters } from '@/globals/api'
+import { GetObjectsFn } from '@/features/useFilterAndPagination'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
+
+const TEST_REALTOR_CATEGORY = 'secondary-housing'
 
 async function Page({ params }: RealtorPage) {
   const realtor = await getRealtorDetailed(params.realtorCode)
@@ -20,16 +24,23 @@ async function Page({ params }: RealtorPage) {
     },
   ]
 
-  const testQuickFilters = await getQuickFilters('new-building') //Возможно будет другой метод получения быстрых фильтров в зависимости от params.realtorCode
-  const testInitList = await getCategory('secondary-housing')
-
-  //const testGetObjects : GetObjectsFn<DefaultObject> = async ()
+  const quickFilters = await getQuickFilters(TEST_REALTOR_CATEGORY)
+  const initObjectsList = await getCategory(TEST_REALTOR_CATEGORY)
+  const getObjects: GetObjectsFn<DefaultObject> = async (props) => {
+    'use server'
+    const data = await getCategory(TEST_REALTOR_CATEGORY, { ...props })
+    return {
+      objects: data.objects,
+      total: data.total,
+      count: data.count,
+    }
+  }
 
   return (
     <>
       <Breadcrumbs list={breadcrumbs} />
       <MainHero {...realtor} />
-      <About quickFilters={testQuickFilters} />
+      <About propsForOffersState={{ initObjectsList, getObjects, quickFilters }} />
     </>
   )
 }
