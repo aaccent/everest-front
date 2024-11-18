@@ -23,10 +23,10 @@ async function Page({ params }: ComplexPage) {
         <PageSlider complex={complex} />
         <ExclusiveOffers />
         <LayoutChoice complex={complex} />
-        <Documentation complexCode={params.complex} />
-        <Bonuses />
-        <BuildingProgress complexCode={params.complex} />
       </PageMenuWrapper>
+      <Documentation complexCode={params.complex} />
+      <Bonuses />
+      <BuildingProgress complexCode={params.complex} />
     </>
   )
 }

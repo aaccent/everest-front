@@ -6,7 +6,7 @@ import Section from '@/layout/Section'
 function PageMenuWrapper({ children }: PropsWithChildren) {
   const [className, setClassName] = useState({
     staticMenu: '',
-    fixedMenu: '',
+    fixedMenu: 'invisible opacity-0',
   })
   const ref = useRef<HTMLDivElement>(null)
 
@@ -15,9 +15,8 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
 
     const headerHeight = document.querySelector('header')?.offsetHeight
     const innerHeight = window.innerHeight
-
     const top = Number(innerHeight) - Number(headerHeight)
-    const height = ref.current?.offsetHeight
+
     const observer = new IntersectionObserver(
       ([entries]) => {
         if (entries.isIntersecting) {
@@ -29,8 +28,9 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
           setClassName({ staticMenu: 'visible opacity-100', fixedMenu: 'invisible opacity-0' })
         }
       },
-      { rootMargin: `${height}px 0px -${top}px 0px` },
+      { rootMargin: `0px 0px -${top}px 0px` },
     )
+
     ref.current && observer.observe(ref.current)
   }, [])
 
