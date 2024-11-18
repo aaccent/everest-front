@@ -4,7 +4,7 @@ import { DetailComplex } from '@/types/catalog/Complex'
 import Img from '@/ui/Img'
 import Image from 'next/image'
 import DeveloperLogo from '@/assets/static/donstroy.svg'
-import { formatPriceShortBy } from '@/features/utility/price'
+import { formatPriceShort } from '@/features/utility/price'
 import Button from '@/ui/buttons/Button'
 import NoPhoto from '@/assets/static/no-photo.jpg'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
@@ -72,7 +72,7 @@ function ComplexHero({ complex }: Props) {
                 <div className='text-base-400-reg-100 min-w-[128px] uppercase opacity-50'>площадь квартир</div>
               </div>
               <div className='min-w-[184px] rounded-[20px] bg-base-600 px-[18px] py-[14px]'>
-                <div className='text-header-300 mb-[12px]'>{formatPriceShortBy(50000)}</div>
+                <div className='text-header-300 mb-[12px]'>{formatPriceShort(50000)}</div>
                 <div className='text-base-400-reg-100 min-w-[128px] uppercase opacity-50'>стоимость квартир</div>
               </div>
             </div>

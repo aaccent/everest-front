@@ -107,6 +107,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             showTitle={!isQuick}
             value={value}
             onChange={onChange}
+            prePrefix={prePrefix()}
             prefix={filter.prefix}
             step={filter.prefix === '₽' ? 0.1 : 1}
           />
