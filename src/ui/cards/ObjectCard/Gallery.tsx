@@ -20,7 +20,6 @@ interface GridsProps {
 }
 
 function Grids({ onMouseEnter, onMouseLeave, images, link, cols, seeAllGrid }: GridsProps) {
-  const galleryLink = link + '?gallery'
   const { emblaApi } = useContext(CarouselContext)
 
   const onMouseEnterHandle = (index: number) => {
@@ -41,7 +40,7 @@ function Grids({ onMouseEnter, onMouseLeave, images, link, cols, seeAllGrid }: G
       {images.map((_, index) => (
         <Link href={link} className='block' key={index} onMouseEnter={() => onMouseEnterHandle(index)} />
       ))}
-      {seeAllGrid && <Link href={galleryLink} onMouseEnter={() => onMouseEnterHandle(images.length)} />}
+      {seeAllGrid && <Link href={link} onMouseEnter={() => onMouseEnterHandle(images.length)} />}
     </div>
   )
 }
