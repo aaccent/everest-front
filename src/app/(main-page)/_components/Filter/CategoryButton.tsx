@@ -30,7 +30,7 @@ function CategoryButton({ name, seoUrl, icon, isActive, onClick }: CategoryButto
         href={`${ROUTES.CATALOG}/${seoUrl}`}
         className='text-base-400-reg-100 flex size-[132px] flex-col items-center justify-center gap-[10px] rounded-[24px] bg-base-650 text-center uppercase text-base-100 first-of-type:ml-[22px] last-of-type:mr-[22px] md:hidden'
       >
-        <Img src={icon} height={42} width={42} className='size-[42px] object-cover object-center filter-base-100' />
+        <Img src={icon} height={42} width={42} className='size-[42px] object-contain object-center filter-base-100' />
         {name}
       </Link>
     </>
