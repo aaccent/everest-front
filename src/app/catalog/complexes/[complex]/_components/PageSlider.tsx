@@ -8,6 +8,7 @@ import Carousel, {
 import Img from '@/ui/Img'
 import { DetailComplex } from '@/types/catalog/Complex'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
+import DetailedInfo from '@/app/catalog/complexes/[complex]/_components/DetailedInfo'
 
 function showSlides(images: string[]) {
   return images.map((img, index) => (
@@ -23,9 +24,11 @@ interface Props {
   complex: DetailComplex
 }
 
+export const ABOUT_ID = 'about'
+
 function PageSlider({ complex }: Props) {
   return (
-    <DecorativeBlock>
+    <DecorativeBlock id={ABOUT_ID}>
       <Carousel className='overflow-hidden' fade>
         <CarouselInner>
           {!!complex.gallery?.length ? showSlides(complex.gallery) : showSlides(tempGallery)}
@@ -33,6 +36,7 @@ function PageSlider({ complex }: Props) {
         <CarouselProgressBar className='inset-x-[60px] top-[-32px] *:bg-base-100 md:w-[230px]' perView={1} />
         <CarouselWhiteNavigations className='hidden md:flex' />
       </Carousel>
+      <DetailedInfo complex={complex} />
     </DecorativeBlock>
   )
 }

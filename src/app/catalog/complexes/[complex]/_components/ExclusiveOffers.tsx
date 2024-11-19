@@ -17,6 +17,8 @@ export interface ExclusiveOffersType {
   items: Offer[]
 }
 
+export const EXCLUSIVE_OFFERS_ID = 'offers'
+
 async function ExclusiveOffers() {
   const offersBlock = await getExclusiveOffers()
 

@@ -37,7 +37,7 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
   return (
     <Section>
       <div className='relative' ref={ref}>
-        <PageMenu className={`${className.staticMenu} mb-[60px]`} />
+        <PageMenu className={`${className.staticMenu} static mb-[60px]`} />
         <PageMenu
           className={`fixed top-[62px] z-[100] w-full bg-base-100 pl-[56px] pt-[32px] text-base-650 transition-visibility md:inset-x-[0] md:top-[0] md:z-50 md:m-[0] ${className.fixedMenu}`}
         />

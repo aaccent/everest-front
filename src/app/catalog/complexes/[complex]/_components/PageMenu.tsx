@@ -15,7 +15,7 @@ const PAGE_MENU = [
   },
   {
     title: 'Выбор квартиры',
-    dataSet: 'layoutChoice',
+    dataSet: 'complex-layout',
   },
   {
     title: 'Подбор ипотеки',
@@ -24,7 +24,7 @@ const PAGE_MENU = [
 ]
 
 function PageMenu({ className }: { className?: string }) {
-  const [activeMenuItem, setActiveMenuItem] = useState<string | null>(PAGE_MENU[0].dataSet)
+  const [activeMenuItem, setActiveMenuItem] = useState<string>(PAGE_MENU[0].dataSet || '')
 
   const onClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const targetId = e.currentTarget.dataset.id
@@ -50,9 +50,18 @@ function PageMenu({ className }: { className?: string }) {
   }
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entries]) => setActiveMenuItem(entries.target.id), {
-      threshold: 0.7,
-    })
+    if (className?.includes('static')) return
+
+    const observer = new IntersectionObserver(
+      ([entries]) => {
+        if (entries.isIntersecting) {
+          setActiveMenuItem(entries.target.id)
+        } else {
+          setActiveMenuItem('')
+        }
+      },
+      { threshold: 0.7 },
+    )
 
     PAGE_MENU.forEach((item) => {
       if (!item.dataSet) return
