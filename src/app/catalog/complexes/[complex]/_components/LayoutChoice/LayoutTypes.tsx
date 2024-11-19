@@ -2,6 +2,8 @@ import React from 'react'
 import { getLayouts } from '@/globals/api'
 import { DetailComplex } from '@/types/catalog/Complex'
 import LayoutGroupCard from '@/ui/cards/LayoutGroupCard'
+import { flatPlural } from '@/features/utility/pluralRules'
+import GenPlanButton from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/GenPlanButton'
 
 interface Props {
   complex: DetailComplex
@@ -22,13 +24,13 @@ async function LayoutTypes({ complex }: Props) {
         <div className='flex flex-col gap-[4px]'>
           <span className='text-base-100-lg-100'>Генплан проекта</span>
           <div className='text-base-300-lg-100 flex gap-[20px] text-base-600/50 md:hidden'>
-            <span>{layouts[0].address}</span>
-            <span>236 квартир</span>
+            <span>{complex.address}</span>
+            <span>
+              {complex.objectCount} {flatPlural.get(complex.objectCount)}
+            </span>
           </div>
         </div>
-        <button className='flex h-[250px] w-full justify-end rounded-[24px] bg-base-300 p-[16px] md:h-[220px]'>
-          <span className='flex size-[38px] items-center justify-center rounded-full bg-base-100 after:size-[28px] after:bg-icon-full-screen after:bg-default md:size-[58px] md:after:size-[40px]' />
-        </button>
+        <GenPlanButton complex={complex} />
       </div>
     </div>
   )
