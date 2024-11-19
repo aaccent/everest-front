@@ -3,7 +3,7 @@ import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
 import Container from '@/layout/Container'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import CatalogViewButton from '@/components/QuickFilter/CatalogViewButton'
-import { QuickFilters } from '@/types/FiltersType'
+import { QuickFilters, Sort } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import SortButton from '@/components/QuickFilter/SortButton'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
@@ -15,9 +15,10 @@ interface Props {
   filters: QuickFilters
   categoryName: string
   initCount: number
+  sorts: Sort[]
 }
 
-function QuickFilter({ filters, categoryName, initCount }: Props) {
+function QuickFilter({ filters, categoryName, initCount, sorts }: Props) {
   async function getFiltersAction() {
     'use server'
 
@@ -45,7 +46,7 @@ function QuickFilter({ filters, categoryName, initCount }: Props) {
           <MapObjectsButton className='ml-auto' />
         </div>
         <div className='hidden w-full items-center pt-[17px] md:flex'>
-          <SortButton sorts={filters.sorts} />
+          <SortButton sorts={sorts} />
           <QuickFiltersTags />
           <button
             className='text-base-500-reg-100-upper ml-auto mr-[30px] flex w-full max-w-[155px] items-center gap-[8px] before:size-[22px] before:bg-icon-search-favorite before:bg-default'

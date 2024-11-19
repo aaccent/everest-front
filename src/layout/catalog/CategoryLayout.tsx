@@ -45,7 +45,12 @@ async function CategoryLayout({ category, children, quickFilters, detailFilters 
         </Container>
       )}
       <FilterTagsProvider list={generalFilters.filters}>
-        <QuickFilter filters={_quickFilters} categoryName={category.breadcrumbs[0].seo} initCount={category.count} />
+        <QuickFilter
+          filters={_quickFilters}
+          categoryName={category.breadcrumbs[0].seo}
+          initCount={category.count}
+          sorts={generalFilters.sorts}
+        />
       </FilterTagsProvider>
       {children}
     </>
