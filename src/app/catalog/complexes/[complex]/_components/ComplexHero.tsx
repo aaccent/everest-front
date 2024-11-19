@@ -24,10 +24,12 @@ function ComplexHero({ complex }: Props) {
             <h1 className='text-header-100 mb-[16px] text-base-600' data-testid={TEST_ID.COMPLEX_DETAIL_H1}>
               {complex.name}
             </h1>
-            <div className='mb-[32px] flex items-center gap-[10px] md:mb-[56px] md:gap-0'>
-              <div className='flex size-[34px] items-center justify-center rounded-full border border-base-400 after:block after:size-[14px] after:bg-icon-address after:filter-base-600 after:bg-default-contain md:border-none md:after:filter-primary'></div>
-              <div className='text-base-300-lg-100 text-base-650 md:text-primary'>{complex.address}</div>
-            </div>
+            {!!complex.address && (
+              <div className='mb-[32px] flex items-center gap-[10px] md:mb-[56px] md:gap-0'>
+                <div className='flex size-[34px] items-center justify-center rounded-full border border-base-400 after:block after:size-[14px] after:bg-icon-address after:filter-base-600 after:bg-default-contain md:border-none md:after:filter-primary'></div>
+                <div className='text-base-300-lg-100 text-base-650 md:text-primary'>{complex.address}</div>
+              </div>
+            )}
             <div className='text-base-200-lg-100 hidden w-full max-w-[464px] text-base-650 md:mb-[20px] md:block'>
               {complex.description}
             </div>
