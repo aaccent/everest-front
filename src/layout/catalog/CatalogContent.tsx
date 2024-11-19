@@ -35,10 +35,14 @@ function CatalogContent({ tileClassName, listClassName, type }: CatalogContentPr
     const _list = 'objects' in list ? list.objects : list
     return _list.map((item) => {
       switch (type) {
-        case 'complex':
-          return <ComplexCard item={item as ComplexObject} view={view} />
-        case 'default':
-          return <ObjectCard item={item as DefaultObject} view={view} />
+        case 'complex': {
+          const _item = item as ComplexObject
+          return <ComplexCard item={_item} view={view} key={_item.id} />
+        }
+        case 'default': {
+          const _item = item as DefaultObject
+          return <ObjectCard item={_item} view={view} key={_item.id} />
+        }
       }
     })
   }
