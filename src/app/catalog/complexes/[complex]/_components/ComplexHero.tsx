@@ -63,11 +63,12 @@ function ComplexHero({ complex }: Props) {
             height={576}
           />
           <Img
+            className='absolute left-[20px] top-[24px] h-full max-h-[30px] max-w-fit filter-base-100 md:top-[58px] md:max-h-[40px]'
             src={complex.developerLogo}
             width={85}
             height={24}
             alt=''
-            className='absolute left-[20px] top-[24px] h-full max-h-[30px] max-w-fit filter-base-100 md:top-[58px] md:max-h-[40px]'
+            removeIfFail
           />
           <div className='absolute bottom-[20px] w-[310px] overflow-auto scrollbar-transparent md:w-full'>
             <div className='mx-[20px] flex w-fit items-center gap-[10px] text-base-100'>
