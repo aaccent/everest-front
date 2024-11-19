@@ -4,8 +4,8 @@ import PageMenu from '@/app/catalog/complexes/[complex]/_components/PageMenu'
 
 function PageMenuWrapper({ children }: PropsWithChildren) {
   const [className, setClassName] = useState({
-    staticMenu: '',
-    fixedMenu: '',
+    staticMenu: 'visible opacity-100',
+    fixedMenu: 'invisible opacity-0',
   })
   const ref = useRef<HTMLDivElement>(null)
 
@@ -36,7 +36,7 @@ function PageMenuWrapper({ children }: PropsWithChildren) {
   return (
     <div className='relative' ref={ref}>
       <PageMenu
-        className={`fixed top-[62px] z-[100] w-full bg-base-100 pl-[56px] pt-[32px] text-base-650 transition-visibility md:inset-x-[0] md:top-[0] md:z-50 md:m-[0] ${className.fixedMenu}`}
+        className={`fixed top-[62px] z-[70] w-full bg-base-100 pl-[56px] pt-[32px] text-base-650 transition-visibility md:inset-x-[0] md:top-[0] md:z-50 md:m-[0] ${className.fixedMenu}`}
       />
       <PageMenu
         className={`px-container first-next:!mt-[32px] md:first-next:mt-[60px] ${className.staticMenu} mb-[60px]`}
