@@ -6,7 +6,6 @@ import Range, { RangeValue } from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
 import React from 'react'
 import { Filter, useFilter } from '@/features/useFilter'
-import { formatLongPriceForRange, formatShortPriceObjForRange } from '@/features/utility/price'
 
 /** @param filters Полученный от бэкенда массив фильтров
  * @param isQuick  Если `true`, то показывает заголовок поля фильтра, иначе скрывает.*/
@@ -72,46 +71,46 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
         )
       }
       case 'range': {
-        const rawValue = getCurrentFilter<[number, number]>(filter.id)?.value
-        const value: RangeValue = rawValue ? [rawValue[0], rawValue[1]] : [filter.value[0], filter.value[1]]
+        const rawValue = getCurrentFilter<number[]>(filter.id)?.value
+        const value: RangeValue = rawValue || filter.value
 
-        const formalValue = (prefix: string) => {
-          switch (prefix) {
-            case '₽':
-              return {
-                value: formatShortPriceObjForRange(value),
-                onChange: (id: string, newValue: RangeValue) => {
-                  onChange(id, formatLongPriceForRange(newValue))
-                },
-                min: formatShortPriceObjForRange(filter.value)[0],
-                max: formatShortPriceObjForRange(filter.value)[1],
-                step: 0.1,
-                prefix: `млн ${prefix}`,
-              }
-            default: {
-              return {
-                value,
-                onChange,
-                min: filter.value[0],
-                max: filter.value[1],
-                prefix,
-              }
-            }
-          }
+        const prePrefix = () => {
+          if (filter.prefix !== '₽') return
+
+          let min: 'млн' | 'тыс' | ''
+          let max: 'млн' | 'тыс' | ''
+
+          const minDigits = Math.trunc(Number(value[0])).toString().length
+          if (minDigits > 6) {
+            min = 'млн'
+          } else if (minDigits > 3) {
+            min = 'тыс'
+          } else min = ''
+
+          const maxDigits = Math.trunc(Number(value[1])).toString().length
+          if (maxDigits > 6) {
+            max = 'млн'
+          } else if (maxDigits > 3) {
+            max = 'тыс'
+          } else max = ''
+
+          return { min, max }
         }
+
         return (
           <Range
             key={filter.id}
-            min={formalValue(filter.prefix).min}
-            max={formalValue(filter.prefix).max}
+            min={filter.value[0]}
+            max={filter.value[1]}
             name={filter.id.toString()}
             title={filter.name}
             showTitle={!isQuick}
-            defaultValue={formalValue(filter.prefix).value}
-            value={formalValue(filter.prefix).value}
-            onChange={formalValue(filter.prefix).onChange}
-            prefix={formalValue(filter.prefix).prefix || ''}
-            step={formalValue(filter.prefix).step}
+            defaultValue={value}
+            value={value}
+            onChange={onChange}
+            prefix={filter.prefix}
+            prePrefix={prePrefix()}
+            step={filter.prefix === '₽' ? 0.1 : 1}
           />
         )
       }

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { IMaskInput } from 'react-imask'
 import { InputValue } from '@/globals/utilityTypes'
 import { Range as RangeType } from '@/types/FiltersType'
+import { formatShortPriceForRange } from '@/features/utility/price'
 
 export type RangeValue = RangeType['value']
 
@@ -10,9 +11,12 @@ export type RangeProps = {
   name: string
   min: number
   max: number
-  /** @default { min, max } */
   defaultValue?: RangeValue
   prefix?: string
+  prePrefix?: {
+    min: 'млн' | 'тыс' | ''
+    max: 'млн' | 'тыс' | ''
+  }
   className?: string
   title: string
   showTitle?: boolean
@@ -24,6 +28,7 @@ function Range({
   min,
   max,
   prefix = '',
+  prePrefix,
   className,
   title,
   showTitle,
@@ -35,6 +40,15 @@ function Range({
   const [value, setValue] = useState<RangeValue>(defaultValue)
 
   const _value = customValue || value
+
+  const maskValue = () => {
+    if (prefix !== '₽') return { min: _value[0], max: _value[1] }
+    const shortValue = formatShortPriceForRange(_value)
+    return {
+      min: shortValue[0],
+      max: shortValue[1],
+    }
+  }
 
   const _setValue = (value: RangeValue) => {
     onChange?.(name, value)
@@ -51,7 +65,8 @@ function Range({
   }
 
   const onMinInputChange = (newValue: string) => {
-    const numberValue = Number(newValue)
+    let numberValue = Number(newValue)
+    if (numberValue === _value[0]) return
 
     if (numberValue < min || numberValue === _value[0]) return
     if (numberValue > _value[1]) return _setValue([min, _value[1]])
@@ -59,9 +74,16 @@ function Range({
   }
   const onMaxInputChange = (newValue: string) => {
     const numberValue = Number(newValue)
+    if (numberValue === _value[0]) return
 
     if (numberValue > max || numberValue < _value[0] || numberValue === _value[1]) return
     _setValue([_value[0], +numberValue])
+  }
+
+  function showMask(point: 'min' | 'max') {
+    const preposition = point === 'max' ? 'до' : 'от'
+    if (prefix !== '₽') return `${preposition} num ${prefix}`
+    return `${preposition} num ${prePrefix && prePrefix[point]} ${prefix}`
   }
 
   const minPos = ((_value[0] - min) / (max - min)) * 100
@@ -77,7 +99,7 @@ function Range({
         <div className='text-base-400-lg-100 flex items-center justify-between'>
           <label>
             <IMaskInput
-              mask={`от num ${prefix}`}
+              mask={showMask('min')}
               lazy={false}
               blocks={{
                 num: {
@@ -86,7 +108,7 @@ function Range({
                 },
               }}
               className='w-full focus:outline-0'
-              value={_value[0].toString()}
+              value={maskValue().min.toString()}
               onAccept={(value) => onMinInputChange(value)}
               unmask
             />
@@ -94,7 +116,7 @@ function Range({
           <div className='absolute inset-1/2 h-[12px] w-[1px] -translate-x-1/2 -translate-y-1/2 bg-base-400' />
           <label>
             <IMaskInput
-              mask={`до num ${prefix}`}
+              mask={showMask('max')}
               lazy={false}
               blocks={{
                 num: {
@@ -103,7 +125,7 @@ function Range({
                 },
               }}
               className='w-full text-end focus:outline-0'
-              value={_value[1].toString()}
+              value={maskValue().max.toString()}
               onAccept={(value) => onMaxInputChange(value)}
               unmask
             />
