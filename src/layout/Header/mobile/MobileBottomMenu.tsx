@@ -21,7 +21,7 @@ function MenuButton({ iconName, text }: MenuButtonProps) {
   )
 }
 
-function MobileMenu() {
+function MobileBottomMenu() {
   return (
     <aside className='mobile-menu fixed bottom-0 left-0 z-40 w-full rounded-t-[16px] border-t border-t-[#000]/[.12] bg-base-100 pb-[30px] text-[11px] text-base-600/[.5] peer-[[data-map-page]]/header-state:hidden'>
       <nav>
@@ -39,4 +39,4 @@ function MobileMenu() {
   )
 }
 
-export default MobileMenu
+export default MobileBottomMenu
