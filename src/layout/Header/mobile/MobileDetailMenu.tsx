@@ -24,7 +24,7 @@ async function MobileDetailMenu() {
   const cityFromIp = await getCityByIpFromLocation()
 
   return (
-    <MobileDetailMenuWrapper className='invisible fixed bottom-0 z-20 h-full w-full bg-base-100 opacity-0 transition-opacity peer-[[data-menu="mobile"]]/header-state:visible peer-[[data-menu="mobile"]]/header-state:opacity-100'>
+    <MobileDetailMenuWrapper className='invisible fixed bottom-0 z-40 h-full w-full bg-base-100 opacity-0 transition-opacity peer-[[data-menu="mobile"]]/header-state:visible peer-[[data-menu="mobile"]]/header-state:opacity-100'>
       <div className='px-container relative h-full overflow-y-auto py-[24px] has-[.active-submenu]:overflow-hidden'>
         <nav className='mb-[32px]'>
           <ul>

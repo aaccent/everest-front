@@ -24,7 +24,7 @@ function BuildingProgress({ complexCode }: Props) {
     })
   }, [])
 
-  const onYearChange = (name: string, newYear: Array<string>) => {
+  const onYearChange = (_: string, newYear: Array<string>) => {
     setSelectedYear(newYear[0])
   }
 
@@ -48,6 +48,8 @@ function BuildingProgress({ complexCode }: Props) {
 
     getAlbums(complexCode, activeQuarter).then((data) => setAlbums(() => Object.values(data)))
   }, [activeQuarter])
+
+  if (!yearsList.length) return null
 
   return (
     <Section>

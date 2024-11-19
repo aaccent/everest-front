@@ -10,13 +10,14 @@ type Props = (Pick<ImageProps, 'fill'> | Pick<ImageProps, 'width' | 'height'>) &
     isSVG?: boolean
     alt?: string
     isDecorative?: boolean
+    removeIfFail?: boolean
   }
 
-function Img({ isSVG, src, isDecorative, alt = '', ...props }: Props) {
-  const [image, setImage] = useState<ImageProps['src']>(src || NoPhoto)
+function Img({ isSVG, src, isDecorative, alt = '', removeIfFail, ...props }: Props) {
+  const [image, setImage] = useState<ImageProps['src'] | null>(src || NoPhoto)
 
   function onError() {
-    setImage(NoPhoto)
+    setImage(removeIfFail ? null : NoPhoto)
   }
 
   function isNeedUnoptimized() {
@@ -34,6 +35,8 @@ function Img({ isSVG, src, isDecorative, alt = '', ...props }: Props) {
 
     return false
   }
+
+  if (!image) return null
 
   return (
     <Image

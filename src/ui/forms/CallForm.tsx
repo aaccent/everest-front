@@ -28,7 +28,7 @@ export default function CallForm({ className, children }: Props) {
 
     if (!ok) return
 
-    openPopup({ name: 'thxPopup' })
+    openPopup({ name: 'thanks' })
     formRef.current?.reset()
   }
 

@@ -1,7 +1,9 @@
 import React from 'react'
 
+import { PopupTemplate } from '@/layout/popups/PopupTemplate'
+
 function QuizPopup() {
-  return <>quiz popup</>
+  return <PopupTemplate>quiz popup</PopupTemplate>
 }
 
 export default QuizPopup

@@ -41,7 +41,7 @@ export function MobileCallPopupButton() {
 
   function clickHandler() {
     openPopup({
-      name: 'callPopup',
+      name: 'call',
     })
   }
 
@@ -60,7 +60,7 @@ export function MobileCityButton({ autoSelectedCity }: CityButtonProps) {
 
   function clickHandler() {
     openPopup({
-      name: 'geoPopup',
+      name: 'geo',
       args: {
         onAutoGeolocationClick,
       },

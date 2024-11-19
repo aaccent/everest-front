@@ -2,9 +2,8 @@
 
 import React, { useContext, useEffect, useState } from 'react'
 import { useFilter } from '@/features/useFilter'
-import FilterPopup from '@/ui/popups/FilterPopup/FilterPopup'
 import { PopupContext } from '@/features/Popup'
-import { QuickFilters } from '@/types/FiltersType'
+import { FilterBlock, QuickFilters } from '@/types/FiltersType'
 
 type TextButtonProps = {
   onClick: () => void
@@ -43,34 +42,28 @@ function IconDetailFilterButton({ onClick, activeFiltersCount }: IconButtonProps
 }
 
 type Props = {
-  categoryName: string
+  getFilters: () => Promise<FilterBlock[]>
   quickFilters: QuickFilters
-  objectsAmount?: number
+  initCount?: number
   text?: string
 }
 
-function DetailFilterButton({ categoryName, quickFilters, objectsAmount, text }: Props) {
+function DetailFilterButton({ initCount = 0, text, ...popupProps }: Props) {
   const { filter } = useFilter()
   const [count, setCount] = useState<number>(filter.parsed.length)
-  const { openDynamicPopup } = useContext(PopupContext)
+  const { openPopup } = useContext(PopupContext)
 
   useEffect(() => {
     setCount(filter.parsed.length)
   }, [filter])
 
-  const onClickHandle = () => openDynamicPopup('filterPopup')
-
-  function showButton() {
-    if (text) return <TextDetailFilterButton onClick={onClickHandle} text={text} />
-    return <IconDetailFilterButton onClick={onClickHandle} activeFiltersCount={count} />
+  const onClickHandle = () => {
+    openPopup({ name: 'filter', args: { ...popupProps, count: initCount } })
   }
 
-  return (
-    <>
-      {showButton()}
-      <FilterPopup category={categoryName} quickFilters={quickFilters} objectsAmount={objectsAmount} />
-    </>
-  )
+  if (text) return <TextDetailFilterButton onClick={onClickHandle} text={text} />
+
+  return <IconDetailFilterButton onClick={onClickHandle} activeFiltersCount={count} />
 }
 
 export default DetailFilterButton
