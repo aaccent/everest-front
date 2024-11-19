@@ -49,7 +49,7 @@ function GalleryPopup({ list, activeSlideIndex = 0 }: GalleryPopupProps) {
           <CarouselProgressBar className='relative !w-[228px] *:bg-base-100' />
           <CarouselWhiteNavigations className='!static hidden md:flex' />
         </div>
-        <ClosePopupButton className='absolute right-[24px] top-[33px] z-10 !bg-base-650 md:right-[56px] md:top-[103px]' />
+        <ClosePopupButton className='absolute right-[24px] top-[33px] z-10 !bg-base-600/70 backdrop-invert after:filter-base-100 md:right-[56px] md:top-[103px]' />
       </Carousel>
     </PopupTemplate>
   )
