@@ -35,13 +35,13 @@ function PageMenu({ className }: { className?: string }) {
   }
 
   function showMenu() {
-    return PAGE_MENU.map((item) => {
+    return PAGE_MENU.map((item, index) => {
       return (
         <li
           className={`cursor-pointer whitespace-nowrap ${activeMenuItem === item.dataSet ? 'text-base-600' : ''}`}
           data-id={item.dataSet}
           onClick={onClick}
-          key={item.dataSet}
+          key={index}
         >
           {item.title}
         </li>
