@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Carousel, { CarouselInner, CarouselSlide } from '@/components/Carousel/Carousel'
 import { ComplexObject } from '@/types/catalog/Complex'
 import { ComplexTileCard } from '@/ui/cards/ComplexCard/ComplexTileCard'
@@ -7,8 +7,15 @@ import {
   CarouselNavigationButtonNext,
   CarouselNavigationButtonPrev,
 } from '@/components/Carousel/components/CarouselNavigationButtons'
+import { getNewBuildingsBanner } from '@/globals/api'
 
-function GalleryBanner({ list }: { list: ComplexObject[] }) {
+function GalleryBanner() {
+  const [list, setList] = useState<ComplexObject[]>([])
+
+  useEffect(() => {
+    getNewBuildingsBanner().then(setList)
+  }, [])
+
   return (
     <Carousel className='relative w-full max-w-[645px] overflow-hidden rounded-[32px]' fade>
       <CarouselInner>

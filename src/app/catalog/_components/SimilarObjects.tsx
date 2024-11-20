@@ -20,7 +20,9 @@ function SimilarObjects({ objectCode, initList }: SimilarObjectsProps) {
   const [type, setType] = useState<SimilarType>('price')
 
   useEffect(() => {
-    getSimilarObjects(objectCode, type).then(setList)
+    getSimilarObjects(objectCode, type)
+      .then(setList)
+      .catch(() => [])
   }, [type, objectCode])
 
   function showObjects(list: DefaultObject[]) {

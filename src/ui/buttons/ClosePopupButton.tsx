@@ -1,18 +1,11 @@
 'use client'
 import React, { useContext } from 'react'
 import { PopupContext } from '@/features/Popup'
-import { useSearchParams } from 'next/navigation'
 
 function ClosePopupButton({ className }: { className?: string }) {
   const { closePopup } = useContext(PopupContext)
-  const searchParams = useSearchParams()
 
   const onClickHandle = () => {
-    const params = new URLSearchParams(searchParams)
-    if (params.has('gallery')) {
-      params.delete('gallery')
-      window.history.replaceState(null, '', `?${params.toString()}`)
-    }
     closePopup()
   }
 

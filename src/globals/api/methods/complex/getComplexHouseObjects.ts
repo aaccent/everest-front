@@ -1,5 +1,5 @@
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
-import { ComplexHouse, ComplexHouseObject } from '@/types/complex/ComplexHouse'
+import { ComplexHouse, ComplexHouseObject, ComplexObjectSortType } from '@/types/complex/ComplexHouse'
 import { GeneralRequestParams } from '@/types/RequestProps'
 import { Pagination } from '@/types/Pagination'
 
@@ -13,7 +13,7 @@ type Request = APIRequest<
   {
     houseNumber: string
     orderBy?: 'asc' | 'desc'
-    orderByWord?: 'flat_number' | string
+    orderByWord?: ComplexObjectSortType
   } & GeneralRequestParams
 >
 
@@ -34,9 +34,10 @@ export async function getComplexHouseObjects(
 
   return {
     houseNumber,
-    list: res.data.objects,
+    objects: res.data.objects,
     page: res.data.page,
     perPage: res.data.perPage,
     total: res.data.total,
+    count: res.data.objects.length,
   }
 }

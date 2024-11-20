@@ -16,5 +16,7 @@ export interface ComplexHouseObject {
 
 export type ComplexHouse = Pagination & {
   houseNumber: string
-  list: ComplexHouseObject[]
+  objects: ComplexHouseObject[]
+  count: number
 }
+export type ComplexObjectSortType = 'flat_number' | 'section' | 'price' | 'floor' | 'finish_type' | 'square' | 'room'

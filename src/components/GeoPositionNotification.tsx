@@ -32,7 +32,7 @@ function GeoPositionNotification({ cityByIp }: Props) {
   const onChangeGeoButtonClick = () => {
     setShown(false)
     openPopup({
-      name: 'geoPopup',
+      name: 'geo',
       args: {
         onAutoGeolocationClick: onOkCityButtonClick,
       },

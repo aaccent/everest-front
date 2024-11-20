@@ -1,22 +1,17 @@
 import { Filters } from '@/types/FiltersType'
+import { apiCall, APIResponse } from '@/globals/api/apiCall'
 
 export async function getComplexesFilters(): Promise<Filters> {
-  // Temporal fix while backend doesn't fix output format
-  // try {
-  //   const res = await apiCall<false, APIResponse<Filters>>('/filter/complex/detail', {
-  //     method: 'GET',
-  //   })
-  //
-  //   return res.data
-  // } catch {
-  //   return {
-  //     filters: [],
-  //     sorts: [],
-  //   }
-  // }
+  try {
+    const res = await apiCall<false, APIResponse<Filters>>('/filter/complex', {
+      method: 'GET',
+    })
 
-  return {
-    filters: [],
-    sorts: [],
+    return res.data
+  } catch {
+    return {
+      filters: [],
+      sorts: [],
+    }
   }
 }

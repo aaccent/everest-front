@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { QuickFilters } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import Button from '@/ui/buttons/Button'
@@ -7,8 +7,9 @@ import { objectPlural } from '@/features/utility/pluralRules'
 import { useFilter } from '@/features/useFilter'
 import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
-import { getCategory, getQuickFilters } from '@/globals/api'
+import { getCategory, getFilters, getQuickFilters } from '@/globals/api'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
+import { PopupContext } from '@/features/Popup'
 
 interface CategoryFilterProps {
   categoryName: string
@@ -25,10 +26,16 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
   const [list, setList] = useState<ObjectList>({ objects: [], total: 0 })
   const { clearFilters, filter } = useFilter()
   const searchParams = useSearchParams()
+  const { updateProps } = useContext(PopupContext)
 
   useEffect(() => {
     if (filter.str) clearFilters()
   }, [categoryName])
+
+  async function getFiltersAction() {
+    const res = await getFilters(categoryName)
+    return res.filters
+  }
 
   useEffect(() => {
     getQuickFilters(categoryName).then((res) => setFilterInputs(res))
@@ -37,6 +44,9 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
       setList({
         objects: res.objects,
         total: res.total,
+      })
+      updateProps('filter', {
+        count: res.total,
       })
     })
   }, [categoryName, rent, filter])
@@ -47,10 +57,10 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
   return (
     <div className='relative mt-[22px]'>
       <DetailFilterButton
-        categoryName={categoryName}
+        getFilters={getFiltersAction}
         quickFilters={filterInputs}
+        initCount={list.total}
         text='Расширенный фильтр'
-        objectsAmount={list.total}
       />
       <div className='flex justify-between'>
         <FilterItems filters={filterInputs.filters} isQuick />

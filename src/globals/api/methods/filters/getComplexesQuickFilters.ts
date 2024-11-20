@@ -1,13 +1,18 @@
 import { apiCall, APIResponse } from '@/globals/api/apiCall'
-import { QuickFilters } from '@/types/FiltersType'
+import { FilterType, FilterView, QuickFilters } from '@/types/FiltersType'
+
+type Response = APIResponse<FilterType<FilterView>[]>
 
 export async function getComplexesQuickFilters(): Promise<QuickFilters> {
   try {
-    const res = await apiCall<false, APIResponse<QuickFilters>>('/filter/complex', {
+    const res = await apiCall<false, Response>('/filter/complex/main', {
       method: 'GET',
     })
 
-    return res.data
+    return {
+      filters: res.data,
+      sorts: [],
+    }
   } catch {
     return {
       filters: [],

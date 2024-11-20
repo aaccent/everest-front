@@ -1,7 +1,7 @@
 import React from 'react'
 
 import CatalogMenu from '@/layout/Header/CatalogMenu/CatalogMenu'
-import MobileMenu from '@/layout/Header/mobile/MobileMenu'
+import MobileBottomMenu from '@/layout/Header/mobile/MobileBottomMenu'
 import MobileHeader from '@/layout/Header/mobile/MobileHeader'
 import MobileDetailMenu from '@/layout/Header/mobile/MobileDetailMenu'
 
@@ -26,7 +26,7 @@ function Header() {
       <DesktopSaleRentMenu className='peer-[[data-menu="sale"]]/header-state:flex' menuType='sale' />
       <DesktopSaleRentMenu className='peer-[[data-menu="rent"]]/header-state:flex' menuType='rent' />
       <IsMobile>
-        <MobileMenu />
+        <MobileBottomMenu />
         <MobileDetailMenu />
       </IsMobile>
       <BlackZone />

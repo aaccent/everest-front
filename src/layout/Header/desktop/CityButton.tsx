@@ -20,7 +20,7 @@ function CityButton({ autoSelectedCity }: CityButtonProps) {
 
   function clickHandler() {
     openPopup({
-      name: 'geoPopup',
+      name: 'geo',
       args: {
         onAutoGeolocationClick,
       },
