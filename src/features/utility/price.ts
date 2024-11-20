@@ -85,3 +85,12 @@ export function formatShortPriceForRange(value: RangeValue): RangeValue {
     } else return v
   })
 }
+
+export function formatShortSinglePrice(value: number): string {
+  const digits = Math.trunc(Number(value)).toString().length
+  if (digits > 6) {
+    return `${value / 1_000_000} млн`
+  } else if (digits > 3) {
+    return `${value / 1_000} тыс`
+  } else return value.toString()
+}

@@ -71,31 +71,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
         )
       }
       case 'range': {
-        const rawValue = getCurrentFilter<number[]>(filter.id)?.value
-        const value: RangeValue = rawValue || filter.value
-
-        const prePrefix = () => {
-          if (filter.prefix !== '₽') return
-
-          let min: 'млн' | 'тыс' | ''
-          let max: 'млн' | 'тыс' | ''
-
-          const minDigits = Math.trunc(Number(value[0])).toString().length
-          if (minDigits > 6) {
-            min = 'млн'
-          } else if (minDigits > 3) {
-            min = 'тыс'
-          } else min = ''
-
-          const maxDigits = Math.trunc(Number(value[1])).toString().length
-          if (maxDigits > 6) {
-            max = 'млн'
-          } else if (maxDigits > 3) {
-            max = 'тыс'
-          } else max = ''
-
-          return { min, max }
-        }
+        const customValue = getCurrentFilter<number[]>(filter.id)?.value
 
         return (
           <Range
@@ -105,11 +81,10 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             name={filter.id.toString()}
             title={filter.name}
             showTitle={!isQuick}
-            defaultValue={value}
-            value={value}
+            defaultValue={filter.value}
+            value={customValue}
             onChange={onChange}
             prefix={filter.prefix}
-            prePrefix={prePrefix()}
             step={filter.prefix === '₽' ? 0.1 : 1}
           />
         )
