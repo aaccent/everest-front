@@ -5,7 +5,6 @@ import Img from '@/ui/Img'
 import { suggestionPlural } from '@/features/utility/pluralRules'
 import { getSaleRentMenu, MenuType } from '@/globals/api'
 import { generateCategoryLink } from '@/features/link'
-import SeeAllCategoryItem from '@/layout/Header/components/SeeAllCategoryItem'
 
 interface Props {
   className?: string
@@ -52,9 +51,6 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
               <span className='text-header-300 text-base-650'>{`${fullAmount} ${suggestionPlural.get(fullAmount)}`}</span>
             </div>
             <ul className='ml-[-10px] mt-[30px] grid h-1 grow auto-rows-max grid-cols-3 gap-x-[12px] gap-y-[12px] overflow-y-auto transition-opacity scrollbar-custom'>
-              <li>
-                <SeeAllCategoryItem href='' amount={fullAmount} />
-              </li>
               {menuType === 'rent' && (
                 <li>
                   <Link

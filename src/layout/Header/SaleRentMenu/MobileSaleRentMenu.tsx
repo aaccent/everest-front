@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Img from '@/ui/Img'
 import { suggestionPlural } from '@/features/utility/pluralRules'
 import { getSaleRentMenu, MenuType } from '@/globals/api'
-import SeeAllCategoryItem from '@/layout/Header/components/SeeAllCategoryItem'
 
 interface Props {
   menuType: MenuType
@@ -39,9 +38,6 @@ async function MobileSaleRentMenu({ menuType }: Props) {
 
   return (
     <ul className='ml-[-10px] mt-[24px] flex flex-col gap-[8px]'>
-      <li>
-        <SeeAllCategoryItem href='' amount={fullAmount} />
-      </li>
       {menuType === 'rent' && (
         <li>
           <Link
