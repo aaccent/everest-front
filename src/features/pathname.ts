@@ -1,8 +1,8 @@
 import 'server-only'
 import { headers } from 'next/headers'
 
-export function getPathname(): string | undefined {
-  const headersList = headers()
+export async function getPathname(): Promise<string | undefined> {
+  const headersList = await headers()
 
   if (!URL.canParse(headersList.get('x-url') || '')) return undefined
 

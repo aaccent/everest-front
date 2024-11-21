@@ -6,7 +6,8 @@ import { COOKIES } from '@/features/utility/cookies'
 import { DEFAULT_CITY } from '@/globals/CityContext'
 
 export async function getCityByIpFromLocation() {
-  const ip = (headers().get('x-forwarded-for') ?? '').split(',')[0]
+  const _headers = await headers()
+  const ip = (_headers.get('x-forwarded-for') ?? '').split(',')[0]
   const locations = await getLocation().then((res) => res?.cities || [])
   const cityName = ip ? await getCityByIp(ip) : DEFAULT_CITY.name
   return locations.find((city) => cityName.includes(city.name)) ?? DEFAULT_CITY
@@ -15,7 +16,7 @@ export async function getCityByIpFromLocation() {
 async function GeoPosition() {
   const cityByIp = await getCityByIpFromLocation()
 
-  if (cookies().has(COOKIES.CITY)) return null
+  if ((await cookies()).has(COOKIES.CITY)) return null
   return <GeoPositionNotification cityByIp={cityByIp} />
 }
 

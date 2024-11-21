@@ -11,8 +11,8 @@ import { CityContextProvider } from '@/globals/CityContext'
 import packageJSON from '@/../package.json'
 import GeoPosition from '@/components/GeoPosition'
 
-function BasePage({ children }: PropsWithChildren) {
-  const baseProps = basePageProps()
+async function BasePage({ children }: PropsWithChildren) {
+  const baseProps = await basePageProps()
 
   return (
     <AdaptiveProvider viewport={baseProps.viewport}>
