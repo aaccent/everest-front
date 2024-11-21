@@ -1,5 +1,5 @@
 export type Page<TParams extends object> = {
-  params: TParams
+  params: Promise<TParams>
 }
 
 export type CategoryPage = Page<{

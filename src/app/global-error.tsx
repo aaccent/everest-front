@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
 
 type Props = {
   error: Error & { digest?: string }
@@ -17,9 +18,9 @@ export default function GlobalError({ error }: Props) {
       <body>
         <h1 className='mb-[15px] mt-[35px]'>Критическая ошибка загрузки</h1>
         <br />
-        <a className='text-primary hover:text-primaryHover' href='/'>
+        <Link className='text-primary hover:text-primaryHover' href='/'>
           Перейти на главную
-        </a>
+        </Link>
       </body>
     </html>
   )

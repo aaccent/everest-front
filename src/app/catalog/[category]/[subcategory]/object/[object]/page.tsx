@@ -4,7 +4,8 @@ import { CategoryPage, ObjectPage, SubcategoryPage } from '@/types/Page'
 import { getObject } from '@/globals/api'
 import ObjectDetail from '@/app/catalog/_components/ObjectDetail/ObjectDetail'
 
-async function Page({ params }: ObjectPage & SubcategoryPage & CategoryPage) {
+async function Page(props: ObjectPage & SubcategoryPage & CategoryPage) {
+  const params = await props.params
   const object = await getObject({
     category: params.category,
     subcategory: params.subcategory,
