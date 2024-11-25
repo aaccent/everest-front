@@ -1,32 +1,31 @@
 import { FilterType } from '@/types/FiltersType'
-import { formatShortPriceForRange } from '@/features/utility/price'
+import { formatPriceForRange } from '@/features/utility/price'
 
 interface Tag extends FilterType<any> {
   value: FilterType<any>['value'] | [number, number]
 }
 
 function selectDigitsName(value: number) {
-  const digits = Math.trunc(value).toString().length
-  if (digits > 6) return 'млн'
-  if (digits > 3) return 'тыс'
+  if (value >= 1_000_000) return 'млн'
+  if (value < 1_000_000) return 'тыс'
   return ''
 }
 
-export function formatTagText(f: Tag) {
-  switch (f.fieldType) {
+function formatPriceValue(value: number) {
+  return `${formatPriceForRange(value)} ${selectDigitsName(value)} ₽`
+}
+
+export function formatTagText(filter: Tag) {
+  switch (filter.fieldType) {
     case 'range':
       const min =
-        f.prefix === '₽'
-          ? `${formatShortPriceForRange(f.value)[0].toFixed(2)} ${selectDigitsName(f.value[0])} ${f.prefix}`
-          : `${f.value[0]} ${f.prefix || ''}`
+        filter.prefix === '₽' ? formatPriceValue(filter.value[0]) : `${filter.value[0]} ${filter.prefix || ''}`
       const max =
-        f.prefix === '₽'
-          ? `${formatShortPriceForRange(f.value)[1].toFixed(2)} ${selectDigitsName(f.value[1])} ${f.prefix}`
-          : `${f.value[1]} ${f.prefix || ''}`
-      return `${f.name}: ${min} - ${max}`
+        filter.prefix === '₽' ? formatPriceValue(filter.value[1]) : `${filter.value[1]} ${filter.prefix || ''}`
+      return `${filter.name}: ${min} - ${max}`
     case 'toggle':
-      return `${f.name}`
+      return `${filter.name}`
     default:
-      return `${f.name}: ${f.value}`
+      return `${filter.name}: ${filter.value}`
   }
 }

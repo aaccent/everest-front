@@ -1,10 +1,11 @@
 'use client'
+import React from 'react'
 import { FilterType, FilterView } from '@/types/FiltersType'
 import Selector from '@/ui/inputs/Selector'
 import SelectorInline from '@/ui/inputs/SelectorInline'
 import Range, { RangeValue } from '@/ui/inputs/Range'
 import Checkbox from '@/ui/inputs/Checkbox'
-import React from 'react'
+import PriceRange from '@/ui/inputs/PriceRange'
 import { Filter, useFilter } from '@/features/useFilter'
 
 /** @param filters Полученный от бэкенда массив фильтров
@@ -73,8 +74,10 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
       case 'range': {
         const customValue = getCurrentFilter<number[]>(filter.id)?.value
 
+        const RangeComponent = filter.prefix === '₽' ? PriceRange : Range
+
         return (
-          <Range
+          <RangeComponent
             key={filter.id}
             min={filter.value[0]}
             max={filter.value[1]}

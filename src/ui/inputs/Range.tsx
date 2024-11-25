@@ -36,7 +36,7 @@ function Range({
 }: RangeProps) {
   const [localValue, setLocalValue] = useState<RangeValue>(customValue || defaultValue)
   const { removeFilter } = useFilter()
-  const timeout = useRef<NodeJS.Timeout>()
+  const timeout = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (!onChange) return
@@ -44,7 +44,7 @@ function Range({
     if (localValue[0] === min && localValue[1] === max) return removeFilter(Number(name))
 
     timeout.current = setTimeout(() => onChange(name, localValue), 500)
-  }, [localValue[0], localValue[1]])
+  }, [localValue])
 
   const onMinValChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value > localValue[1] || +e.target.value < min) return

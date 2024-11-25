@@ -1,5 +1,3 @@
-import { RangeValue } from '@/ui/inputs/Range'
-
 const PRICE_PLACEHOLDER = 'нет цены'
 
 type RawPrice = number | string | null | undefined
@@ -75,15 +73,13 @@ export function formatPriceForArea(price: RawPrice) {
   return `${fullPrice} / м\u00B2`
 }
 
-export function formatShortPriceForRange(value: RangeValue): RangeValue {
-  return value.map((v) => {
-    const digits = Math.trunc(Number(v)).toString().length
-    if (digits > 6) {
-      return v / 1_000_000
-    } else if (digits > 3) {
-      return v / 1_000
-    } else return v
-  })
+export function formatPriceForRange(value: number): number {
+  const digits = Math.trunc(Number(value)).toString().length
+  if (digits > 6) {
+    return value / 1_000_000
+  } else if (digits > 3) {
+    return value / 1_000
+  } else return value
 }
 
 export function formatShortSinglePrice(value: number): string {
