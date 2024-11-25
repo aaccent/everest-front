@@ -35,7 +35,7 @@ function QuickFilter({ filters, categoryName, initCount, sorts }: Props) {
         <div className='flex w-full items-center justify-between md:hidden'>
           <DetailFilterButton quickFilters={filters} getFilters={getFiltersAction} initCount={initCount} />
           <ObjectsAmount className='text-base-300-lg-100 translate-x-0 text-base-650 md:hidden' />
-          <MapObjectsButton />
+          <MapObjectsButton categoryName={categoryName} />
         </div>
         <div className='hidden w-full items-center border-b border-b-base-600/10 pb-[24px] md:flex'>
           <DetailFilterButton quickFilters={filters} getFilters={getFiltersAction} initCount={initCount} />
@@ -46,7 +46,7 @@ function QuickFilter({ filters, categoryName, initCount, sorts }: Props) {
             className='ml-[24px] flex items-center gap-[4px] opacity-50 after:block after:size-[20px] after:bg-icon-close after:bg-default-auto'
             text='Сбросить все'
           />
-          <MapObjectsButton className='ml-auto' />
+          <MapObjectsButton className='ml-auto' categoryName={categoryName} />
         </div>
         <div className='hidden w-full items-center pt-[17px] md:flex'>
           <SortButton sorts={sorts} />
