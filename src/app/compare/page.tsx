@@ -4,7 +4,7 @@ import CompareContent from '@/app/compare/_components/CompareContent'
 
 function Page() {
   return (
-    <Section>
+    <Section className='md:mx-auto md:max-w-[838px] md:!px-0' hideContainer>
       <CompareContent />
     </Section>
   )

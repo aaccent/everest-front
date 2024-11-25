@@ -113,7 +113,7 @@ function Selector({
             {showSelected()}
           </div>
         </button>
-        <div className='text-base-500-reg-100-upper md:text-base-400-lg-100 inset-x-0 z-10 hidden select-none flex-col gap-[16px] bg-base-100 py-[24px] text-base-600 group-[.opened]:flex scroll-btn-yb:h-[10px] md:absolute md:top-[100%] md:max-h-[200px] md:overflow-auto md:rounded-b-[16px] md:border md:border-base-600/10 md:px-[16px] md:scrollbar-custom'>
+        <div className='text-base-500-reg-100-upper md:text-base-400-lg-100 inset-x-0 z-20 hidden select-none flex-col gap-[16px] bg-base-100 py-[24px] text-base-600 group-[.opened]:flex scroll-btn-yb:h-[10px] md:absolute md:top-[100%] md:max-h-[200px] md:overflow-auto md:rounded-b-[16px] md:border md:border-base-600/10 md:px-[16px] md:scrollbar-custom'>
           {showList()}
         </div>
       </div>
