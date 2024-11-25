@@ -29,11 +29,15 @@ interface Props {
 function ObjectHero({ item }: Props) {
   function showProps() {
     if (!item.characteristics[0]) return null
-    return item.characteristics[0].characteristics.slice(0, 4).map((prop, index) => (
-      <PropItem title={prop.name} key={index}>
-        {prop.value}
-      </PropItem>
-    ))
+    return item.characteristics[0].characteristics.slice(0, 4).map((prop, index) => {
+      const value = prop.name.trim().toLowerCase() === 'стоимость' ? formatFullPrice(prop.value) : prop.value
+
+      return (
+        <PropItem title={prop.name} key={index}>
+          {value}
+        </PropItem>
+      )
+    })
   }
 
   return (
