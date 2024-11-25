@@ -17,7 +17,7 @@ function GalleryBanner() {
   }, [])
 
   return (
-    <Carousel className='relative w-full max-w-[645px] overflow-hidden rounded-[32px]' fade>
+    <Carousel className='relative w-full max-w-[645px] overflow-hidden rounded-[32px]' fade loop>
       <CarouselInner>
         {list.map((card) => {
           return (
