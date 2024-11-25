@@ -24,6 +24,7 @@ import { DefaultObject } from '@/types/catalog/DefaultObject'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import { syncTryJSONParse } from '@/globals/fetch'
 import { getFilters } from '@/globals/api'
+import { objectPlural } from '@/features/utility/pluralRules'
 
 function isStringJSON(value: unknown) {
   if (typeof value !== 'string') return false
@@ -68,7 +69,7 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
 
   const categoryLink = useCategoryLink()
   const { mapRefCallback } = useObjectsMapImages()
-  const { objects, viewStateControl } = useObjectsMapData({ getItems })
+  const { objects, viewStateControl, total } = useObjectsMapData({ getItems })
   const [activePoints, setActivePoints] = useState<DefaultObject[] | null>(null)
 
   function setItems(items: DefaultObject[]) {
@@ -132,7 +133,7 @@ function ObjectsMap({ quickFilters, categoryCode, getItems }: Props) {
               icon={{ img: 'LIST_VIEW' }}
               variation='third'
             >
-              Списком 24 объекта
+              {`Списком ${total} ${objectPlural.get(total)}`}
             </Button>
             <div className='pointer-events-auto relative hidden h-[70px] w-[42px] flex-col rounded-[12px] bg-base-100 before:absolute before:inset-y-1/2 before:left-0 before:block before:h-[1px] before:w-[8px] before:-translate-y-1/2 before:bg-base-400 after:absolute after:inset-y-1/2 after:right-0 after:block after:h-[1px] after:w-[8px] after:-translate-y-1/2 after:bg-base-400 md:flex'>
               <button

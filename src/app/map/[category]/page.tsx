@@ -15,7 +15,7 @@ interface GetItemsProps {
 
 export async function getItems({ category: categoryCode, subcategory, zoom, center, filters }: GetItemsProps) {
   'use server'
-  const category = await getCategory(categoryCode, {
+  return await getCategory(categoryCode, {
     subcategory,
     filter: filters,
     location: {
@@ -23,8 +23,6 @@ export async function getItems({ category: categoryCode, subcategory, zoom, cent
       radius: convertZoomInRadius(Math.trunc(zoom)),
     },
   })
-
-  return category.objects
 }
 
 async function Page(props: CategoryPage) {
