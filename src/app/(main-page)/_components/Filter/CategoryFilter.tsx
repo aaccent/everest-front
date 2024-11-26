@@ -10,6 +10,7 @@ import { useSearchParams } from 'next/navigation'
 import { getCategory, getFilters, getQuickFilters } from '@/globals/api'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
 import { PopupContext } from '@/features/Popup'
+import { EMPTY_FILTERS } from '@/globals/filters'
 
 interface CategoryFilterProps {
   categoryName: string
@@ -22,7 +23,7 @@ interface ObjectList {
 }
 
 function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
-  const [filterInputs, setFilterInputs] = useState<QuickFilters>({ filters: [], sorts: [] })
+  const [filterInputs, setFilterInputs] = useState<QuickFilters>(EMPTY_FILTERS)
   const [list, setList] = useState<ObjectList>({ objects: [], total: 0 })
   const { clearFilters, filter } = useFilter()
   const searchParams = useSearchParams()
