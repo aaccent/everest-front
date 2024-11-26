@@ -2,13 +2,19 @@
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { convertToBase64, convertBase64ToArray } from '@/features/utility/convertBase64'
+import { FilterBlock, FilterType, FilterView } from '@/types/FiltersType'
+import { convertBlocksToFilterType, getActiveFilters } from '@/features/utility/filters'
 
 export interface Filter {
   id: number
   value: string[] | boolean | [number, number]
 }
 
-export function useFilter() {
+interface Props {
+  filterInputs?: FilterBlock[]
+}
+
+export function useFilter({ filterInputs = [] }: Props = {}) {
   const searchParams = useSearchParams()
 
   /**
@@ -34,6 +40,13 @@ export function useFilter() {
     str: getFiltersSearchParams(),
     parsed: parseSearchParamsToFilter(),
   })
+
+  const [activeFiltersForTags, setActiveFiltersForTags] = useState<FilterType<FilterView>[]>([])
+
+  useEffect(() => {
+    const convertedList = convertBlocksToFilterType(filterInputs)
+    setActiveFiltersForTags(getActiveFilters(convertedList, filter.parsed))
+  }, [filter])
 
   function findFilter<T extends Filter>(id: number): T | undefined {
     return filter.parsed.find((item) => item.id === id) as unknown as T
@@ -98,5 +111,5 @@ export function useFilter() {
     window.history.replaceState(null, '', `?${params.toString()}`)
   }
 
-  return { filter, addFilter, findFilter, clearFilters, removeFilter }
+  return { filter, addFilter, findFilter, clearFilters, removeFilter, activeFiltersForTags }
 }

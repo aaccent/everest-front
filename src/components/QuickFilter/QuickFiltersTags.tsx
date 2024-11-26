@@ -1,11 +1,10 @@
 'use client'
 
-import React, { useContext, useEffect, useState } from 'react'
-import { FilterType, FilterView } from '@/types/FiltersType'
+import React, { useEffect, useState } from 'react'
+import { FilterBlock, FilterType, FilterView } from '@/types/FiltersType'
 import Checkbox from '@/ui/inputs/Checkbox'
 import { useFilter } from '@/features/useFilter'
 import Button from '@/ui/buttons/Button'
-import { FilterTagsContext } from '@/components/FilterTagsContext'
 import { formatTagText } from '@/features/utility/texts'
 
 const TAGS_IN_VIEW = 4
@@ -76,12 +75,15 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   )
 }
 
-function QuickFiltersTags() {
-  const { activeFilters } = useContext(FilterTagsContext)
-  const { removeFilter } = useFilter()
+export interface FilterTagsProps {
+  detailedFilterInputs: FilterBlock[]
+}
+
+function QuickFiltersTags({ detailedFilterInputs }: FilterTagsProps) {
+  const { removeFilter, activeFiltersForTags } = useFilter({ filterInputs: detailedFilterInputs })
 
   function showFirstTags() {
-    const firstTags = activeFilters.slice(0, TAGS_IN_VIEW)
+    const firstTags = activeFiltersForTags.slice(0, TAGS_IN_VIEW)
     return firstTags.map((f) => {
       return f.value ? (
         <button
@@ -96,9 +98,9 @@ function QuickFiltersTags() {
   }
 
   return (
-    <div className='flex items-center gap-[10px]'>
+    <div className='relative flex items-center gap-[10px]'>
       {showFirstTags()}
-      {activeFilters.length > TAGS_IN_VIEW && <FilterTagsSelector list={activeFilters} />}
+      {activeFiltersForTags.length > TAGS_IN_VIEW && <FilterTagsSelector list={activeFiltersForTags} />}
     </div>
   )
 }

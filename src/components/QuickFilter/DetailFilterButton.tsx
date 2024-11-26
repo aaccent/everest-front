@@ -3,7 +3,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useFilter } from '@/features/useFilter'
 import { PopupContext } from '@/features/Popup'
-import { FilterBlock, QuickFilters } from '@/types/FiltersType'
+import { Filters, QuickFilters } from '@/types/FiltersType'
+import { Category, SubcategoryLikeCategory } from '@/types/catalog/Category'
+import { GeneralRequestParams } from '@/types/RequestProps'
 
 type TextButtonProps = {
   onClick: () => void
@@ -42,10 +44,12 @@ function IconDetailFilterButton({ onClick, activeFiltersCount }: IconButtonProps
 }
 
 type Props = {
-  getFilters: () => Promise<FilterBlock[]>
+  getObjects: ({ ...options }: GeneralRequestParams) => Promise<Category | SubcategoryLikeCategory>
   quickFilters: QuickFilters
+  detailedFilters: Filters
   initCount?: number
   text?: string
+  categoryName: string
 }
 
 function DetailFilterButton({ initCount = 0, text, ...popupProps }: Props) {
@@ -58,7 +62,7 @@ function DetailFilterButton({ initCount = 0, text, ...popupProps }: Props) {
   }, [filter])
 
   const onClickHandle = () => {
-    openPopup({ name: 'filter', args: { ...popupProps, count: initCount } })
+    openPopup({ name: 'filter', args: { ...popupProps } })
   }
 
   if (text) return <TextDetailFilterButton onClick={onClickHandle} text={text} />
