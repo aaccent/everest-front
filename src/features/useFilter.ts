@@ -7,7 +7,7 @@ import { convertBlocksToFilterType, getActiveFilters } from '@/features/utility/
 
 export interface Filter {
   id: number
-  value: string[] | boolean | [number, number]
+  value: string[] | boolean | number[]
 }
 
 interface Props {

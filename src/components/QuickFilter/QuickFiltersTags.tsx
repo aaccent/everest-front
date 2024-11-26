@@ -29,14 +29,14 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   }
 
   function showHiddenTags() {
-    return filterList.map((f) => (
+    return filterList.map((filter) => (
       <Checkbox
-        name={f.id.toString()}
-        title={formatTagText(f)}
-        value={f.id.toString()}
+        name={filter.id.toString()}
+        title={formatTagText(filter)}
+        value={filter.id.toString()}
         checked
         onChange={_removeFilter}
-        key={f.id}
+        key={filter.id}
       />
     ))
   }
