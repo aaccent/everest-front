@@ -6,12 +6,14 @@ import { getCategory } from '@/globals/api'
 import { GetObjectsFn } from '@/features/useFilterAndPagination'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 import { CategoryProvider } from '@/layout/catalog/CategoryContext'
+import { CategoryDealType } from '@/types/RequestProps'
 
 interface Props {
   category: AnyCategoryExceptComplexes
+  dealType?: CategoryDealType
 }
 
-function Category({ category }: Props) {
+function Category({ category, dealType }: Props) {
   const getObjects: GetObjectsFn<DefaultObject> = async function (props) {
     'use server'
 
@@ -22,6 +24,7 @@ function Category({ category }: Props) {
 
     const data = await getCategory(categoryCode, {
       subcategory: isSubcategory ? category.seoUrl : undefined,
+      dealType,
       ...props,
     })
 
@@ -34,7 +37,7 @@ function Category({ category }: Props) {
 
   return (
     <CategoryProvider type='default' initList={category} getObjects={getObjects}>
-      <CategoryLayout category={category}>
+      <CategoryLayout category={category} dealType={dealType}>
         <CatalogContent tileClassName='gap-y-[32px] md:gap-y-[56px]' type='default' category={category} />
       </CategoryLayout>
     </CategoryProvider>

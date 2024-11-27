@@ -21,7 +21,7 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
       const link =
         menuType === 'rent'
           ? `${ROUTES.CATALOG_RENT}/${item.type}/${item.seoUrl}`
-          : `${ROUTES.CATALOG}/${item.type}/${item.seoUrl}`
+          : `${ROUTES.CATALOG_SALE}/${item.type}/${item.seoUrl}`
 
       return (
         <li key={item.id}>
@@ -62,7 +62,7 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
                 <li>
                   <Link
                     className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
-                    href=''
+                    href={ROUTES.CATALOG_RENT_BY_DAY}
                   >
                     <Img
                       src=''

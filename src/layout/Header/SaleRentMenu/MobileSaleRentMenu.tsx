@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Img from '@/ui/Img'
 import { suggestionPlural } from '@/features/utility/pluralRules'
 import { getSaleRentMenu, MenuType } from '@/globals/api'
+import { ROUTES } from '@/globals/paths'
 
 interface Props {
   menuType: MenuType
@@ -14,11 +15,16 @@ async function MobileSaleRentMenu({ menuType }: Props) {
 
   function showCategories() {
     return data.map((item) => {
+      const link =
+        menuType === 'rent'
+          ? `${ROUTES.CATALOG_RENT}/${item.type}/${item.seoUrl}`
+          : `${ROUTES.CATALOG_SALE}/${item.type}/${item.seoUrl}`
+
       return (
         <li key={item.id}>
           <Link
             className='flex w-full items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
-            href={item.seoUrl}
+            href={link}
           >
             <Img
               src={item.imageUrl}
@@ -42,7 +48,7 @@ async function MobileSaleRentMenu({ menuType }: Props) {
         <li>
           <Link
             className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
-            href=''
+            href={ROUTES.CATALOG_RENT_BY_DAY}
           >
             <Img src='' width={86} height={86} className='size-[86px] rounded-[24px] object-cover object-center' />
             <div>

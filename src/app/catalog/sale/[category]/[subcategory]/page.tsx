@@ -9,10 +9,10 @@ async function Page({ params }: SubcategoryPage & CategoryPage) {
     subcategory: params.subcategory,
     page: 1,
     perPage: 9,
-    dealType: 'rent',
+    dealType: 'sale',
   }).catch(notFound)
 
-  return <Category category={category} dealType='rent' />
+  return <Category category={category} dealType='sale' />
 }
 
 export default Page

@@ -2,7 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import { BreadcrumbItem } from '@/types/Breadcrumbs'
 import { AnyCategory } from '@/types/catalog/Category'
-import { ROUTES } from '@/globals/paths'
+import { PATHS, ROUTES } from '@/globals/paths'
+import { CategoryDealType } from '@/types/RequestProps'
 
 interface BreadcrumbProps {
   title: string
@@ -22,8 +23,13 @@ function Breadcrumb({ title, href }: BreadcrumbProps) {
   )
 }
 
-function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[]) {
+function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[], dealType?: CategoryDealType) {
   let link = ROUTES.CATALOG
+
+  if (dealType) {
+    if (dealType === 'sale') link += `/${PATHS.SALE}`
+    if (dealType === 'rent') link += `/${PATHS.RENT}`
+  }
 
   breadcrumbs.forEach((breadcrumb) => {
     link += `/${breadcrumb.seo}`
@@ -34,6 +40,7 @@ function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[]) {
 
 type Props = {
   className?: string
+  dealType?: CategoryDealType
 } & (
   | {
       list: BreadcrumbItem[]
@@ -45,12 +52,16 @@ type Props = {
     }
 )
 
-function Breadcrumbs({ className, list, category }: Props) {
+function Breadcrumbs({ className, list, category, dealType }: Props) {
   function showItems() {
     const _list = list ? list : category.breadcrumbs
 
     return _list.map((item, i) => (
-      <Breadcrumb key={item.seo} href={generateLinkFromBreadcrumb(_list.toSpliced(i + 1))} title={item.name} />
+      <Breadcrumb
+        key={item.seo}
+        href={generateLinkFromBreadcrumb(_list.toSpliced(i + 1), dealType)}
+        title={item.name}
+      />
     ))
   }
 

@@ -10,11 +10,12 @@ import { useSearchParams } from 'next/navigation'
 import { getCategory, getFilters, getQuickFilters } from '@/globals/api'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
 import { PopupContext } from '@/features/Popup'
+import { CategoryDealType } from '@/types/RequestProps'
 import { EMPTY_FILTERS } from '@/globals/filters'
 
 interface CategoryFilterProps {
   categoryName: string
-  rent: boolean
+  dealType: CategoryDealType
 }
 
 interface ObjectList {
@@ -22,7 +23,7 @@ interface ObjectList {
   total: number
 }
 
-function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
+function CategoryFilter({ categoryName, dealType }: CategoryFilterProps) {
   const [filterInputs, setFilterInputs] = useState<QuickFilters>(EMPTY_FILTERS)
   const [list, setList] = useState<ObjectList>({ objects: [], total: 0 })
   const { clearFilters, filter } = useFilter()
@@ -41,7 +42,7 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
   useEffect(() => {
     getQuickFilters(categoryName).then((res) => setFilterInputs(res))
 
-    getCategory(categoryName, { filter: filter.parsed, rent }).then((res) => {
+    getCategory(categoryName, { filter: filter.parsed, dealType }).then((res) => {
       setList({
         objects: res.objects,
         total: res.total,
@@ -50,7 +51,7 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
         count: res.total,
       })
     })
-  }, [categoryName, rent, filter])
+  }, [categoryName, dealType, filter])
 
   const categoryLink = `${ROUTES.CATALOG}/${categoryName}/?${searchParams.toString()}`
   const mapLink = `${ROUTES.MAP}/${categoryName}/?${searchParams.toString()}`

@@ -39,6 +39,8 @@ function Filters({ categories }: { categories: MenuCategory[] }) {
     })
   }
 
+  const dealType = activeCategory.isRent ? 'rent' : 'sale'
+
   return (
     <div className='absolute inset-x-0 bottom-[20px] overflow-auto scrollbar-transparent md:inset-x-[56px] md:bottom-[56px]'>
       <div className='flex w-fit gap-[8px] overflow-hidden rounded-t-[24px] md:gap-0 md:bg-base-650'>
@@ -52,7 +54,7 @@ function Filters({ categories }: { categories: MenuCategory[] }) {
           ]}
           onChange={onTabButtonClick}
         />
-        <CategoryFilter categoryName={activeCategory.seoUrl} rent={activeCategory.isRent} />
+        <CategoryFilter categoryName={activeCategory.seoUrl} dealType={dealType} />
       </div>
     </div>
   )

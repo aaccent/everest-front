@@ -23,3 +23,5 @@ interface LocationRequest {
 }
 
 export type GeneralRequestParams = SortRequest & FilterRequest & PaginationRequest & LocationRequest
+
+export type CategoryDealType = 'sale' | 'rent'
