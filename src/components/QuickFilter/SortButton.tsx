@@ -11,7 +11,7 @@ interface SortButtonProps {
 }
 
 function SortButton({ sorts }: SortButtonProps) {
-  const [sortValue, setSortValue] = useState<string>(sorts[0].name)
+  const [sortValue, setSortValue] = useState<string>(sorts[0]?.name || '')
   const [opened, setOpened] = useState<boolean>(false)
   const { addSort, getSortFromUrl } = useSort()
 

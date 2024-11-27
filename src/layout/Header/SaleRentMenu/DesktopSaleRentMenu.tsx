@@ -4,8 +4,7 @@ import Link from 'next/link'
 import Img from '@/ui/Img'
 import { suggestionPlural } from '@/features/utility/pluralRules'
 import { getSaleRentMenu, MenuType } from '@/globals/api'
-import { generateCategoryLink } from '@/features/link'
-import SeeAllCategoryItem from '@/layout/Header/components/SeeAllCategoryItem'
+import { ROUTES } from '@/globals/paths'
 
 interface Props {
   className?: string
@@ -18,25 +17,32 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
   const title = menuType === 'sale' ? 'Покупка' : 'Аренда'
 
   function showCategories() {
-    return data.map((item) => (
-      <li key={item.id}>
-        <Link
-          className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
-          href={generateCategoryLink(item)}
-        >
-          <Img
-            src={item.imageUrl}
-            width={86}
-            height={86}
-            className='size-[86px] rounded-[24px] object-cover object-center'
-          />
-          <div className='w-[140px]'>
-            <div className='text-base-300-reg-100-upper mb-[6px] text-base-600'>{item.name}</div>
-            <div className='text-base-400-lg-100 text-base-650'>{`${item.count} ${suggestionPlural.get(item.count)}`}</div>
-          </div>
-        </Link>
-      </li>
-    ))
+    return data.map((item) => {
+      const link =
+        menuType === 'rent'
+          ? `${ROUTES.CATALOG_RENT}/${item.type}/${item.seoUrl}`
+          : `${ROUTES.CATALOG_SALE}/${item.type}/${item.seoUrl}`
+
+      return (
+        <li key={item.id}>
+          <Link
+            className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
+            href={link}
+          >
+            <Img
+              src={item.imageUrl}
+              width={86}
+              height={86}
+              className='size-[86px] rounded-[24px] object-cover object-center'
+            />
+            <div className='w-[140px]'>
+              <div className='text-base-300-reg-100-upper mb-[6px] text-base-600'>{item.name}</div>
+              <div className='text-base-400-lg-100 text-base-650'>{`${item.count} ${suggestionPlural.get(item.count)}`}</div>
+            </div>
+          </Link>
+        </li>
+      )
+    })
   }
 
   return (
@@ -52,14 +58,11 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
               <span className='text-header-300 text-base-650'>{`${fullAmount} ${suggestionPlural.get(fullAmount)}`}</span>
             </div>
             <ul className='ml-[-10px] mt-[30px] grid h-1 grow auto-rows-max grid-cols-3 gap-x-[12px] gap-y-[12px] overflow-y-auto transition-opacity scrollbar-custom'>
-              <li>
-                <SeeAllCategoryItem href='' amount={fullAmount} />
-              </li>
               {menuType === 'rent' && (
                 <li>
                   <Link
                     className='flex items-center gap-[12px] rounded-[24px] bg-base-200 p-[16px] md:gap-[20px] md:bg-transparent md:p-[10px] md:transition-colors md:hover:bg-base-100'
-                    href=''
+                    href={ROUTES.CATALOG_RENT_BY_DAY}
                   >
                     <Img
                       src=''

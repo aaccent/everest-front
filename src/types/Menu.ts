@@ -21,4 +21,5 @@ export interface SaleRentCategory {
   name: string
   seoUrl: string
   count: number
+  type: string
 }

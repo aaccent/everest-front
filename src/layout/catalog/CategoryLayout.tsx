@@ -9,14 +9,16 @@ import { getFilters, getQuickFilters } from '@/globals/api'
 import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
 import FilterTagsProvider from '@/components/FilterTagsContext'
 import { Filters, QuickFilters } from '@/types/FiltersType'
+import { CategoryDealType } from '@/types/RequestProps'
 
 interface Props extends PropsWithChildren {
   category: AnyCategory
   quickFilters?: QuickFilters
   detailFilters?: Filters
+  dealType?: CategoryDealType
 }
 
-async function CategoryLayout({ category, children, quickFilters, detailFilters }: Props) {
+async function CategoryLayout({ category, children, quickFilters, detailFilters, dealType }: Props) {
   const _quickFilters = quickFilters || (await getQuickFilters(category.breadcrumbs[0].seo))
   const generalFilters = detailFilters || (await getFilters(category.breadcrumbs[0].seo))
 
@@ -32,7 +34,7 @@ async function CategoryLayout({ category, children, quickFilters, detailFilters 
 
   return (
     <>
-      <Breadcrumbs category={category} />
+      <Breadcrumbs category={category} dealType={dealType} />
       <Container className='mb-[24px] flex items-start justify-between md:mb-[50px]'>
         <PageTitle title={category.name} />
         <ObjectsAmount className='text-base-300-lg-100 hidden translate-x-0 text-base-650 md:block' />
@@ -47,7 +49,7 @@ async function CategoryLayout({ category, children, quickFilters, detailFilters 
       <FilterTagsProvider list={generalFilters.filters}>
         <QuickFilter
           filters={_quickFilters}
-          categoryName={category.breadcrumbs[0].seo}
+          categoryName={category.breadcrumbs[0]?.seo}
           initCount={category.count}
           sorts={generalFilters.sorts}
         />
