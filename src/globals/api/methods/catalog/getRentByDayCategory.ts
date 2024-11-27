@@ -1,19 +1,21 @@
 import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
 import { GeneralRequestParams } from '@/types/RequestProps'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
+import { Pagination } from '@/types/Pagination'
 
 type Props = GeneralRequestParams
 
-type Response = APIResponse<DefaultObject[]>
+type Response = APIResponse<{ objects: DefaultObject[] } & Pagination>
 type Request = APIRequest<GeneralRequestParams>
 
 export async function getRentByDayCategory(props: Props) {
-  const res = await apiCall<Request, Response>('/catalog/rent_one_day', {
+  const res = await apiCall<Request, Response>('/catalog/rent-one-day', {
     request: props,
     method: 'POST',
   })
 
   return {
-    objects: res.data,
+    ...res.data,
+    count: res.data.objects.length,
   }
 }

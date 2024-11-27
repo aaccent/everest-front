@@ -10,6 +10,7 @@ import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import ObjectsAmount from '@/layout/catalog/ObjectsAmount'
 import QuickFiltersTags from '@/components/QuickFilter/QuickFiltersTags'
 import { getFilters } from '@/globals/api'
+import { EMPTY_FILTERS } from '@/globals/filters'
 
 interface Props {
   filters: QuickFilters
@@ -21,6 +22,8 @@ interface Props {
 function QuickFilter({ filters, categoryName, initCount, sorts }: Props) {
   async function getFiltersAction() {
     'use server'
+
+    if (!categoryName) return EMPTY_FILTERS.filters
 
     const res = await getFilters(categoryName)
     return res.filters
