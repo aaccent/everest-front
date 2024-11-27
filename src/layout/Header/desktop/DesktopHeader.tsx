@@ -2,7 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import LoginButton from '@/layout/Header/desktop/LoginButton'
 import CatalogButton from '@/layout/Header/components/CatalogButton'
 import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 
@@ -104,7 +103,6 @@ function DesktopHeader() {
               <CircleButton className='before:bg-icon-heart' />
               <CircleButton className='before:bg-icon-scale' />
             </div>
-            <LoginButton />
           </div>
         </div>
       </header>
