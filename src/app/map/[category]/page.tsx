@@ -27,7 +27,8 @@ export async function getItems({ category: categoryCode, subcategory, zoom, cent
   return category.objects
 }
 
-async function Page({ params }: CategoryPage) {
+async function Page(props: CategoryPage) {
+  const params = await props.params
   const quickFilter = await getQuickFilters(params.category).catch(notFound)
 
   const _getItems: GetItemsForMapFn = async function (filters, center, zoom) {

@@ -13,9 +13,11 @@ import DesktopSaleRentMenu from '@/layout/Header/SaleRentMenu/DesktopSaleRentMen
 import BlackZone from '@/layout/Header/components/BlackZone'
 
 /** @name {Header} */
-function Header() {
+async function Header() {
+  const pathname = await getPathname()
+
   return (
-    <HeaderProvider pathname={getPathname() || ''}>
+    <HeaderProvider pathname={pathname || ''}>
       <IsMobile>
         <MobileHeader />
       </IsMobile>

@@ -15,7 +15,7 @@ const PAGE_MENU = [
   },
   {
     title: 'Выбор квартиры',
-    dataSet: null,
+    dataSet: 'layoutChoice',
   },
   {
     title: 'Подбор ипотеки',
@@ -50,12 +50,8 @@ function PageMenu({ className }: { className?: string }) {
   }
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entries]) => {
-      if (entries.isIntersecting) {
-        setActiveMenuItem(entries.target.id)
-      } else {
-        setActiveMenuItem('')
-      }
+    const observer = new IntersectionObserver(([entries]) => setActiveMenuItem(entries.target.id), {
+      threshold: 0.7,
     })
 
     PAGE_MENU.forEach((item) => {

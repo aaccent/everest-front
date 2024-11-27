@@ -19,7 +19,8 @@ async function convertToList(raw: Period, complexCode: string) {
   return list
 }
 
-export async function GET(request: Request, { params }: ComplexPage) {
+export async function GET(request: Request, props: ComplexPage) {
+  const params = await props.params
   const rawData = await getYears(params.complex)
   const data = await convertToList(rawData, params.complex)
   return Response.json(data)

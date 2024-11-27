@@ -27,7 +27,7 @@ async function LayoutChoice({ complex }: LayoutChoiceProps) {
   )
 
   return (
-    <Section>
+    <Section id='layoutChoice'>
       <h2 className='text-header-200 mb-[32px] font-coolvetica uppercase' id={LAYOUT_ID}>
         Выбор планировки
       </h2>

@@ -37,7 +37,7 @@ interface socialItem {
 async function ContactForm() {
   const socials: socialItem[] = await getSocials()
 
-  const pathname = getPathname()
+  const pathname = await getPathname()
   if (pathname === ROUTES.MAP) return null
   const isContactsPage = pathname === ROUTES.CONTACTS
 

@@ -37,7 +37,8 @@ async function getQuarters(year: string, complexCode: string): Promise<TabButton
   return await Promise.all(convertQuarters(quarters, complexCode))
 }
 
-export async function GET(request: NextRequest, { params }: ComplexPage) {
+export async function GET(request: NextRequest, props: ComplexPage) {
+  const params = await props.params
   const year = request.nextUrl.searchParams.get('year')
   if (!year) return
   const data = await getQuarters(year, params.complex)

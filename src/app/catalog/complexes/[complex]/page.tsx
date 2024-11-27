@@ -12,7 +12,8 @@ import ExclusiveOffers from './_components/ExclusiveOffers'
 import Bonuses from '@/app/catalog/complexes/[complex]/_components/Bonuses'
 import BuildingProgress from './_components/BuildingProgress/BuildingProgress'
 
-async function Page({ params }: ComplexPage) {
+async function Page(props: ComplexPage) {
+  const params = await props.params
   const complex = await getComplexDetailed(params.complex).catch(notFound)
 
   return (
@@ -23,10 +24,10 @@ async function Page({ params }: ComplexPage) {
         <PageSlider complex={complex} />
         <ExclusiveOffers />
         <LayoutChoice complex={complex} />
-        <Documentation complexCode={params.complex} />
-        <Bonuses />
-        <BuildingProgress complexCode={params.complex} />
       </PageMenuWrapper>
+      <Documentation complexCode={params.complex} />
+      <Bonuses />
+      <BuildingProgress complexCode={params.complex} />
     </>
   )
 }
