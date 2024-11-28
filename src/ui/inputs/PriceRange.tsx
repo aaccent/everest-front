@@ -23,7 +23,7 @@ function revertPrice(value: RangeValue | undefined): RangeValue | undefined {
   return value.map(revertPartOfValue)
 }
 
-type Props = Omit<RangeProps, 'step' | 'prefix'>
+type Props = Omit<RangeProps, 'step'>
 
 function PriceRange({ min, max, defaultValue, value, onChange, ...props }: Props) {
   const _onChange: Props['onChange'] = (name, value) => {

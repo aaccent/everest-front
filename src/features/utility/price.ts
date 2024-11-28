@@ -85,8 +85,21 @@ export function formatPriceForRange(value: number): number {
 export function formatShortSinglePrice(value: number): string {
   const digits = Math.trunc(Number(value)).toString().length
   if (digits > 6) {
-    return `${value / 1_000_000} млн`
+    return `${value / 1_000_000}`
   } else if (digits > 3) {
-    return `${value / 1_000} тыс`
+    return `${value / 1_000}`
   } else return value.toString()
+}
+
+export function getDigits(value: number) {
+  const digits = Math.trunc(Number(value)).toString().length
+  if (digits > 6) {
+    return `млн`
+  } else if (digits > 3) {
+    return `тыс`
+  } else return ''
+}
+
+export function convertToShortView(value: number) {
+  return `${formatShortSinglePrice(value)} ${getDigits(value)}`
 }
