@@ -1,11 +1,10 @@
 'use client'
 
-import React, { useContext, useEffect, useState } from 'react'
-import { FilterType, FilterView } from '@/types/FiltersType'
+import React, { useEffect, useState } from 'react'
+import { FilterBlock, FilterType, FilterView } from '@/types/FiltersType'
 import Checkbox from '@/ui/inputs/Checkbox'
 import { useFilter } from '@/features/useFilter'
 import Button from '@/ui/buttons/Button'
-import { FilterTagsContext } from '@/components/FilterTagsContext'
 import { formatTagText } from '@/features/utility/texts'
 
 const TAGS_IN_VIEW = 4
@@ -76,8 +75,12 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   )
 }
 
-function QuickFiltersTags() {
-  const { activeFilters } = useContext(FilterTagsContext)
+interface Props {
+  detailedFiltersInputs: FilterBlock[]
+}
+
+function QuickFiltersTags({ detailedFiltersInputs }: Props) {
+  const { activeFilters } = useFilter({ detailedFiltersInputs })
   const { removeFilter } = useFilter()
 
   function showFirstTags() {

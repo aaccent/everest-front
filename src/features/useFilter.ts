@@ -2,13 +2,22 @@
 import { useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { convertToBase64, convertBase64ToArray } from '@/features/utility/convertBase64'
+import { FilterBlock, FilterType, FilterView } from '@/types/FiltersType'
+import { convertBlocksToFilterType, getActiveFilters } from '@/features/utility/filters'
 
 export interface Filter {
   id: number
   value: string[] | boolean | number[]
 }
 
-export function useFilter() {
+/**
+ * передается массив полей детальных фильтров, если нужны теги фильтров
+ * */
+interface Props {
+  detailedFiltersInputs?: FilterBlock[]
+}
+
+export function useFilter({ detailedFiltersInputs }: Props = {}) {
   const searchParams = useSearchParams()
 
   /**
@@ -34,6 +43,14 @@ export function useFilter() {
     str: getFiltersSearchParams(),
     parsed: parseSearchParamsToFilter(),
   })
+
+  const [activeFilters, setActiveFilters] = useState<FilterType<FilterView>[]>([])
+
+  useEffect(() => {
+    if (!detailedFiltersInputs) return
+    const convertedList = convertBlocksToFilterType(detailedFiltersInputs)
+    setActiveFilters(getActiveFilters(convertedList, filter.parsed))
+  }, [filter])
 
   function findFilter<T extends Filter>(id: number): T | undefined {
     return filter.parsed.find((item) => item.id === id) as unknown as T
@@ -84,7 +101,6 @@ export function useFilter() {
   }
 
   function clearFilters() {
-    setFilters({ str: '', parsed: [] })
     const params = new URLSearchParams(searchParams.toString())
     params.delete('filter')
     window.history.replaceState(null, '', `?${params.toString()}`)
@@ -98,5 +114,5 @@ export function useFilter() {
     window.history.replaceState(null, '', `?${params.toString()}`)
   }
 
-  return { filter, addFilter, findFilter, clearFilters, removeFilter }
+  return { filter, addFilter, findFilter, clearFilters, removeFilter, activeFilters }
 }

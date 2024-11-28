@@ -69,12 +69,12 @@ function ObjectHero({ item }: Props) {
             </div>
             {!!item.address && (
               <span className='text-base-300-lg-100 !before:bg-left flex items-center gap-[2px] text-base-600/50 before:size-[16px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default md:gap-[16px] md:before:hidden'>
-                <MapObjectsButton className='hidden md:flex' />
+                <MapObjectsButton className='hidden md:flex' categoryName='' />
                 {item.address}
               </span>
             )}
           </div>
-          <MapObjectsButton className='h-[36px] w-[58px] md:hidden' />
+          <MapObjectsButton className='h-[36px] w-[58px] md:hidden' categoryName='' />
         </div>
         <div className='mb-[20px] border-y border-y-base-600/10 py-[20px] md:mb-[43px] md:border-y-0 md:py-0'>
           <ul

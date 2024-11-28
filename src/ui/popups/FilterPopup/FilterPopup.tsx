@@ -13,16 +13,20 @@ import SortButton from '@/components/QuickFilter/SortButton'
 import { objectPlural } from '@/features/utility/pluralRules'
 import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
 import { PopupTemplate } from '@/layout/popups/PopupTemplate'
+import { useFilter } from '@/features/useFilter'
 
 interface Props {
-  count: number
+  objectsCount: number
   quickFilters: QuickFilters
+  detailedFiltersInputs: FilterBlock[]
   getFilters: () => Promise<FilterBlock[]>
+  categoryName: string
 }
 
-function FilterPopup({ count, quickFilters, getFilters }: Props) {
+function FilterPopup({ objectsCount, quickFilters, detailedFiltersInputs, getFilters, categoryName }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>([])
-  const { closePopup, updateProps } = useContext(PopupContext)
+  const { activeFilters } = useFilter({ detailedFiltersInputs })
+  const { closePopup } = useContext(PopupContext)
 
   useEffect(() => {
     getFilters().then(setFilters)
@@ -41,17 +45,21 @@ function FilterPopup({ count, quickFilters, getFilters }: Props) {
     })
   }
 
+  function _closePopup() {
+    setTimeout(closePopup, 1000)
+  }
+
   return (
     <PopupTemplate>
       <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 md:top-[48px] md:block md:h-[(100dvh-48px)] md:p-[56px]'>
         <div className='relative h-1 grow p-[24px] md:static md:h-full md:grow-0 md:p-0'>
           <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
-            <MapObjectsButton className='md:hidden' />
+            <MapObjectsButton className='md:hidden' categoryName={categoryName} onClick={_closePopup} />
             <div className='text-header-300 md:text-header-200 md:uppercase'>Фильтры</div>
             <ClosePopupButton />
           </div>
           <div className='md:h-full md:w-full md:max-w-[1140px] md:overflow-auto md:pb-[350px] md:scrollbar-transparent'>
-            <FilterTags />
+            <FilterTags activeFilters={activeFilters} />
             <div className='flex h-full flex-col pb-[50px] md:block md:h-fit'>
               <IsMobile>
                 <div className='mb-[40px] flex flex-col gap-[18px]'>
@@ -74,7 +82,7 @@ function FilterPopup({ count, quickFilters, getFilters }: Props) {
           <Button
             variation='primary'
             size='small'
-            text={`Показать ${count} ${objectPlural.get(count)}`}
+            text={`Показать ${objectsCount} ${objectPlural.get(objectsCount)}`}
             className='md:mr-[12px]'
             onClick={closePopup}
           />
@@ -82,7 +90,11 @@ function FilterPopup({ count, quickFilters, getFilters }: Props) {
             text='Сбросить'
             className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'
           />
-          <MapObjectsButton className='ml-auto hidden md:order-3 md:flex' />
+          <MapObjectsButton
+            className='ml-auto hidden md:order-3 md:flex'
+            categoryName={categoryName}
+            onClick={_closePopup}
+          />
         </div>
       </div>
     </PopupTemplate>

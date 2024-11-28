@@ -1,10 +1,9 @@
 'use client'
 import { useFilter } from '@/features/useFilter'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSort } from '@/features/useSort'
 import { PER_PAGE } from '@/globals/pagination'
 import { GeneralRequestParams } from '@/types/RequestProps'
-import { PopupContext } from '@/features/Popup'
 
 export type ListType<TType = unknown> = {
   objects: TType[]
@@ -36,7 +35,6 @@ export type ObjectManagerType = ReturnType<typeof useFilterAndPagination>
  */
 export function useFilterAndPagination<TType = unknown>({ initList, getObjects }: Props<TType>) {
   const [list, setList] = useState<ListType<TType>>(initList)
-  const { updateProps } = useContext(PopupContext)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -49,7 +47,6 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
 
   function _setList(data: ListType) {
     setList(data as ListType<TType>)
-    updateProps('filter', { count: data.total })
   }
 
   async function _getObjects(pageNumber: number = 1) {
