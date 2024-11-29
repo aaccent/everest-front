@@ -165,10 +165,8 @@ function ObjectsMap({ quickFilters, categoryCode, getItems, detailedFiltersInput
             initCount={total}
             className='text-base-500-reg-100-upper flex h-[50px] w-full max-w-[155px] items-center justify-center gap-[8px] rounded-[20px] bg-primary text-base-100 before:block before:size-[16px] before:bg-icon-filter before:filter-base-100 before:bg-default-contain'
             text='фильтр'
+            showActiveFiltersCount
           />
-          {/*<Button className='h-[50px] justify-center !px-0 text-center' icon={{ img: 'FILTER' }} variation='primary'>*/}
-          {/*  фильтр*/}
-          {/*</Button>*/}
         </div>
         <div className='pointer-events-auto mt-auto hidden w-full items-center gap-[16px] rounded-[32px] bg-base-100 p-[24px] md:flex'>
           <DetailFilterButton

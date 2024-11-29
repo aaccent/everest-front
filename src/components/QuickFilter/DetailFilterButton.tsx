@@ -11,12 +11,21 @@ type TextButtonProps = {
   text: string
   className?: string
   activeFiltersCount?: number
+  showActiveFiltersCount?: boolean
 }
 
-function TextDetailFilterButton({ text, onClick, className, activeFiltersCount }: TextButtonProps) {
+function TextDetailFilterButton({
+  text,
+  onClick,
+  className,
+  activeFiltersCount,
+  showActiveFiltersCount,
+}: TextButtonProps) {
   return (
-    <div className='relative'>
-      <div className='text-base-500-reg-200 absolute inset-y-1/2 right-[16px] flex -translate-y-1/2 items-center justify-center bg-base-100 text-primary circle-[18px]'>
+    <div className={`${showActiveFiltersCount ? 'relative' : 'static'}`}>
+      <div
+        className={`text-base-500-reg-200 inset-y-1/2 right-[16px] -translate-y-1/2 items-center justify-center bg-base-100 text-primary circle-[18px] ${showActiveFiltersCount && 'absolute'} ${activeFiltersCount ? 'flex' : 'hidden'} `}
+      >
         {activeFiltersCount}
       </div>
       <button className={`${className}`} type='button' onClick={onClick}>
@@ -49,9 +58,10 @@ type Props = {
   initCount?: number
   text?: string
   className?: string
+  showActiveFiltersCount?: boolean
 }
 
-function DetailFilterButton({ initCount = 0, text, className, ...popupProps }: Props) {
+function DetailFilterButton({ initCount = 0, text, className, showActiveFiltersCount, ...popupProps }: Props) {
   const { filter } = useFilter()
   const [activeFiltersCount, setActiveFiltersCount] = useState<number>(filter.parsed.length)
   const { openPopup, updateProps } = useContext(PopupContext)
@@ -77,6 +87,7 @@ function DetailFilterButton({ initCount = 0, text, className, ...popupProps }: P
         text={text}
         className={className}
         activeFiltersCount={activeFiltersCount}
+        showActiveFiltersCount={showActiveFiltersCount}
       />
     )
 
