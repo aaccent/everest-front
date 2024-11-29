@@ -1,3 +1,5 @@
+import { PriceDigits } from '@/ui/inputs/NewRange'
+
 const PRICE_PLACEHOLDER = 'нет цены'
 
 type RawPrice = number | string | null | undefined
@@ -82,13 +84,21 @@ export function formatPriceForRange(value: number): number {
   } else return value
 }
 
-export function formatShortSinglePrice(value: number): string {
+function formatFractionDigits(value: number, digits: number) {
+  return Number.isInteger(value) ? value.toString() : value.toFixed(digits)
+}
+
+export function formatShortSinglePrice(value: number) {
   const digits = Math.trunc(Number(value)).toString().length
+  let _value = value
+
   if (digits > 6) {
-    return `${value / 1_000_000}`
+    _value = value / 1_000_000
   } else if (digits > 3) {
-    return `${value / 1_000}`
-  } else return value.toString()
+    _value = value / 1_000
+  }
+
+  return formatFractionDigits(_value, 1)
 }
 
 export function getDigits(value: number) {
@@ -100,6 +110,23 @@ export function getDigits(value: number) {
   } else return ''
 }
 
-export function convertToShortView(value: number) {
+export function convertPriceToShortView(value: number) {
   return `${formatShortSinglePrice(value)} ${getDigits(value)}`
+}
+
+export function convertPriceToFullView(numberValue: number, digitValue: PriceDigits) {
+  switch (digitValue) {
+    case 'млн':
+      return numberValue * 1_000_000
+    case 'тыс':
+      return numberValue * 1_000
+    default:
+      return numberValue
+  }
+}
+
+export function formatInput(value: string) {
+  const formattedValue = parseFloat(value)
+  if (isNaN(formattedValue)) return ''
+  return formattedValue.toString()
 }

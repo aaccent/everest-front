@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import { Range as RangeType } from '@/types/FiltersType'
 import { InputValue } from '@/globals/utilityTypes'
-import { convertToShortView, getDigits } from '@/features/utility/price'
+import { convertPriceToFullView, convertPriceToShortView, formatInput, getDigits } from '@/features/utility/price'
 
 export type RangeValue = RangeType['value']
 
+export type PriceDigits = 'тыс' | 'млн' | ''
+
 interface ValueDigits {
-  min: 'тыс' | 'млн' | ''
-  max: 'тыс' | 'млн' | ''
+  min: PriceDigits
+  max: PriceDigits
 }
 
 export type RangeProps = {
@@ -43,16 +45,22 @@ function NewRange({
   }
   const [prePrefix, setPrePrefix] = useState<ValueDigits>(initValueDigits)
 
-  function generalChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value
-    const defaultValue = e.target.defaultValue
-    const regExp = /^\d+$/g
-    const matches = Array.from(value.matchAll(regExp))[0]
-
-    //console.log(matches)
+  function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    e.currentTarget.value = formatInput(e.currentTarget.value)
   }
 
-  //if (title === 'Стоимость') console.log({ prePrefix, value })
+  function onFocus(e: React.FocusEvent<HTMLInputElement>) {
+    const numberPart = parseFloat(e.currentTarget.value)
+    const name = e.currentTarget.name as 'min' | 'max'
+    const digitPart = prePrefix[name]
+    e.currentTarget.value = convertPriceToFullView(numberPart, digitPart).toString()
+  }
+
+  function onBlur(e: React.FocusEvent<HTMLInputElement>) {
+    const inputValue = e.currentTarget.value
+    //console.log({ inputValue, value })
+    e.currentTarget.value = convertPriceToShortView(parseFloat(inputValue))
+  }
 
   return (
     <div className='flex flex-col gap-[8px]'>
@@ -66,10 +74,11 @@ function NewRange({
             <input
               type='text'
               className='max w-full text-start focus:outline-0'
-              defaultValue={convertToShortView(value[0])}
-              onChange={generalChange}
-              onFocus={(e) => (e.currentTarget.value = '')}
-              onBlur={(e) => (e.currentTarget.value = convertToShortView(+e.currentTarget.value))}
+              defaultValue={convertPriceToShortView(value[0])}
+              onChange={onInputChange}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              name='min'
             />
           </label>
           <div className='absolute inset-1/2 h-[12px] w-[1px] -translate-x-1/2 -translate-y-1/2 bg-base-400' />
@@ -77,7 +86,11 @@ function NewRange({
             <input
               type='text'
               className='min w-full text-end focus:outline-0'
-              defaultValue={convertToShortView(value[1])}
+              defaultValue={convertPriceToShortView(value[1])}
+              onChange={onInputChange}
+              onFocus={onFocus}
+              onBlur={onBlur}
+              name='max'
             />
           </label>
         </div>
