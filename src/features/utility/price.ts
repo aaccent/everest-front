@@ -1,4 +1,4 @@
-import { PriceDigits } from '@/ui/inputs/NewRange'
+import { Digit } from '@/ui/inputs/Range'
 
 const PRICE_PLACEHOLDER = 'нет цены'
 
@@ -88,33 +88,36 @@ function formatFractionDigits(value: number, digits: number) {
   return Number.isInteger(value) ? value.toString() : value.toFixed(digits)
 }
 
-export function formatShortSinglePrice(value: number) {
-  const digits = Math.trunc(Number(value)).toString().length
-  let _value = value
+function roundValue(value: number) {
+  const modulo = value % 100
+  if (modulo <= 50 && modulo !== 0) return value + 100
+  return value
+}
 
-  if (digits > 6) {
-    _value = value / 1_000_000
-  } else if (digits > 3) {
-    _value = value / 1_000
+export function formatShortSinglePrice(value: number) {
+  const digit = Math.trunc(value).toString().length
+
+  let _value = roundValue(value)
+
+  if (digit > 6) {
+    _value = _value / 1_000_000
+  } else if (digit > 3) {
+    _value = _value / 1_000
   }
 
   return formatFractionDigits(_value, 1)
 }
 
-export function getDigits(value: number) {
-  const digits = Math.trunc(Number(value)).toString().length
-  if (digits > 6) {
+export function getDigit(value: number): Digit {
+  const digit = Math.trunc(Number(value)).toString().length
+  if (digit > 6) {
     return `млн`
-  } else if (digits > 3) {
+  } else if (digit > 3) {
     return `тыс`
   } else return ''
 }
 
-export function convertPriceToShortView(value: number) {
-  return `${formatShortSinglePrice(value)} ${getDigits(value)}`
-}
-
-export function convertPriceToFullView(numberValue: number, digitValue: PriceDigits) {
+export function convertPriceToFullView(numberValue: number, digitValue: Digit) {
   switch (digitValue) {
     case 'млн':
       return numberValue * 1_000_000
@@ -125,7 +128,7 @@ export function convertPriceToFullView(numberValue: number, digitValue: PriceDig
   }
 }
 
-export function formatInput(value: string) {
+export function onlyNumbersInput(value: string) {
   const formattedValue = parseFloat(value)
   if (isNaN(formattedValue)) return ''
   return formattedValue.toString()
