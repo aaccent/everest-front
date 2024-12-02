@@ -4,10 +4,11 @@ import Link from 'next/link'
 import MobileMenuItem from './MobileMenuItem'
 import MobileDetailMenuWrapper from './MobileDetailMenuWrapper'
 import { getServices } from '@/globals/api'
-import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
+import { MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 import MobileSaleRentMenu from '@/layout/Header/SaleRentMenu/MobileSaleRentMenu'
-import { ActionButton, MobileCallPopupButton, MobileCityButton } from '@/layout/Header/mobile/ActionButton'
+import { MobileCallPopupButton, MobileCityButton } from '@/layout/Header/mobile/ActionButton'
 import { getCityByIpFromLocation } from '@/components/GeoPosition'
+import { ROUTES } from '@/globals/paths'
 
 function showItems(list: MenuItem[]) {
   return list.map((item, i) => (
@@ -35,16 +36,12 @@ async function MobileDetailMenu() {
               <MobileSaleRentMenu menuType='rent' />
             </MobileMenuItem>
             <MobileMenuItem text='Новостройки'>{showItems(newBuildingsMenu)}</MobileMenuItem>
-            <MobileMenuItem href='#' text='Ипотека' />
-            <MobileMenuItem text='Сервисы'>{showItems(services as any[])}</MobileMenuItem>
-            <MobileMenuItem text='О нас'>{showItems(aboutMenu)}</MobileMenuItem>
-            <MobileMenuItem href='/contacts' text='Контакты' />
+            <MobileMenuItem href={ROUTES.CONTACTS} text='Контакты' />
           </ul>
         </nav>
         <div className='grid grid-cols-2 gap-[8px]'>
           <MobileCallPopupButton />
           <MobileCityButton autoSelectedCity={cityFromIp} />
-          <ActionButton text='Подобрать квартиру' icon='KEYS' />
         </div>
       </div>
     </MobileDetailMenuWrapper>
