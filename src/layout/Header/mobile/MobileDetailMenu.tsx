@@ -43,7 +43,6 @@ async function MobileDetailMenu() {
         </nav>
         <div className='grid grid-cols-2 gap-[8px]'>
           <MobileCallPopupButton />
-          <ActionButton text='Добавить объявление' icon='ADD' href='#' />
           <MobileCityButton autoSelectedCity={cityFromIp} />
           <ActionButton text='Подобрать квартиру' icon='KEYS' />
         </div>
