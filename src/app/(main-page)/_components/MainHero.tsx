@@ -10,6 +10,7 @@ import { getCatalogMenu } from '@/globals/api'
 
 async function MainHero() {
   const categories = await getCatalogMenu()
+  const categoriesExceptRent = categories.filter((category) => category.seoUrl.trim().toLowerCase() !== 'rent')
   return (
     <Section className='relative max-h-[810px] min-h-svh' hideContainer>
       <Image
@@ -25,7 +26,7 @@ async function MainHero() {
       <Container className='pt-[90px] md:pt-[140px]'>
         <h1 className='text-header-100 max-w-[850px] uppercase text-base-100'>Первый шаг к вашему новому дому</h1>
       </Container>
-      <Filters categories={categories} />
+      <Filters categories={categoriesExceptRent} />
     </Section>
   )
 }

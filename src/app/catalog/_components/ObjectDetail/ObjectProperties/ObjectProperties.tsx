@@ -5,6 +5,7 @@ import ObjectPropertiesWrapper from '@/app/catalog/_components/ObjectDetail/Obje
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
 import { formatDate } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
+import { formatFullPrice } from '@/features/utility/price'
 
 interface Props {
   item: DetailDefaultObject
@@ -12,11 +13,14 @@ interface Props {
 
 function Properties({ item }: Props) {
   function showSubList(list: Characteristic[]) {
-    return list.map((item, index) => (
-      <PropItem key={index} title={item.name}>
-        {item.value}
-      </PropItem>
-    ))
+    return list.map((item, index) => {
+      const value = item.name.trim().toLowerCase() === 'стоимость' ? formatFullPrice(item.value) : item.value
+      return (
+        <PropItem key={index} title={item.name}>
+          {value}
+        </PropItem>
+      )
+    })
   }
 
   function showList() {

@@ -1,6 +1,6 @@
 'use client'
-import React, { useContext, useEffect, useState } from 'react'
-import { QuickFilters } from '@/types/FiltersType'
+import React, { useEffect, useState } from 'react'
+import { FilterBlock, QuickFilters } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
@@ -9,7 +9,6 @@ import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
 import { getCategory, getFilters, getQuickFilters } from '@/globals/api'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
-import { PopupContext } from '@/features/Popup'
 import { CategoryDealType } from '@/types/RequestProps'
 import { EMPTY_FILTERS } from '@/globals/filters'
 
@@ -24,14 +23,14 @@ interface ObjectList {
 }
 
 function CategoryFilter({ categoryName, dealType }: CategoryFilterProps) {
-  const [filterInputs, setFilterInputs] = useState<QuickFilters>(EMPTY_FILTERS)
+  const [quickFilters, setQuickFilters] = useState<QuickFilters>(EMPTY_FILTERS)
+  const [detailedFiltersInputs, setDetailedFiltersInputs] = useState<FilterBlock[]>([])
   const [list, setList] = useState<ObjectList>({ objects: [], total: 0 })
   const { clearFilters, filter } = useFilter()
   const searchParams = useSearchParams()
-  const { updateProps } = useContext(PopupContext)
 
   useEffect(() => {
-    if (filter.str) clearFilters()
+    clearFilters()
   }, [categoryName])
 
   async function getFiltersAction() {
@@ -40,15 +39,13 @@ function CategoryFilter({ categoryName, dealType }: CategoryFilterProps) {
   }
 
   useEffect(() => {
-    getQuickFilters(categoryName).then((res) => setFilterInputs(res))
+    getQuickFilters(categoryName).then(setQuickFilters)
+    getFiltersAction().then(setDetailedFiltersInputs)
 
     getCategory(categoryName, { filter: filter.parsed, dealType }).then((res) => {
       setList({
         objects: res.objects,
         total: res.total,
-      })
-      updateProps('filter', {
-        count: res.total,
       })
     })
   }, [categoryName, dealType, filter])
@@ -59,13 +56,16 @@ function CategoryFilter({ categoryName, dealType }: CategoryFilterProps) {
   return (
     <div className='relative mt-[22px]'>
       <DetailFilterButton
+        categoryName={categoryName}
+        detailedFiltersInputs={detailedFiltersInputs}
         getFilters={getFiltersAction}
-        quickFilters={filterInputs}
+        quickFilters={quickFilters}
         initCount={list.total}
         text='Расширенный фильтр'
+        className='text-base-400-lg-100 absolute right-0 top-[-100%] flex items-center gap-[6px] text-primary after:block after:size-[20px] after:bg-icon-detail-filter after:filter-primary after:bg-default-contain'
       />
-      <div className='flex justify-between'>
-        <FilterItems filters={filterInputs.filters} isQuick />
+      <div className='flex flex-wrap justify-between'>
+        <FilterItems filters={quickFilters.filters} isQuick />
         <Button
           href={categoryLink}
           type='button'

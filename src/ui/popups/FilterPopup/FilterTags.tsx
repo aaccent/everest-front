@@ -1,11 +1,14 @@
 'use client'
-import React, { useContext } from 'react'
+import React from 'react'
 import { useFilter } from '@/features/useFilter'
-import { FilterTagsContext } from '@/components/FilterTagsContext'
 import { formatTagText } from '@/features/utility/texts'
+import { FilterType, FilterView } from '@/types/FiltersType'
 
-export function FilterTags() {
-  const { activeFilters } = useContext(FilterTagsContext)
+interface Props {
+  activeFilters: FilterType<FilterView>[]
+}
+
+export function FilterTags({ activeFilters }: Props) {
   const { removeFilter } = useFilter()
 
   function showAllTags() {
