@@ -13,7 +13,7 @@ function CallPopupButton() {
       variation='primary'
       className='h-[50px] w-full max-w-full rounded-[20px] md:h-[42px] md:max-w-[160px] md:rounded-[16px]'
       onClick={() => {
-        openPopup({ name: 'callPopup' })
+        openPopup({ name: 'call' })
       }}
     >
       Забронировать

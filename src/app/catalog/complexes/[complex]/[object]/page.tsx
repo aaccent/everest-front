@@ -4,7 +4,8 @@ import ObjectDetail from '@/app/catalog/_components/ObjectDetail/ObjectDetail'
 import { getObject } from '@/globals/api'
 import { ObjectPage } from '@/types/Page'
 
-async function Page({ params }: ObjectPage) {
+async function Page(props: ObjectPage) {
+  const params = await props.params
   const item = await getObject({
     object: params.object,
     category: 'new-building',

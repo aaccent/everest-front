@@ -6,20 +6,12 @@ const PAGE_MENU = [
     dataSet: 'about',
   },
   {
-    title: 'Инфраструктура',
-    dataSet: null,
-  },
-  {
     title: 'Наши предложения',
     dataSet: 'offers',
   },
   {
     title: 'Выбор квартиры',
-    dataSet: null,
-  },
-  {
-    title: 'Подбор ипотеки',
-    dataSet: null,
+    dataSet: 'layoutChoice',
   },
 ]
 
@@ -35,13 +27,13 @@ function PageMenu({ className }: { className?: string }) {
   }
 
   function showMenu() {
-    return PAGE_MENU.map((item) => {
+    return PAGE_MENU.map((item, index) => {
       return (
         <li
           className={`cursor-pointer whitespace-nowrap ${activeMenuItem === item.dataSet ? 'text-base-600' : ''}`}
           data-id={item.dataSet}
           onClick={onClick}
-          key={item.dataSet}
+          key={index}
         >
           {item.title}
         </li>
@@ -50,12 +42,8 @@ function PageMenu({ className }: { className?: string }) {
   }
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entries]) => {
-      if (entries.isIntersecting) {
-        setActiveMenuItem(entries.target.id)
-      } else {
-        setActiveMenuItem('')
-      }
+    const observer = new IntersectionObserver(([entries]) => setActiveMenuItem(entries.target.id), {
+      threshold: 0.7,
     })
 
     PAGE_MENU.forEach((item) => {

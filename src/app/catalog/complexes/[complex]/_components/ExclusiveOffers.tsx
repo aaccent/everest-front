@@ -5,6 +5,7 @@ import Img from '@/ui/Img'
 import bavel from '@/assets/static/decorative-bg/exclusiveOffersBavel.svg'
 import mob_bavel from '@/assets/static/decorative-bg/exclusiveOffersBavel_mob.svg'
 import logo from '@/assets/static/logo-mini.svg'
+import Section from '@/layout/Section'
 
 interface Offer {
   id: number
@@ -36,15 +37,17 @@ async function ExclusiveOffers() {
     })
   }
   return (
-    <DecorativeBlock
-      className='mt-[72px] bg-primary px-[20px] pb-[20px] pt-[33px] md:mt-[160px] md:px-[40px] md:pb-[40px] md:pt-[32px]'
-      id='offers'
-    >
-      <h2 className='text-header-100 mb-[24px] uppercase text-base-100 md:mb-[48px] md:w-full md:max-w-[550px]'>
-        {offersBlock.title}
-      </h2>
-      <ul className='flex flex-col gap-[12px] md:grid md:grid-cols-3 md:gap-[18px]'>{showOffers()}</ul>
-    </DecorativeBlock>
+    <Section>
+      <DecorativeBlock
+        className='mt-[72px] bg-primary px-[20px] pb-[20px] pt-[33px] md:mt-[160px] md:px-[40px] md:pb-[40px] md:pt-[32px]'
+        id='offers'
+      >
+        <h2 className='text-header-100 mb-[24px] uppercase text-base-100 md:mb-[48px] md:w-full md:max-w-[550px]'>
+          {offersBlock.title}
+        </h2>
+        <ul className='flex flex-col gap-[12px] md:grid md:grid-cols-3 md:gap-[18px]'>{showOffers()}</ul>
+      </DecorativeBlock>
+    </Section>
   )
 }
 

@@ -15,7 +15,8 @@ function convertToAlbums(rawData: BuildingProgressImage[]) {
   return data
 }
 
-export async function GET(request: NextRequest, { params }: ComplexPage) {
+export async function GET(request: NextRequest, props: ComplexPage) {
+  const params = await props.params
   const quarterStr = request.nextUrl.searchParams.get('quarter')
   if (!quarterStr) return
   const quarterObject: Period = JSON.parse(quarterStr)

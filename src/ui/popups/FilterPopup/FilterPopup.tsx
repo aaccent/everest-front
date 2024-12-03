@@ -3,42 +3,34 @@ import React, { Fragment, useContext, useEffect, useState } from 'react'
 import MapObjectsButton from '@/ui/buttons/MapObjectsButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import Button from '@/ui/buttons/Button'
-import { getFilters } from '@/globals/api'
 import { FilterBlock, QuickFilters } from '@/types/FiltersType'
 import { IsDesktop, IsMobile } from '@/features/adaptive'
 import { FilterItems } from '@/components/FilterItems'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
 import FilterBlockWrapper from '@/ui/popups/FilterPopup/FilterBlockWrapper'
-import { DynamicPopup, PopupContext } from '@/features/Popup'
+import { PopupContext } from '@/features/Popup'
 import SortButton from '@/components/QuickFilter/SortButton'
-import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import { objectPlural } from '@/features/utility/pluralRules'
-import Link from 'next/link'
-import { useParams, useSearchParams } from 'next/navigation'
-import { ROUTES } from '@/globals/paths'
 import { FilterTags } from '@/ui/popups/FilterPopup/FilterTags'
+import { PopupTemplate } from '@/layout/popups/PopupTemplate'
+import { useFilter } from '@/features/useFilter'
 
 interface Props {
-  category: string
-  objectsAmount?: number
+  objectsCount: number
   quickFilters: QuickFilters
+  detailedFiltersInputs: FilterBlock[]
+  getFilters: () => Promise<FilterBlock[]>
+  categoryName: string
 }
 
-function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
+function FilterPopup({ objectsCount, quickFilters, detailedFiltersInputs, getFilters, categoryName }: Props) {
   const [filters, setFilters] = useState<FilterBlock[]>([])
-  const { list } = useContext(CategoryContext)
+  const { activeFilters } = useFilter({ detailedFiltersInputs })
   const { closePopup } = useContext(PopupContext)
-  const params = useParams()
-  const searchParams = useSearchParams()
-  const link = params.toString().includes('catalog') ? '' : `${ROUTES.CATALOG}/${category}/?${searchParams.toString()}`
-
-  const total = objectsAmount ?? list?.total
 
   useEffect(() => {
-    getFilters(category).then((res) => {
-      setFilters(res.filters)
-    })
-  }, [])
+    getFilters().then(setFilters)
+  }, [getFilters])
 
   function showFiltersBlocks() {
     return filters.map((block, i) => {
@@ -53,17 +45,21 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
     })
   }
 
+  function _closePopup() {
+    setTimeout(closePopup, 1000)
+  }
+
   return (
-    <DynamicPopup activePopup='filterPopup'>
+    <PopupTemplate>
       <div className='absolute inset-x-0 bottom-0 flex h-[calc(100dvh-64px)] flex-col rounded-[24px] bg-base-100 md:top-[48px] md:block md:h-[(100dvh-48px)] md:p-[56px]'>
         <div className='relative h-1 grow p-[24px] md:static md:h-full md:grow-0 md:p-0'>
           <div className='mb-[33px] flex items-center justify-between md:mb-[56px]'>
-            <MapObjectsButton className='md:hidden' />
+            <MapObjectsButton className='md:hidden' categoryName={categoryName} onClick={_closePopup} />
             <div className='text-header-300 md:text-header-200 md:uppercase'>Фильтры</div>
             <ClosePopupButton />
           </div>
           <div className='md:h-full md:w-full md:max-w-[1140px] md:overflow-auto md:pb-[350px] md:scrollbar-transparent'>
-            <FilterTags />
+            <FilterTags activeFilters={activeFilters} />
             <div className='flex h-full flex-col pb-[50px] md:block md:h-fit'>
               <IsMobile>
                 <div className='mb-[40px] flex flex-col gap-[18px]'>
@@ -81,24 +77,25 @@ function FilterPopup({ category, objectsAmount, quickFilters }: Props) {
           </div>
         </div>
         <div className='bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:fixed md:justify-normal md:px-[56px] md:py-[24px]'>
-          <button className='flex size-[50px] items-center justify-center rounded-[16px] bg-base-300 after:block after:size-[22px] after:bg-icon-search-favorite after:bg-default-contain md:hidden' />
-
-          <Link href={link} onClick={closePopup}>
-            <Button
-              variation='primary'
-              size='small'
-              text={`Показать ${total} ${objectPlural.get(total)}`}
-              className='md:mr-[12px]'
-            />
-          </Link>
+          <Button
+            variation='primary'
+            size='small'
+            text={`Показать ${objectsCount} ${objectPlural.get(objectsCount)}`}
+            className='ml-auto md:ml-0 md:mr-[12px]'
+            onClick={closePopup}
+          />
           <ResetFiltersButton
             text='Сбросить'
             className='rounded-[16px] bg-base-300 px-[28px] py-[12px] transition-colors hover:bg-primary hover:text-base-100'
           />
-          <MapObjectsButton className='ml-auto hidden md:order-3 md:flex' />
+          <MapObjectsButton
+            className='ml-auto hidden md:order-3 md:flex'
+            categoryName={categoryName}
+            onClick={_closePopup}
+          />
         </div>
       </div>
-    </DynamicPopup>
+    </PopupTemplate>
   )
 }
 

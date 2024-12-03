@@ -6,9 +6,9 @@ interface DetailObjectBaseInfo {
   id: number
   h1: string | null
   name: string
-  description: string | null
+  seoDescription: string | null
   address: string | null
-  text: string | null
+  description: string | null
   publicationTime: DateString
   priceForMeter: number
   price: number

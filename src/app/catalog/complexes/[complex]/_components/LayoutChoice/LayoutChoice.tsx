@@ -8,6 +8,8 @@ import LayoutTypes from '@/app/catalog/complexes/[complex]/_components/LayoutCho
 import { LayoutContextProvider } from './LayoutListContext'
 import ObjectsTable from './ObjectsTable'
 import ResetFiltersButton from '@/components/QuickFilter/ResetFiltersButton'
+import { FilterItems } from '@/components/FilterItems'
+import { getComplexHouseObjects, getQuickFilters } from '@/globals/api'
 
 export const LAYOUT_ID = 'complex-layout'
 
@@ -16,20 +18,37 @@ interface LayoutChoiceProps {
 }
 
 async function LayoutChoice({ complex }: LayoutChoiceProps) {
+  const quickFilters = await getQuickFilters('new-building', complex.id)
+
+  const houses = await Promise.all(
+    complex.houseNumbers.map((houseNumber) => {
+      return getComplexHouseObjects(complex.seoUrl, houseNumber, { perPage: 9 })
+    }),
+  )
+
   return (
-    <Section>
+    <Section id='layoutChoice'>
       <h2 className='text-header-200 mb-[32px] font-coolvetica uppercase' id={LAYOUT_ID}>
         Выбор планировки
       </h2>
       <Container className='mb-[40px] hidden justify-between gap-[20px] rounded-[32px] bg-base-200 md:flex md:px-[32px] md:py-[32px]'>
         <div className='flex items-center gap-[24px]'>
-          <div className='flex items-center gap-[16px]'></div>
-          <ResetFiltersButton text='сбросить все' />
+          <div className='flex items-center gap-[16px]'>
+            <FilterItems filters={quickFilters.filters} isQuick />
+          </div>
+          <ResetFiltersButton
+            className='flex items-center gap-[4px] text-base-600/50 after:size-[11px] after:bg-icon-close after:opacity-50 after:bg-default'
+            text='сбросить все'
+          />
         </div>
         <Button className='ml-auto' variation='primary' size='small' text='Показать 442 объекта' />
       </Container>
       <LayoutContextProvider>
-        <LayoutInner listView={<ObjectsTable complex={complex} />} typeView={<LayoutTypes complex={complex} />} />
+        <LayoutInner
+          complex={complex}
+          listView={<ObjectsTable complex={complex} houses={houses} />}
+          typeView={<LayoutTypes complex={complex} />}
+        />
       </LayoutContextProvider>
     </Section>
   )

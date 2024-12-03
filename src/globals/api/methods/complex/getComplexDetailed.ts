@@ -16,6 +16,7 @@ export async function getComplexDetailed(uri: string): Promise<DetailComplex> {
     ...res.data.complex,
     breadcrumbs: res.data.breadcrumbs,
     gallery: res.data.gallery,
+    objectCount: res.data.objectCount,
     houseNumbers: res.data.houseNumbers,
   }
 }

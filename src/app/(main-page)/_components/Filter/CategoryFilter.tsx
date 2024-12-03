@@ -1,18 +1,20 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { QuickFilters } from '@/types/FiltersType'
+import { FilterBlock, QuickFilters } from '@/types/FiltersType'
 import { FilterItems } from '@/components/FilterItems'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
 import { useFilter } from '@/features/useFilter'
 import { ROUTES } from '@/globals/paths'
 import { useSearchParams } from 'next/navigation'
-import { getCategory, getQuickFilters } from '@/globals/api'
+import { getCategory, getFilters, getQuickFilters } from '@/globals/api'
 import DetailFilterButton from '@/components/QuickFilter/DetailFilterButton'
+import { CategoryDealType } from '@/types/RequestProps'
+import { EMPTY_FILTERS } from '@/globals/filters'
 
 interface CategoryFilterProps {
   categoryName: string
-  rent: boolean
+  dealType: CategoryDealType
 }
 
 interface ObjectList {
@@ -20,26 +22,33 @@ interface ObjectList {
   total: number
 }
 
-function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
-  const [filterInputs, setFilterInputs] = useState<QuickFilters>({ filters: [], sorts: [] })
+function CategoryFilter({ categoryName, dealType }: CategoryFilterProps) {
+  const [quickFilters, setQuickFilters] = useState<QuickFilters>(EMPTY_FILTERS)
+  const [detailedFiltersInputs, setDetailedFiltersInputs] = useState<FilterBlock[]>([])
   const [list, setList] = useState<ObjectList>({ objects: [], total: 0 })
   const { clearFilters, filter } = useFilter()
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    if (filter.str) clearFilters()
+    clearFilters()
   }, [categoryName])
 
-  useEffect(() => {
-    getQuickFilters(categoryName).then((res) => setFilterInputs(res))
+  async function getFiltersAction() {
+    const res = await getFilters(categoryName)
+    return res.filters
+  }
 
-    getCategory(categoryName, { filter: filter.parsed, rent }).then((res) => {
+  useEffect(() => {
+    getQuickFilters(categoryName).then(setQuickFilters)
+    getFiltersAction().then(setDetailedFiltersInputs)
+
+    getCategory(categoryName, { filter: filter.parsed, dealType }).then((res) => {
       setList({
         objects: res.objects,
         total: res.total,
       })
     })
-  }, [categoryName, rent, filter])
+  }, [categoryName, dealType, filter])
 
   const categoryLink = `${ROUTES.CATALOG}/${categoryName}/?${searchParams.toString()}`
   const mapLink = `${ROUTES.MAP}/${categoryName}/?${searchParams.toString()}`
@@ -48,12 +57,15 @@ function CategoryFilter({ categoryName, rent }: CategoryFilterProps) {
     <div className='relative mt-[22px]'>
       <DetailFilterButton
         categoryName={categoryName}
-        quickFilters={filterInputs}
+        detailedFiltersInputs={detailedFiltersInputs}
+        getFilters={getFiltersAction}
+        quickFilters={quickFilters}
+        initCount={list.total}
         text='Расширенный фильтр'
-        objectsAmount={list.total}
+        className='text-base-400-lg-100 absolute right-0 top-[-100%] flex items-center gap-[6px] text-primary after:block after:size-[20px] after:bg-icon-detail-filter after:filter-primary after:bg-default-contain'
       />
-      <div className='flex justify-between'>
-        <FilterItems filters={filterInputs.filters} isQuick />
+      <div className='flex flex-wrap justify-between'>
+        <FilterItems filters={quickFilters.filters} isQuick />
         <Button
           href={categoryLink}
           type='button'

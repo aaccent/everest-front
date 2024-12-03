@@ -1,7 +1,7 @@
 import React from 'react'
 
 import CatalogMenu from '@/layout/Header/CatalogMenu/CatalogMenu'
-import MobileMenu from '@/layout/Header/mobile/MobileMenu'
+import MobileBottomMenu from '@/layout/Header/mobile/MobileBottomMenu'
 import MobileHeader from '@/layout/Header/mobile/MobileHeader'
 import MobileDetailMenu from '@/layout/Header/mobile/MobileDetailMenu'
 
@@ -13,9 +13,11 @@ import DesktopSaleRentMenu from '@/layout/Header/SaleRentMenu/DesktopSaleRentMen
 import BlackZone from '@/layout/Header/components/BlackZone'
 
 /** @name {Header} */
-function Header() {
+async function Header() {
+  const pathname = await getPathname()
+
   return (
-    <HeaderProvider pathname={getPathname() || ''}>
+    <HeaderProvider pathname={pathname || ''}>
       <IsMobile>
         <MobileHeader />
       </IsMobile>
@@ -26,7 +28,7 @@ function Header() {
       <DesktopSaleRentMenu className='peer-[[data-menu="sale"]]/header-state:flex' menuType='sale' />
       <DesktopSaleRentMenu className='peer-[[data-menu="rent"]]/header-state:flex' menuType='rent' />
       <IsMobile>
-        <MobileMenu />
+        <MobileBottomMenu />
         <MobileDetailMenu />
       </IsMobile>
       <BlackZone />

@@ -9,6 +9,7 @@ import Img from '@/ui/Img'
 import { DetailComplex } from '@/types/catalog/Complex'
 import { DecorativeBlock } from '@/layout/DecorativeSection'
 import DetailedInfo from '@/app/catalog/complexes/[complex]/_components/DetailedInfo'
+import Section from '@/layout/Section'
 
 function showSlides(images: string[]) {
   const _images = images.length ? images : ['/slider-1.png', '/slider-2.png', '/slider-3.png']
@@ -25,14 +26,16 @@ interface Props {
 
 function PageSlider({ complex }: Props) {
   return (
-    <DecorativeBlock id='about'>
-      <Carousel className='overflow-hidden' fade>
-        <CarouselInner>{showSlides(complex.gallery)}</CarouselInner>
-        <CarouselProgressBar className='inset-x-[60px] top-[-32px] *:bg-base-100 md:w-[230px]' perView={1} />
-        <CarouselWhiteNavigations className='hidden md:flex' />
-        <DetailedInfo complex={complex} />
-      </Carousel>
-    </DecorativeBlock>
+    <Section>
+      <DecorativeBlock id='about'>
+        <Carousel className='overflow-hidden' fade>
+          <CarouselInner>{showSlides(complex.gallery)}</CarouselInner>
+          <CarouselProgressBar className='inset-x-[60px] top-[-32px] *:bg-base-100 md:w-[230px]' perView={1} />
+          <CarouselWhiteNavigations className='hidden md:flex' />
+          <DetailedInfo complex={complex} />
+        </Carousel>
+      </DecorativeBlock>
+    </Section>
   )
 }
 

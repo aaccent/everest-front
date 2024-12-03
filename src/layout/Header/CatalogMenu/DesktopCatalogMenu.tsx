@@ -1,5 +1,5 @@
 import React from 'react'
-import { getCatalogMenu, getNewBuildingsBanner } from '@/globals/api'
+import { getCatalogMenu } from '@/globals/api'
 import CatalogMenuProvider, { CatalogMenuInnerButton, CatalogMenuSubcategories } from './components/CatalogMenuInner'
 import Img from '@/ui/Img'
 import SeeAllCategoryItem from '@/layout/Header/components/SeeAllCategoryItem'
@@ -48,7 +48,6 @@ function showSubCategories(list: MenuCategory[]) {
 
 async function DesktopCatalogMenu() {
   const catalog = await getCatalogMenu()
-  const newBuildingsBanner = await getNewBuildingsBanner()
   const total = catalog.reduce((init, item) => init + item.total, 0)
 
   return (
@@ -68,7 +67,7 @@ async function DesktopCatalogMenu() {
           </CatalogMenuProvider>
         </nav>
       </div>
-      <GalleryBanner list={newBuildingsBanner} />
+      <GalleryBanner />
     </aside>
   )
 }

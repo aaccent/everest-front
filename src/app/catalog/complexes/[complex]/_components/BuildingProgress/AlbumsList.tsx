@@ -30,7 +30,7 @@ function AlbumsList({ albums }: Props) {
               className='absolute inset-x-[10px] bottom-[10px] flex items-center justify-between rounded-[24px] bg-base-100 py-[16px] pl-[20px] pr-[16px] md:inset-x-[24px] md:bottom-[24px] md:rounded-[32px] md:pl-[24px]'
               onClick={() =>
                 openPopup({
-                  name: 'galleryPopup',
+                  name: 'gallery',
                   args: {
                     list: photosList,
                   },

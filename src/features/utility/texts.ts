@@ -1,25 +1,25 @@
 import { FilterType } from '@/types/FiltersType'
-import { formatShortPriceArrForRange } from '@/features/utility/price'
+import { convertPriceToShortView, getDigit } from '@/features/utility/price'
 
 interface Tag extends FilterType<any> {
   value: FilterType<any>['value'] | [number, number]
 }
 
-export function formatTagText(f: Tag) {
-  switch (f.fieldType) {
+function formatPriceValue(value: number) {
+  return `${convertPriceToShortView(value)} ${getDigit(value)} ₽`
+}
+
+export function formatTagText(filter: Tag) {
+  switch (filter.fieldType) {
     case 'range':
       const min =
-        f.prefix === '₽'
-          ? `${formatShortPriceArrForRange(f.value)[0]} млн ${f.prefix}`
-          : `${f.value[0]} ${f.prefix || ''}`
+        filter.prefix === '₽' ? formatPriceValue(filter.value[0]) : `${filter.value[0]} ${filter.prefix || ''}`
       const max =
-        f.prefix === '₽'
-          ? `${formatShortPriceArrForRange(f.value)[1]} млн ${f.prefix}`
-          : `${f.value[1]} ${f.prefix || ''}`
-      return `${f.name}: ${min} - ${max}`
+        filter.prefix === '₽' ? formatPriceValue(filter.value[1]) : `${filter.value[1]} ${filter.prefix || ''}`
+      return `${filter.name}: ${min} - ${max}`
     case 'toggle':
-      return `${f.name}`
+      return `${filter.name}`
     default:
-      return `${f.name}: ${f.value}`
+      return `${filter.name}: ${filter.value}`
   }
 }

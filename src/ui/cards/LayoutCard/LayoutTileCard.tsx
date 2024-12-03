@@ -33,11 +33,7 @@ function LayoutTileCard({ item, complex }: Props) {
           <span className='text-base-400-lg-100 hidden text-system-red'>Забронировано</span>
           {statusFormatted && <span className={`text-base-400-lg-100 ${statusColor}`}>{statusFormatted.text}</span>}
         </Link>
-        <div className='flex gap-[4px]'>
-          <button className='size-[36px] rounded-full bg-base-300 opacity-0 transition-opacity group-hover/object:opacity-100 md:size-[42px]'></button>
-          <button className='size-[36px] rounded-full bg-base-300 opacity-0 transition-opacity group-hover/object:opacity-100 md:size-[42px]'></button>
-          <button className='size-[36px] rounded-full bg-base-300 md:size-[42px]'></button>
-        </div>
+        <div className='flex gap-[4px]'></div>
       </div>
       <Link className='mb-[24px] mt-[32px] block' href={href}>
         <Img
@@ -54,7 +50,7 @@ function LayoutTileCard({ item, complex }: Props) {
         </div>
         <div className='mb-[8px] flex gap-[6px] md:mb-[12px]'>{showProps()}</div>
         <span className='text-base-300-lg-100 flex items-center gap-[6px] text-base-600/50 before:size-[15px] before:bg-icon-address before:opacity-50 before:bg-default'>
-          {complex.address}
+          {item.address}
         </span>
       </Link>
     </div>

@@ -5,6 +5,7 @@ import { MapCenter } from '@/types/Map'
 import { FeatureCollection } from 'geojson'
 import { ABAKAN_VIEW_STATE } from '@/globals/map'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
+import { Category, SubcategoryLikeCategory } from '@/types/catalog/Category'
 
 /** Превращает `list` в формат geojson */
 function convertDefaultObjectsToGeojson(list: DefaultObject[]): FeatureCollection | null {
@@ -25,7 +26,11 @@ function convertDefaultObjectsToGeojson(list: DefaultObject[]): FeatureCollectio
   }
 }
 
-export type GetItemsForMapFn = (filter: Filter[], center: MapCenter, zoom: number) => Promise<DefaultObject[]>
+export type GetItemsForMapFn = (
+  filter: Filter[],
+  center: MapCenter,
+  zoom: number,
+) => Promise<Category | SubcategoryLikeCategory>
 
 interface Props {
   getItems: GetItemsForMapFn
@@ -41,6 +46,7 @@ export function useObjectsMapData({ getItems }: Props) {
   const [viewState, setViewState] = useState<MapViewState>(ABAKAN_VIEW_STATE)
   const { filter } = useFilter()
   const [objects, setObjects] = useState<DefaultObject[]>([])
+  const [total, setTotal] = useState<number>(0)
   const timeoutId = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
@@ -49,8 +55,9 @@ export function useObjectsMapData({ getItems }: Props) {
     if (timeoutId.current) clearTimeout(timeoutId.current)
 
     timeoutId.current = setTimeout(async () => {
-      const items = await getItems(filter.parsed, center, viewState.zoom)
-      setObjects(items)
+      const category = await getItems(filter.parsed, center, viewState.zoom)
+      setObjects(category.objects)
+      setTotal(category.total)
     }, 700)
 
     return () => {
@@ -58,5 +65,5 @@ export function useObjectsMapData({ getItems }: Props) {
     }
   }, [filter.parsed, viewState])
 
-  return { objects: convertDefaultObjectsToGeojson(objects), viewStateControl: { viewState, setViewState } }
+  return { objects: convertDefaultObjectsToGeojson(objects), viewStateControl: { viewState, setViewState }, total }
 }

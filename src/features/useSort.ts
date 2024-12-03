@@ -38,5 +38,5 @@ export function useSort() {
     }
   }
 
-  return { sort, getSortFromUrl, setSort, addSort }
+  return { sort, getSortFromUrl, addSort }
 }

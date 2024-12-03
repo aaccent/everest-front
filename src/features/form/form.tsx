@@ -47,7 +47,7 @@ export interface FormImperativeRef {
 }
 
 interface Props extends PropsWithChildren {
-  ref?: RefObject<HTMLFormElement>
+  ref?: RefObject<HTMLFormElement | null>
   /**
    * Вызывается когда пользователь нажимает `submit` кнопку и
    * все `inputs` проходят валидацию через {@link isInputValid} и {@link validator}

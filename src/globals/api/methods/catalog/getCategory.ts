@@ -1,25 +1,31 @@
 import { Category, SubcategoryLikeCategory } from '@/types/catalog/Category'
-import { apiCall, APIRequest, APIResponse } from '@/globals/api/apiCall'
-import { GeneralRequestParams } from '@/types/RequestProps'
+import { apiCall, APIRequest, APIResponse, SlashPath } from '@/globals/api/apiCall'
+import { CategoryDealType, GeneralRequestParams } from '@/types/RequestProps'
 
 type Props = GeneralRequestParams & {
   subcategory?: string
-  rent?: boolean
+  dealType?: CategoryDealType
 }
 
 type Response = APIResponse<Category>
 type Request = APIRequest<
   GeneralRequestParams & {
     chainUrl?: string
-    rent?: boolean
+    dealType?: CategoryDealType
   }
 >
 
 export async function getCategory(
   category: string,
-  { subcategory, ...options }: Props = {},
+  { subcategory, dealType, ...options }: Props = {},
 ): Promise<Category | SubcategoryLikeCategory> {
-  const res = await apiCall<Request, Response>(`/catalog/${category}`, {
+  let path: SlashPath = `/catalog/${category}`
+
+  if (dealType) {
+    path += `?dealType=${dealType}`
+  }
+
+  const res = await apiCall<Request, Response>(path as SlashPath, {
     method: 'POST',
     request: {
       chainUrl: subcategory,

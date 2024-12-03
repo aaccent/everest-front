@@ -1,4 +1,4 @@
-import { RangeValue } from '@/ui/inputs/Range'
+import { Digit } from '@/ui/inputs/Range'
 
 const PRICE_PLACEHOLDER = 'нет цены'
 
@@ -75,14 +75,52 @@ export function formatPriceForArea(price: RawPrice) {
   return `${fullPrice} / м\u00B2`
 }
 
-export function formatLongPriceForRange(value: RangeValue): RangeValue {
-  return [value[0] * 1_000_000, value[1] * 1_000_000]
+function formatFractionDigits(value: number, digits: number) {
+  return Number.isInteger(value) ? value.toString() : value.toFixed(digits)
 }
 
-export function formatShortPriceObjForRange(value: RangeValue): RangeValue {
-  return [+(value[0] / 1_000_000).toFixed(1), +(value[1] / 1_000_000).toFixed(1)]
+function roundValue(value: number) {
+  const modulo = value % 100
+  if (modulo <= 50 && modulo !== 0) return value + 100
+  return value
 }
 
-export function formatShortPriceArrForRange(value: [number, number]): number[] {
-  return value.map((v) => +(v / 1_000_000).toFixed(1))
+export function convertPriceToShortView(value: number) {
+  const digit = Math.trunc(value).toString().length
+
+  let roundedValue = roundValue(value)
+
+  if (digit > 6) {
+    roundedValue = roundedValue / 1_000_000
+  } else if (digit > 3) {
+    roundedValue = roundedValue / 1_000
+  }
+
+  return formatFractionDigits(roundedValue, 1)
+}
+
+export function getDigit(value: number): Digit {
+  const digit = Math.trunc(Number(value)).toString().length
+  if (digit > 6) {
+    return `млн`
+  } else if (digit > 3) {
+    return `тыс`
+  } else return ''
+}
+
+export function convertPriceToFullView(numberValue: number, digitValue: Digit) {
+  switch (digitValue) {
+    case 'млн':
+      return numberValue * 1_000_000
+    case 'тыс':
+      return numberValue * 1_000
+    default:
+      return numberValue
+  }
+}
+
+export function onlyNumbersInput(value: string) {
+  const formattedValue = parseFloat(value)
+  if (isNaN(formattedValue)) return ''
+  return formattedValue.toString()
 }

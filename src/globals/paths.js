@@ -3,14 +3,20 @@ export const PATHS = {
   NEW_BUILDINGS: 'new-building',
   COMPLEXES: 'complexes',
   SECONDARY_HOUSING: 'secondary-housing',
-  APARTMENTS: 'apartments',
+  APARTMENTS: 'flat',
   MAP: 'map',
   COMPLEX_OBJECTS: 'complex-objects',
   CONTACTS: 'contacts',
+  RENT: 'rent',
+  SALE: 'sale',
+  RENT_BY_DAY: 'by-day',
 }
 
 export const ROUTES = {
   CATALOG: `/${PATHS.CATALOG}`,
+  CATALOG_RENT: `/${PATHS.CATALOG}/${PATHS.RENT}`,
+  CATALOG_SALE: `/${PATHS.CATALOG}/${PATHS.SALE}`,
+  CATALOG_RENT_BY_DAY: `/${PATHS.CATALOG}/${PATHS.RENT}/${PATHS.RENT_BY_DAY}`,
   COMPLEXES: `/${PATHS.CATALOG}/${PATHS.COMPLEXES}`,
   COMPLEX_OBJECTS: `${PATHS.CATALOG}/${PATHS.COMPLEX_OBJECTS}`,
   NEW_BUILDINGS: `/${PATHS.CATALOG}/${PATHS.NEW_BUILDINGS}`,

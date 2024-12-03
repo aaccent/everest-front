@@ -25,6 +25,7 @@ function convertActiveLayoutItemToLayoutCard(item: ComplexHouseObject): LayoutOb
     price: item.price,
     section: '',
     seoUrl: item.seoUrl,
+    address: item.address,
   }
 }
 
