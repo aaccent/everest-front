@@ -27,9 +27,9 @@ function ObjectCard({ item }: Props) {
       <Link href={link} data-testid={TEST_ID.OBJECT_CARD}>
         <div className='text-header-400 mb-[12px] md:mb-[14px]'>{formatFullPrice(item.price)}</div>
         <ul className='mb-[8px] flex gap-[6px] md:mb-[12px]'>{showParams(item.characteristics)}</ul>
-        <div>
+        <div className='flex flex-col gap-[8px]'>
           {!!item.address && (
-            <span className='text-base-300-lg-100 flex gap-[4px] text-base-600/50 before:size-[24px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default'>
+            <span className='text-base-300-lg-100 flex gap-[4px] text-base-600/50 before:size-[19px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default'>
               {item.address}
             </span>
           )}
