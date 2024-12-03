@@ -22,7 +22,7 @@ function TextDetailFilterButton({
   showActiveFiltersCount,
 }: TextButtonProps) {
   return (
-    <div className={`${showActiveFiltersCount ? 'relative' : 'static'}`}>
+    <div className={`${showActiveFiltersCount ? 'relative' : 'static hidden'}`}>
       <div
         className={`text-base-500-reg-200 inset-y-1/2 right-[16px] -translate-y-1/2 items-center justify-center bg-base-100 text-primary circle-[18px] ${showActiveFiltersCount && 'absolute'} ${activeFiltersCount ? 'flex' : 'hidden'} `}
       >
