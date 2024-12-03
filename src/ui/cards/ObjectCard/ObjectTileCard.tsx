@@ -1,7 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { DefaultObject as ObjectCardType } from '@/types/catalog/DefaultObject'
-import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
 import { generateObjectLink } from '@/features/link'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
@@ -22,11 +21,7 @@ function ObjectCard({ item }: Props) {
         {'tags' in item && item.tags && (
           <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />
         )}
-        <div className='absolute right-[16px] top-[16px] z-10 flex gap-[4px] md:right-[14px] md:top-[14px] md:gap-[8px]'>
-          <ActionButton className='before:bg-icon-scale md:opacity-0' />
-          <ActionButton className='before:bg-icon-address md:opacity-0' />
-          <ActionButton className='before:bg-icon-heart' />
-        </div>
+        <div className='absolute right-[16px] top-[16px] z-10 flex gap-[4px] md:right-[14px] md:top-[14px] md:gap-[8px]'></div>
         <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
       </div>
       <Link href={link} data-testid={TEST_ID.OBJECT_CARD}>
