@@ -219,7 +219,7 @@ describe('useFilter', () => {
       [5, { id: 5, value: ['value', 'value2', 'value3', 'value4'] }],
       [6, { id: 6, value: false }],
       [7, { id: 7, value: true }],
-      [8, { id: 8, value: ['value2', 4, 5, 6, 7, 9, 10] }],
+      [8, { id: 8, value: true }],
       [9, { id: 9, value: true }],
       [10, { id: 10, value: ['value2'] }],
       [11, { id: 11, value: true }],
@@ -227,7 +227,7 @@ describe('useFilter', () => {
       [13, { id: 13, value: ['value'] }],
       [14, { id: 14, value: true }],
       [15, { id: 15, value: true }],
-      [16, { id: 16, value: ['value', 'value2', 2, 'value4'] }],
+      [16, { id: 16, value: [1, 56] }],
       [17, { id: 17, value: true }],
       [18, { id: 18, value: [4, 6] }],
       [19, { id: 19, value: true }],
@@ -259,7 +259,7 @@ describe('useFilter', () => {
 
       const copyFilters = new Map(filters)
       copyFilters.get(6)!.value = [11, 432423]
-      copyFilters.get(7)!.value = [11, 'dasdsad']
+      copyFilters.get(7)!.value = ['11', 'dasdsad']
       copyFilters.get(8)!.value = ['1']
       testFilters.changeFilter(copyFilters.get(6)!, copyFilters.get(6)!.value)
       testFilters.changeFilter(copyFilters.get(7)!, copyFilters.get(7)!.value)

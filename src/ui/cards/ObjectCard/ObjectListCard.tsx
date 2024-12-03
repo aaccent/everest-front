@@ -6,6 +6,7 @@ import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 import { TEST_ID } from '@/globals/testIds'
 import { formatFullPrice } from '@/features/utility/price'
+import { formatTime } from '@/features/utility/time'
 
 interface Props {
   item: DefaultObject
@@ -40,7 +41,7 @@ function ObjectListCard({ item }: Props) {
       <div className='ml-auto flex flex-col items-end'>
         <div className='flex gap-[8px]'></div>
         <span className='mt-auto flex gap-[4px] text-base-600/50 before:relative before:top-[1px] before:block before:size-[19px] before:bg-icon-clip before:opacity-50 before:filter-base-600 before:bg-default'>
-          5 мин назад
+          {formatTime(item.publicationTime)}
         </span>
       </div>
     </div>

@@ -29,11 +29,15 @@ interface Props {
 function ObjectHero({ item }: Props) {
   function showProps() {
     if (!item.characteristics[0]) return null
-    return item.characteristics[0].characteristics.slice(0, 4).map((prop, index) => (
-      <PropItem title={prop.name} key={index}>
-        {prop.value}
-      </PropItem>
-    ))
+    return item.characteristics[0].characteristics.slice(0, 4).map((prop, index) => {
+      const value = prop.name.trim().toLowerCase() === 'стоимость' ? formatFullPrice(prop.value) : prop.value
+
+      return (
+        <PropItem title={prop.name} key={index}>
+          {value}
+        </PropItem>
+      )
+    })
   }
 
   return (
@@ -65,12 +69,12 @@ function ObjectHero({ item }: Props) {
               </div>
             </div>
             {!!item.address && (
-              <span className='text-base-300-lg-100 !before:bg-left flex items-center gap-[2px] text-base-600/50 before:size-[16px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default md:gap-[7px]'>
+              <span className='text-base-300-lg-100 !before:bg-left flex items-center gap-[2px] text-base-600/50 before:size-[16px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default md:gap-[7px] md:before:hidden'>
                 {item.address}
               </span>
             )}
           </div>
-          <MapObjectsButton className='h-[36px] w-[58px] md:hidden' />
+          <MapObjectsButton className='h-[36px] w-[58px] md:hidden' categoryName='' />
         </div>
         <div className='mb-[20px] border-y border-y-base-600/10 py-[20px] md:mb-[43px] md:border-y-0 md:py-0'>
           <ul
