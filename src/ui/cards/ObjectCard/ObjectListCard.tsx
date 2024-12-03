@@ -5,6 +5,7 @@ import { generateObjectLink } from '@/features/link'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 import { TEST_ID } from '@/globals/testIds'
+import { formatFullPrice } from '@/features/utility/price'
 
 interface Props {
   item: DefaultObject
@@ -28,7 +29,12 @@ function ObjectListCard({ item }: Props) {
             {item.address}
           </span>
         )}
-        <div className='text-header-400 mb-[40px]'>{item.price} ₽</div>
+        <div className='mb-[40px] flex items-center gap-[12px]'>
+          <div className='text-header-400'>{formatFullPrice(item.priceDiscount || item.price)}</div>
+          {item.priceDiscount && (
+            <div className='text-header-400 text-base-600 line-through opacity-50'>{formatFullPrice(item.price)}</div>
+          )}
+        </div>
         <div className='text-base-600/50'>{item.description}</div>
       </Link>
       <div className='ml-auto flex flex-col items-end'>

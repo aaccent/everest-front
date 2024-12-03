@@ -25,7 +25,12 @@ function ObjectCard({ item }: Props) {
         <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
       </div>
       <Link href={link} data-testid={TEST_ID.OBJECT_CARD}>
-        <div className='text-header-400 mb-[12px] md:mb-[14px]'>{formatFullPrice(item.price)}</div>
+        <div className='mb-[12px] flex items-center gap-[8px] md:mb-[14px] md:gap-[12px]'>
+          <div className='text-header-400'>{formatFullPrice(item.priceDiscount || item.price)}</div>
+          {item.priceDiscount && (
+            <div className='text-header-400 text-base-600 line-through opacity-50'>{formatFullPrice(item.price)}</div>
+          )}
+        </div>
         <ul className='mb-[8px] flex gap-[6px] md:mb-[12px]'>{showParams(item.characteristics)}</ul>
         <div className='flex flex-col gap-[8px]'>
           {!!item.address && (
