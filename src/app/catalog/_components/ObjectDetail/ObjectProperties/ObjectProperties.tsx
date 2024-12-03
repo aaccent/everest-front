@@ -5,6 +5,7 @@ import ObjectPropertiesWrapper from '@/app/catalog/_components/ObjectDetail/Obje
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
 import { formatDate } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
+import { renderHTML } from '@/globals/text'
 
 interface Props {
   item: DetailDefaultObject
@@ -43,7 +44,7 @@ function Description({ item }: Props) {
           {formatDate(item.publicationTime)}
         </span>
       </div>
-      <div className='maw-w-[865px]'>{item.text}</div>
+      <div className='maw-w-[865px]'>{renderHTML(item.text || '')}</div>
     </>
   )
 }
@@ -55,7 +56,7 @@ function ObjectProperties({ item }: Props) {
     <Section id={OBJECT_PROPS_ID}>
       <ObjectPropertiesWrapper
         propsTabContent={<Properties item={item} />}
-        descTabContent={<Description item={item} />}
+        descTabContent={item.text ? <Description item={item} /> : null}
       />
     </Section>
   )
