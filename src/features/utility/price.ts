@@ -1,3 +1,5 @@
+import { Digit } from '@/ui/inputs/Range'
+
 const PRICE_PLACEHOLDER = 'нет цены'
 
 type RawPrice = number | string | null | undefined
@@ -73,20 +75,52 @@ export function formatPriceForArea(price: RawPrice) {
   return `${fullPrice} / м\u00B2`
 }
 
-export function formatPriceForRange(value: number): number {
-  const digits = Math.trunc(Number(value)).toString().length
-  if (digits > 6) {
-    return value / 1_000_000
-  } else if (digits > 3) {
-    return value / 1_000
-  } else return value
+function formatFractionDigits(value: number, digits: number) {
+  return Number.isInteger(value) ? value.toString() : value.toFixed(digits)
 }
 
-export function formatShortSinglePrice(value: number): string {
-  const digits = Math.trunc(Number(value)).toString().length
-  if (digits > 6) {
-    return `${value / 1_000_000} млн`
-  } else if (digits > 3) {
-    return `${value / 1_000} тыс`
-  } else return value.toString()
+function roundValue(value: number) {
+  const modulo = value % 100
+  if (modulo <= 50 && modulo !== 0) return value + 100
+  return value
+}
+
+export function convertPriceToShortView(value: number) {
+  const digit = Math.trunc(value).toString().length
+
+  let roundedValue = roundValue(value)
+
+  if (digit > 6) {
+    roundedValue = roundedValue / 1_000_000
+  } else if (digit > 3) {
+    roundedValue = roundedValue / 1_000
+  }
+
+  return formatFractionDigits(roundedValue, 1)
+}
+
+export function getDigit(value: number): Digit {
+  const digit = Math.trunc(Number(value)).toString().length
+  if (digit > 6) {
+    return `млн`
+  } else if (digit > 3) {
+    return `тыс`
+  } else return ''
+}
+
+export function convertPriceToFullView(numberValue: number, digitValue: Digit) {
+  switch (digitValue) {
+    case 'млн':
+      return numberValue * 1_000_000
+    case 'тыс':
+      return numberValue * 1_000
+    default:
+      return numberValue
+  }
+}
+
+export function onlyNumbersInput(value: string) {
+  const formattedValue = parseFloat(value)
+  if (isNaN(formattedValue)) return ''
+  return formattedValue.toString()
 }
