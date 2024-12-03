@@ -2,21 +2,21 @@
   {
     "name": "Telegram",
     "icon": "/content/TG.svg",
-    "url": ""
+    "url": "#"
   },
   {
     "name": "Вконтакте",
     "icon": "/content/VK.svg",
-    "url": ""
+    "url": "#"
   },
   {
     "name": "Одноклассники",
     "icon": "/content/ok.svg",
-    "url": ""
+    "url": "#"
   },
   {
     "name": "Youtube",
     "icon": "/content/youtube.svg",
-    "url": ""
+    "url": "#"
   }
 ]

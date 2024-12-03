@@ -13,6 +13,8 @@ import { socialItem } from '@/layout/Footer/Footer'
 
 import bgLogo from '@/assets/static/call-popup-bg.svg'
 import { INPUT_NAMES } from '@/globals/inputs/call-form'
+import NameInput from '@/ui/inputs/NameInput'
+import PhoneInput from '@/ui/inputs/PhoneInput'
 
 function CallPopup() {
   const [socials, setSocials] = useState<socialItem[]>()
@@ -47,25 +49,15 @@ function CallPopup() {
             Мандрикова Наталья Вячеславовна свяжется вами в течение 15 минут или выберите удобное время
           </div>
           <CallForm className='mb-[40px] flex flex-col gap-[8px] md:block'>
-            <Input
-              className='w-full md:mr-[12px] md:inline-flex md:w-[275px]'
-              type={INPUT_NAMES.NAME.type}
-              name={INPUT_NAMES.NAME.name}
-              placeholder='имя*'
-              required
-            />
-            <Input
-              className='w-full md:inline-flex md:w-[275px]'
-              type={INPUT_NAMES.PHONE.type}
-              name={INPUT_NAMES.PHONE.name}
-              placeholder='Телефон*'
-              required
-            />
+            <div className='flex flex-col gap-[8px] md:flex-row md:gap-[12px]'>
+              <NameInput className='w-full' name={INPUT_NAMES.NAME.name} required />
+              <PhoneInput className='w-full' name={INPUT_NAMES.PHONE.name} required />
+            </div>
             <Input
               className='w-full md:mt-[16px]'
               type={INPUT_NAMES.CALL_TIME.type}
               name={INPUT_NAMES.CALL_TIME.name}
-              placeholder='время звонка*'
+              placeholder='время звонка'
               required
             />
             <div className='text-base-400-lg-100 mt-[20px] text-base-650'>

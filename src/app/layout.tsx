@@ -48,9 +48,33 @@ const coolvetica = localFont({
   variable: '--font-coolvetica',
 })
 
-export const metadata: Metadata = {
-  title: 'Everest',
+function shortAppEnv() {
+  switch (process.env.APP_ENV) {
+    case 'development':
+      return 'dev'
+    case 'test':
+      return 'test'
+    default:
+    case 'production':
+      return 'prod'
+  }
 }
+
+function getMetadata(): Metadata {
+  let title = ''
+
+  if (process.env.APP_ENV !== 'production') {
+    title += `${shortAppEnv()} / `
+  }
+
+  title += 'Everest'
+
+  return {
+    title,
+  }
+}
+
+export const metadata: Metadata = getMetadata()
 
 export default function RootLayout({
   children,

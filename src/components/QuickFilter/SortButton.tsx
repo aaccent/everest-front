@@ -49,7 +49,7 @@ function SortButton({ sorts }: SortButtonProps) {
     <>
       <IsDesktop>
         <button
-          className='text-base-500-reg-100-upper relative w-full max-w-[240px] text-left'
+          className='text-base-500-reg-100-upper relative w-fit min-w-[200px] text-left'
           onClick={() => setOpened((prev) => !prev)}
         >
           <span className='text-base-650'>сортировка: </span>

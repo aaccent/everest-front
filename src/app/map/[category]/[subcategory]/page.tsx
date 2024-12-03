@@ -1,12 +1,13 @@
 import React from 'react'
 import { getItems } from '@/app/map/[category]/page'
 import { CategoryPage, SubcategoryPage } from '@/types/Page'
-import { getQuickFilters } from '@/globals/api'
+import { getFilters, getQuickFilters } from '@/globals/api'
 import ObjectsMap, { GetItemsForMapFn } from '@/app/map/_components/ObjectsMap'
 
 async function Page(props: SubcategoryPage & CategoryPage) {
   const params = await props.params
   const quickFilter = await getQuickFilters(params.category)
+  const detailedFilters = await getFilters(params.category)
 
   const _getItems: GetItemsForMapFn = async function (filters, center, zoom) {
     'use server'
@@ -19,7 +20,14 @@ async function Page(props: SubcategoryPage & CategoryPage) {
     })
   }
 
-  return <ObjectsMap categoryCode={params.category} quickFilters={quickFilter} getItems={_getItems} />
+  return (
+    <ObjectsMap
+      categoryCode={params.category}
+      quickFilters={quickFilter}
+      getItems={_getItems}
+      detailedFiltersInputs={detailedFilters.filters}
+    />
+  )
 }
 
 export default Page

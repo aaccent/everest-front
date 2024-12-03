@@ -1,11 +1,10 @@
 'use client'
 
-import React, { useContext, useEffect, useState } from 'react'
-import { FilterType, FilterView } from '@/types/FiltersType'
+import React, { useEffect, useState } from 'react'
+import { FilterBlock, FilterType, FilterView } from '@/types/FiltersType'
 import Checkbox from '@/ui/inputs/Checkbox'
 import { useFilter } from '@/features/useFilter'
 import Button from '@/ui/buttons/Button'
-import { FilterTagsContext } from '@/components/FilterTagsContext'
 import { formatTagText } from '@/features/utility/texts'
 
 const TAGS_IN_VIEW = 4
@@ -43,13 +42,13 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
   }
 
   return (
-    <>
+    <div className='relative'>
       <button
         className={`text-base-400-lg-100 flex items-center justify-between gap-[4px] text-nowrap rounded-[50px] border border-primary py-[7px] pl-[12px] pr-[7px] text-primary after:block after:size-[14px] after:bg-icon-triangle-arrow after:transition-transform after:filter-primary after:bg-default-auto ${selectorOpened ? 'after:-rotate-90' : 'after:rotate-90'}`}
         onMouseEnter={() => setSelectorOpened(true)}
       >{`Еще ${filterList.length} `}</button>
       <div
-        className={`absolute left-[78%] top-[40px] z-30 w-full max-w-[295px] rounded-[32px] bg-base-100 py-[20px] pl-[20px] pr-[8px] shadow transition ${selectorOpened ? 'visible opacity-100' : 'invisible opacity-0'}`}
+        className={`absolute left-0 top-[40px] z-30 w-fit max-w-[295px] rounded-[32px] bg-base-100 py-[20px] pl-[20px] pr-[8px] shadow transition ${selectorOpened ? 'visible opacity-100' : 'invisible opacity-0'}`}
       >
         <div className='mb-[24px] flex items-center justify-between'>
           <div className='text-header-400 text-base-600'>Активные теги</div>
@@ -72,12 +71,16 @@ function FilterTagsSelector({ list }: FilterTagsSelectorProps) {
           />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
-function QuickFiltersTags() {
-  const { activeFilters } = useContext(FilterTagsContext)
+interface Props {
+  detailedFiltersInputs: FilterBlock[]
+}
+
+function QuickFiltersTags({ detailedFiltersInputs }: Props) {
+  const { activeFilters } = useFilter({ detailedFiltersInputs })
   const { removeFilter } = useFilter()
 
   function showFirstTags() {
@@ -85,7 +88,7 @@ function QuickFiltersTags() {
     return firstTags.map((f) => {
       return f.value ? (
         <button
-          className='text-base-400-lg-100 flex items-center gap-[5px] text-nowrap rounded-[50px] bg-primary px-[12px] py-[6.5px] text-base-100 after:block after:size-[10px] after:bg-icon-close after:filter-base-100 after:bg-default-cover'
+          className='text-base-400-lg-100 flex w-fit items-center gap-[5px] text-nowrap rounded-[50px] bg-primary px-[12px] py-[6.5px] text-base-100 after:block after:size-[10px] after:bg-icon-close after:filter-base-100 after:bg-default-cover'
           key={f.id}
           onClick={() => removeFilter(f.id)}
         >
@@ -96,7 +99,7 @@ function QuickFiltersTags() {
   }
 
   return (
-    <div className='flex items-center gap-[10px]'>
+    <div className='relative mx-[12px] flex max-w-full flex-wrap items-center gap-[10px]'>
       {showFirstTags()}
       {activeFilters.length > TAGS_IN_VIEW && <FilterTagsSelector list={activeFilters} />}
     </div>

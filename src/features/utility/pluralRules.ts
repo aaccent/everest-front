@@ -35,3 +35,18 @@ export const objectPlural = createPlural('объект', 'объекта', 'об
 
 /** Слово 'фотография' с суффиксами в зависимости от числа */
 export const photosPlural = createPlural('фотография', 'фотографии', 'фотографий')
+
+/** Слово 'минута' с суффиксами в зависимости от числа */
+export const minutesPlural = createPlural('минута', 'минуты', 'минут')
+
+/** Слово 'час' с суффиксами в зависимости от числа */
+export const hoursPlural = createPlural('час', 'часа', 'часов')
+
+/** Слово 'день' с суффиксами в зависимости от числа */
+export const daysPlural = createPlural('день', 'дня', 'дней')
+
+/** Слово 'неделя' с суффиксами в зависимости от числа */
+export const weeksPlural = createPlural('неделя', 'недели', 'недель')
+
+/** Слово 'месяц' с суффиксами в зависимости от числа */
+export const monthsPlural = createPlural('месяц', 'месяца', 'месяцев')
