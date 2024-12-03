@@ -44,7 +44,7 @@ function Description({ item }: Props) {
           {formatDate(item.publicationTime)}
         </span>
       </div>
-      <div className='maw-w-[865px]'>{renderHTML(item.text || '')}</div>
+      <div className='maw-w-[865px]'>{renderHTML(item.description || '')}</div>
     </>
   )
 }
@@ -56,7 +56,7 @@ function ObjectProperties({ item }: Props) {
     <Section id={OBJECT_PROPS_ID}>
       <ObjectPropertiesWrapper
         propsTabContent={<Properties item={item} />}
-        descTabContent={item.text ? <Description item={item} /> : null}
+        descTabContent={item.description ? <Description item={item} /> : null}
       />
     </Section>
   )
