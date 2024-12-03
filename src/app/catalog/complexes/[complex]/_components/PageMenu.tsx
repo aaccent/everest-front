@@ -6,20 +6,12 @@ const PAGE_MENU = [
     dataSet: 'about',
   },
   {
-    title: 'Инфраструктура',
-    dataSet: null,
-  },
-  {
     title: 'Наши предложения',
     dataSet: 'offers',
   },
   {
     title: 'Выбор квартиры',
     dataSet: 'layoutChoice',
-  },
-  {
-    title: 'Подбор ипотеки',
-    dataSet: null,
   },
 ]
 

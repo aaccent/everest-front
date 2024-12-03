@@ -5,6 +5,7 @@ import ObjectPropertiesWrapper from '@/app/catalog/_components/ObjectDetail/Obje
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
 import { formatDate } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
+import { renderHTML } from '@/globals/text'
 import { formatFullPrice } from '@/features/utility/price'
 
 interface Props {
@@ -43,11 +44,13 @@ function Description({ item }: Props) {
   return (
     <>
       <div className='mb-[24px] flex gap-[4px]'>
-        <span className='text-base-400-lg-100 rounded-[10px] bg-base-100 px-[12px] py-[6.5px]'>
-          {formatDate(item.publicationTime)}
-        </span>
+        {item.publicationTime && (
+          <span className='text-base-400-lg-100 rounded-[10px] bg-base-100 px-[12px] py-[6.5px]'>
+            {formatDate(item.publicationTime)}
+          </span>
+        )}
       </div>
-      <div className='maw-w-[865px]'>{item.text}</div>
+      <div className='maw-w-[865px]'>{renderHTML(item.description || '')}</div>
     </>
   )
 }
@@ -59,7 +62,7 @@ function ObjectProperties({ item }: Props) {
     <Section id={OBJECT_PROPS_ID}>
       <ObjectPropertiesWrapper
         propsTabContent={<Properties item={item} />}
-        descTabContent={<Description item={item} />}
+        descTabContent={item.description ? <Description item={item} /> : null}
       />
     </Section>
   )

@@ -61,15 +61,15 @@ function ObjectHero({ item }: Props) {
                 {item.name}
               </h1>
               <div className='text-base-300-lg-100 mt-[15px] hidden flex-col gap-[8px] md:flex'>
-                <span>Марат Лутфуллин</span>
-                <span className='flex items-center gap-[6px] text-base-600/50 before:size-[19px] before:bg-icon-clip before:opacity-50 before:filter-base-600 before:bg-default'>
-                  {formatDate(item.publicationTime)}
-                </span>
+                {item.publicationTime && (
+                  <span className='flex items-center gap-[6px] text-base-600/50 before:size-[19px] before:bg-icon-clip before:opacity-50 before:filter-base-600 before:bg-default'>
+                    {formatDate(item.publicationTime)}
+                  </span>
+                )}
               </div>
             </div>
             {!!item.address && (
-              <span className='text-base-300-lg-100 !before:bg-left flex items-center gap-[2px] text-base-600/50 before:size-[16px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default md:gap-[16px] md:before:hidden'>
-                <MapObjectsButton className='hidden md:flex' categoryName='' />
+              <span className='text-base-300-lg-100 !before:bg-left flex items-center gap-[2px] text-base-600/50 before:size-[16px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default md:gap-[7px] md:before:hidden'>
                 {item.address}
               </span>
             )}
@@ -97,10 +97,7 @@ function ObjectHero({ item }: Props) {
             <CallPopupButton />
             <div className='flex w-full justify-between'>
               <div className='flex gap-[6px]'>
-                <ActionButton className='after:bg-icon-heart' />
-                <ActionButton className='after:bg-icon-scale' />
                 <ActionButton className='after:bg-icon-share' />
-                <ActionButton className='after:bg-icon-pdf' />
               </div>
               <div className='text-base-400-lg-100 flex flex-col items-end gap-[4px]'>
                 <span className='text-base-600/50'>Цена за метр:</span>

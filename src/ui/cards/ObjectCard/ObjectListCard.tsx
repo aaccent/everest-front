@@ -1,11 +1,11 @@
 import React from 'react'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 import Link from 'next/link'
-import { ActionButton } from '@/ui/cards/ObjectCard/ActionButton'
 import { generateObjectLink } from '@/features/link'
 import Gallery from '@/ui/cards/ObjectCard/Gallery'
 import Tags from '@/components/Tags'
 import { TEST_ID } from '@/globals/testIds'
+import { formatFullPrice } from '@/features/utility/price'
 import { formatTime } from '@/features/utility/time'
 
 interface Props {
@@ -26,19 +26,20 @@ function ObjectListCard({ item }: Props) {
       <Link className='max-w-[570px]' href={link} data-testid={TEST_ID.OBJECT_CARD}>
         <div className='text-header-300 mb-[12px]'>{item.name}</div>
         {!!item.address && (
-          <span className='text-base-300-lg-100 flex gap-[4px] text-base-600/50 before:size-[24px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default'>
+          <span className='text-base-300-lg-100 mb-[16px] flex items-center gap-[4px] text-base-600/50 before:size-[17px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default'>
             {item.address}
           </span>
         )}
-        <div className='text-header-400 mb-[40px]'>{item.price} ₽</div>
+        <div className='mb-[40px] flex items-center gap-[12px]'>
+          <div className='text-header-400'>{formatFullPrice(item.priceDiscount || item.price)}</div>
+          {item.priceDiscount && (
+            <div className='text-header-400 text-base-600 line-through opacity-50'>{formatFullPrice(item.price)}</div>
+          )}
+        </div>
         <div className='text-base-600/50'>{item.description}</div>
       </Link>
       <div className='ml-auto flex flex-col items-end'>
-        <div className='flex gap-[8px]'>
-          <ActionButton className='!bg-base-300 before:bg-icon-scale before:!filter-base-600 md:opacity-0' />
-          <ActionButton className='!bg-base-300 before:bg-icon-address before:!filter-base-600 md:opacity-0' />
-          <ActionButton className='!bg-base-300 before:bg-icon-heart before:!filter-base-600' />
-        </div>
+        <div className='flex gap-[8px]'></div>
         <span className='mt-auto flex gap-[4px] text-base-600/50 before:relative before:top-[1px] before:block before:size-[19px] before:bg-icon-clip before:opacity-50 before:filter-base-600 before:bg-default'>
           {formatTime(item.publicationTime)}
         </span>

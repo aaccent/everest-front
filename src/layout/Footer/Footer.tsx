@@ -5,11 +5,14 @@ import Image from 'next/image'
 import Section from '@/layout/Section'
 import UpButton from '@/layout/Footer/UpButton'
 import FooterMenu from '@/layout/Footer/FooterMenu'
+import { ROUTES } from '@/globals/paths'
 
 import { getSocials, getCatalogMenu } from '@/globals/api'
 
 import logo from '@/assets/static/logo.svg'
 import aaccentLogo from '@/assets/static/aaccent-logo.svg'
+
+const STATIC_MENU = [{ name: 'Контакты', href: ROUTES.CONTACTS }]
 
 export interface socialItem {
   name: string
@@ -19,13 +22,12 @@ export interface socialItem {
 
 async function Footer() {
   const socials: socialItem[] = await getSocials()
-  const staticMenu = ['Об агенстве', 'Риелторы', 'Обучение', 'Отзывы', 'Вакансии', 'Блог', 'Контакты']
   const catalog = await getCatalogMenu()
 
   function showStaticMenu() {
-    return staticMenu.map((item, index) => (
-      <Link href='#' key={index}>
-        <li className='text-base-100-reg-100 text-base-100'>{item}</li>
+    return STATIC_MENU.map((item, index) => (
+      <Link href={item.href} key={index}>
+        <li className='text-base-100-reg-100 text-base-100'>{item.name}</li>
       </Link>
     ))
   }

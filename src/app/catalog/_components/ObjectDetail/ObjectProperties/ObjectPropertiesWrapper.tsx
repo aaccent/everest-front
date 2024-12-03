@@ -54,12 +54,14 @@ function ObjectPropertiesWrapper({ propsTabContent, descTabContent }: Props) {
             Характеристики
           </TabButton>
         </h2>
-        <TabButton
-          className={tab === TAB_TYPE.DESCRIPTION ? 'active' : ''}
-          onClick={() => changeTab(TAB_TYPE.DESCRIPTION)}
-        >
-          Описание
-        </TabButton>
+        {descTabContent && (
+          <TabButton
+            className={tab === TAB_TYPE.DESCRIPTION ? 'active' : ''}
+            onClick={() => changeTab(TAB_TYPE.DESCRIPTION)}
+          >
+            Описание
+          </TabButton>
+        )}
       </div>
       <div className={`group rounded-b-[20px] rounded-tr-[20px] bg-base-200 p-[20px] ${showMore ? 'show-more' : ''}`}>
         <div

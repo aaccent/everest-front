@@ -7,7 +7,7 @@ export default function CatalogViewButton() {
   const { setView, view } = useContext(CategoryContext)
 
   return (
-    <div className='flex items-center gap-[2px]'>
+    <div className='flex items-center gap-[2px] md:ml-auto'>
       <button
         className={`size-[28px] bg-icon-grid-view transition-opacity filter-base-600 bg-default ${view === 'tile' ? 'opacity-100' : 'opacity-50'}`}
         onClick={() => setView('tile')}

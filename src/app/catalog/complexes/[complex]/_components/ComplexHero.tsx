@@ -42,12 +42,6 @@ function ComplexHero({ complex }: Props) {
                 text='подобрать квартиру'
                 className='w-fit shrink-0 px-[16px]'
               />
-              <Button
-                className='mt-[8px] w-full md:mt-0 md:flex md:gap-[6px] md:bg-transparent md:before:block md:before:size-[16px] md:before:bg-icon-calculator md:before:bg-default-contain md:hover:bg-transparent md:hover:text-base-600'
-                variation='third'
-                size='medium'
-                text='Рассчитать ипотеку'
-              />
             </div>
           </div>
         </div>
@@ -91,12 +85,6 @@ function ComplexHero({ complex }: Props) {
 
       <div className='px-container items-center gap-[24px] md:hidden md:px-0'>
         <Button href={`#${LAYOUT_ID}`} variation='primary' size='medium' text='подобрать квартиру' className='w-full' />
-        <Button
-          className='mt-[8px] w-full md:mt-0 md:flex md:gap-[6px] md:bg-transparent md:before:block md:before:size-[16px] md:before:bg-icon-calculator md:before:bg-default-contain md:hover:bg-transparent md:hover:text-base-600'
-          variation='third'
-          size='medium'
-          text='Рассчитать ипотеку'
-        />
       </div>
     </Section>
   )

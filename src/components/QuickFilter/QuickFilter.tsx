@@ -66,12 +66,6 @@ function QuickFilter({ quickFilters, detailedFilters, categoryName, initCount, s
         <div className='hidden w-full items-center pt-[17px] md:flex'>
           <SortButton sorts={sorts} />
           <QuickFiltersTags detailedFiltersInputs={detailedFilters.filters} />
-          <button
-            className='text-base-500-reg-100-upper ml-auto mr-[30px] flex w-full max-w-[155px] flex-nowrap items-center gap-[8px] text-nowrap before:size-[22px] before:bg-icon-search-favorite before:bg-default'
-            type='button'
-          >
-            Сохранить поиск
-          </button>
           <CatalogViewButton />
         </div>
       </div>

@@ -77,13 +77,11 @@ function FilterPopup({ objectsCount, quickFilters, detailedFiltersInputs, getFil
           </div>
         </div>
         <div className='bottom-0 left-0 z-10 flex w-full items-center justify-between bg-base-100 px-[24px] py-[16px] md:fixed md:justify-normal md:px-[56px] md:py-[24px]'>
-          <button className='flex size-[50px] items-center justify-center rounded-[16px] bg-base-300 after:block after:size-[22px] after:bg-icon-search-favorite after:bg-default-contain md:hidden' />
-
           <Button
             variation='primary'
             size='small'
             text={`Показать ${objectsCount} ${objectPlural.get(objectsCount)}`}
-            className='md:mr-[12px]'
+            className='ml-auto md:ml-0 md:mr-[12px]'
             onClick={closePopup}
           />
           <ResetFiltersButton

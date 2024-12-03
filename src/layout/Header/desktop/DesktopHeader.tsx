@@ -2,13 +2,13 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import LoginButton from '@/layout/Header/desktop/LoginButton'
 import CatalogButton from '@/layout/Header/components/CatalogButton'
-import { aboutMenu, MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
+import { MenuItem, newBuildingsMenu } from '@/layout/Header/menus'
 
 import Logo from '@/assets/static/logo.svg'
 import SaleRentButton from '@/layout/Header/components/SaleRentButton'
 import HeaderTop from '@/layout/Header/desktop/HeaderTop'
+import { ROUTES } from '@/globals/paths'
 
 interface CircleButtonProps {
   className?: string
@@ -62,7 +62,7 @@ function DesktopHeader() {
                 alt='Логотип АН Эверест'
               />
             </Link>
-            <ul className='text-base-500-reg-100-upper ml-[20px] flex items-center gap-[27px]'>
+            <ul className='text-base-500-reg-100-upper ml-[50px] mr-auto flex items-center gap-[27px]'>
               <li>
                 <CatalogButton />
               </li>
@@ -76,19 +76,8 @@ function DesktopHeader() {
                 <button className='uppercase'>Новостройки</button>
                 <Submenu list={newBuildingsMenu} />
               </li>
-              <li className='flex'>
-                <Link href='#'>Ипотека</Link>
-                <span className='relative right-[-8px] top-[2px] flex h-[4px] w-[4px]'>
-                  <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75'></span>
-                  <span className='relative inline-flex h-[4px] w-[4px] rounded-full bg-primary'></span>
-                </span>
-              </li>
-              <li className='group relative'>
-                <button className='uppercase'>О нас</button>
-                <Submenu list={aboutMenu} />
-              </li>
               <li>
-                <Link href='/contacts'>Контакты</Link>
+                <Link href={ROUTES.CONTACTS}>Контакты</Link>
               </li>
             </ul>
           </div>
@@ -99,12 +88,7 @@ function DesktopHeader() {
               </a>
               <div className='text-base-500-reg-200 opacity-50'>Ежедневно с 09:00 до 19:00</div>
             </div>
-            <div className='flex items-center gap-[10px]'>
-              <CircleButton className='before:bg-icon-search' />
-              <CircleButton className='before:bg-icon-heart' />
-              <CircleButton className='before:bg-icon-scale' />
-            </div>
-            <LoginButton />
+            <div className='flex items-center gap-[10px]'></div>
           </div>
         </div>
       </header>
