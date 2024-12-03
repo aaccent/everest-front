@@ -1,18 +1,12 @@
 import { FilterType } from '@/types/FiltersType'
-import { formatPriceForRange } from '@/features/utility/price'
+import { convertPriceToShortView, getDigit } from '@/features/utility/price'
 
 interface Tag extends FilterType<any> {
   value: FilterType<any>['value'] | [number, number]
 }
 
-function selectDigitsName(value: number) {
-  if (value >= 1_000_000) return 'млн'
-  if (value < 1_000_000) return 'тыс'
-  return ''
-}
-
 function formatPriceValue(value: number) {
-  return `${formatPriceForRange(value)} ${selectDigitsName(value)} ₽`
+  return `${convertPriceToShortView(value)} ${getDigit(value)} ₽`
 }
 
 export function formatTagText(filter: Tag) {

@@ -94,18 +94,18 @@ function roundValue(value: number) {
   return value
 }
 
-export function formatShortSinglePrice(value: number) {
+export function convertPriceToShortView(value: number) {
   const digit = Math.trunc(value).toString().length
 
-  let _value = roundValue(value)
+  let roundedValue = roundValue(value)
 
   if (digit > 6) {
-    _value = _value / 1_000_000
+    roundedValue = roundedValue / 1_000_000
   } else if (digit > 3) {
-    _value = _value / 1_000
+    roundedValue = roundedValue / 1_000
   }
 
-  return formatFractionDigits(_value, 1)
+  return formatFractionDigits(roundedValue, 1)
 }
 
 export function getDigit(value: number): Digit {

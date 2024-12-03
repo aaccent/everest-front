@@ -85,6 +85,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
             value={customValue}
             onChange={onChange}
             prefix={filter.prefix}
+            step={filter.prefix === 'м²' ? 0.1 : 1}
           />
         )
       }

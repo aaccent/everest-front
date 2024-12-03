@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Range as RangeType } from '@/types/FiltersType'
 import { InputValue } from '@/globals/utilityTypes'
-import { convertPriceToFullView, formatShortSinglePrice, getDigit, onlyNumbersInput } from '@/features/utility/price'
+import { convertPriceToFullView, convertPriceToShortView, getDigit, onlyNumbersInput } from '@/features/utility/price'
 import { useFilter } from '@/features/useFilter'
 
 export type RangeValue = RangeType['value']
@@ -46,32 +46,43 @@ function Range({
   const rangeRefMin = useRef<HTMLInputElement>(null)
   const rangeRefMax = useRef<HTMLInputElement>(null)
 
-  const [digit, setDigit] = useState<ValueDigits>({} as ValueDigits)
+  const [digit, setDigit] = useState<ValueDigits>({ min: getDigit(value[0]), max: getDigit(value[1]) })
 
   const timeoutRef = useRef<NodeJS.Timeout>(null)
 
   const { removeFilter } = useFilter()
 
-  function convertPriceToShortView(value: number, position: 'min' | 'max') {
-    if (prefix !== '₽') return value
-    const newDigit = getDigit(value)
-
-    if (position === 'max') setDigit({ min: digit.min, max: newDigit })
-    if (position === 'min') setDigit({ min: newDigit, max: digit.max })
-    return `${formatShortSinglePrice(value)} ${newDigit}`
-  }
-
   useEffect(() => {
-    setValue(customValue || defaultValue)
+    if (customValue && customValue[0] === min && customValue[1] === max) {
+      removeFilter(Number(name))
+      setValue(defaultValue)
+    } else {
+      setValue(customValue || defaultValue)
+    }
   }, [customValue])
 
   useEffect(() => {
-    if (value[0] === min && value[1] === max) removeFilter(Number(name))
+    const newDigit = {
+      min: getDigit(value[0]),
+      max: getDigit(value[1]),
+    }
+    setDigit(newDigit)
+
+    const newValue =
+      prefix === '₽'
+        ? {
+            min: `${convertPriceToShortView(value[0])} ${newDigit.min} ${prefix}`,
+            max: `${convertPriceToShortView(value[1])} ${newDigit.max} ${prefix}`,
+          }
+        : {
+            min: `${value[0]} ${newDigit.min} ${prefix}`,
+            max: `${value[1]} ${newDigit.max} ${prefix}`,
+          }
 
     if (!textRefMin.current || !textRefMax.current) return
 
-    textRefMin.current.value = convertPriceToShortView(value[0], 'min') + ` ${prefix}`
-    textRefMax.current.value = convertPriceToShortView(value[1], 'max') + ` ${prefix}`
+    textRefMin.current.value = newValue.min
+    textRefMax.current.value = newValue.max
 
     if (!rangeRefMin.current || !rangeRefMax.current) return
 
@@ -102,11 +113,11 @@ function Range({
   function onRangeChange(e: React.ChangeEvent<HTMLInputElement>) {
     const inputName = e.currentTarget.name as 'max' | 'min'
     const numberValue = Number(e.target.value)
-    const inputValue = validateRangeValue(numberValue, inputName)
+    const rangeValue = validateRangeValue(numberValue, inputName)
 
-    if (!inputValue) return
+    if (!rangeValue) return
 
-    const newValue: RangeValue = inputName === 'min' ? [inputValue, value[1]] : [value[0], inputValue]
+    const newValue: RangeValue = inputName === 'min' ? [rangeValue, value[1]] : [value[0], rangeValue]
 
     setValue(newValue)
     if (prefix === '₽') setDigit({ min: getDigit(newValue[0]), max: getDigit(newValue[1]) })
@@ -141,7 +152,10 @@ function Range({
 
     const validValue = validateValue(inputValue, inputName)
 
-    e.currentTarget.value = convertPriceToShortView(validValue, inputName) + ` ${prefix}`
+    const newDigit = { ...digit, [inputName]: getDigit(validValue) }
+    setDigit(newDigit)
+
+    e.currentTarget.value = convertPriceToShortView(validValue) + ` ${newDigit[inputName]}` + ` ${prefix}`
 
     if (inputName === 'min' && inputValue !== value[0]) return _onChange?.(name, [validValue, value[1]])
     if (inputName === 'max' && inputValue !== value[1]) return _onChange?.(name, [value[0], validValue])
@@ -176,7 +190,6 @@ function Range({
               onFocus={onFocus}
               onBlur={onBlur}
               name='min'
-              onKeyUp={(e) => e.code === 'Enter' && onBlur(e)}
             />
           </label>
           <div className='absolute inset-1/2 h-[12px] w-[1px] -translate-x-1/2 -translate-y-1/2 bg-base-400' />
@@ -189,7 +202,6 @@ function Range({
               onFocus={onFocus}
               onBlur={onBlur}
               name='max'
-              onKeyUp={(e) => e.code === 'Enter' && onBlur(e)}
             />
           </label>
         </div>
