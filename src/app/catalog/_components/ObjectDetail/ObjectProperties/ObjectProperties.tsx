@@ -40,9 +40,11 @@ function Description({ item }: Props) {
   return (
     <>
       <div className='mb-[24px] flex gap-[4px]'>
-        <span className='text-base-400-lg-100 rounded-[10px] bg-base-100 px-[12px] py-[6.5px]'>
-          {formatDate(item.publicationTime)}
-        </span>
+        {item.publicationTime && (
+          <span className='text-base-400-lg-100 rounded-[10px] bg-base-100 px-[12px] py-[6.5px]'>
+            {formatDate(item.publicationTime)}
+          </span>
+        )}
       </div>
       <div className='maw-w-[865px]'>{renderHTML(item.description || '')}</div>
     </>
