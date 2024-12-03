@@ -75,15 +75,6 @@ export function formatPriceForArea(price: RawPrice) {
   return `${fullPrice} / м\u00B2`
 }
 
-export function formatPriceForRange(value: number): number {
-  const digits = Math.trunc(Number(value)).toString().length
-  if (digits > 6) {
-    return value / 1_000_000
-  } else if (digits > 3) {
-    return value / 1_000
-  } else return value
-}
-
 function formatFractionDigits(value: number, digits: number) {
   return Number.isInteger(value) ? value.toString() : value.toFixed(digits)
 }
