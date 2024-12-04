@@ -52,6 +52,8 @@ function Range({
 
   const { removeFilter } = useFilter()
 
+  const isPriceRange = prefix === '₽'
+
   useEffect(() => {
     if (customValue && customValue[0] === min && customValue[1] === max) {
       removeFilter(Number(name))
@@ -59,7 +61,7 @@ function Range({
     } else {
       setValue(customValue || defaultValue)
     }
-  }, [customValue])
+  }, [customValue, defaultValue])
 
   useEffect(() => {
     const newDigit = {
@@ -68,16 +70,15 @@ function Range({
     }
     setDigit(newDigit)
 
-    const newValue =
-      prefix === '₽'
-        ? {
-            min: `${convertPriceToShortView(value[0])} ${newDigit.min} ${prefix}`,
-            max: `${convertPriceToShortView(value[1])} ${newDigit.max} ${prefix}`,
-          }
-        : {
-            min: `${value[0]} ${newDigit.min} ${prefix}`,
-            max: `${value[1]} ${newDigit.max} ${prefix}`,
-          }
+    const newValue = isPriceRange
+      ? {
+          min: `${convertPriceToShortView(value[0])} ${newDigit.min} ${prefix}`,
+          max: `${convertPriceToShortView(value[1])} ${newDigit.max} ${prefix}`,
+        }
+      : {
+          min: `${value[0]} ${newDigit.min} ${prefix}`,
+          max: `${value[1]} ${newDigit.max} ${prefix}`,
+        }
 
     if (!textRefMin.current || !textRefMax.current) return
 
@@ -155,7 +156,9 @@ function Range({
     const newDigit = { ...digit, [inputName]: getDigit(validValue) }
     setDigit(newDigit)
 
-    e.currentTarget.value = convertPriceToShortView(validValue) + ` ${newDigit[inputName]}` + ` ${prefix}`
+    const newInputValue = isPriceRange ? convertPriceToShortView(validValue) : validValue
+
+    e.currentTarget.value = `${newInputValue} ${newDigit[inputName]} ${prefix}`
 
     if (inputName === 'min' && inputValue !== value[0]) return _onChange?.(name, [validValue, value[1]])
     if (inputName === 'max' && inputValue !== value[1]) return _onChange?.(name, [value[0], validValue])

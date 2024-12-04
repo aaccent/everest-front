@@ -65,7 +65,7 @@ function CategoryFilter({ categoryName, dealType }: CategoryFilterProps) {
         className='text-base-400-lg-100 absolute right-0 top-[-100%] flex items-center gap-[6px] text-primary after:block after:size-[20px] after:bg-icon-detail-filter after:filter-primary after:bg-default-contain'
       />
       <div className='flex flex-wrap justify-between'>
-        <FilterItems filters={quickFilters.filters} isQuick />
+        <FilterItems filters={quickFilters.filters} isQuick keyString={categoryName} />
         <Button
           href={categoryLink}
           type='button'

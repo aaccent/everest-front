@@ -63,7 +63,7 @@ function FilterPopup({ objectsCount, quickFilters, detailedFiltersInputs, getFil
             <div className='flex h-full flex-col pb-[50px] md:block md:h-fit'>
               <IsMobile>
                 <div className='mb-[40px] flex flex-col gap-[18px]'>
-                  <FilterItems filters={quickFilters.filters} />
+                  <FilterItems filters={quickFilters.filters} keyString={categoryName} />
                 </div>
                 <div className='border-b border-b-base-600/10 pb-[18px]'>
                   <SortButton sorts={quickFilters.sorts} />
