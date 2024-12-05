@@ -64,9 +64,10 @@ function CategoryFilter({ categoryName, dealType }: CategoryFilterProps) {
         text='Расширенный фильтр'
         className='text-base-400-lg-100 absolute right-0 top-[-100%] flex items-center gap-[6px] text-primary after:block after:size-[20px] after:bg-icon-detail-filter after:filter-primary after:bg-default-contain'
       />
-      <div className='flex flex-wrap justify-between'>
-        <FilterItems filters={quickFilters.filters} isQuick keyString={categoryName} />
+      <div className='flex gap-[12px]'>
+        <FilterItems filters={quickFilters.filters} keyString={categoryName} isQuick />
         <Button
+          className='ml-auto w-full max-w-[184px] text-nowrap'
           href={categoryLink}
           type='button'
           size='small'
@@ -74,6 +75,7 @@ function CategoryFilter({ categoryName, dealType }: CategoryFilterProps) {
           text={`Показать ${list.total} ${objectPlural.get(list.total)}`}
         />
         <Button
+          className='w-full max-w-[193px] text-nowrap'
           href={mapLink}
           type='button'
           size='small'
