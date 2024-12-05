@@ -2,60 +2,15 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 
-const SHARE_OPTIONS = [
-  { id: 'copy', text: 'Скопировать ссылку' },
-  { id: 'vk', text: 'Поделиться ВКонтакте', link: 'https://vk.com/share.php?url=' },
-  { id: 'tg', text: 'Поделиться в Телеграм', link: 'https://telegram.me/share/url' },
-  { id: 'wa', text: 'Поделиться в WhatsApp', link: 'https://wa.me/?text=' },
-]
-
-const URL = encodeURIComponent(window.location.href)
+const URL = typeof window !== 'undefined' ? encodeURIComponent(window.location.href) : ''
 const TEXT = encodeURIComponent('Посмотри этот объект')
 
 function ShareButton({ className, listClassName }: { className: string; listClassName: string }) {
   const [showLinks, setShowLinks] = useState<boolean>(false)
-  function generateShareLinks() {
-    return SHARE_OPTIONS.map((option) => {
-      let link = ''
-      switch (option.id) {
-        case 'copy':
-          return (
-            <Link
-              href=''
-              key={option.id}
-              type='button'
-              onClick={(e) => {
-                e.preventDefault()
-                navigator.clipboard.writeText(window.location.href)
-              }}
-            >
-              {option.text}
-            </Link>
-          )
-        case 'tg':
-          link += option.link + `?url=${URL}&text=${TEXT}`
-          return (
-            <Link key={option.id} href={link}>
-              {option.text}
-            </Link>
-          )
-        case 'vk':
-          link += option.link + URL
-          return (
-            <Link key={option.id} href={link}>
-              {option.text}
-            </Link>
-          )
-        default:
-          link = option.link + TEXT + URL
-          return (
-            <Link key={option.id} href={link}>
-              {option.text}
-            </Link>
-          )
-      }
-    })
-  }
+
+  const telegramLink = `https://telegram.me/share/url?url=${URL}&text=${TEXT}`
+  const vkLink = `https://vk.com/share.php?url=?url=${URL}&text=${TEXT}`
+  const waLink = `https://wa.me/?text=${TEXT} ${URL}`
 
   return (
     <div className='relative'>
@@ -67,7 +22,27 @@ function ShareButton({ className, listClassName }: { className: string; listClas
       <ul
         className={`${listClassName} ${showLinks ? 'visible opacity-100 transition-visibility' : 'invisible opacity-0 transition-visibility'}`}
       >
-        {generateShareLinks()}
+        <li>
+          <button
+            className='text-base-500-reg-100-upper md:text-base-400-lg-100'
+            type='button'
+            onClick={() => {
+              if (typeof window === 'undefined') return
+              navigator.clipboard.writeText(window.location.href)
+            }}
+          >
+            Скопировать ссылку
+          </button>
+        </li>
+        <li>
+          <Link href={vkLink}>Поделиться ВКонтакте</Link>
+        </li>
+        <li>
+          <Link href={telegramLink}>Поделиться в Телеграм</Link>
+        </li>
+        <li>
+          <Link href={waLink}>Поделиться в WhatsApp</Link>
+        </li>
       </ul>
     </div>
   )
