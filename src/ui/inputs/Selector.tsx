@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Checkbox from '@/ui/inputs/Checkbox'
 import Radio from '@/ui/inputs/Radio'
 import { CheckboxChangeFn, InputValue } from '@/globals/utilityTypes'
@@ -35,9 +35,23 @@ function Selector({
 }: Props) {
   const [opened, setOpened] = useState(false)
   const [value, setValue] = useState<SelectorValue>(defaultValue)
+  const divRef = useRef<HTMLDivElement | null>(null)
 
   const _value = customValue || value
-  const maxStringSize = 15
+  const maxStringSize = 17
+
+  function f(e: MouseEvent) {
+    if (!(e.target instanceof Element)) return
+    if (!e.target || !divRef.current) return
+    if (divRef.current.contains(e.target) || divRef.current === e.target) return
+    setOpened(false)
+  }
+
+  useEffect(() => {
+    if (!opened) return document.removeEventListener('click', f)
+    document.addEventListener('click', f)
+    return () => document.removeEventListener('click', f)
+  }, [opened])
 
   function _setValue(changeFn: (prev: SelectorValue) => SelectorValue) {
     if (customValue) {
@@ -102,18 +116,17 @@ function Selector({
     <div className='flex flex-col gap-[8px]'>
       {showTitle && <div className='text-base-500-reg-100-upper hidden md:block'>{title}</div>}
       <div
-        className={`md:text-base-400-lg-100 group relative mt-[18px] select-none bg-base-100 pb-[18px] md:mt-0 md:min-w-[260px] md:rounded-[16px] md:border md:border-base-400 md:px-[16px] md:py-[12px] md:text-base-650 ${opened ? 'opened pb-0 md:rounded-b-none md:border-b-transparent' : ''} ${className}`}
+        className={`md:text-base-400-lg-100 group relative mt-[18px] select-none bg-base-100 pb-[18px] md:mt-0 md:min-w-[260px] md:rounded-[16px] md:border md:border-base-400 md:px-[16px] md:py-[12px] md:text-base-650 ${opened ? 'pb-0 md:rounded-b-none md:border-b-transparent' : ''}${className}`}
         onClick={() => setOpened((prev) => !prev)}
+        ref={divRef}
       >
-        <button
-          type='button'
-          className='text-base-100-reg-100 md:text-base-400-lg-100 flex w-full select-none items-center justify-between after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain group-[.opened]:after:-rotate-90 md:pb-0 md:text-base-650 md:after:rotate-90'
-        >
-          <div className='md:text-base-500-reg-100 text-base-100-reg-100_mobile text-base-600 md:text-base-650'>
-            {showSelected()}
-          </div>
+        <button className='md:text-base-500-reg-100 flex w-full cursor-pointer select-none items-center justify-between text-base-100-reg-100_mobile text-base-600 after:block after:size-[14px] after:bg-icon-triangle-arrow after:bg-default-contain group-[.opened]:after:-rotate-90 md:pb-0 md:text-base-650 md:after:rotate-90'>
+          {showSelected()}
         </button>
-        <div className='text-base-500-reg-100-upper md:text-base-400-lg-100 inset-x-0 z-10 hidden select-none flex-col gap-[16px] bg-base-100 py-[24px] text-base-600 group-[.opened]:flex scroll-btn-yb:h-[10px] md:absolute md:top-[100%] md:max-h-[200px] md:overflow-auto md:rounded-b-[16px] md:border md:border-base-600/10 md:px-[16px] md:scrollbar-custom'>
+
+        <div
+          className={`text-base-500-reg-100-upper md:text-base-400-lg-100 inset-x-0 z-10 select-none flex-col gap-[16px] bg-base-100 py-[24px] text-base-600 scroll-btn-yb:h-[10px] md:absolute md:top-[100%] md:max-h-[200px] md:overflow-auto md:rounded-b-[16px] md:border md:border-base-600/10 md:px-[16px] md:scrollbar-custom ${opened ? 'flex' : 'hidden'}`}
+        >
           {showList()}
         </div>
       </div>

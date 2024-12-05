@@ -13,6 +13,7 @@ import Range, { RangeValue } from '@/ui/inputs/Range'
 interface FilterItemsProps {
   filters: FilterType<FilterView>[]
   isQuick?: boolean
+  keyString?: string
 }
 
 function valueIsNull(value: Filter['value']) {
@@ -23,7 +24,7 @@ function valueIsNull(value: Filter['value']) {
   return value === null
 }
 
-export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
+export function FilterItems({ filters, isQuick = false, keyString = '' }: FilterItemsProps) {
   const filterManager = useFilter()
 
   function onChange(id: string, value: Filter['value'] | RangeValue) {
@@ -36,6 +37,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
   return filters.map((filter) => {
     if (valueIsNull(filter.value) && filter.fieldType !== 'toggle') return null
+    const key = `${filter.id} - ${keyString}`
 
     switch (filter.fieldType) {
       case 'multilist': {
@@ -43,7 +45,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
         return (
           <Selector
-            key={filter.id}
+            key={key}
             list={filter.value}
             title={filter.name}
             name={filter.id.toString()}
@@ -59,7 +61,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
         return (
           <SelectorInline
-            key={filter.id}
+            key={key}
             list={filter.value}
             name={filter.id.toString()}
             title={filter.name}
@@ -75,7 +77,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
         return (
           <Range
-            key={filter.id}
+            key={key}
             min={filter.value[0]}
             max={filter.value[1]}
             name={filter.id.toString()}
@@ -94,7 +96,7 @@ export function FilterItems({ filters, isQuick = false }: FilterItemsProps) {
 
         return (
           <Checkbox
-            key={filter.id}
+            key={key}
             title={filter.name}
             name={filter.id.toString()}
             defaultChecked={value || false}
