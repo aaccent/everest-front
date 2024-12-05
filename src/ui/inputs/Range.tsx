@@ -177,7 +177,7 @@ function Range({
     <div className='flex flex-col gap-[8px]'>
       {showTitle && <div className='text-base-500-reg-100-upper hidden md:block'>{title}</div>}
       <div
-        className={`text-base-400-lg-100 relative w-full min-w-[260px] rounded-[20px] border border-base-400 bg-base-100 px-[16px] py-[18px] md:max-w-[260px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
+        className={`text-base-400-lg-100 relative w-full max-w-[260px] rounded-[20px] border border-base-400 bg-base-100 px-[16px] py-[18px] md:max-w-[260px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
       >
         <input type='hidden' name={title} />
         <div className='text-base-400-lg-100 flex items-center justify-between'>
