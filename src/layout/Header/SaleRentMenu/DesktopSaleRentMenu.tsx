@@ -5,6 +5,7 @@ import Img from '@/ui/Img'
 import { suggestionPlural } from '@/features/utility/pluralRules'
 import { getSaleRentMenu, MenuType } from '@/globals/api'
 import { ROUTES } from '@/globals/paths'
+import { getServiceBanner } from '@/globals/api/methods/main-page/getServiceBanner'
 
 interface Props {
   className?: string
@@ -15,6 +16,7 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
   const data = await getSaleRentMenu(menuType)
   const fullAmount = data.reduce((sum, item) => sum + item.count, 0)
   const title = menuType === 'sale' ? 'Покупка' : 'Аренда'
+  const banner = await getServiceBanner()
 
   function showCategories() {
     return data.map((item) => {
@@ -80,7 +82,23 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
               {showCategories()}
             </ul>
           </div>
-          <div className='w-full max-w-[644px]'></div>
+          <Link href={banner.link} className='hidden w-full max-w-[644px] overflow-hidden rounded-[32px] md:block'>
+            <div className='relative flex size-full flex-col justify-between p-[32px]'>
+              <Img
+                src={banner.image}
+                width={644}
+                height={492}
+                className='absolute inset-0 size-full object-cover object-center'
+              />
+              <div className='text-header-400 z-10 flex h-[59px] w-[100px] items-center justify-center self-end rounded-[48px] bg-base-100'>
+                {banner.tags}
+              </div>
+              <div className='z-10 text-base-100'>
+                <div className='text-header-300 mb-[12px]'>{banner.title}</div>
+                <div className='text-base-200-lg-100 max-w-[360px]'>{banner.text}</div>
+              </div>
+            </div>
+          </Link>
         </div>
       </IsDesktop>
     </>
