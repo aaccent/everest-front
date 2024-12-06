@@ -1,10 +1,11 @@
 import React from 'react'
-import { DetailComplex, LayoutObject } from '@/types/catalog/Complex'
+import { DetailComplex } from '@/types/catalog/Complex'
 import LayoutTileCard from '@/ui/cards/LayoutCard/LayoutTileCard'
 import LayoutListCard from '@/ui/cards/LayoutCard/LayoutListCard'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 interface Props {
-  item: LayoutObject
+  item: DefaultObject
   complex: DetailComplex
   view?: 'tile' | 'list'
 }

@@ -1,8 +1,9 @@
 import React from 'react'
-import { DetailComplex, LayoutObject } from '@/types/catalog/Complex'
+import { DetailComplex } from '@/types/catalog/Complex'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 interface Props {
-  item: LayoutObject
+  item: DefaultObject
   complex: DetailComplex
 }
 

@@ -2,28 +2,34 @@
 import React, { useContext } from 'react'
 import { LayoutContext } from '@/app/catalog/complexes/[complex]/_components/LayoutChoice/LayoutListContext'
 import LayoutCard from '@/ui/cards/LayoutCard/LayoutCard'
-import { DetailComplex, LayoutObject } from '@/types/catalog/Complex'
+import { DetailComplex } from '@/types/catalog/Complex'
 import { ComplexHouseObject } from '@/types/complex/ComplexHouse'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 
-function convertActiveLayoutItemToLayoutCard(item: ComplexHouseObject): LayoutObject {
+function convertActiveLayoutItemToLayoutCard(item: ComplexHouseObject): DefaultObject {
   return {
+    categoryObject: '',
+    completionDate: '',
+    complexName: '',
+    isReserved: false,
+    latitude: 0,
+    longitude: 0,
+    minArea: 0,
+    publicationTime: '',
+    tags: [],
+    typeObject: '',
+    userId: null,
     description: '',
-    h1: '',
     priceDiscount: null,
     id: item.id,
-    title: '',
-    area: 0,
     characteristics: [
-      { name: '', value: `${item.room} комн` },
-      { name: '', value: `${item.square} м²` },
-      { name: '', value: `${item.floor} этаж` },
+      { id: 1, value: `${item.room} комн` },
+      { id: 2, value: `${item.square} м²` },
+      { id: 3, value: `${item.floor} этаж` },
     ],
-    dealType: '',
-    gallery: [item.layoutUrl || ''],
-    houseNumber: 0,
+    gallery: { images: [item.layoutUrl || ''], count: 1 },
     name: '',
     price: item.price,
-    section: '',
     seoUrl: item.seoUrl,
     address: item.address,
   }

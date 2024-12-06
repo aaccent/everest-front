@@ -1,13 +1,14 @@
 import React from 'react'
-import { DetailComplex, LayoutObject } from '@/types/catalog/Complex'
+import { DetailComplex } from '@/types/catalog/Complex'
 import { formatStatusExtended } from '@/features/utility/date'
 import Img from '@/ui/Img'
 import { formatFullPrice } from '@/features/utility/price'
 import Link from 'next/link'
 import { ROUTES } from '@/globals/paths'
+import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 interface Props {
-  item: LayoutObject
+  item: DefaultObject
   complex: DetailComplex
 }
 
@@ -38,7 +39,7 @@ function LayoutTileCard({ item, complex }: Props) {
       <Link className='mb-[24px] mt-[32px] block' href={href}>
         <Img
           className='mx-auto !size-[250px] object-cover object-center md:!size-[300px]'
-          src={item.gallery[0]}
+          src={item.gallery.images?.[0]}
           width={280}
           height={280}
         />
