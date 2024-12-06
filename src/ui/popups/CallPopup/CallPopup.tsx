@@ -46,7 +46,7 @@ function CallPopup() {
             Оставьте заявку на бесплатную консультацию
           </div>
           <div className='text-base-200-lg-100 mb-[40px] text-base-650 md:w-full md:max-w-[472px]'>
-            Мандрикова Наталья Вячеславовна свяжется вами в течение 15 минут или выберите удобное время
+            Мы свяжемся с вами в течение 15 минут или выберите удобное время
           </div>
           <CallForm className='mb-[40px] flex flex-col gap-[8px] md:block'>
             <div className='flex flex-col gap-[8px] md:flex-row md:gap-[12px]'>
