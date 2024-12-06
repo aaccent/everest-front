@@ -1,5 +1,6 @@
 export type Page<TParams extends object> = {
   params: Promise<TParams>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
 export type CategoryPage = Page<{
@@ -16,4 +17,8 @@ export type ObjectPage = Page<{
 
 export type ComplexPage = Page<{
   complex: string
+}>
+
+export type LayoutPage = Page<{
+  layoutId: string
 }>

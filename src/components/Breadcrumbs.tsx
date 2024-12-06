@@ -23,8 +23,12 @@ function Breadcrumb({ title, href }: BreadcrumbProps) {
   )
 }
 
-function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[], dealType?: CategoryDealType) {
-  let link = ROUTES.CATALOG
+function generateLinkFromBreadcrumb(
+  breadcrumbs: BreadcrumbItem[],
+  dealType?: CategoryDealType,
+  urlBase: string = ROUTES.CATALOG,
+) {
+  let link = urlBase
 
   if (dealType) {
     if (dealType === 'sale') link += `/${PATHS.SALE}`
@@ -41,6 +45,8 @@ function generateLinkFromBreadcrumb(breadcrumbs: BreadcrumbItem[], dealType?: Ca
 type Props = {
   className?: string
   dealType?: CategoryDealType
+  /** Подставляется в начале во время формирования ссылок */
+  urlBase?: string
 } & (
   | {
       list: BreadcrumbItem[]
@@ -52,14 +58,14 @@ type Props = {
     }
 )
 
-function Breadcrumbs({ className, list, category, dealType }: Props) {
+function Breadcrumbs({ className, list, category, dealType, urlBase }: Props) {
   function showItems() {
     const _list = list ? list : category.breadcrumbs
 
     return _list.map((item, i) => (
       <Breadcrumb
         key={item.seo}
-        href={generateLinkFromBreadcrumb(_list.toSpliced(i + 1), dealType)}
+        href={generateLinkFromBreadcrumb(_list.toSpliced(i + 1), dealType, urlBase)}
         title={item.name}
       />
     ))

@@ -52,6 +52,8 @@ function Range({
 
   const { removeFilter } = useFilter()
 
+  const isPriceRange = prefix === '₽'
+
   useEffect(() => {
     if (customValue && customValue[0] === min && customValue[1] === max) {
       removeFilter(Number(name))
@@ -59,7 +61,7 @@ function Range({
     } else {
       setValue(customValue || defaultValue)
     }
-  }, [customValue])
+  }, [customValue, defaultValue])
 
   useEffect(() => {
     const newDigit = {
@@ -68,16 +70,15 @@ function Range({
     }
     setDigit(newDigit)
 
-    const newValue =
-      prefix === '₽'
-        ? {
-            min: `${convertPriceToShortView(value[0])} ${newDigit.min} ${prefix}`,
-            max: `${convertPriceToShortView(value[1])} ${newDigit.max} ${prefix}`,
-          }
-        : {
-            min: `${value[0]} ${newDigit.min} ${prefix}`,
-            max: `${value[1]} ${newDigit.max} ${prefix}`,
-          }
+    const newValue = isPriceRange
+      ? {
+          min: `${convertPriceToShortView(value[0])} ${newDigit.min} ${prefix}`,
+          max: `${convertPriceToShortView(value[1])} ${newDigit.max} ${prefix}`,
+        }
+      : {
+          min: `${value[0]} ${newDigit.min} ${prefix}`,
+          max: `${value[1]} ${newDigit.max} ${prefix}`,
+        }
 
     if (!textRefMin.current || !textRefMax.current) return
 
@@ -155,7 +156,9 @@ function Range({
     const newDigit = { ...digit, [inputName]: getDigit(validValue) }
     setDigit(newDigit)
 
-    e.currentTarget.value = convertPriceToShortView(validValue) + ` ${newDigit[inputName]}` + ` ${prefix}`
+    const newInputValue = isPriceRange ? convertPriceToShortView(validValue) : validValue
+
+    e.currentTarget.value = `${newInputValue} ${newDigit[inputName]} ${prefix}`
 
     if (inputName === 'min' && inputValue !== value[0]) return _onChange?.(name, [validValue, value[1]])
     if (inputName === 'max' && inputValue !== value[1]) return _onChange?.(name, [value[0], validValue])
@@ -177,7 +180,7 @@ function Range({
     <div className='flex flex-col gap-[8px]'>
       {showTitle && <div className='text-base-500-reg-100-upper hidden md:block'>{title}</div>}
       <div
-        className={`text-base-400-lg-100 relative w-full min-w-[260px] rounded-[20px] border border-base-400 bg-base-100 px-[16px] py-[18px] md:max-w-[260px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
+        className={`text-base-400-lg-100 relative w-full rounded-[20px] border border-base-400 bg-base-100 px-[16px] py-[18px] md:max-w-[260px] md:rounded-[16px] md:px-[15px] md:py-[12px] ${className}`}
       >
         <input type='hidden' name={title} />
         <div className='text-base-400-lg-100 flex items-center justify-between'>

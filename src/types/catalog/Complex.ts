@@ -46,27 +46,6 @@ export type ComplexesCategory = Omit<ComplexesCategoryFromAPI, 'categories' | 'o
   categories: []
 }
 
-/** Объекты типа "Планировка" */
-export interface LayoutObject {
-  id: number
-  /** Для указания title в мета тэгах */
-  title: string | null
-  h1: string | null
-  seoUrl: string
-  name: string
-  area: number
-  /** Для указания description в мета тэгах */
-  description: string | null
-  price: number
-  priceDiscount: number | null
-  dealType: string
-  houseNumber: number
-  section: string
-  characteristics: Characteristic[]
-  gallery: string[]
-  address: string
-}
-
 /** Информация о ЖК */
 export interface Complex {
   id: number

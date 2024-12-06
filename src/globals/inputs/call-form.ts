@@ -13,4 +13,8 @@ export const INPUT_NAMES = {
     name: 'time',
     type: 'text',
   },
+  URL: {
+    name: 'url',
+    type: 'text',
+  },
 } as const satisfies CustomInputJSXMap

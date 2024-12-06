@@ -12,15 +12,7 @@ import styles from './ObjectHero.module.css'
 import ObjectGallery from '@/app/catalog/_components/ObjectDetail/ObjectGallery'
 import CallPopupButton from '@/app/catalog/_components/ObjectDetail/CallPopupButton'
 import { TEST_ID } from '@/globals/testIds'
-
-function ActionButton({ className }: { className?: string }) {
-  return (
-    <button
-      className={`flex size-[42px] items-center justify-center rounded-[16px] border border-base-400 after:size-[16px] after:filter-base-600 after:bg-default md:after:size-[18px] ${className}`}
-      type='button'
-    />
-  )
-}
+import ShareButton from '@/app/catalog/_components/ShareButton'
 
 interface Props {
   item: DetailDefaultObject
@@ -97,7 +89,10 @@ function ObjectHero({ item }: Props) {
             <CallPopupButton />
             <div className='flex w-full justify-between'>
               <div className='flex gap-[6px]'>
-                <ActionButton className='after:bg-icon-share' />
+                <ShareButton
+                  className='after:bg-icon-share'
+                  listClassName='text-base-500-reg-100-upper bg-base-100 top-[-20px] md:text-base-400-lg-100 absolute md:inset-y-1/2 left-full z-10 ml-[12px] flex size-fit w-fit -translate-y-1/2 flex-col gap-[16px] rounded-[16px] p-[12px] text-base-650 text-nowrap '
+                />
               </div>
               <div className='text-base-400-lg-100 flex flex-col items-end gap-[4px]'>
                 <span className='text-base-600/50'>Цена за метр:</span>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useSort } from '@/features/useSort'
 import { PER_PAGE } from '@/globals/pagination'
 import { GeneralRequestParams } from '@/types/RequestProps'
+import { useSearchParams } from 'next/navigation'
 
 export type ListType<TType = unknown> = {
   objects: TType[]
@@ -38,7 +39,10 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
 
   const [isLoading, setIsLoading] = useState(false)
 
-  const [page, setPage] = useState<number>(1)
+  const searchParams = useSearchParams()
+  const initialPage = Number(searchParams.get('page')) || 1
+  const [page, setPage] = useState<number>(initialPage)
+
   const [perPage, setPerPage] = useState<number>(PER_PAGE.TILE)
 
   const { filter } = useFilter()
@@ -49,7 +53,7 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
     setList(data as ListType<TType>)
   }
 
-  async function _getObjects(pageNumber: number = 1) {
+  async function _getObjects(pageNumber: number = initialPage) {
     const options: GeneralRequestParams = {
       filter: filter.parsed,
       sort,
@@ -59,11 +63,11 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
     return await getObjects(options)
   }
 
+  // TODO: исправить проблему с запуском при загрузки без фильтров
   const filterUpdate = async () => {
-    setIsLoading(true)
     try {
       const data = await _getObjects()
-      setPage(1)
+      setPage(initialPage)
       _setList(data)
     } catch (e) {
       _setList(EMPTY_LIST)
@@ -73,7 +77,6 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
   }
 
   const paginationUpdate = async (newPage: number) => {
-    setIsLoading(true)
     try {
       const data = await _getObjects(newPage)
       const { objects, count, total } = data
@@ -89,6 +92,18 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
     }
   }
 
+  const searchParamsUpdate = (pageNumber: number) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('page', `${pageNumber}`)
+    window.history.replaceState(null, '', `?${params.toString()}`)
+  }
+
+  useEffect(() => {
+    if (page === initialPage) return
+    searchParamsUpdate(page)
+    paginationUpdate(page)
+  }, [page])
+
   useEffect(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
@@ -97,14 +112,10 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
   }, [sort, filter])
 
   function nextPage() {
-    setPage((currentPage) => {
-      const newPage = ++currentPage
-      paginationUpdate(newPage)
-      return newPage
-    })
+    setPage((currentPage) => ++currentPage)
   }
 
-  const restObjects = list.total - list.count * page
+  const restObjects = list.total - perPage * page
   const hasNextPage = list.count > perPage || restObjects > 0
   const restForShowing = restObjects >= perPage ? perPage : restObjects
 

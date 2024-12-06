@@ -2,14 +2,15 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import Input from '@/ui/inputs/Input'
 import Section from '@/layout/Section'
 import CallForm from '@/ui/forms/CallForm'
 import NameInput from '@/ui/inputs/NameInput'
 import PhoneInput from '@/ui/inputs/PhoneInput'
+import Input from '@/ui/inputs/Input'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
 import { getSocials } from '@/globals/api'
+import Img from '@/ui/Img'
 
 import { INPUT_NAMES } from '@/globals/inputs/call-form'
 import { getPathname } from '@/features/pathname'
@@ -17,7 +18,6 @@ import { ROUTES } from '@/globals/paths'
 
 import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
-import Img from '@/ui/Img'
 
 function ContactFormImage() {
   return (
@@ -72,16 +72,21 @@ async function ContactForm() {
             required
             onDark
           />
-          <PhoneInput className='w-full md:inline-flex md:w-[330px]' name={INPUT_NAMES.PHONE.name} required onDark />
+          <PhoneInput
+            className='w-full md:mb-[16px] md:inline-flex md:w-[330px]'
+            name={INPUT_NAMES.PHONE.name}
+            required
+            onDark
+          />
           <Input
-            className='w-full md:mb-[32px] md:mt-[16px]'
+            className='w-full'
             type={INPUT_NAMES.CALL_TIME.type}
             name={INPUT_NAMES.CALL_TIME.name}
             placeholder='время звонка'
             required
             onDark
           />
-          <div className='md:mb-[67px] md:flex md:items-center md:gap-[24px]'>
+          <div className='md:mb-[67px] md:mt-[32px] md:flex md:items-center md:gap-[24px]'>
             <SubmitButton className='mb-[16px] w-full md:m-0 md:w-[180px]' variation='third' size='medium'>
               Отправить
             </SubmitButton>

@@ -8,14 +8,16 @@ import { TEST_ID } from '@/globals/testIds'
 interface Props {
   item: Subcategory
   parent: AnyCategory
+  /** Подставляется в начале во время формирования ссылок */
+  urlBase?: string
 }
 
-function SubCategoryLink({ item, parent }: Props) {
+function SubCategoryLink({ item, parent, urlBase }: Props) {
   return (
     <Link
       className='flex items-center gap-[14px] rounded-[50px] border border-base-400 pr-[18px]'
       data-testid={TEST_ID.SUBCATEGORY}
-      href={generateCategoryLink(item, parent)}
+      href={generateCategoryLink(item, parent, urlBase)}
     >
       <Img className='block !size-[50px] rounded-full md:!size-[64px]' src='/no-photo.jpg' width={64} height={64} />
       <span className='text-base-500-reg-100-upper'>{item.name}</span>

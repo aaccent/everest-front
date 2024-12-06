@@ -15,9 +15,11 @@ interface Props extends PropsWithChildren {
   quickFilters?: QuickFilters
   detailFilters?: Filters
   dealType?: CategoryDealType
+  /** Подставляется в начале во время формирования ссылок хлебных крошек и подкатегорий */
+  urlBase?: string
 }
 
-async function CategoryLayout({ category, children, quickFilters, detailFilters, dealType }: Props) {
+async function CategoryLayout({ category, children, quickFilters, detailFilters, dealType, urlBase }: Props) {
   const _quickFilters = quickFilters || (await getQuickFilters(category.breadcrumbs[0].seo))
   const _detailedFilters = detailFilters || (await getFilters(category.breadcrumbs[0].seo))
 
@@ -26,14 +28,14 @@ async function CategoryLayout({ category, children, quickFilters, detailFilters,
 
     return category.categories.map((subcategory) => (
       <li className='block flex-shrink-0' key={subcategory.id}>
-        <SubCategoryLink parent={category} item={subcategory} />
+        <SubCategoryLink parent={category} item={subcategory} urlBase={urlBase} />
       </li>
     ))
   }
 
   return (
     <>
-      <Breadcrumbs category={category} dealType={dealType} />
+      <Breadcrumbs category={category} dealType={dealType} urlBase={urlBase} />
       <Container className='mb-[24px] flex items-start justify-between md:mb-[50px]'>
         <PageTitle title={category.name} />
         <ObjectsAmount className='text-base-300-lg-100 hidden translate-x-0 text-base-650 md:block' />
