@@ -14,7 +14,7 @@ export default async function Home() {
     <>
       <MainHero />
       <SliderSection type='complex' link={ROUTES.COMPLEXES} list={newBuildingsOnMain} title='Новостройки' />
-      <SliderSection type='objects' link={ROUTES.SECONDARY_HOUSING} list={newObjects} title='Новинки в каталоге' />
+      <SliderSection type='objects' link={ROUTES.NEW_SECONDARY} list={newObjects} title='Новинки в каталоге' />
     </>
   )
 }

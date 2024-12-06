@@ -5,6 +5,7 @@ import { CategoryDealType, GeneralRequestParams } from '@/types/RequestProps'
 type Props = GeneralRequestParams & {
   subcategory?: string
   dealType?: CategoryDealType
+  isNew?: boolean
 }
 
 type Response = APIResponse<Category>
@@ -17,13 +18,21 @@ type Request = APIRequest<
 
 export async function getCategory(
   category: string,
-  { subcategory, dealType, ...options }: Props = {},
+  { subcategory, dealType, isNew, ...options }: Props = {},
 ): Promise<Category | SubcategoryLikeCategory> {
   let path: SlashPath = `/catalog/${category}`
 
+  const params: { [index: string]: string } = {}
+
   if (dealType) {
-    path += `?dealType=${dealType}`
+    params.dealType = dealType
   }
+
+  if (isNew) {
+    params['new-objects'] = 'true'
+  }
+
+  path += `?${new URLSearchParams(params).toString()}`
 
   const res = await apiCall<Request, Response>(path as SlashPath, {
     method: 'POST',

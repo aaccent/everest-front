@@ -53,7 +53,7 @@ function Slider({ list, type, link }: SliderProps) {
                 <ObjectCard item={card} />
               </CarouselSlide>
             ))}
-            <SeeAllCard link={link} />
+            <SeeAllCard className='h-[210px] md:h-[340px]' link={link} />
           </>
         )
     }
