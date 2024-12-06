@@ -17,7 +17,8 @@ export function formatTagText(filter: Tag) {
         filter.prefix === '₽' ? formatPriceValue(filter.value[0]) : `${filter.value[0]} ${filter.prefix || ''}`
       const max =
         filter.prefix === '₽' ? formatPriceValue(filter.value[1]) : `${filter.value[1]} ${filter.prefix || ''}`
-      return `${filter.name}: ${min} - ${max}`
+      const textValue = min === max ? max : ` ${min} - ${max}`
+      return `${filter.name}: ${textValue}`
     case 'toggle':
       return `${filter.name}`
     default:

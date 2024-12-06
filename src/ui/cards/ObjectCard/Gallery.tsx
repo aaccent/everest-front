@@ -38,7 +38,13 @@ function Grids({ onMouseEnter, onMouseLeave, images, link, cols, seeAllGrid }: G
       onMouseLeave={() => onMouseLeaveHandle()}
     >
       {images.map((_, index) => (
-        <Link href={link} className='block' key={index} onMouseEnter={() => onMouseEnterHandle(index)} />
+        <Link
+          href={link}
+          className='block'
+          key={index}
+          onMouseEnter={() => onMouseEnterHandle(index)}
+          target='_blank'
+        />
       ))}
       {seeAllGrid && <Link href={link} onMouseEnter={() => onMouseEnterHandle(images.length)} />}
     </div>

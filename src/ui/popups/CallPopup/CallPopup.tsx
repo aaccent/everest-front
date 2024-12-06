@@ -39,14 +39,14 @@ function CallPopup() {
 
   return (
     <PopupTemplate>
-      <div className='absolute bottom-0 left-0 right-0 top-auto h-fit rounded-t-[24px] bg-base-100 p-[24px] md:flex md:justify-center md:bg-base-200 md:py-[56px]'>
+      <div className='absolute inset-x-0 bottom-0 rounded-t-[24px] bg-base-100 p-[24px] md:top-[10%] md:flex md:h-full md:justify-center md:bg-base-200 md:py-[56px]'>
         <Image src={bgLogo} alt='' className='absolute bottom-0 right-0 hidden md:block' />
-        <div className='md:z-50 md:w-[642px] md:rounded-[32px] md:bg-base-100 md:p-[40px]'>
+        <div className='md:z-50 md:h-fit md:w-[642px] md:rounded-[32px] md:bg-base-100 md:p-[40px]'>
           <div className='text-header-300 mb-[16px] w-[280px] md:w-full md:max-w-[472px]'>
             Оставьте заявку на бесплатную консультацию
           </div>
           <div className='text-base-200-lg-100 mb-[40px] text-base-650 md:w-full md:max-w-[472px]'>
-            Мандрикова Наталья Вячеславовна свяжется вами в течение 15 минут или выберите удобное время
+            Мы свяжемся с вами в течение 15 минут или выберите удобное время
           </div>
           <CallForm className='mb-[40px] flex flex-col gap-[8px] md:block'>
             <div className='flex flex-col gap-[8px] md:flex-row md:gap-[12px]'>
@@ -61,17 +61,14 @@ function CallPopup() {
               required
             />
             <div className='text-base-400-lg-100 mt-[20px] text-base-650'>
-              Нажимая кнопку «Отправить» вы даете свое согласие на{' '}
-              <Link href='#' className='text-base-100'>
-                обработку данных
-              </Link>
+              Нажимая кнопку «Отправить» вы даете свое согласие на <Link href='#'>обработку данных</Link>
             </div>
             <SubmitButton className='mt-[32px] w-full' variation='primary' size='medium'>
               Отправить
             </SubmitButton>
           </CallForm>
-          <div className='text-base-200-lg-100 mb-[20px] text-base-650'>Связаться c помощью:</div>
-          <div className='flex items-center gap-[61px]'>
+          <div className='text-base-200-lg-100 mb-[20px] hidden text-base-650 md:block'>Связаться c помощью:</div>
+          <div className='hidden items-center gap-[61px] md:flex'>
             <div className='relative flex w-fit items-center gap-[10px] after:absolute after:right-[-30px] after:top-1/2 after:block after:h-[31px] after:w-[1px] after:-translate-y-1/2 after:bg-base-500'>
               {showSocials()}
             </div>

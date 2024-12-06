@@ -6,8 +6,11 @@ import { CategoryPage } from '@/types/Page'
 
 async function Page(props: CategoryPage) {
   const params = await props.params
+  const searchParams = await props.searchParams
+  const page = Number(searchParams.page) || 1
+
   const category = await getCategory(params.category, {
-    page: 1,
+    page,
     perPage: 9,
   }).catch(notFound)
 

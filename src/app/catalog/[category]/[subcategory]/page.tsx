@@ -6,9 +6,12 @@ import { CategoryPage, SubcategoryPage } from '@/types/Page'
 
 async function Page(props: SubcategoryPage & CategoryPage) {
   const params = await props.params
+  const searchParams = await props.searchParams
+  const page = Number(searchParams.page) || 1
+
   const category = await getCategory(params.category, {
     subcategory: params.subcategory,
-    page: 1,
+    page: page,
     perPage: 9,
   }).catch(notFound)
 
