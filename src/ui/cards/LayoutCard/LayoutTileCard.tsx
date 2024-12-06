@@ -1,5 +1,4 @@
 import React from 'react'
-import { DetailComplex } from '@/types/catalog/Complex'
 import { formatStatusExtended } from '@/features/utility/date'
 import Img from '@/ui/Img'
 import { formatFullPrice } from '@/features/utility/price'
@@ -9,14 +8,14 @@ import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 interface Props {
   item: DefaultObject
-  complex: DetailComplex
+  complexSeo: string
 }
 
-function LayoutTileCard({ item, complex }: Props) {
+function LayoutTileCard({ item, complexSeo }: Props) {
   const statusFormatted = formatStatusExtended('2024-10-09T12:38:58.374978Z')
   const statusColor = statusFormatted?.giveAway ? 'text-system-green' : 'text-base-600/50'
 
-  const href = `${ROUTES.COMPLEXES}/${complex.seoUrl}/${item.seoUrl}`
+  const href = `${ROUTES.COMPLEXES}/${complexSeo}/${item.seoUrl}`
 
   function showProps() {
     return item.characteristics.map((prop, i) => (
@@ -30,7 +29,7 @@ function LayoutTileCard({ item, complex }: Props) {
     <div className='group/object w-full rounded-[32px] border border-base-400 p-[24px]'>
       <div className='flex justify-between gap-[7px]'>
         <Link className='flex flex-col gap-[4px] md:gap-[6px]' href={href}>
-          <span className='text-base-300-lg-100'>{complex.name}</span>
+          <span className='text-base-300-lg-100'>{item.complexName}</span>
           <span className='text-base-400-lg-100 hidden text-system-red'>Забронировано</span>
           {statusFormatted && <span className={`text-base-400-lg-100 ${statusColor}`}>{statusFormatted.text}</span>}
         </Link>

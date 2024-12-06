@@ -46,7 +46,7 @@ function ActiveLayoutCard({ complex }: Props) {
 
   return (
     <div className='sticky top-[50px] hidden h-fit w-full max-w-[380px] md:block'>
-      <LayoutCard item={convertActiveLayoutItemToLayoutCard(activeObject)} complex={complex} />
+      <LayoutCard item={convertActiveLayoutItemToLayoutCard(activeObject)} complexSeo={complex.seoUrl} />
     </div>
   )
 }

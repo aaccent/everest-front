@@ -1,13 +1,12 @@
 import React from 'react'
-import { DetailComplex } from '@/types/catalog/Complex'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 interface Props {
   item: DefaultObject
-  complex: DetailComplex
+  complexSeo: string
 }
 
-function LayoutListCard({ complex }: Props) {
+function LayoutListCard({ complexSeo }: Props) {
   return <></>
 }
 
