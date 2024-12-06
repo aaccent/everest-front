@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import Input from '@/ui/inputs/Input'
 import CallForm from '@/ui/forms/CallForm'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
@@ -15,6 +14,7 @@ import bgLogo from '@/assets/static/call-popup-bg.svg'
 import { INPUT_NAMES } from '@/globals/inputs/call-form'
 import NameInput from '@/ui/inputs/NameInput'
 import PhoneInput from '@/ui/inputs/PhoneInput'
+import Selector from '@/ui/inputs/Selector'
 
 function CallPopup() {
   const [socials, setSocials] = useState<socialItem[]>()
@@ -53,11 +53,12 @@ function CallPopup() {
               <NameInput className='w-full' name={INPUT_NAMES.NAME.name} required />
               <PhoneInput className='w-full' name={INPUT_NAMES.PHONE.name} required />
             </div>
-            <Input
-              className='w-full md:mt-[16px]'
-              type={INPUT_NAMES.CALL_TIME.type}
+            <Selector
+              list={['09:00', '12:00', '17:00']}
+              className='h-[54px] w-full md:mt-[16px]'
               name={INPUT_NAMES.CALL_TIME.name}
-              placeholder='время звонка'
+              title='ВРЕМЯ ЗВОНКА'
+              isRadio
               required
             />
             <div className='text-base-400-lg-100 mt-[20px] text-base-650'>
