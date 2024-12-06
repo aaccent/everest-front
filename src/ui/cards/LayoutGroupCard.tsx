@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function LayoutGroupCard({ item, complex }: Props) {
-  const link = `${ROUTES.COMPLEX_OBJECTS}/${complex.seoUrl}?filter=${convertToBase64(item.filters)}`
+  const link = `/${ROUTES.COMPLEX_OBJECTS}/${complex.seoUrl}/${item.id}?filter=${convertToBase64(item.filters)}`
 
   return (
     <Link className='flex h-full flex-col rounded-[32px] border border-base-400 p-[24px]' href={link}>

@@ -6,7 +6,7 @@ import {
   Props as CategoryObjectsHookProps,
   useFilterAndPagination,
 } from '@/features/useFilterAndPagination'
-import { ComplexObject, LayoutObject } from '@/types/catalog/Complex'
+import { ComplexObject } from '@/types/catalog/Complex'
 import { DefaultObject } from '@/types/catalog/DefaultObject'
 
 type View = 'tile' | 'list'
@@ -29,7 +29,7 @@ type CategoryProviderProps = {
     } & CategoryObjectsHookProps<DefaultObject>)
   | ({
       type: 'layout'
-    } & CategoryObjectsHookProps<LayoutObject>)
+    } & CategoryObjectsHookProps<DefaultObject>)
 )
 
 export function CategoryProvider({ children, initList, getObjects }: CategoryProviderProps) {

@@ -13,7 +13,6 @@ async function LayoutTypes({ complex }: Props) {
   const layouts = await getLayouts(complex.seoUrl)
 
   function showList() {
-    // TODO: Поменять key на item.id, когда добавят
     return layouts.map((item, i) => <LayoutGroupCard complex={complex} item={item} key={i} />)
   }
 
