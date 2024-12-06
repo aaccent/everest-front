@@ -1,5 +1,5 @@
 'use client'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { CategoryContext } from '@/layout/catalog/CategoryContext'
 import Container from '@/layout/Container'
 import { CategoryForGeneratingLink } from '@/features/link'
@@ -27,9 +27,11 @@ type CatalogContentProps = {
 )
 
 function CatalogContent({ tileClassName, listClassName, type, complexSeo }: CatalogContentProps) {
-  const { view, list, pagination } = useContext(CategoryContext)
+  const { view, list, pagination, loading } = useContext(CategoryContext)
 
+  useEffect(() => {}, [pagination])
   const onMoreBtnClick = () => {
+    loading.setIsLoading(true)
     pagination.nextPage()
   }
   let viewStyle
@@ -71,6 +73,7 @@ function CatalogContent({ tileClassName, listClassName, type, complexSeo }: Cata
           size='large'
           className='mt-[40px] w-full rounded-[24px]'
           onClick={onMoreBtnClick}
+          loading={loading.isLoading}
         >
           показать ещё {pagination.restForShowing} {objectPlural.get(pagination.restForShowing)}
         </Button>

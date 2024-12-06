@@ -23,7 +23,7 @@ function ObjectListCard({ item }: Props) {
         )}
         <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
       </div>
-      <Link className='max-w-[570px]' href={link} data-testid={TEST_ID.OBJECT_CARD}>
+      <Link className='max-w-[570px]' href={link} data-testid={TEST_ID.OBJECT_CARD} target='_blank'>
         <div className='text-header-300 mb-[12px]'>{item.name}</div>
         {!!item.address && (
           <span className='text-base-300-lg-100 mb-[16px] flex items-center gap-[4px] text-base-600/50 before:size-[17px] before:bg-icon-address before:opacity-50 before:filter-base-600 before:bg-default'>

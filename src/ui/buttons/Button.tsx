@@ -27,15 +27,15 @@ function Button(props: Props) {
     switch (props.variation) {
       case 'primary':
       default:
-        return 'bg-primary text-base-100 hover:bg-primaryHover after:filter-base-100 disabled:bg-system-disabled disabled:after:filter-base-100'
+        return `bg-primary text-base-100 ${!props.loading && 'hover:bg-primaryHover'} after:filter-base-100 disabled:bg-system-disabled disabled:after:filter-base-100`
       case 'second':
-        return 'bg-base-300 text-base-600 hover:bg-primary hover:after:filter-base-100 hover:text-base-100 disabled:text-base-500 disabled:after:filter-base-500'
+        return `bg-base-300 text-base-600 ${!props.loading && 'hover:bg-primary hover:after:filter-base-100 hover:text-base-100'} disabled:text-base-500 disabled:after:filter-base-500`
       case 'third':
-        return 'bg-base-100 text-base-600 hover:bg-primaryHover hover:text-base-100 disabled:text-base-500 disabled:after:filter-base-500'
+        return `bg-base-100 text-base-600 ${!props.loading && 'hover:bg-primaryHover hover:text-base-100'}  disabled:text-base-500 disabled:after:filter-base-500`
       case 'transparent':
-        return 'bg-base-115 text-base-100 hover:bg-base-100 hover:text-base-600 disabled:text-base-500 disabled:after:filter-base-500'
+        return `bg-base-115 text-base-100 ${!props.loading && 'hover:bg-base-100 hover:text-base-600'} disabled:text-base-500 disabled:after:filter-base-500`
       case 'outline':
-        return 'border border-primary text-primary after:filter-primary hover:bg-primary hover:text-base-100 disabled:text-system-disabled disabled:border-system-disabled disabled:after:filter-system-disabled'
+        return `border border-primary text-primary after:filter-primary ${!props.loading && 'hover:bg-primary hover:text-base-100'} disabled:text-system-disabled disabled:border-system-disabled disabled:after:filter-system-disabled`
     }
   }
 
