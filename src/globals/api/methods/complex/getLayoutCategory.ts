@@ -12,7 +12,7 @@ type Request = APIRequest<
   }
 >
 
-export async function getLayoutCategory(complexSeo: string, layoutId: number, props?: Props) {
+export async function getLayoutCategory(complexSeo: string, layoutId: number, props?: Props): Promise<Category> {
   const res = await apiCall<Request, Response>('/catalog/new-building', {
     method: 'POST',
     request: {
@@ -22,5 +22,11 @@ export async function getLayoutCategory(complexSeo: string, layoutId: number, pr
     },
   })
 
-  return res.data
+  const name = res.data.breadcrumbs.length > 1 ? res.data.breadcrumbs.at(-1)!.name : res.data.name
+
+  return {
+    ...res.data,
+    name,
+    categories: [],
+  }
 }
