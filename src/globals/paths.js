@@ -10,6 +10,7 @@ export const PATHS = {
   RENT: 'rent',
   SALE: 'sale',
   RENT_BY_DAY: 'by-day',
+  NEW: 'new',
 }
 
 export const ROUTES = {
@@ -23,4 +24,6 @@ export const ROUTES = {
   SECONDARY_HOUSING: `/${PATHS.CATALOG}/${PATHS.SECONDARY_HOUSING}`,
   MAP: `/${PATHS.MAP}`,
   CONTACTS: `/${PATHS.CONTACTS}`,
+  NEW_CATALOG: `/${PATHS.CATALOG}/${PATHS.NEW}`,
+  NEW_SECONDARY: `/${PATHS.CATALOG}/${PATHS.NEW}/${PATHS.SECONDARY_HOUSING}`,
 }
