@@ -9,15 +9,24 @@ import ComplexCard from '@/ui/cards/ComplexCard/ComplexCard'
 import ObjectCard from '@/ui/cards/ObjectCard/ObjectCard'
 import Button from '@/ui/buttons/Button'
 import { objectPlural } from '@/features/utility/pluralRules'
+import LayoutCard from '@/ui/cards/LayoutCard/LayoutCard'
 
 type CatalogContentProps = {
   category: CategoryForGeneratingLink
   tileClassName?: string
   listClassName?: string
-  type: 'complex' | 'default' | 'layout'
-}
+} & (
+  | {
+      type: 'complex' | 'default'
+      complexSeo?: never
+    }
+  | {
+      type: 'layout'
+      complexSeo: string
+    }
+)
 
-function CatalogContent({ tileClassName, listClassName, type }: CatalogContentProps) {
+function CatalogContent({ tileClassName, listClassName, type, complexSeo }: CatalogContentProps) {
   const { view, list, pagination } = useContext(CategoryContext)
 
   const onMoreBtnClick = () => {
@@ -26,7 +35,7 @@ function CatalogContent({ tileClassName, listClassName, type }: CatalogContentPr
   let viewStyle
 
   if (view === 'tile') {
-    viewStyle = `md:grid md:grid-cols-3 gap-[16px] ${tileClassName}`
+    viewStyle = `md:grid ${type === 'layout' ? 'md:grid-cols-4' : 'md:grid-cols-3'} gap-[16px] ${tileClassName}`
   } else {
     viewStyle = `md:gap-[24px] ${listClassName}`
   }
@@ -39,10 +48,15 @@ function CatalogContent({ tileClassName, listClassName, type }: CatalogContentPr
           const _item = item as ComplexObject
           return <ComplexCard item={_item} view={view} key={_item.id} />
         }
+        case 'layout':
+          const _item = item as DefaultObject
+          return <LayoutCard item={_item} view={view} key={_item.id} complexSeo={complexSeo} />
         case 'default': {
           const _item = item as DefaultObject
           return <ObjectCard item={_item} view={view} key={_item.id} />
         }
+        default:
+          return null
       }
     })
   }

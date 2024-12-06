@@ -2,7 +2,7 @@ import { Filter } from '@/features/useFilter'
 
 export interface LayoutGroup {
   name: string
-  typeOfLayoutId: number
+  id: number
   params: string[]
   count: number
   priceFrom: number
