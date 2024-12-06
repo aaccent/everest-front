@@ -18,7 +18,7 @@ interface LayoutChoiceProps {
 }
 
 async function LayoutChoice({ complex }: LayoutChoiceProps) {
-  const quickFilters = await getQuickFilters('new-building', complex.id)
+  const quickFilters = await getQuickFilters('new-building', complex.seoUrl)
 
   const houses = await Promise.all(
     complex.houseNumbers.map((houseNumber) => {
