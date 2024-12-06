@@ -5,8 +5,8 @@ import ObjectPropertiesWrapper from '@/app/catalog/_components/ObjectDetail/Obje
 import PropItem from '@/app/catalog/_components/ObjectDetail/PropItem'
 import { formatDate } from '@/features/utility/date'
 import { Characteristic } from '@/types/Characteristic'
-import { renderHTML } from '@/globals/text'
 import { formatFullPrice } from '@/features/utility/price'
+import { renderHTML } from '@/features/utility/texts'
 
 interface Props {
   item: DetailDefaultObject
