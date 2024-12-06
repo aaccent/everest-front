@@ -2,19 +2,19 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import Input from '@/ui/inputs/Input'
 import CallForm from '@/ui/forms/CallForm'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import { PopupTemplate } from '@/layout/popups/PopupTemplate'
+import NameInput from '@/ui/inputs/NameInput'
+import PhoneInput from '@/ui/inputs/PhoneInput'
+import Input from '@/ui/inputs/Input'
 
 import { getSocials } from '@/globals/api'
 import { socialItem } from '@/layout/Footer/Footer'
+import { INPUT_NAMES } from '@/globals/inputs/call-form'
 
 import bgLogo from '@/assets/static/call-popup-bg.svg'
-import { INPUT_NAMES } from '@/globals/inputs/call-form'
-import NameInput from '@/ui/inputs/NameInput'
-import PhoneInput from '@/ui/inputs/PhoneInput'
 
 function CallPopup() {
   const [socials, setSocials] = useState<socialItem[]>()
