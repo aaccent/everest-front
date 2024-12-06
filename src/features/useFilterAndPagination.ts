@@ -73,7 +73,6 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
   }
 
   const paginationUpdate = async (newPage: number) => {
-    setIsLoading(true)
     try {
       const data = await _getObjects(newPage)
       const { objects, count, total } = data
@@ -90,6 +89,11 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
   }
 
   useEffect(() => {
+    if (page === 1) return
+    paginationUpdate(page)
+  }, [page])
+
+  useEffect(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current)
     }
@@ -97,11 +101,7 @@ export function useFilterAndPagination<TType = unknown>({ initList, getObjects }
   }, [sort, filter])
 
   function nextPage() {
-    setPage((currentPage) => {
-      const newPage = ++currentPage
-      paginationUpdate(newPage)
-      return newPage
-    })
+    setPage((currentPage) => ++currentPage)
   }
 
   const restObjects = list.total - list.count * page
