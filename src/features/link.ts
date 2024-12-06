@@ -11,10 +11,14 @@ interface CategoryWithBreadcrumbs {
 
 export type CategoryForGeneratingLink = CategoryWithSeoUrl | CategoryWithBreadcrumbs
 
-export function generateCategoryLink(item: CategoryForGeneratingLink | undefined, parent?: CategoryWithSeoUrl) {
+export function generateCategoryLink(
+  item: CategoryForGeneratingLink | undefined,
+  parent?: CategoryWithSeoUrl,
+  base: string = ROUTES.CATALOG,
+) {
   if (!item) return '#'
 
-  let link = ROUTES.CATALOG
+  let link = base
 
   if ('breadcrumbs' in item) {
     link += item.breadcrumbs.map((item) => `/${item.seo}`).join('')

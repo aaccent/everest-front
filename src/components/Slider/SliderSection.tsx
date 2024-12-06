@@ -17,7 +17,7 @@ async function SliderSection(props: Props) {
       case 'objects':
         return <Slider {...props} />
       default:
-        null
+        return null
     }
   }
 

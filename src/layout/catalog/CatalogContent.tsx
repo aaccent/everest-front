@@ -26,7 +26,7 @@ type CatalogContentProps = {
     }
 )
 
-function CatalogContent({ tileClassName, listClassName, type, complexSeo }: CatalogContentProps) {
+function CatalogContent({ tileClassName = '', listClassName = '', type, complexSeo }: CatalogContentProps) {
   const { view, list, pagination, loading } = useContext(CategoryContext)
 
   useEffect(() => {}, [pagination])
@@ -34,12 +34,22 @@ function CatalogContent({ tileClassName, listClassName, type, complexSeo }: Cata
     loading.setIsLoading(true)
     pagination.nextPage()
   }
-  let viewStyle
 
-  if (view === 'tile') {
-    viewStyle = `md:grid ${type === 'layout' ? 'md:grid-cols-4' : 'md:grid-cols-3'} gap-[16px] ${tileClassName}`
-  } else {
-    viewStyle = `md:gap-[24px] ${listClassName}`
+  const className = view === 'tile' ? [tileClassName] : [listClassName]
+
+  if (view === 'tile') className.push('md:grid')
+
+  switch (type) {
+    case 'complex':
+      className.push(view === 'tile' ? 'md:grid-cols-3 gap-[16px]' : 'gap-[24px]')
+      break
+    case 'layout':
+      className.push('gap-[16px]')
+      className.push(view === 'tile' ? 'md:grid-cols-4' : '')
+      break
+    case 'default':
+      className.push(view === 'tile' ? 'md:grid-cols-3 gap-x-[16px] gap-y-[32px] md:gap-y-[56px]' : 'gap-[24px]')
+      break
   }
 
   function showObjects() {
@@ -65,7 +75,7 @@ function CatalogContent({ tileClassName, listClassName, type, complexSeo }: Cata
 
   return (
     <Container>
-      <div className={`flex flex-col ${viewStyle}`}>{showObjects()}</div>
+      <div className={`flex flex-col ${className.join(' ')}`}>{showObjects()}</div>
       {pagination.hasNextPage && (
         <Button
           type='button'

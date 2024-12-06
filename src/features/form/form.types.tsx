@@ -9,7 +9,8 @@ export type InputType =
   | 'password' 
   | 'toggle' 
   | 'range' 
-  | 'selector' 
+  | 'selector'
+  | 'radio'
   | 'file'
 
 // prettier-ignore
@@ -21,7 +22,9 @@ export type InputValue<TType extends InputType> =
   : TType extends 'file' 
   ? FileList 
   : TType extends 'selector' 
-  ? string[] 
+  ? string[]
+  : TType extends 'radio'
+  ? string
   : TType extends 'toggle' 
   ? boolean 
   : TType extends 'range' 
@@ -54,6 +57,10 @@ export type FormInput = {
   | {
       type: 'selector'
       get value(): InputValue<'selector'>
+    }
+  | {
+      type: 'radio'
+      get value(): InputValue<'radio'>
     }
   | {
       type: 'toggle'
