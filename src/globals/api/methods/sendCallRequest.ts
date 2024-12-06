@@ -4,6 +4,7 @@ type Request = APIRequest<{
   name: string
   phone: string
   time: string
+  url: string
 }>
 
 export async function sendCallRequest(request: Request): Promise<boolean> {
