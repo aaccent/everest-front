@@ -6,9 +6,11 @@ import Section from '@/layout/Section'
 import CallForm from '@/ui/forms/CallForm'
 import NameInput from '@/ui/inputs/NameInput'
 import PhoneInput from '@/ui/inputs/PhoneInput'
+import Input from '@/ui/inputs/Input'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import FormMap from '@/components/ContactForm/FormMap'
 import { getSocials } from '@/globals/api'
+import Img from '@/ui/Img'
 
 import { INPUT_NAMES } from '@/globals/inputs/call-form'
 import { getPathname } from '@/features/pathname'
@@ -16,8 +18,6 @@ import { ROUTES } from '@/globals/paths'
 
 import mobileBavel from '@/assets/static/decorative-bg/decorative-bavel-mobile.svg'
 import bavel from '@/assets/static/decorative-bg/decorative-bavel.svg'
-import Img from '@/ui/Img'
-import Selector from '@/ui/inputs/Selector'
 
 function ContactFormImage() {
   return (
@@ -78,14 +78,13 @@ async function ContactForm() {
             required
             onDark
           />
-          <Selector
-            list={['09:00', '12:00', '17:00']}
-            className='h-[54px] w-full'
+          <Input
+            className='w-full'
+            type={INPUT_NAMES.CALL_TIME.type}
             name={INPUT_NAMES.CALL_TIME.name}
-            title='ВРЕМЯ ЗВОНКА'
-            isRadio
+            placeholder='время звонка'
             required
-            variation='dark'
+            onDark
           />
           <div className='md:mb-[67px] md:mt-[32px] md:flex md:items-center md:gap-[24px]'>
             <SubmitButton className='mb-[16px] w-full md:m-0 md:w-[180px]' variation='third' size='medium'>

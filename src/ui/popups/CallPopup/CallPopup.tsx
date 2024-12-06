@@ -6,15 +6,15 @@ import CallForm from '@/ui/forms/CallForm'
 import SubmitButton from '@/ui/buttons/SubmitButton'
 import ClosePopupButton from '@/ui/buttons/ClosePopupButton'
 import { PopupTemplate } from '@/layout/popups/PopupTemplate'
+import NameInput from '@/ui/inputs/NameInput'
+import PhoneInput from '@/ui/inputs/PhoneInput'
+import Input from '@/ui/inputs/Input'
 
 import { getSocials } from '@/globals/api'
 import { socialItem } from '@/layout/Footer/Footer'
+import { INPUT_NAMES } from '@/globals/inputs/call-form'
 
 import bgLogo from '@/assets/static/call-popup-bg.svg'
-import { INPUT_NAMES } from '@/globals/inputs/call-form'
-import NameInput from '@/ui/inputs/NameInput'
-import PhoneInput from '@/ui/inputs/PhoneInput'
-import Selector from '@/ui/inputs/Selector'
 
 function CallPopup() {
   const [socials, setSocials] = useState<socialItem[]>()
@@ -53,12 +53,11 @@ function CallPopup() {
               <NameInput className='w-full' name={INPUT_NAMES.NAME.name} required />
               <PhoneInput className='w-full' name={INPUT_NAMES.PHONE.name} required />
             </div>
-            <Selector
-              list={['09:00', '12:00', '17:00']}
-              className='h-[54px] w-full md:mt-[16px]'
+            <Input
+              className='w-full md:mt-[16px]'
+              type={INPUT_NAMES.CALL_TIME.type}
               name={INPUT_NAMES.CALL_TIME.name}
-              title='ВРЕМЯ ЗВОНКА'
-              isRadio
+              placeholder='время звонка'
               required
             />
             <div className='text-base-400-lg-100 mt-[20px] text-base-650'>
