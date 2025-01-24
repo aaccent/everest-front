@@ -18,13 +18,13 @@ function ObjectCard({ item }: Props) {
 
   return (
     <div className='group/object-card'>
-      <div className='relative mb-[22px]'>
+      <Link href={link} className='relative mb-[22px] block'>
         {'tags' in item && item.tags && (
           <Tags className='left-[16px] top-[16px] md:right-[14px] md:top-[14px]' list={item.tags} />
         )}
         <div className='absolute right-[16px] top-[16px] z-10 flex gap-[4px] md:right-[14px] md:top-[14px] md:gap-[8px]'></div>
         <Gallery images={item.gallery.images} count={item.gallery.count} link={link} />
-      </div>
+      </Link>
       <Link href={link} data-testid={TEST_ID.OBJECT_CARD}>
         <div className='mb-[12px] flex items-center gap-[8px] md:mb-[14px] md:gap-[12px]'>
           <div className='text-header-400'>{formatFullPrice(item.priceDiscount || item.price)}</div>
