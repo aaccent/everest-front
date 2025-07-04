@@ -67,7 +67,7 @@ async function DesktopSaleRentMenu({ className, menuType }: Props) {
                     href={ROUTES.CATALOG_RENT_BY_DAY}
                   >
                     <Img
-                      src=''
+                      src='/rent-per-day.png'
                       width={86}
                       height={86}
                       className='size-[86px] rounded-[24px] object-cover object-center'

@@ -25,12 +25,23 @@ async function CategoryLayout({ category, children, quickFilters, detailFilters,
 
   function showSubCategories() {
     if (!category.categories) return null
+    const subcategoriesImages = [
+      '/subcategories/1d4273f8b17a5665a8f7f3ad8fb5683a2234c296.png',
+      '/subcategories/4ae421cabecd30bf37eeb941f618693ab6471dc2.png',
+      '/subcategories/3221b4ff609c5069574414c8188a747fcea1e424.png',
+      '/subcategories/e70e0d48d165a046879ae48ca39ce3b6348712af.png',
+      '/subcategories/f0347285bef38dc8b21337ead4141b062b71c85d.png',
+    ]
 
-    return category.categories.map((subcategory) => (
-      <li className='block flex-shrink-0' key={subcategory.id}>
-        <SubCategoryLink parent={category} item={subcategory} urlBase={urlBase} />
-      </li>
-    ))
+    return category.categories.map((subcategory, index) => {
+      const _index = index > subcategoriesImages.length - 1 ? index - subcategoriesImages.length : index
+      return (
+        <li className='block flex-shrink-0' key={subcategory.id}>
+          {' '}
+          <SubCategoryLink parent={category} item={subcategory} urlBase={urlBase} image={subcategoriesImages[_index]} />
+        </li>
+      )
+    })
   }
 
   return (
