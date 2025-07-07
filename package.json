@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "everest-front",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "repository": "github:aaccent/everest-front",
   "scripts": {
