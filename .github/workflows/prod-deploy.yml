@@ -6,7 +6,7 @@ on:
 
 env:
   URL: https://everest.aaccent.su
-  FOLDER: /root/front/production
+  FOLDER: /var/www/everest-front
 
 jobs:
   deploy:
