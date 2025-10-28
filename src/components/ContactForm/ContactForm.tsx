@@ -106,8 +106,8 @@ async function ContactForm() {
             {showSocials()}
           </div>
           <div className='mb-[11px] text-center md:text-left'>
-            <Link href='tel:8 (843) 207-39-50' className='text-base-100-reg-100'>
-              8 (843) 207-39-50
+            <Link href='tel:8(3902)313 393' className='text-base-100-reg-100'>
+              8 (3902) 313 393
             </Link>
             <div className='text-base-400-lg-100 text-base-150'>Ежедневно с 09:00 до 19:00</div>
           </div>

@@ -70,7 +70,7 @@ async function Footer() {
               Индивидуальный подбор объектов для вашего комфорта
             </div>
             <div className='text-base-100-reg-100 mb-[2px] pb-[4px] text-base-100'>
-              <Link href='tel:8 (843) 207-39-50'>8 (843) 207-39-50</Link>
+              <Link href='tel:8(3902)313 393'>8 (3902) 313 393</Link>
             </div>
             <div className='text-base-400-lg-100 mb-[12px] text-base-150 md:mb-[16px]'>Ежедневно с 09:00 до 19:00</div>
             <div className='text-base-200-lg-100 flex items-center gap-[6px] text-base-100 before:size-[22px] before:bg-icon-email before:bg-center before:bg-no-repeat'>
@@ -95,7 +95,7 @@ async function Footer() {
           <Image src={aaccentLogo} alt='' width={138} height={38} />
         </Link>
         <div className='text-base-500-reg-200 mt-[24px] flex flex-col gap-[12px] text-base-150 md:order-2 md:mt-0 md:flex-row'>
-          <p className='md:mr-[118px]'>© 2023, ООО «Эверест»</p>
+          <p className='md:mr-[118px]'>© 2025, ООО «Эверест»</p>
           <Link href='#' className='md:mr-[139px]'>
             Защита персональных данных
           </Link>
