@@ -87,6 +87,8 @@ async function Footer() {
         <div className='hidden md:block'>
           <div className='text-base-100-reg-100 mb-[15px] text-base-150'>Соц.сети</div>
           <ul className='flex flex-col gap-[10px]'>{showDesktopSocials()}</ul>
+          <p className='text-base-500-reg-200 mt-[50px] text-base-150'>ИП Ильясов Максим Евгеньевич 190307175748</p>
+          <p className='text-base-500-reg-200 mt-[15px] text-base-150'>ОГРНИП 317190100001397</p>
         </div>
       </div>
       <div className='mt-[23px] md:flex md:items-center'>

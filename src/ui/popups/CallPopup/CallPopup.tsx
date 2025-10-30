@@ -73,7 +73,7 @@ function CallPopup() {
               {showSocials()}
             </div>
             <div>
-              <div className='text-base-100-reg-100 mb-[2px]'>8 (843) 207-39-50</div>
+              <div className='text-base-100-reg-100 mb-[2px]'>8 (3902) 313 393</div>
               <div className='text-base-400-lg-100 text-base-650'>Ежедневно с 09:00 до 19:00</div>
             </div>
           </div>
