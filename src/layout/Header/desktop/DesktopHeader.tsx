@@ -86,8 +86,8 @@ async function DesktopHeader() {
           </div>
           <div className='flex w-full max-w-[715px] items-center justify-between gap-[15px] py-[15px] pl-[49px]'>
             <div className='flex flex-col gap-[2px]'>
-              <a className='text-base-200-med-100' href='tel:8 (843) 207-39-50'>
-                8 (843) 207-39-50
+              <a className='text-base-200-med-100' href='tel:8(3902)313393'>
+                8 (3902) 313 393
               </a>
               <div className='text-base-500-reg-200 opacity-50'>Ежедневно с 09:00 до 19:00</div>
             </div>
