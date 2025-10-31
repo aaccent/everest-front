@@ -74,8 +74,8 @@ async function Footer() {
             </div>
             <div className='text-base-400-lg-100 mb-[12px] text-base-150 md:mb-[16px]'>Ежедневно с 09:00 до 19:00</div>
             <div className='text-base-200-lg-100 flex items-center gap-[6px] text-base-100 before:size-[22px] before:bg-icon-email before:bg-center before:bg-no-repeat'>
-              <Link href='mailto:mail@everest.ru' />
-              mail@everest.ru
+              <Link href='mailto:realteverest@bk.ru' />
+              realteverest@bk.ru
             </div>
           </div>
           <div className='grid grid-cols-2 gap-[8px] md:hidden'>{showMobileSocials()}</div>

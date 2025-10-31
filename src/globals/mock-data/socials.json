@@ -8,10 +8,5 @@
     "name": "Вконтакте",
     "icon": "/content/VK.svg",
     "url": "https://vk.com/agent_everest"
-  },
-  {
-    "name": "Инстаграм",
-    "icon": "/content/inst.png",
-    "url": "https://www.instagram.com/everest.agent?igsh=aHRvNDlmanFhZ2pn"
   }
 ]
